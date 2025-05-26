@@ -13,11 +13,11 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 </div>
 
 <p align="center">
-    <a href="https://github.com/MHDFCraft/MHDF-Tools/issues">
-        <img src="https://img.shields.io/github/issues/MHDFCraft/MHDF-Tools?style=flat-square" alt="issues">
+    <a href="https://github.com/ChengZhiMeow/MHDF-Tools/issues">
+        <img src="https://img.shields.io/github/issues/ChengZhiMeow/MHDF-Tools?style=flat-square" alt="issues">
     </a>
-    <a href="https://github.com/MHDFCraft/MHDF-Tools/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/MHDFCraft/MHDF-Tools?style=flat-square" alt="license">
+    <a href="https://github.com/ChengZhiMeow/MHDF-Tools/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/ChengZhiMeow/MHDF-Tools?style=flat-square" alt="license">
     </a>
     <a href="https://qm.qq.com/cgi-bin/qm/qr?k=T047YB6lHNMMcMuVlK_hGBcT5HNESxMA&jump_from=webapi&authKey=0/IFGIO6xLjjHB2YKF7laLxkKWbtWbDhb1lt//m7GgbElJSWdRZ8RjbWzSsufkO6">
         <img src="https://img.shields.io/badge/QQ群-129139830-brightgreen?style=flat-square" alt="qq-group">
@@ -34,15 +34,15 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 - [Vault](https://www.spigotmc.org/resources/vault.34315)
 
 <div align="center">
-    <a href="https://github.com/MHDFCraft/MHDF-Tools/pulse">
+    <a href="https://github.com/ChengZhiMeow/MHDF-Tools/pulse">
         <img src="https://repobeats.axiom.co/api/embed/e58f3e1358766291db33ba451d3e90be99811f4f.svg" alt="pulse">
     </a>
 </div>
 
 ## 贡献者
 
-<a href="https://github.com/MHDFCraft/MHDF-Tools/graphs/contributors">
-  <img src="https://stg.contrib.rocks/image?repo=MHDFCraft/MHDF-Tools" alt="contributors"/>
+<a href="https://github.com/ChengZhiMeow/MHDF-Tools/graphs/contributors">
+  <img src="https://stg.contrib.rocks/image?repo=ChengZhiMeow/MHDF-Tools" alt="contributors"/>
 </a>
 
 ## 特别感谢
@@ -56,7 +56,7 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 
 ## Star
 
-[![Stargazers over time](https://starchart.cc/MHDFCraft/MHDF-Tools.svg?variant=adaptive)](https://starchart.cc/MHDFCraft/MHDF-Tools)
+[![Stargazers over time](https://starchart.cc/ChengZhiMeow/MHDF-Tools.svg?variant=adaptive)](https://starchart.cc/ChengZhiMeow/MHDF-Tools)
 
 ## 友链
 
