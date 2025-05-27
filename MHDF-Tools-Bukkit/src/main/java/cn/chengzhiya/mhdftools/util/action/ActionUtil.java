@@ -301,9 +301,7 @@ public final class ActionUtil {
             }
             case "[close]" -> {
                 if (sender instanceof Player player) {
-                    MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
-                            player.closeInventory()
-                    );
+                    MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, player::closeInventory);
                 }
             }
         }
