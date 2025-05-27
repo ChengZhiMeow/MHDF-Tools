@@ -28,7 +28,7 @@ public final class ActionUtil {
             return;
         }
 
-        if (MHDFScheduler.isFolia()) {
+        if (Main.instance.isNativeSupportAdventureApi()) {
             sender.sendMessage(message);
         } else {
             Main.instance.getAdventureManager().getAdventure()
