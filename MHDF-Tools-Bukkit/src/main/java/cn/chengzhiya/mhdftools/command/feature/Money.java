@@ -2,11 +2,10 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.EconomyData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
+import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
 import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -14,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,10 +57,10 @@ public final class Money extends AbstractCommand {
         }
 
         OfflinePlayer player = Bukkit.getOfflinePlayer(name);
-        EconomyData economyData = EconomyDataUtil.getEconomyData(player);
+        BigDecimal money = EconomyUtil.getMoney(player);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.money.message")
                 .replace("{player}", NickUtil.getName(player))
-                .replace("{amount}", economyData.getBigDecimal().toString())
+                .replace("{amount}", money.toString())
         );
     }
 

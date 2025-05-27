@@ -33,7 +33,7 @@ public final class MoneyAdmin extends AbstractCommand {
         if (args.length == 3) {
             switch (args[0]) {
                 case "set", "add", "take" -> {
-                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
                     BigDecimal change;
                     try {
                         change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[2]));
