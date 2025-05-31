@@ -134,7 +134,7 @@ permissions:
     default: op
   mhdftools.commands.msg:
     description: 私聊
-    default: op
+    default: true
   mhdftools.commands.nick:
     description: 修改匿名
     default: op
