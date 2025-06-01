@@ -401,6 +401,7 @@ suicideSettings:
     - "pvp"
 
 # 帽子
+# 直接在菜单中切换帽子权限: mhdftools.commands.hat.menu
 hatSettings:
   # 开关
   enable: true

@@ -99,6 +99,9 @@ permissions:
   mhdftools.commands.hat:
     description: 帽子
     default: true
+  mhdftools.commands.hat.menu:
+    description: 直接在菜单中切换帽子
+    default: op
   mhdftools.commands.home:
     description: 传送到指定家
     default: true
