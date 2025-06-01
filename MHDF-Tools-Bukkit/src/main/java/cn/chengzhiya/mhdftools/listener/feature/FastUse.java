@@ -22,7 +22,7 @@ public final class FastUse extends AbstractListener {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        System.out.println(event.getAction() );
+        System.out.println(event.getAction());
         if (event.getAction() != Action.RIGHT_CLICK_AIR) {
             return;
         }

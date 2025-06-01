@@ -102,7 +102,7 @@ public final class ChatUtil {
         UUID uuid = UUID.randomUUID();
         Main.instance.getCacheManager().put("showItem", uuid.toString(), Base64Util.encode(item.serializeAsBytes()));
         MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () ->
-                Main.instance.getCacheManager().remove("showItem", uuid.toString()),
+                        Main.instance.getCacheManager().remove("showItem", uuid.toString()),
                 20L * config.getInt("removeCache")
         );
 
