@@ -113,19 +113,20 @@ randomTeleportSettings:
       time: 60
   # 拥有 mhdftools.group.randomteleport.<名字> 权限的提示
   # 例如 mhdftools.group.randomteleport.vip
-  # vip:
+  # !noUpdate
+  vip:
     # 权重
-    # weight: 1
+    weight: 1
     # 最小
-    # min: 1000
+    min: 1000
     # 最大
-    # max: 1500
+    max: 1500
     # 延迟
-    # delay:
-    #   # 开关
-    #   enable: true
-    #   # 时间(单位: 秒)
-    #   time: 60
+    delay:
+      # 开关
+      enable: true
+      # 时间(单位: 秒)
+      time: 60
 
 # 崩溃玩家客户端
 crashSettings:
@@ -597,11 +598,12 @@ chatSettings:
       format: "&f[玩家] {player}&f: {message}"
     # 拥有 mhdftools.group.chatformat.<名字> 权限的提示
     # 例如 mhdftools.group.chatformat.admin
-    # admin:
+    # !noUpdate
+    admin:
       # 权重
-      # weight: 1
+      weight: 1
       # 格式
-      # format: "&c[管理] {player}&f: {message}"
+      format: "&c[管理] {player}&f: {message}"
 
 # 经济系统
 economySettings:
@@ -642,11 +644,12 @@ joinMessageSettings:
     message: "&a[+] &e{player}"
   # 拥有 mhdftools.group.joinmessage.<名字> 权限的提示
   # 例如 mhdftools.group.joinmessage.admin
-  # admin:
+  # !noUpdate
+  admin:
     # 权重
-    # weight: 1
+    weight: 1
     # 提示消息
-    # message: "&a[+] &c{player}"
+    message: "&a[+] &c{player}"
 
 # 退服消息
 quitMessageSettings:
@@ -662,11 +665,12 @@ quitMessageSettings:
     message: "&c[-] &e{player}"
   # 拥有 mhdftools.group.quitmessage.<名字> 权限的提示
   # 例如 mhdftools.group.quitmessage.admin
-  # admin:
+  # !noUpdate
+  admin:
     # 权重
-    # weight: 1
+    weight: 1
     # 提示消息
-    # message: "&c[-] &c{player}"
+    message: "&c[-] &c{player}"
 
 # 事件操作
 eventActionSettings:
@@ -675,6 +679,7 @@ eventActionSettings:
   # 操作列表
   actionList:
     # 操作ID
+    # !noUpdate
     playerJoin:
       # 事件
       # =========================================
@@ -696,12 +701,12 @@ eventActionSettings:
             - "[message]|&e主人早上好噢~"
         # 拥有 mhdftools.group.eventaction.<操作ID>.<名字> 权限的提示
         # 例如 mhdftools.group.eventaction.<操作ID>.admin
-        # admin:
+        admin:
           # 权重
-          # weight: 1
+          weight: 1
           # 操作
-          # action:
-          #   - "[message]|&e主人和我结婚吧~"
+          action:
+            - "[message]|&e主人和我结婚吧~"
 
 # 时间操作
 timeActionSettings:
@@ -710,6 +715,7 @@ timeActionSettings:
   # 操作列表
   actionList:
     # 自定义命名
+    # !noUpdate
     message:
       # 类型
       # =========================================

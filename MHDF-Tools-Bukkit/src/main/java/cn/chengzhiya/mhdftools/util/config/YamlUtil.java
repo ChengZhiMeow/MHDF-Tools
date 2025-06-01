@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -66,14 +67,45 @@ public final class YamlUtil {
             Set<String> configKeys = config.getKeys(true);
 
             jarConfigKeys.removeAll(configKeys);
+
+            // 过滤有父级的键
+            {
+                //noinspection ExtractMethodRecommender
+                Set<String> filteredKeys = new HashSet<>();
+                for (String key : jarConfigKeys) {
+                    int lastDotIndex = key.lastIndexOf('.');
+                    if (lastDotIndex == -1) {
+                        filteredKeys.add(key);
+                    } else {
+                        String parentKey = key.substring(0, lastDotIndex);
+                        if (configKeys.contains(parentKey)) {
+                            filteredKeys.add(key);
+                        }
+                    }
+                }
+                jarConfigKeys = filteredKeys;
+            }
+
             for (String key : jarConfigKeys) {
+                // 绕过部分配置项使其不被更新加入
+                if (jarConfig.getComments(key).contains("!noUpdate")) {
+                    continue;
+                }
+
                 config.set(key, jarConfig.get(key));
+
+                // 补全注释
+                List<String> comments = jarConfig.getComments(key);
+                if (!comments.isEmpty()) {
+                    config.setComments(key, comments);
+                }
             }
 
             config.set("configVersion", PluginUtil.getVersion());
 
+            // 防止破坏横向格式
             YamlConfigurationOptions newOptions = config.options();
-            newOptions.width(32767);
+            newOptions.width(Integer.MAX_VALUE);
             ReflectionUtil.setFieldValue(
                     ReflectionUtil.getField(MemoryConfiguration.class, "options", true),
                     jarConfig,
