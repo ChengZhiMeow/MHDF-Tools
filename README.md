@@ -4,9 +4,9 @@
 
 <div align="center">
 
-# MHDF-Tools
+# MHDF-Tools | 梦之工具
 
-_✨一款轻量化便携性的Bukkit基础插件✨_
+_你的下一个基础插件，为何不能是梦之工具_
 
 _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 
@@ -19,8 +19,8 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
     <a href="https://github.com/ChengZhiMeow/MHDF-Tools/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/ChengZhiMeow/MHDF-Tools?style=flat-square" alt="license">
     </a>
-    <a href="https://qm.qq.com/cgi-bin/qm/qr?k=T047YB6lHNMMcMuVlK_hGBcT5HNESxMA&jump_from=webapi&authKey=0/IFGIO6xLjjHB2YKF7laLxkKWbtWbDhb1lt//m7GgbElJSWdRZ8RjbWzSsufkO6">
-        <img src="https://img.shields.io/badge/QQ群-129139830-brightgreen?style=flat-square" alt="qq-group">
+    <a href="">
+        <img src="https://img.shields.io/badge/QQ群-暂无-brightgreen?style=flat-square" alt="qq-group">
     </a>
     <img src="https://img.shields.io/badge/最佳支持版本-1.21.4-brightgreen?style=flat-square" alt="minecraft-version">
     <img src="https://img.shields.io/badge/JDK-17+-brightgreen?style=flat-square" alt="jdk-version">
