@@ -37,13 +37,19 @@ public final class EconomyDataUtil {
      * @param uuid 玩家UUID
      */
     public static void initEconomyData(UUID uuid) {
-        EconomyData economyData = new EconomyData();
-        economyData.setPlayer(uuid);
-        economyData.setBigDecimal(
-                BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default"))
-        );
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            if (getEconomyData(uuid) != null) {
+                return;
+            }
 
-        updateEconomyData(economyData);
+            EconomyData economyData = new EconomyData();
+            economyData.setPlayer(uuid);
+            economyData.setBigDecimal(
+                    BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default"))
+            );
+
+            updateEconomyData(economyData);
+        });
     }
 
     /**
@@ -52,13 +58,7 @@ public final class EconomyDataUtil {
      * @param player 玩家实例
      */
     public static void initEconomyData(OfflinePlayer player) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            if (getEconomyData(player) != null) {
-                return;
-            }
-
-            initEconomyData(player.getUniqueId());
-        });
+        initEconomyData(player.getUniqueId());
     }
 
     /**
