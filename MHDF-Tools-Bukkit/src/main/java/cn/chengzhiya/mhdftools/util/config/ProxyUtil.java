@@ -1,9 +1,13 @@
 package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.ResourceException;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.util.Objects;
 
 public final class ProxyUtil {
     private static final File file = new File(ConfigUtil.getDataFolder(), "proxy.yml");
@@ -41,5 +45,25 @@ public final class ProxyUtil {
             reloadProxy();
         }
         return data;
+    }
+
+    /**
+     * 获取代理实例
+     *
+     * @return 代理实例
+     */
+    public static Proxy getProxy() {
+        ConfigurationSection config = ProxyUtil.getProxyConfig().getConfigurationSection("proxySettings");
+        if (config != null) {
+            if (config.getBoolean("enable")) {
+                String type = config.getString("type");
+                String host = config.getString("host");
+                int port = config.getInt("port");
+
+                return new Proxy(Proxy.Type.valueOf(type), new InetSocketAddress(Objects.requireNonNull(host), port));
+            }
+        }
+
+        return Proxy.NO_PROXY;
     }
 }

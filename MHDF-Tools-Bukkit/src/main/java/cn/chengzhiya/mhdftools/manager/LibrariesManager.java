@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdflibrary.entity.RepositoryConfig;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
 
 import java.io.File;
 
@@ -14,7 +15,6 @@ import java.io.File;
 public final class LibrariesManager {
     private final RepositoryConfig chengzhiMeow = new RepositoryConfig("https://maven.chengzhimeow.cn/releases/");
     private final RepositoryConfig codemc = new RepositoryConfig("https://repo.codemc.io/repository/maven-public/");
-    private final RepositoryConfig jitpack = new RepositoryConfig("https://jitpack.io/");
 
     /**
      * 下载并加载所有所需依赖
@@ -26,6 +26,7 @@ public final class LibrariesManager {
                 "cn.chengzhiya.mhdftools.libs",
                 new File(ConfigUtil.getDataFolder(), "libs")
         );
+        mhdfLibrary.getHttpManager().setProxy(ProxyUtil.getProxy());
 
         // 依赖
         {
