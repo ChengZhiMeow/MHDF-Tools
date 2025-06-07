@@ -40,7 +40,7 @@ public final class LibrariesManager {
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("cn{}chengzhiya"),
                     "MHDF-LangUtil",
-                    "1.2.5",
+                    "1.3.1",
                     chengzhiMeow,
                     new RelocateConfig(true)
             ));
