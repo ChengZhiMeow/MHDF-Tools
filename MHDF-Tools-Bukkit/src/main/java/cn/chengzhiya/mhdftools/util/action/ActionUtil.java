@@ -111,12 +111,18 @@ public final class ActionUtil {
      */
     public static void sendTitle(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            Main.instance.getAdventureManager().getAdventure()
-                    .player(player).sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
-            Main.instance.getAdventureManager().getAdventure()
-                    .player(player).sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
-            Main.instance.getAdventureManager().getAdventure()
-                    .player(player).sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
+            if (Main.instance.isNativeSupportAdventureApi()) {
+                player.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
+                player.sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
+                player.sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
+            } else {
+                Main.instance.getAdventureManager().getAdventure()
+                        .player(player).sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
+                Main.instance.getAdventureManager().getAdventure()
+                        .player(player).sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
+                Main.instance.getAdventureManager().getAdventure()
+                        .player(player).sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
+            }
         });
     }
 
@@ -148,10 +154,14 @@ public final class ActionUtil {
      * @param message 消息实例
      */
     public static void sendActionBar(Player player, TextComponent message) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            if (Main.instance.isNativeSupportAdventureApi()) {
+                player.sendActionBar(message);
+            } else {
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).sendActionBar(message)
-        );
+                        .player(player).sendActionBar(message);
+            }
+        });
     }
 
     /**
@@ -171,10 +181,14 @@ public final class ActionUtil {
      * @param bossBar BOSS血条实例
      */
     public static void sendBossbar(Player player, BossBar bossBar) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            if (Main.instance.isNativeSupportAdventureApi()) {
+                player.showBossBar(bossBar);
+            } else {
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).showBossBar(bossBar)
-        );
+                        .player(player).showBossBar(bossBar);
+            }
+        });
     }
 
     /**
@@ -184,10 +198,14 @@ public final class ActionUtil {
      * @param bossBar BOSS血条实例
      */
     public static void hideBossbar(Player player, BossBar bossBar) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            if (Main.instance.isNativeSupportAdventureApi()) {
+                player.hideBossBar(bossBar);
+            } else {
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).hideBossBar(bossBar)
-        );
+                        .player(player).hideBossBar(bossBar);
+            }
+        });
     }
 
     /**

@@ -10,6 +10,7 @@ import cn.chengzhiya.mhdftools.util.config.FileUtil;
 import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -48,8 +49,9 @@ public final class Main extends JavaPlugin {
 
         try {
             Class.forName("net.kyori.adventure.text.Component");
+            Player.class.getDeclaredMethod("displayName");
             nativeSupportAdventureApi = true;
-        } catch (Exception e) {
+        } catch (NoSuchMethodError | ClassNotFoundException | NoSuchMethodException e) {
             nativeSupportAdventureApi = false;
         }
 

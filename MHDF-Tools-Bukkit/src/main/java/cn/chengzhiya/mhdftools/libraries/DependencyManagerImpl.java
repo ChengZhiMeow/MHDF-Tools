@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.libraries;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.RelocateConfig;
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.libraries.classpath.ClassPathAppender;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -60,6 +61,11 @@ public final class DependencyManagerImpl implements DependencyManager {
         CountDownLatch latch = new CountDownLatch(dependencies.size());
 
         for (Dependency dependency : dependencies) {
+            if (!dependency.isEnable()) {
+                latch.countDown();
+                continue;
+            }
+
             if (this.loaded.containsKey(dependency)) {
                 latch.countDown();
                 continue;
@@ -92,6 +98,11 @@ public final class DependencyManagerImpl implements DependencyManager {
         CountDownLatch latch = new CountDownLatch(dependencies.size());
 
         for (Dependency dependency : dependencies) {
+            if (!dependency.isEnable()) {
+                latch.countDown();
+                continue;
+            }
+
             if (this.loaded.containsKey(dependency)) {
                 latch.countDown();
                 continue;
@@ -159,15 +170,22 @@ public final class DependencyManagerImpl implements DependencyManager {
         HashMap<String, String> relocatorMap = new HashMap<>();
 
         for (Dependency dependency : Dependency.values()) {
-            if (!dependency.isRelocatable()) {
+            if (!dependency.isEnable()) {
                 continue;
             }
 
-            for (String relocator : dependency.getRelocator()) {
-                relocatorMap.put(relocator, RELOCATION_PREFIX + relocator);
+            RelocateConfig relocateConfig = dependency.getRelocateConfig();
+            if (!relocateConfig.isRelocatable()) {
+                continue;
             }
 
-            relocatorMap.put(dependency.getGroupId(), RELOCATION_PREFIX + dependency.getGroupId());
+            if (relocateConfig.isRelocatableGroupId()) {
+                relocatorMap.put(dependency.getGroupId(), RELOCATION_PREFIX + dependency.getGroupId());
+            }
+
+            for (String relocator : relocateConfig.getRelocator()) {
+                relocatorMap.put(relocator, RELOCATION_PREFIX + relocator);
+            }
         }
 
         return relocatorMap;
@@ -182,7 +200,8 @@ public final class DependencyManagerImpl implements DependencyManager {
     private Path remapDependency(Dependency dependency) {
         Path file = dependenciesFolder.resolve(dependency.getFileName());
 
-        if (!dependency.isRelocatable()) {
+        RelocateConfig relocateConfig = dependency.getRelocateConfig();
+        if (!relocateConfig.isRelocatable()) {
             return file;
         }
 

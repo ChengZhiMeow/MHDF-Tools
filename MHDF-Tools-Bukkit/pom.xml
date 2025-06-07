@@ -45,6 +45,19 @@
 
                             <relocations>
                                 <relocation>
+                                    <pattern>org.h2</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.org.h2</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.mysql</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.mysql</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>net.kyori.adventure.platform</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.net.kyori.adventure.platform</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>com.alibaba</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.com.alibaba</shadedPattern>
                                 </relocation>
@@ -78,12 +91,15 @@
                                 </relocation>
                                 <relocation>
                                     <pattern>cn.chengzhiya.mhdfscheduler</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler
-                                    </shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>cn.chengzhiya.langutil</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.langutil</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>net.objecthunterl</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.net.objecthunterl</shadedPattern>
                                 </relocation>
                             </relocations>
 
