@@ -32,6 +32,9 @@
         <!--log4j-->
         <env.lib.log4j.core.version>2.24.3</env.lib.log4j.core.version>
 
+        <!--依赖管理-->
+        <env.lib.mhdf.library.version>1.0.0</env.lib.mhdf.library.version>
+
         <!--调度器-->
         <env.lib.mhdf.scheduler.version>1.0.1</env.lib.mhdf.scheduler.version>
 

@@ -45,6 +45,11 @@
 
                             <relocations>
                                 <relocation>
+                                    <pattern>cn.chengzhiya.mhdflibrary</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.library</shadedPattern>
+                                </relocation>
+
+                                <relocation>
                                     <pattern>org.h2</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.org.h2</shadedPattern>
                                 </relocation>
@@ -196,6 +201,13 @@
             <artifactId>lombok</artifactId>
             <version>${env.lib.lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-Library</artifactId>
+            <version>${env.lib.mhdf.library.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
