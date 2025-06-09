@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.FlyStatus;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import lombok.SneakyThrows;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
@@ -35,8 +36,8 @@ public final class FlyStatusUtil {
      * @param uuid 玩家UUID
      * @return 飞行状态实例
      */
+    @SneakyThrows
     public static FlyStatus getFlyStatus(UUID uuid) {
-        try {
             FlyStatus flyStatus = getDao().queryForId(uuid);
             if (flyStatus == null) {
                 flyStatus = new FlyStatus();
@@ -44,9 +45,6 @@ public final class FlyStatusUtil {
             }
 
             return flyStatus;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

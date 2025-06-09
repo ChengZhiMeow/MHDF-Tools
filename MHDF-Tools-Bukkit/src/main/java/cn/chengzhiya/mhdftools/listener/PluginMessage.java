@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.listener;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
+import lombok.SneakyThrows;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public final class PluginMessage implements PluginMessageListener {
     @Override
+    @SneakyThrows
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player messagePlayer, byte @NotNull [] messageData) {
         if (!channel.equals("BungeeCord")) {
             return;
@@ -21,7 +23,6 @@ public final class PluginMessage implements PluginMessageListener {
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(messageData));
 
-        try {
             String subchannel = in.readUTF();
             switch (subchannel) {
                 case "mhdf_tools" -> {
@@ -57,8 +58,5 @@ public final class PluginMessage implements PluginMessageListener {
                     Main.instance.getBungeeCordManager().setBungeeCordPlayerList(playerList);
                 }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

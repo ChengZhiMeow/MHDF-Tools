@@ -10,6 +10,7 @@ import cn.chengzhiya.mhdftools.util.config.FileUtil;
 import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,16 +36,16 @@ public final class Main extends JavaPlugin {
     private BStatsManager bStatsManager;
 
     @Override
+    @SneakyThrows
     public void onLoad() {
         instance = this;
 
-        try {
+        // 释放代理配置
+        {
             FileUtil.createFolder(ConfigUtil.getDataFolder());
 
             ProxyUtil.saveDefaultProxy();
             ProxyUtil.reloadProxy();
-        } catch (FileException | ResourceException e) {
-            throw new RuntimeException(e);
         }
 
         try {

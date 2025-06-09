@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.WarpData;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import lombok.SneakyThrows;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,12 +37,9 @@ public final class WarpDataUtil {
      * @param warp 传送点名称
      * @return 传送点数据实例
      */
+    @SneakyThrows
     public static WarpData getWarpData(String warp) {
-        try {
             return getDao().queryForId(warp);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -49,12 +47,9 @@ public final class WarpDataUtil {
      *
      * @return 传送点数据实例列表
      */
+    @SneakyThrows
     public static List<WarpData> getHomeDataList() {
-        try {
             return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import lombok.SneakyThrows;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
@@ -67,12 +68,9 @@ public final class EconomyDataUtil {
      * @param uuid 玩家UUID
      * @return 经济数据实例
      */
+    @SneakyThrows
     public static EconomyData getEconomyData(UUID uuid) {
-        try {
             return getDao().queryForId(uuid);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

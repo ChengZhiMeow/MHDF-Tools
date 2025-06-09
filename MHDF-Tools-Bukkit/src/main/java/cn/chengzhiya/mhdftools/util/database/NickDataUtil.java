@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.NickData;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import lombok.SneakyThrows;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
@@ -35,8 +36,8 @@ public final class NickDataUtil {
      * @param uuid 玩家UUID
      * @return 匿名数据实例
      */
+    @SneakyThrows
     public static NickData getNickData(UUID uuid) {
-        try {
             NickData nickData = getDao().queryForId(uuid);
             if (nickData == null) {
                 nickData = new NickData();
@@ -44,9 +45,6 @@ public final class NickDataUtil {
             }
 
             return nickData;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

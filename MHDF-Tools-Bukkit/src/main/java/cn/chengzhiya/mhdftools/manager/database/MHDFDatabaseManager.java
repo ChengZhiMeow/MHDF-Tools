@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.entity.AbstractDao;
 import cn.chengzhiya.mhdftools.entity.DatabaseConfig;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import com.j256.ormlite.table.TableUtils;
+import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
 import org.reflections.Reflections;
 
@@ -36,8 +37,8 @@ public final class MHDFDatabaseManager extends AbstractDatabaseManager {
     /**
      * 初始化表
      */
+    @SneakyThrows
     public void initTable() {
-        try {
             Reflections reflections = new Reflections(AbstractDao.class.getPackageName());
 
             for (Class<? extends AbstractDao> clazz : reflections.getSubTypesOf(AbstractDao.class)) {
@@ -46,8 +47,5 @@ public final class MHDFDatabaseManager extends AbstractDatabaseManager {
                     TableUtils.createTableIfNotExists(getConnectionSource(), abstractDao.getClass());
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

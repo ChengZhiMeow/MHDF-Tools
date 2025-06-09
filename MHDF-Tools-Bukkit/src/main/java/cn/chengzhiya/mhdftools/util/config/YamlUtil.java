@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.util.config;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
+import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -48,6 +49,7 @@ public final class YamlUtil {
      * @param configFile        配置文件文件实例
      * @param jarConfigFileName 插件内配置文件文件名称
      */
+    @SneakyThrows
     public static void updateConfig(File configFile, String jarConfigFileName) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
@@ -113,8 +115,6 @@ public final class YamlUtil {
             );
 
             config.save(configFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

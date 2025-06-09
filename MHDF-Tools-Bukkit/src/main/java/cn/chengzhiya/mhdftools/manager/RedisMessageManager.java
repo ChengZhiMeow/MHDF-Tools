@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.manager;
 import cn.chengzhiya.mhdftools.listener.AbstractRedisMessageListener;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Modifier;
@@ -22,8 +23,8 @@ public final class RedisMessageManager {
     /**
      * 注册监听器
      */
+    @SneakyThrows
     private void registerListener() {
-        try {
             Reflections reflections = new Reflections(AbstractRedisMessageListener.class.getPackageName());
 
             for (Class<? extends AbstractRedisMessageListener> clazz : reflections.getSubTypesOf(AbstractRedisMessageListener.class)) {
@@ -35,9 +36,6 @@ public final class RedisMessageManager {
                     }
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

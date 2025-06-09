@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.hook.impl;
 
 import cn.chengzhiya.mhdftools.placeholder.AbstractPlaceholder;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
+import lombok.SneakyThrows;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -16,8 +17,8 @@ import java.util.List;
 public final class PlaceholderApiImpl extends PlaceholderExpansion {
     private final List<AbstractPlaceholder> placeholderList = new ArrayList<>();
 
+    @SneakyThrows
     public PlaceholderApiImpl() {
-        try {
             Reflections reflections = new Reflections(AbstractPlaceholder.class.getPackageName());
 
             for (Class<? extends AbstractPlaceholder> clazz : reflections.getSubTypesOf(AbstractPlaceholder.class)) {
@@ -28,9 +29,6 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
                     }
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         this.register();
     }
 

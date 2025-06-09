@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.manager.config;
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.util.config.*;
+import lombok.SneakyThrows;
 
 @SuppressWarnings("unused")
 public final class ConfigManager {
@@ -17,16 +18,13 @@ public final class ConfigManager {
     /**
      * 保存所有默认配置文件
      */
+    @SneakyThrows
     public void saveDefaultAll() {
-        try {
             ConfigUtil.saveDefaultConfig();
             LangUtil.saveDefaultLang();
             SoundUtil.saveDefaultSound();
             CustomMenuConfigUtil.saveDefaultCustomMenu();
             MenuConfigUtil.saveDefaultMenu();
-        } catch (ResourceException | FileException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

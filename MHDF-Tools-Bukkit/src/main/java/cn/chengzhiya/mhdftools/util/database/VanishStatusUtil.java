@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import lombok.SneakyThrows;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
@@ -37,12 +38,9 @@ public final class VanishStatusUtil {
      *
      * @return 隐身状态实例列表
      */
+    @SneakyThrows
     public static List<VanishStatus> getVanishStatusList() {
-        try {
             return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -51,8 +49,8 @@ public final class VanishStatusUtil {
      * @param uuid 玩家UUID
      * @return 隐身状态实例
      */
+    @SneakyThrows
     public static VanishStatus getVanishStatus(UUID uuid) {
-        try {
             VanishStatus vanishStatus = getDao().queryForId(uuid);
             if (vanishStatus == null) {
                 vanishStatus = new VanishStatus();
@@ -60,9 +58,6 @@ public final class VanishStatusUtil {
             }
 
             return vanishStatus;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

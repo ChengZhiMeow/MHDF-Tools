@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.HomeData;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import lombok.SneakyThrows;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
@@ -39,17 +40,14 @@ public final class HomeDataUtil {
      * @param home 家名称
      * @return 家数据实例
      */
+    @SneakyThrows
     public static HomeData getHomeData(UUID uuid, String home) {
-        try {
             return getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .and()
                     .eq("home", home)
                     .queryForFirst();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -69,17 +67,14 @@ public final class HomeDataUtil {
      * @param uuid 玩家UUID
      * @return 家数据实例列表
      */
+    @SneakyThrows
     public static List<HomeData> getHomeDataList(UUID uuid) {
-        try {
             List<HomeData> homeDataList = getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .query();
 
             return Objects.requireNonNullElseGet(homeDataList, ArrayList::new);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

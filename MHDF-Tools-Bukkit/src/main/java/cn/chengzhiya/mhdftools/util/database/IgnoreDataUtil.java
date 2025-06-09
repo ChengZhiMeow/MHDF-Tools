@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.IgnoreData;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import lombok.SneakyThrows;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
@@ -38,17 +39,14 @@ public final class IgnoreDataUtil {
      * @param uuid 玩家UUID
      * @return 屏蔽数据实例列表
      */
+    @SneakyThrows
     public static List<IgnoreData> getIgnoreDataList(UUID uuid) {
-        try {
             List<IgnoreData> ignoreDataList = getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .query();
 
             return Objects.requireNonNullElseGet(ignoreDataList, ArrayList::new);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -68,17 +66,14 @@ public final class IgnoreDataUtil {
      * @param ignoreUuid 被屏蔽的玩家UUID
      * @return 屏蔽数据实例
      */
+    @SneakyThrows
     public static IgnoreData getIgnoreData(UUID uuid, UUID ignoreUuid) {
-        try {
             return getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .and()
                     .eq("ignore", ignoreUuid)
                     .queryForFirst();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

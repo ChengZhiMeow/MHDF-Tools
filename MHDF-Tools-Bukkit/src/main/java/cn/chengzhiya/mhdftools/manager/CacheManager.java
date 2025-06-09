@@ -6,6 +6,7 @@ import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -150,6 +151,7 @@ public final class CacheManager {
      * @param key   key
      * @return 缓存数据
      */
+    @SneakyThrows
     public String get(String table, String key) {
         String prefix = getPrefix() + table;
         if (this.map != null) {
@@ -158,12 +160,8 @@ public final class CacheManager {
             return map.get(key);
         }
         if (this.redisClient != null) {
-            try {
                 RedisAsyncCommands<String, String> sync = this.redisConnection.async();
                 return sync.get(prefix + ":" + key).get();
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
         }
         return null;
     }
@@ -174,6 +172,7 @@ public final class CacheManager {
      * @param table 表id
      * @return 缓存key列表
      */
+    @SneakyThrows
     public Set<String> keys(String table) {
         String prefix = getPrefix() + table;
         if (this.map != null) {
@@ -182,12 +181,8 @@ public final class CacheManager {
             return map.keySet();
         }
         if (this.redisClient != null) {
-            try {
                 RedisAsyncCommands<String, String> sync = this.redisConnection.async();
                 return new HashSet<>(sync.keys(prefix + ":*").get());
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
         }
         return new HashSet<>();
     }

@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdftools.util.config.plugin.CmiConfigUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.table.DatabaseTableConfig;
+import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
@@ -52,8 +53,8 @@ public final class CmiDatabaseManager extends AbstractDatabaseManager {
     /**
      * 初始化数据库数据实例
      */
+    @SneakyThrows
     public void initDao() {
-        try {
             {
                 DatabaseTableConfig<CmiUserData> tableConfig = DatabaseTableConfig.fromClass(
                         Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
@@ -63,9 +64,6 @@ public final class CmiDatabaseManager extends AbstractDatabaseManager {
 
                 cmiUserDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -73,11 +71,8 @@ public final class CmiDatabaseManager extends AbstractDatabaseManager {
      *
      * @return Cmi用户数据实例列表
      */
+    @SneakyThrows
     public List<CmiUserData> getCmiUserDataList() {
-        try {
             return cmiUserDataDao.queryForAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

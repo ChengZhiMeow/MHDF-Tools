@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -54,6 +55,7 @@ public final class FileUtil {
      * @param resourcePath 资源目录
      * @param replace      替换文件
      */
+    @SneakyThrows
     public static void saveResource(@NotNull String filePath, @NotNull String resourcePath, boolean replace) throws ResourceException {
         File file = new File(ConfigUtil.getDataFolder(), filePath);
         if (file.exists() && !replace) {
@@ -65,12 +67,7 @@ public final class FileUtil {
             throw new ResourceException("找不到资源: " + resourcePath);
         }
 
-        URLConnection connection;
-        try {
-            connection = url.openConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        URLConnection connection = url.openConnection();
         connection.setUseCaches(false);
 
         try (InputStream in = url.openStream()) {

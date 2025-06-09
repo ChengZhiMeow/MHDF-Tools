@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import lombok.SneakyThrows;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
@@ -12,7 +13,6 @@ import net.md_5.bungee.event.EventHandler;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.net.InetAddress;
 
 public final class PluginMessage implements Listener {
@@ -39,13 +39,13 @@ public final class PluginMessage implements Listener {
     }
 
     @EventHandler
+    @SneakyThrows
     public void onPluginMessage(PluginMessageEvent event) {
         if (!event.getTag().contains("BungeeCord")) {
             return;
         }
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(event.getData()));
-        try {
             String subchannel = in.readUTF();
             if (!subchannel.equals("mhdf_tools")) {
                 return;
@@ -95,9 +95,6 @@ public final class PluginMessage implements Listener {
                     }
                 }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

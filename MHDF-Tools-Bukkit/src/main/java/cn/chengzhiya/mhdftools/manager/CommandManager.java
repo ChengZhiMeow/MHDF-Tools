@@ -8,6 +8,7 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
@@ -27,8 +28,8 @@ public final class CommandManager {
     /**
      * 注册所有启用的命令
      */
+    @SneakyThrows
     public void init() {
-        try {
             Reflections reflections = new Reflections(AbstractCommand.class.getPackageName());
 
             for (Class<? extends AbstractCommand> clazz : reflections.getSubTypesOf(AbstractCommand.class)) {
@@ -42,9 +43,6 @@ public final class CommandManager {
                     }
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

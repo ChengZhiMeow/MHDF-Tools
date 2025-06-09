@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -72,13 +73,10 @@ public abstract class AbstractDatabaseManager {
     /**
      * 关闭数据库连接源
      */
+    @SneakyThrows
     public void close() {
-        try {
             this.connectionSource.close();
             this.hikariDataSource.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -104,12 +102,9 @@ public abstract class AbstractDatabaseManager {
      *
      * @param config 数据库配置实例
      */
+    @SneakyThrows
     public void initDataSource(HikariConfig config) {
-        try {
             this.hikariDataSource = new HikariDataSource(config);
             this.connectionSource = new DataSourceConnectionSource(this.hikariDataSource, this.databaseUrl);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

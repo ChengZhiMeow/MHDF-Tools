@@ -1,5 +1,7 @@
 package cn.chengzhiya.mhdftools.util.reflection;
 
+import lombok.SneakyThrows;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,13 +14,9 @@ public final class ReflectionUtil {
      * @param args  传入参数
      * @return 类对象
      */
+    @SneakyThrows
     public static <T> T newClass(Class<?> clazz, Object... args) {
-        try {
-            return (T) clazz.getConstructor().newInstance(args);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                 NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
+        return (T) clazz.getConstructor().newInstance(args);
     }
 
     /**
@@ -30,14 +28,11 @@ public final class ReflectionUtil {
      * @param argsTypes  传参类型
      * @return 方法实例
      */
+    @SneakyThrows
     public static Method getMethod(Class<?> clazz, String methodName, boolean accessible, Class<?>... argsTypes) {
-        try {
             Method method = clazz.getDeclaredMethod(methodName, argsTypes);
             method.setAccessible(accessible);
             return method;
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -48,14 +43,11 @@ public final class ReflectionUtil {
      * @param accessible 强制访问
      * @return 变量实例
      */
+    @SneakyThrows
     public static Field getField(Class<?> clazz, String fieldName, boolean accessible) {
-        try {
             Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(accessible);
             return field;
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -66,16 +58,13 @@ public final class ReflectionUtil {
      * @param args   传入参数
      * @return 返回值
      */
+    @SneakyThrows
     public static <T> T invokeMethod(Method method, Object object, Object... args) {
-        try {
             Object invokeObject = method.invoke(object, args);
             if (invokeObject == null) {
                 return null;
             }
             return (T) invokeObject;
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -84,12 +73,9 @@ public final class ReflectionUtil {
      * @param field  变量实例
      * @param object 对象实例
      */
+    @SneakyThrows
     public static <T> T getFieldValue(Field field, Object object) {
-        try {
             return (T) field.get(object);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -99,11 +85,8 @@ public final class ReflectionUtil {
      * @param object 对象实例
      * @param value  修改的值
      */
+    @SneakyThrows
     public static void setFieldValue(Field field, Object object, Object value) {
-        try {
             field.set(object, value);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

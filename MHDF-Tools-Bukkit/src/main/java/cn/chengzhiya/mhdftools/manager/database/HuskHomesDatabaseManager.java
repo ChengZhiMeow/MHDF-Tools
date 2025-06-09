@@ -10,6 +10,7 @@ import cn.chengzhiya.mhdftools.util.config.plugin.HuskHomesConfigUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.table.DatabaseTableConfig;
+import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
@@ -63,8 +64,8 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
     /**
      * 初始化数据库数据实例
      */
+    @SneakyThrows
     public void initDao() {
-        try {
             {
                 DatabaseTableConfig<HuskHomesHomeData> tableConfig = DatabaseTableConfig.fromClass(
                         Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
@@ -101,9 +102,6 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
 
                 this.huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -111,12 +109,9 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      *
      * @return HuskHomes家数据实例列表
      */
+    @SneakyThrows
     public List<HuskHomesHomeData> getHuskHomesHomeDataList() {
-        try {
             return this.huskHomesHomeDataDao.queryForAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -124,12 +119,9 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      *
      * @return HuskHomes传送点数据实例列表
      */
+    @SneakyThrows
     public List<HuskHomesWarpData> getHuskHomesWarpDataList() {
-        try {
             return this.huskHomesWarpDataDao.queryForAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -138,12 +130,9 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      * @param id 位置信息数据ID
      * @return 位置信息数据实例
      */
+    @SneakyThrows
     public HuskHomesPositionInfoData getHuskHomesPositionInfoData(int id) {
-        try {
             return this.huskHomesSavePositionDataDao.queryForId(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -152,11 +141,8 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      * @param id 位置数据ID
      * @return 位置数据实例
      */
+    @SneakyThrows
     public HuskHomesPositionData getHuskHomesPositionData(int id) {
-        try {
             return this.huskHomesPositionDataDao.queryForId(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.manager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.listener.AbstractPacketListener;
+import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.reflections.Reflections;
 
@@ -13,8 +14,8 @@ public final class ListenerManager {
     /**
      * 注册所有启用的监听器
      */
+    @SneakyThrows
     public void init() {
-        try {
             Reflections reflections = new Reflections(AbstractListener.class.getPackageName());
 
             for (Class<? extends AbstractPacketListener> clazz : reflections.getSubTypesOf(AbstractPacketListener.class)) {
@@ -35,8 +36,5 @@ public final class ListenerManager {
                     }
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
