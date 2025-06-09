@@ -20,28 +20,28 @@ public final class GroupUtil {
         if (config == null || permissionPrefix == null) {
             return "default";
         }
-
         permissionPrefix = permissionPrefix.toLowerCase(Locale.ROOT);
-        String finalPermissionPrefix = permissionPrefix;
 
+        String finalPermissionPrefix = permissionPrefix;
         List<String> groupList = player.getEffectivePermissions().stream()
                 .map(PermissionAttachmentInfo::getPermission)
                 .filter(permission -> permission.startsWith(finalPermissionPrefix))
-                .map(permission -> permission.replace(finalPermissionPrefix, ""))
+                .map(permission -> permission.substring(finalPermissionPrefix.length()))
                 .toList();
 
-        int maxWeight = 0;
-        String maxWeightGroup = "default";
-
+        String lastMaxWeightGroup = "default";
+        int lastMaxWeight = 0;
         for (String group : groupList) {
             int weight = config.getInt(group + ".weight");
 
-            if (weight > maxWeight) {
-                maxWeight = weight;
-                maxWeightGroup = group;
+            if (weight <= lastMaxWeight) {
+                continue;
             }
+
+            lastMaxWeight = weight;
+            lastMaxWeightGroup = group;
         }
 
-        return maxWeightGroup;
+        return lastMaxWeightGroup;
     }
 }

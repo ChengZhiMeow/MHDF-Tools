@@ -4,6 +4,8 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
+import java.util.*;
+
 public final class HomeUtil {
     /**
      * 获取指定玩家实例的家数量
@@ -12,17 +14,14 @@ public final class HomeUtil {
      * @return 家数量
      */
     public static int getMaxHome(Player player) {
-        for (PermissionAttachmentInfo permInfo : player.getEffectivePermissions()) {
-            String perm = permInfo.getPermission();
-            if (perm.startsWith("mhdftools.commands.home.max.")) {
-                try {
-                    return Integer.parseInt(perm.substring("mhdftools.commands.home.max.".length()));
-                } catch (NumberFormatException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+        List<Integer> amountList = new ArrayList<>(player.getEffectivePermissions().stream()
+                .map(PermissionAttachmentInfo::getPermission)
+                .filter(permission -> permission.startsWith("mhdftools.commands.home.max."))
+                .map(permission -> permission.substring("mhdftools.commands.home.max.".length()))
+                .map(Integer::parseInt)
+                .toList());
+        amountList.sort(Comparator.reverseOrder());
 
-        return ConfigUtil.getConfig().getInt("homeSettings.defaultMax");
+        return !amountList.isEmpty() ? amountList.get(0) : ConfigUtil.getConfig().getInt("homeSettings.defaultMax");
     }
 }
