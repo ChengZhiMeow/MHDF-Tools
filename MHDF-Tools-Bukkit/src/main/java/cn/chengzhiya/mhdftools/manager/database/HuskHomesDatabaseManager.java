@@ -14,7 +14,6 @@ import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,42 +65,42 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public void initDao() {
-            {
-                DatabaseTableConfig<HuskHomesHomeData> tableConfig = DatabaseTableConfig.fromClass(
-                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
-                        HuskHomesHomeData.class
-                );
-                tableConfig.setTableName(getTableName("HOME_DATA"));
+        {
+            DatabaseTableConfig<HuskHomesHomeData> tableConfig = DatabaseTableConfig.fromClass(
+                    Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                    HuskHomesHomeData.class
+            );
+            tableConfig.setTableName(getTableName("HOME_DATA"));
 
-                this.huskHomesHomeDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
-            }
-            {
-                DatabaseTableConfig<HuskHomesWarpData> tableConfig = DatabaseTableConfig.fromClass(
-                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
-                        HuskHomesWarpData.class
-                );
-                tableConfig.setTableName(getTableName("WARP_DATA"));
+            this.huskHomesHomeDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+        }
+        {
+            DatabaseTableConfig<HuskHomesWarpData> tableConfig = DatabaseTableConfig.fromClass(
+                    Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                    HuskHomesWarpData.class
+            );
+            tableConfig.setTableName(getTableName("WARP_DATA"));
 
-                this.huskHomesWarpDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
-            }
-            {
-                DatabaseTableConfig<HuskHomesPositionInfoData> tableConfig = DatabaseTableConfig.fromClass(
-                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
-                        HuskHomesPositionInfoData.class
-                );
-                tableConfig.setTableName(getTableName("SAVED_POSITION_DATA"));
+            this.huskHomesWarpDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+        }
+        {
+            DatabaseTableConfig<HuskHomesPositionInfoData> tableConfig = DatabaseTableConfig.fromClass(
+                    Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                    HuskHomesPositionInfoData.class
+            );
+            tableConfig.setTableName(getTableName("SAVED_POSITION_DATA"));
 
-                this.huskHomesSavePositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
-            }
-            {
-                DatabaseTableConfig<HuskHomesPositionData> tableConfig = DatabaseTableConfig.fromClass(
-                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
-                        HuskHomesPositionData.class
-                );
-                tableConfig.setTableName(getTableName("HOME_DATA"));
+            this.huskHomesSavePositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+        }
+        {
+            DatabaseTableConfig<HuskHomesPositionData> tableConfig = DatabaseTableConfig.fromClass(
+                    Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                    HuskHomesPositionData.class
+            );
+            tableConfig.setTableName(getTableName("HOME_DATA"));
 
-                this.huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
-            }
+            this.huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+        }
     }
 
     /**
@@ -111,7 +110,7 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public List<HuskHomesHomeData> getHuskHomesHomeDataList() {
-            return this.huskHomesHomeDataDao.queryForAll();
+        return this.huskHomesHomeDataDao.queryForAll();
     }
 
     /**
@@ -121,7 +120,7 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public List<HuskHomesWarpData> getHuskHomesWarpDataList() {
-            return this.huskHomesWarpDataDao.queryForAll();
+        return this.huskHomesWarpDataDao.queryForAll();
     }
 
     /**
@@ -132,7 +131,7 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public HuskHomesPositionInfoData getHuskHomesPositionInfoData(int id) {
-            return this.huskHomesSavePositionDataDao.queryForId(id);
+        return this.huskHomesSavePositionDataDao.queryForId(id);
     }
 
     /**
@@ -143,6 +142,6 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public HuskHomesPositionData getHuskHomesPositionData(int id) {
-            return this.huskHomesPositionDataDao.queryForId(id);
+        return this.huskHomesPositionDataDao.queryForId(id);
     }
 }

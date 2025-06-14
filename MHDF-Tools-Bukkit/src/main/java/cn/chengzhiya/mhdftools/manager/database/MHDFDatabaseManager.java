@@ -39,13 +39,13 @@ public final class MHDFDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public void initTable() {
-            Reflections reflections = new Reflections(AbstractDao.class.getPackageName());
+        Reflections reflections = new Reflections(AbstractDao.class.getPackageName());
 
-            for (Class<? extends AbstractDao> clazz : reflections.getSubTypesOf(AbstractDao.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractDao abstractDao = clazz.getDeclaredConstructor().newInstance();
-                    TableUtils.createTableIfNotExists(getConnectionSource(), abstractDao.getClass());
-                }
+        for (Class<? extends AbstractDao> clazz : reflections.getSubTypesOf(AbstractDao.class)) {
+            if (!Modifier.isAbstract(clazz.getModifiers())) {
+                AbstractDao abstractDao = clazz.getDeclaredConstructor().newInstance();
+                TableUtils.createTableIfNotExists(getConnectionSource(), abstractDao.getClass());
             }
+        }
     }
 }

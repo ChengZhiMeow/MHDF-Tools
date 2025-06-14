@@ -38,13 +38,13 @@ public final class NickDataUtil {
      */
     @SneakyThrows
     public static NickData getNickData(UUID uuid) {
-            NickData nickData = getDao().queryForId(uuid);
-            if (nickData == null) {
-                nickData = new NickData();
-                nickData.setPlayer(uuid);
-            }
+        NickData nickData = getDao().queryForId(uuid);
+        if (nickData == null) {
+            nickData = new NickData();
+            nickData.setPlayer(uuid);
+        }
 
-            return nickData;
+        return nickData;
     }
 
     /**

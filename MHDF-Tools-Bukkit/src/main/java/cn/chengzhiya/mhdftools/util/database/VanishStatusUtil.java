@@ -40,7 +40,7 @@ public final class VanishStatusUtil {
      */
     @SneakyThrows
     public static List<VanishStatus> getVanishStatusList() {
-            return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
+        return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
     }
 
     /**
@@ -51,13 +51,13 @@ public final class VanishStatusUtil {
      */
     @SneakyThrows
     public static VanishStatus getVanishStatus(UUID uuid) {
-            VanishStatus vanishStatus = getDao().queryForId(uuid);
-            if (vanishStatus == null) {
-                vanishStatus = new VanishStatus();
-                vanishStatus.setPlayer(uuid);
-            }
+        VanishStatus vanishStatus = getDao().queryForId(uuid);
+        if (vanishStatus == null) {
+            vanishStatus = new VanishStatus();
+            vanishStatus.setPlayer(uuid);
+        }
 
-            return vanishStatus;
+        return vanishStatus;
     }
 
     /**

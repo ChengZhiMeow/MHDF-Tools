@@ -25,17 +25,17 @@ public final class RedisMessageManager {
      */
     @SneakyThrows
     private void registerListener() {
-            Reflections reflections = new Reflections(AbstractRedisMessageListener.class.getPackageName());
+        Reflections reflections = new Reflections(AbstractRedisMessageListener.class.getPackageName());
 
-            for (Class<? extends AbstractRedisMessageListener> clazz : reflections.getSubTypesOf(AbstractRedisMessageListener.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractRedisMessageListener redisMessageListener = clazz.getDeclaredConstructor().newInstance();
-                    if (redisMessageListener.isEnable()) {
-                        this.redisPubSubConnection.async().subscribe(getPrefix() + redisMessageListener.getChanel());
-                        this.redisPubSubConnection.addListener(redisMessageListener);
-                    }
+        for (Class<? extends AbstractRedisMessageListener> clazz : reflections.getSubTypesOf(AbstractRedisMessageListener.class)) {
+            if (!Modifier.isAbstract(clazz.getModifiers())) {
+                AbstractRedisMessageListener redisMessageListener = clazz.getDeclaredConstructor().newInstance();
+                if (redisMessageListener.isEnable()) {
+                    this.redisPubSubConnection.async().subscribe(getPrefix() + redisMessageListener.getChanel());
+                    this.redisPubSubConnection.addListener(redisMessageListener);
                 }
             }
+        }
     }
 
     /**

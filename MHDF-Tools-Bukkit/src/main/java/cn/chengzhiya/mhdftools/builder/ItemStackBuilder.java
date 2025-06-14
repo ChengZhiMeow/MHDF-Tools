@@ -30,8 +30,7 @@ public final class ItemStackBuilder {
         if (type != null) {
             if (type.startsWith("craftEngine-")) {
                 item = Main.instance.getPluginHookManager().getCraftEngineHook().getItem(
-                        type.replace("craftEngine-", ""),
-                        player
+                        type.replace("craftEngine-", "")
                 );
             } else if (type.startsWith("mythicMobs-")) {
                 item = Main.instance.getPluginHookManager().getMythicMobsHook().getItem(

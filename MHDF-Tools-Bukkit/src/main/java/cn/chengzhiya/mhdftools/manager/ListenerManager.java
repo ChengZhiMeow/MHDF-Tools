@@ -16,25 +16,25 @@ public final class ListenerManager {
      */
     @SneakyThrows
     public void init() {
-            Reflections reflections = new Reflections(AbstractListener.class.getPackageName());
+        Reflections reflections = new Reflections(AbstractListener.class.getPackageName());
 
-            for (Class<? extends AbstractPacketListener> clazz : reflections.getSubTypesOf(AbstractPacketListener.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractPacketListener packetListener = clazz.getDeclaredConstructor().newInstance();
-                    if (packetListener.isEnable()) {
-                        Main.instance.getPluginHookManager().getPacketEventsHook()
-                                .registerListener(packetListener, packetListener.getPriority());
-                    }
+        for (Class<? extends AbstractPacketListener> clazz : reflections.getSubTypesOf(AbstractPacketListener.class)) {
+            if (!Modifier.isAbstract(clazz.getModifiers())) {
+                AbstractPacketListener packetListener = clazz.getDeclaredConstructor().newInstance();
+                if (packetListener.isEnable()) {
+                    Main.instance.getPluginHookManager().getPacketEventsHook()
+                            .registerListener(packetListener, packetListener.getPriority());
                 }
             }
+        }
 
-            for (Class<? extends AbstractListener> clazz : reflections.getSubTypesOf(AbstractListener.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractListener listener = clazz.getDeclaredConstructor().newInstance();
-                    if (listener.isEnable()) {
-                        Bukkit.getPluginManager().registerEvents(listener, Main.instance);
-                    }
+        for (Class<? extends AbstractListener> clazz : reflections.getSubTypesOf(AbstractListener.class)) {
+            if (!Modifier.isAbstract(clazz.getModifiers())) {
+                AbstractListener listener = clazz.getDeclaredConstructor().newInstance();
+                if (listener.isEnable()) {
+                    Bukkit.getPluginManager().registerEvents(listener, Main.instance);
                 }
             }
+        }
     }
 }

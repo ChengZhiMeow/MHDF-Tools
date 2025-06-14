@@ -42,12 +42,12 @@ public final class HomeDataUtil {
      */
     @SneakyThrows
     public static HomeData getHomeData(UUID uuid, String home) {
-            return getDao().queryBuilder()
-                    .where()
-                    .eq("player", uuid)
-                    .and()
-                    .eq("home", home)
-                    .queryForFirst();
+        return getDao().queryBuilder()
+                .where()
+                .eq("player", uuid)
+                .and()
+                .eq("home", home)
+                .queryForFirst();
     }
 
     /**
@@ -69,12 +69,12 @@ public final class HomeDataUtil {
      */
     @SneakyThrows
     public static List<HomeData> getHomeDataList(UUID uuid) {
-            List<HomeData> homeDataList = getDao().queryBuilder()
-                    .where()
-                    .eq("player", uuid)
-                    .query();
+        List<HomeData> homeDataList = getDao().queryBuilder()
+                .where()
+                .eq("player", uuid)
+                .query();
 
-            return Objects.requireNonNullElseGet(homeDataList, ArrayList::new);
+        return Objects.requireNonNullElseGet(homeDataList, ArrayList::new);
     }
 
     /**

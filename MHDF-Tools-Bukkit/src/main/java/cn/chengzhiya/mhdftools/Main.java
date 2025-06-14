@@ -1,7 +1,5 @@
 package cn.chengzhiya.mhdftools;
 
-import cn.chengzhiya.mhdftools.exception.FileException;
-import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.manager.*;
 import cn.chengzhiya.mhdftools.manager.config.ConfigManager;
 import cn.chengzhiya.mhdftools.manager.database.MHDFDatabaseManager;

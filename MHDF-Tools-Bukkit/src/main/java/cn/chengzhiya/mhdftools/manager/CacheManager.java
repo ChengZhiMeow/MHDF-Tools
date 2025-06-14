@@ -11,7 +11,6 @@ import lombok.SneakyThrows;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("unused")
 public final class CacheManager {
@@ -160,8 +159,8 @@ public final class CacheManager {
             return map.get(key);
         }
         if (this.redisClient != null) {
-                RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-                return sync.get(prefix + ":" + key).get();
+            RedisAsyncCommands<String, String> sync = this.redisConnection.async();
+            return sync.get(prefix + ":" + key).get();
         }
         return null;
     }
@@ -181,8 +180,8 @@ public final class CacheManager {
             return map.keySet();
         }
         if (this.redisClient != null) {
-                RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-                return new HashSet<>(sync.keys(prefix + ":*").get());
+            RedisAsyncCommands<String, String> sync = this.redisConnection.async();
+            return new HashSet<>(sync.keys(prefix + ":*").get());
         }
         return new HashSet<>();
     }

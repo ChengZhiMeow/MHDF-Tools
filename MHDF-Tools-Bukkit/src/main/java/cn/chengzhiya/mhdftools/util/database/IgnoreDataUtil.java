@@ -41,12 +41,12 @@ public final class IgnoreDataUtil {
      */
     @SneakyThrows
     public static List<IgnoreData> getIgnoreDataList(UUID uuid) {
-            List<IgnoreData> ignoreDataList = getDao().queryBuilder()
-                    .where()
-                    .eq("player", uuid)
-                    .query();
+        List<IgnoreData> ignoreDataList = getDao().queryBuilder()
+                .where()
+                .eq("player", uuid)
+                .query();
 
-            return Objects.requireNonNullElseGet(ignoreDataList, ArrayList::new);
+        return Objects.requireNonNullElseGet(ignoreDataList, ArrayList::new);
     }
 
     /**
@@ -68,12 +68,12 @@ public final class IgnoreDataUtil {
      */
     @SneakyThrows
     public static IgnoreData getIgnoreData(UUID uuid, UUID ignoreUuid) {
-            return getDao().queryBuilder()
-                    .where()
-                    .eq("player", uuid)
-                    .and()
-                    .eq("ignore", ignoreUuid)
-                    .queryForFirst();
+        return getDao().queryBuilder()
+                .where()
+                .eq("player", uuid)
+                .and()
+                .eq("ignore", ignoreUuid)
+                .queryForFirst();
     }
 
     /**

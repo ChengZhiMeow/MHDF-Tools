@@ -30,19 +30,19 @@ public final class CommandManager {
      */
     @SneakyThrows
     public void init() {
-            Reflections reflections = new Reflections(AbstractCommand.class.getPackageName());
+        Reflections reflections = new Reflections(AbstractCommand.class.getPackageName());
 
-            for (Class<? extends AbstractCommand> clazz : reflections.getSubTypesOf(AbstractCommand.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractCommand command = clazz.getDeclaredConstructor().newInstance();
-                    if (command.isEnable()) {
-                        registerCommand(command);
-                        getRegisterCommandIdList().add(command.getPermission()
-                                .replace("mhdftools.commands.", "")
-                        );
-                    }
+        for (Class<? extends AbstractCommand> clazz : reflections.getSubTypesOf(AbstractCommand.class)) {
+            if (!Modifier.isAbstract(clazz.getModifiers())) {
+                AbstractCommand command = clazz.getDeclaredConstructor().newInstance();
+                if (command.isEnable()) {
+                    registerCommand(command);
+                    getRegisterCommandIdList().add(command.getPermission()
+                            .replace("mhdftools.commands.", "")
+                    );
                 }
             }
+        }
     }
 
     /**

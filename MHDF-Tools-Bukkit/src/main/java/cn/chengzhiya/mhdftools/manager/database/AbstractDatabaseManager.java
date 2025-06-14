@@ -9,7 +9,6 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.TimeZone;
 
 @Getter
@@ -75,8 +74,8 @@ public abstract class AbstractDatabaseManager {
      */
     @SneakyThrows
     public void close() {
-            this.connectionSource.close();
-            this.hikariDataSource.close();
+        this.connectionSource.close();
+        this.hikariDataSource.close();
     }
 
     /**
@@ -104,7 +103,7 @@ public abstract class AbstractDatabaseManager {
      */
     @SneakyThrows
     public void initDataSource(HikariConfig config) {
-            this.hikariDataSource = new HikariDataSource(config);
-            this.connectionSource = new DataSourceConnectionSource(this.hikariDataSource, this.databaseUrl);
+        this.hikariDataSource = new HikariDataSource(config);
+        this.connectionSource = new DataSourceConnectionSource(this.hikariDataSource, this.databaseUrl);
     }
 }

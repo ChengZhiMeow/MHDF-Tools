@@ -1,10 +1,12 @@
 package cn.chengzhiya.mhdftools.hook.impl;
 
 import lombok.Getter;
+import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
 import net.momirealms.craftengine.bukkit.plugin.BukkitCraftEngine;
+import net.momirealms.craftengine.core.item.CustomItem;
 import net.momirealms.craftengine.core.plugin.CraftEngine;
 import net.momirealms.craftengine.core.util.Key;
-import org.bukkit.entity.Player;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 @Getter
@@ -18,35 +20,18 @@ public final class CraftEngineImpl {
     }
 
     /**
-     * 转换玩家实例
-     *
-     * @param player bukkit玩家实例
-     * @return craftEngine玩家实例
-     */
-    public net.momirealms.craftengine.core.entity.player.Player adaptPlayer(Player player) {
-        return getBukkitApi().adapt(player);
-    }
-
-    /**
      * 获取指定物品ID的物品实例
      *
-     * @param item   物品ID
-     * @param player craftEngine玩家实例
+     * @param item 物品ID
      * @return 物品实例
      */
-    public ItemStack getItem(String item, net.momirealms.craftengine.core.entity.player.Player player) {
-        return (ItemStack) getApi().itemManager().buildCustomItemStack(Key.of(item), player);
-    }
+    public ItemStack getItem(String item) {
+        CustomItem<ItemStack> customItem = CraftEngineItems.byId(Key.of(item));
+        if (customItem == null) {
+            return new ItemStack(Material.AIR);
+        }
 
-    /**
-     * 获取指定物品ID的物品实例
-     *
-     * @param item   物品ID
-     * @param player bukkit玩家实例
-     * @return 物品实例
-     */
-    public ItemStack getItem(String item, Player player) {
-        return getItem(item, adaptPlayer(player));
+        return customItem.buildItemStack();
     }
 
     /**

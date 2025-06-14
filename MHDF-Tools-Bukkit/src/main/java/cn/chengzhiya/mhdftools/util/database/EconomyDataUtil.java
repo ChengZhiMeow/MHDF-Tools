@@ -70,7 +70,7 @@ public final class EconomyDataUtil {
      */
     @SneakyThrows
     public static EconomyData getEconomyData(UUID uuid) {
-            return getDao().queryForId(uuid);
+        return getDao().queryForId(uuid);
     }
 
     /**

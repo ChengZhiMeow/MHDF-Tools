@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.util.reflection;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public final class ReflectionUtil {
@@ -30,9 +29,9 @@ public final class ReflectionUtil {
      */
     @SneakyThrows
     public static Method getMethod(Class<?> clazz, String methodName, boolean accessible, Class<?>... argsTypes) {
-            Method method = clazz.getDeclaredMethod(methodName, argsTypes);
-            method.setAccessible(accessible);
-            return method;
+        Method method = clazz.getDeclaredMethod(methodName, argsTypes);
+        method.setAccessible(accessible);
+        return method;
     }
 
     /**
@@ -45,9 +44,9 @@ public final class ReflectionUtil {
      */
     @SneakyThrows
     public static Field getField(Class<?> clazz, String fieldName, boolean accessible) {
-            Field field = clazz.getDeclaredField(fieldName);
-            field.setAccessible(accessible);
-            return field;
+        Field field = clazz.getDeclaredField(fieldName);
+        field.setAccessible(accessible);
+        return field;
     }
 
     /**
@@ -60,11 +59,11 @@ public final class ReflectionUtil {
      */
     @SneakyThrows
     public static <T> T invokeMethod(Method method, Object object, Object... args) {
-            Object invokeObject = method.invoke(object, args);
-            if (invokeObject == null) {
-                return null;
-            }
-            return (T) invokeObject;
+        Object invokeObject = method.invoke(object, args);
+        if (invokeObject == null) {
+            return null;
+        }
+        return (T) invokeObject;
     }
 
     /**
@@ -75,7 +74,7 @@ public final class ReflectionUtil {
      */
     @SneakyThrows
     public static <T> T getFieldValue(Field field, Object object) {
-            return (T) field.get(object);
+        return (T) field.get(object);
     }
 
     /**
@@ -87,6 +86,6 @@ public final class ReflectionUtil {
      */
     @SneakyThrows
     public static void setFieldValue(Field field, Object object, Object value) {
-            field.set(object, value);
+        field.set(object, value);
     }
 }

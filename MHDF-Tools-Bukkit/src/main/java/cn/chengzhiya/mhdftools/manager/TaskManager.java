@@ -14,15 +14,15 @@ public final class TaskManager {
      */
     @SneakyThrows
     public void init() {
-            Reflections reflections = new Reflections(AbstractTask.class.getPackageName());
+        Reflections reflections = new Reflections(AbstractTask.class.getPackageName());
 
-            for (Class<? extends AbstractTask> clazz : reflections.getSubTypesOf(AbstractTask.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractTask abstractTask = clazz.getDeclaredConstructor().newInstance();
-                    if (abstractTask.isEnable()) {
-                        abstractTask.runTaskTimerAsynchronously(Main.instance, 0L, abstractTask.getTime());
-                    }
+        for (Class<? extends AbstractTask> clazz : reflections.getSubTypesOf(AbstractTask.class)) {
+            if (!Modifier.isAbstract(clazz.getModifiers())) {
+                AbstractTask abstractTask = clazz.getDeclaredConstructor().newInstance();
+                if (abstractTask.isEnable()) {
+                    abstractTask.runTaskTimerAsynchronously(Main.instance, 0L, abstractTask.getTime());
                 }
             }
+        }
     }
 }

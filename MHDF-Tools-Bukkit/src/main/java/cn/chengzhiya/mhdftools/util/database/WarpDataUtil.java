@@ -39,7 +39,7 @@ public final class WarpDataUtil {
      */
     @SneakyThrows
     public static WarpData getWarpData(String warp) {
-            return getDao().queryForId(warp);
+        return getDao().queryForId(warp);
     }
 
     /**
@@ -49,7 +49,7 @@ public final class WarpDataUtil {
      */
     @SneakyThrows
     public static List<WarpData> getHomeDataList() {
-            return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
+        return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
     }
 
     /**

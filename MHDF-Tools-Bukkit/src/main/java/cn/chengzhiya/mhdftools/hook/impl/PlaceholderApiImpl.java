@@ -19,16 +19,16 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
     @SneakyThrows
     public PlaceholderApiImpl() {
-            Reflections reflections = new Reflections(AbstractPlaceholder.class.getPackageName());
+        Reflections reflections = new Reflections(AbstractPlaceholder.class.getPackageName());
 
-            for (Class<? extends AbstractPlaceholder> clazz : reflections.getSubTypesOf(AbstractPlaceholder.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractPlaceholder abstractPlaceholder = clazz.getDeclaredConstructor().newInstance();
-                    if (abstractPlaceholder.isEnable()) {
-                        placeholderList.add(abstractPlaceholder);
-                    }
+        for (Class<? extends AbstractPlaceholder> clazz : reflections.getSubTypesOf(AbstractPlaceholder.class)) {
+            if (!Modifier.isAbstract(clazz.getModifiers())) {
+                AbstractPlaceholder abstractPlaceholder = clazz.getDeclaredConstructor().newInstance();
+                if (abstractPlaceholder.isEnable()) {
+                    placeholderList.add(abstractPlaceholder);
                 }
             }
+        }
         this.register();
     }
 

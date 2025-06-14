@@ -1,7 +1,5 @@
 package cn.chengzhiya.mhdftools.manager.config;
 
-import cn.chengzhiya.mhdftools.exception.FileException;
-import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.util.config.*;
 import lombok.SneakyThrows;
 
@@ -20,11 +18,11 @@ public final class ConfigManager {
      */
     @SneakyThrows
     public void saveDefaultAll() {
-            ConfigUtil.saveDefaultConfig();
-            LangUtil.saveDefaultLang();
-            SoundUtil.saveDefaultSound();
-            CustomMenuConfigUtil.saveDefaultCustomMenu();
-            MenuConfigUtil.saveDefaultMenu();
+        ConfigUtil.saveDefaultConfig();
+        LangUtil.saveDefaultLang();
+        SoundUtil.saveDefaultSound();
+        CustomMenuConfigUtil.saveDefaultCustomMenu();
+        MenuConfigUtil.saveDefaultMenu();
     }
 
     /**

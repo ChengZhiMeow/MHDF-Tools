@@ -38,13 +38,13 @@ public final class FlyStatusUtil {
      */
     @SneakyThrows
     public static FlyStatus getFlyStatus(UUID uuid) {
-            FlyStatus flyStatus = getDao().queryForId(uuid);
-            if (flyStatus == null) {
-                flyStatus = new FlyStatus();
-                flyStatus.setPlayer(uuid);
-            }
+        FlyStatus flyStatus = getDao().queryForId(uuid);
+        if (flyStatus == null) {
+            flyStatus = new FlyStatus();
+            flyStatus.setPlayer(uuid);
+        }
 
-            return flyStatus;
+        return flyStatus;
     }
 
     /**

@@ -11,7 +11,6 @@ import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -55,15 +54,15 @@ public final class CmiDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public void initDao() {
-            {
-                DatabaseTableConfig<CmiUserData> tableConfig = DatabaseTableConfig.fromClass(
-                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
-                        CmiUserData.class
-                );
-                tableConfig.setTableName(this.prefix + "users");
+        {
+            DatabaseTableConfig<CmiUserData> tableConfig = DatabaseTableConfig.fromClass(
+                    Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                    CmiUserData.class
+            );
+            tableConfig.setTableName(this.prefix + "users");
 
-                cmiUserDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
-            }
+            cmiUserDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+        }
     }
 
     /**
@@ -73,6 +72,6 @@ public final class CmiDatabaseManager extends AbstractDatabaseManager {
      */
     @SneakyThrows
     public List<CmiUserData> getCmiUserDataList() {
-            return cmiUserDataDao.queryForAll();
+        return cmiUserDataDao.queryForAll();
     }
 }
