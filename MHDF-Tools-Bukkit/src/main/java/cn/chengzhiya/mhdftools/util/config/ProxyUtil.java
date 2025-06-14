@@ -19,7 +19,7 @@ public final class ProxyUtil {
      * @return 代理文件文件名称
      */
     public static String getProxyFileName() {
-        return "sound_zh.yml";
+        return "proxy_zh.yml";
     }
 
     /**
