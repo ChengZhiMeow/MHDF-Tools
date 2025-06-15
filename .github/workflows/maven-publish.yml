@@ -23,7 +23,7 @@ jobs:
       - name: Build projects
         run: mvn package
       - name: Copy built jar
-        run: mkdir build_out && cp MHDF-Tools-Bukkit/build/libs/*.jar ./build_out && cp MHDF-Tools-Bungee/build/libs/*.jar ./build_out && cp MHDF-Tools-Velocity/build/libs/*.jar ./build_out
+        run: mkdir build_out && cp MHDF-Tools-Bukkit/target/*.jar ./build_out && cp MHDF-Tools-Bungee/target/*.jar ./build_out && cp MHDF-Tools-Velocity/target/*.jar ./build_out
       - name: Upload Artifact
         uses: "actions/upload-artifact@v4"
         with:
