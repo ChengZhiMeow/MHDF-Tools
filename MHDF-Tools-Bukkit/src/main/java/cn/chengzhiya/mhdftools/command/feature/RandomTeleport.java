@@ -131,19 +131,15 @@ public final class RandomTeleport extends AbstractCommand {
             return;
         }
 
-        Player finalPlayer = player;
-        Biome finalBiome = biome;
-        World world = Bukkit.getWorld(worldName);
-        if (world != null) {
-            MHDFScheduler.getRegionScheduler().runTask(Main.instance, player.getLocation(), () -> {
-                RandomTeleportUtil.handleRandomTeleport(
-                        sender,
-                        finalPlayer,
-                        world,
-                        finalBiome
-                );
-            });
-        }
+        final World world = Bukkit.getWorld(worldName);
+        if (world == null) return;
+
+        final Player finalPlayer = player;
+        final Biome finalBiome = biome;
+
+        MHDFScheduler.getRegionScheduler().runTask(Main.instance, player.getLocation(), () ->
+                RandomTeleportUtil.handleRandomTeleport(sender, finalPlayer, world, finalBiome)
+        );
     }
 
     @Override
