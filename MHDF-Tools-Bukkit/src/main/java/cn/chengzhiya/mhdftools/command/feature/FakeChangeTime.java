@@ -10,6 +10,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class FakeChangeTime extends AbstractCommand {
     public FakeChangeTime() {
         super(
@@ -54,6 +57,12 @@ public final class FakeChangeTime extends AbstractCommand {
             return;
         }
 
+        if (args[0].equals("reset")) {
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.fakechangetime.reset"));
+            player.resetPlayerTime();
+            return;
+        }
+
         long time;
         try {
             time = Long.parseLong(args[0]);
@@ -67,5 +76,13 @@ public final class FakeChangeTime extends AbstractCommand {
             FakeChangeTimeUtil.sendFakeChangeTimeMessage(sender, player, time);
         }
         FakeChangeTimeUtil.sendFakeChangeTimeMessage(player, player, time);
+    }
+
+    @Override
+    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 1) {
+            return List.of("reset");
+        }
+        return new ArrayList<>();
     }
 }
