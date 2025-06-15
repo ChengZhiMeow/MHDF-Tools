@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.listener.PluginMessage;
+import cn.chengzhiya.mhdftools.listener.misc.PluginMessage;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;

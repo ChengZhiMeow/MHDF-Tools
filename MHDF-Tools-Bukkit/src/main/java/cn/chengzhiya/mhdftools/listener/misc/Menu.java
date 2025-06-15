@@ -1,5 +1,6 @@
-package cn.chengzhiya.mhdftools.listener;
+package cn.chengzhiya.mhdftools.listener.misc;
 
+import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;

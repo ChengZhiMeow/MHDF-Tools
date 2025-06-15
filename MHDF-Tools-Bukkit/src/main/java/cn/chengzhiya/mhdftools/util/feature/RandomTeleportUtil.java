@@ -1,7 +1,10 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdftools.enums.RandomTeleportStatus;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.math.RandomUtil;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import org.bukkit.Location;
@@ -9,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BiomeSearchResult;
@@ -40,11 +44,15 @@ public final class RandomTeleportUtil {
      * @param player 玩家实例
      * @param world  世界实例
      * @param biome  群系实例
+     * @param times  剩余尝试次数
      */
-    public static void randomTeleport(Player player, World world, Biome biome) {
+    public static RandomTeleportStatus randomTeleport(Player player, World world, Biome biome, int times) {
+        if (times <= 0) {
+            return RandomTeleportStatus.OUT_TRY_TIMES;
+        }
         ConfigurationSection group = getGroupConfigurationSection(player);
         if (group == null) {
-            return;
+            return RandomTeleportStatus.NO_GROUP_CONFIG;
         }
 
         int min = group.getInt("min");
@@ -59,7 +67,7 @@ public final class RandomTeleportUtil {
         if (biome != null) {
             BiomeSearchResult result = world.locateNearestBiome(new Location(world, centerX, 60, centerZ), max, 64, 64, biome);
             if (result == null) {
-                return;
+                return RandomTeleportStatus.NO_BIOME;
             }
             centerLocation = result.getLocation();
         }
@@ -72,16 +80,27 @@ public final class RandomTeleportUtil {
             if (block.getType() == Material.AIR || block.getType() == Material.CAVE_AIR || block.getType() == Material.VOID_AIR) {
                 continue;
             }
-            if (blackBlock.contains(block.getType().toString())) {
+            if (blackBlock.contains(block.getType().name())) {
                 continue;
             }
             location.setY(location.getY() + 1);
 
             TeleportUtil.teleport(player, location, new ConcurrentHashMap<>());
-            return;
+            return RandomTeleportStatus.SUCCESS;
         }
 
-        randomTeleport(player, world, biome);
+        return randomTeleport(player, world, biome, times - 1);
+    }
+
+    /**
+     * 将指定玩家在指定世界实例随机传送
+     *
+     * @param player 玩家实例
+     * @param world  世界实例
+     * @param times  剩余尝试次数
+     */
+    public static RandomTeleportStatus randomTeleport(Player player, World world, int times) {
+        return randomTeleport(player, world, null, times);
     }
 
     /**
@@ -90,8 +109,8 @@ public final class RandomTeleportUtil {
      * @param player 玩家实例
      * @param world  世界实例
      */
-    public static void randomTeleport(Player player, World world) {
-        randomTeleport(player, world, null);
+    public static RandomTeleportStatus randomTeleport(Player player, World world) {
+        return randomTeleport(player, world, ConfigUtil.getConfig().getInt("randomTeleportSettings.maxTryTime"));
     }
 
     /**
@@ -99,7 +118,34 @@ public final class RandomTeleportUtil {
      *
      * @param player 玩家实例
      */
-    public static void randomTeleport(Player player) {
-        randomTeleport(player, player.getWorld());
+    public static RandomTeleportStatus randomTeleport(Player player) {
+        return randomTeleport(player, player.getWorld());
+    }
+
+
+    /**
+     * 处理随机传送命令
+     *
+     * @param sender 命令执行者实例
+     * @param player 玩家实例
+     * @param world  世界实例
+     * @param biome  群系实例
+     */
+    public static void handleRandomTeleport(CommandSender sender, Player player, World world, Biome biome) {
+        long startTime = System.currentTimeMillis();
+        int maxTryTime = ConfigUtil.getConfig().getInt("randomTeleportSettings.maxTryTime");
+        RandomTeleportStatus status = RandomTeleportUtil.randomTeleport(player, world, biome, maxTryTime);
+        long endTime = System.currentTimeMillis();
+
+        long duration = endTime - startTime;
+        switch (status) {
+            case SUCCESS -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.message")
+                    .replace("{duration}", String.valueOf(duration))
+            );
+            case NO_BIOME -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.noBiome"));
+            case OUT_TRY_TIMES -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.outTryTime")
+                    .replace("{amount}", String.valueOf(maxTryTime))
+            );
+        }
     }
 }

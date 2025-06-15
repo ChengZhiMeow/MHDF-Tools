@@ -1,26 +1,27 @@
-package cn.chengzhiya.mhdftools.util.action;
+package cn.chengzhiya.mhdftools.util.world;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Sound;
+import org.bukkit.block.Biome;
 
 import java.util.Locale;
 
-public final class SoundUtil {
+public final class BiomeUtil {
     /**
-     * 获取指定音效key的音效实例
+     * 获取指定群系key的群系实例
      *
-     * @param key 音效key
-     * @return 音效实例
+     * @param key 群系key
+     * @return 群系实例
      */
-    public static Sound getSound(String key) {
+    public static Biome getBiome(String key) {
         if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                 .isNewerThanOrEquals(ServerVersion.V_1_21)
         ) {
-            return Registry.SOUNDS
+            return RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME)
                     .get(NamespacedKey.minecraft(key
                             .replace("_", ".")
                             .toLowerCase(Locale.ROOT)
@@ -28,8 +29,8 @@ public final class SoundUtil {
         }
 
         return ReflectionUtil.invokeMethod(
-                ReflectionUtil.getMethod(Sound.class, "valueOf", true, String.class),
-                Sound.class,
+                ReflectionUtil.getMethod(Biome.class, "valueOf", true, String.class),
+                Biome.class,
                 key
         );
     }

@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.listener;
+package cn.chengzhiya.mhdftools.listener.misc;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;

@@ -18,6 +18,10 @@ public final class TeleportUtil {
      * @param map      用于记录玩家传送尝试次数的映射表。
      */
     public static void teleport(Player player, Location location, ConcurrentHashMap<String, Integer> map) {
+        if (location.getChunk().isLoaded()) {
+            location.getChunk().load(true);
+        }
+
         player.teleportAsync(location).thenAccept(success -> {
             location.setPitch(Math.max(-90f, Math.min(90f, location.getPitch())));
 

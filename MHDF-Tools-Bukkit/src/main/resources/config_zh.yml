@@ -96,6 +96,8 @@ randomTeleportSettings:
   blackBlock:
     - "WATER"
     - "LAVA"
+  # 最大重试次数
+  maxTryTime: 10
   # 默认
   default:
     # 权重

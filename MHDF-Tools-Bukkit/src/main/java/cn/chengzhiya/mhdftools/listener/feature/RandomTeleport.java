@@ -5,8 +5,10 @@ import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
+import cn.chengzhiya.mhdftools.util.world.BiomeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -26,6 +28,7 @@ public final class RandomTeleport extends AbstractListener {
         if (rtpWorld == null) {
             return;
         }
+        String rtpBiome = Main.instance.getCacheManager().get("randomTeleportBiome", player.getName());
 
         Main.instance.getCacheManager().remove("randomTeleportWorld", player.getName());
 
@@ -34,6 +37,16 @@ public final class RandomTeleport extends AbstractListener {
             ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
         }
 
-        RandomTeleportUtil.randomTeleport(player, world);
+        Biome biome = null;
+        if (rtpBiome != null) {
+            biome = BiomeUtil.getBiome(rtpBiome);
+        }
+
+        RandomTeleportUtil.handleRandomTeleport(
+                player,
+                player,
+                world,
+                biome
+        );
     }
 }
