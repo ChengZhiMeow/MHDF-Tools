@@ -46,6 +46,6 @@ public final class CraftEngineImpl {
             return null;
         }
 
-        return key.namespace();
+        return key.namespace() + ":" + key.value();
     }
 }
