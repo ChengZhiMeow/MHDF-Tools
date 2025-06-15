@@ -21,7 +21,7 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
       - name: Build projects
-        run: maven package
+        run: mvn package
       - name: Copy built jar
         run: mkdir build_out && cp MHDF-Tools-Bukkit/build/libs/*.jar ./build_out && cp MHDF-Tools-Bungee/build/libs/*.jar ./build_out && cp MHDF-Tools-Velocity/build/libs/*.jar ./build_out
       - name: Upload Artifact
