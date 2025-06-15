@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -130,11 +131,14 @@ public final class RandomTeleport extends AbstractCommand {
             return;
         }
 
-        RandomTeleportUtil.handleRandomTeleport(
-                sender,
-                player,
-                Bukkit.getWorld(worldName),
-                biome
+        final World world = Bukkit.getWorld(worldName);
+        if (world == null) return;
+
+        final Player finalPlayer = player;
+        final Biome finalBiome = biome;
+
+        MHDFScheduler.getRegionScheduler().runTask(Main.instance, player.getLocation(), () ->
+                RandomTeleportUtil.handleRandomTeleport(sender, finalPlayer, world, finalBiome)
         );
     }
 
