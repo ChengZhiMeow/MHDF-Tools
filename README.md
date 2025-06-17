@@ -1,14 +1,10 @@
 <p align="center">
-   <img src="./Logo.png" width="200px" height="200px" alt="MHDF-Tools">
+   <img src="./Head.png" alt="MHDF-Tools">
 </p>
 
 <div align="center">
 
-# MHDF-Tools | 梦之工具
-
-_你的下一个基础插件，为何不能是梦之工具_
-
-_✨轻量 便携 快捷 即装即用 可无前置运行✨_
+_✨你的下一个基础插件，为何不能是梦之工具✨_
 
 </div>
 

@@ -41,6 +41,11 @@ public final class CraftEngineImpl {
      * @return 物品ID
      */
     public String getItemId(ItemStack itemStack) {
-        return getApi().itemManager().customItemId(itemStack).namespace();
+        Key key = getApi().itemManager().customItemId(itemStack);
+        if (key == null) {
+            return null;
+        }
+
+        return key.namespace() + ":" + key.value();
     }
 }
