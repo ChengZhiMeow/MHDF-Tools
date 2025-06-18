@@ -77,7 +77,7 @@ public final class GameMode extends AbstractCommand {
             return ConfigUtil.getConfig().getStringList("gamemodeSettings.tabCompleter");
         }
         if (args.length == 2) {
-            return Main.instance.getBungeeCordManager().getBungeeCordPlayerList();
+            return Main.instance.getBungeeCordManager().getPlayerList();
         }
         return new ArrayList<>();
     }
