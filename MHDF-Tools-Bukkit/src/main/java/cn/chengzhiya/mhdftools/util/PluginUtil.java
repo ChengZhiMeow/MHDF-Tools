@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.util;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 
 public final class PluginUtil {
     /**
@@ -19,5 +20,16 @@ public final class PluginUtil {
      */
     public static String getName() {
         return Main.instance.getDescription().getName();
+    }
+
+    /**
+     * 更新检测
+     */
+    public static void checkUpdate() {
+        if (!ConfigUtil.getConfig().getBoolean("updateCheck")) {
+            return;
+        }
+
+        // 等待 MHDF-HttpClient 库
     }
 }

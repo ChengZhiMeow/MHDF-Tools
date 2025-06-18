@@ -33,6 +33,9 @@ debug: false
 # bStats https://bstats.org/plugin/bukkit/MHDF-Tools/24887
 bStats: true
 
+# 更新检测
+updateCheck: false
+
 # 群组
 # 群组模式下必须使用redis缓存
 bungeeCordSettings:
