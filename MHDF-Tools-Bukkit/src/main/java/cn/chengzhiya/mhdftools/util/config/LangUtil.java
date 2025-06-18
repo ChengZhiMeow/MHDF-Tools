@@ -51,8 +51,7 @@ public final class LangUtil {
         if (data == null) {
             reloadLang();
         }
-        String value = data.getString(key);
-        return value != null ? value : "";
+        return data.getString(key, "");
     }
 
     /**

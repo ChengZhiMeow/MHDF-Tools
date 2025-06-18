@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
@@ -59,7 +60,7 @@ public final class TimeAction extends AbstractTask {
 
             switch (type) {
                 case "定时操作" -> {
-                    int delay = delayHashMap.get(key) != null ? delayHashMap.get(key) : 0;
+                    int delay = delayHashMap.getOrDefault(key, 0 );
 
                     if (delay >= getDelayTime(time)) {
                         ActionUtil.runActionList(Bukkit.getConsoleSender(), action.getStringList("action"));

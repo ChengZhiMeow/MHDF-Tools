@@ -54,7 +54,7 @@ public final class ItemStackBuilder {
             }
         }
 
-        this.item = Objects.requireNonNullElseGet(item, () -> new ItemStack(Material.AIR));
+        this.item = Objects.requireNonNullElse(item, new ItemStack(Material.AIR));
     }
 
     public ItemStackBuilder(Player player, ItemStack item) {

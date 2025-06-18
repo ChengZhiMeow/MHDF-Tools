@@ -41,7 +41,6 @@ public final class SoundUtil {
         if (data == null) {
             reloadSound();
         }
-        String value = data.getString(key);
-        return value != null ? value : "";
+        return data.getString(key, "");
     }
 }

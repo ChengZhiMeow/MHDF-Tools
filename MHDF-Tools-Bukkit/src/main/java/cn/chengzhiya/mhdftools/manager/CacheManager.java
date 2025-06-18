@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -112,7 +113,7 @@ public final class CacheManager {
     public void put(String table, String key, String value) {
         String prefix = getPrefix() + table;
         if (this.map != null) {
-            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
+            ConcurrentHashMap<String, String> map = Objects.requireNonNullElse(this.map.get(prefix), new ConcurrentHashMap<>());
             map.put(key, value);
 
             this.map.put(prefix, map);
@@ -132,7 +133,7 @@ public final class CacheManager {
     public void remove(String table, String key) {
         String prefix = getPrefix() + table;
         if (this.map != null) {
-            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
+            ConcurrentHashMap<String, String> map = Objects.requireNonNullElse(this.map.get(prefix), new ConcurrentHashMap<>());
             map.remove(key);
 
             this.map.put(prefix, map);
@@ -154,7 +155,7 @@ public final class CacheManager {
     public String get(String table, String key) {
         String prefix = getPrefix() + table;
         if (this.map != null) {
-            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
+            ConcurrentHashMap<String, String> map = Objects.requireNonNullElse(this.map.get(prefix), new ConcurrentHashMap<>());
 
             return map.get(key);
         }
@@ -175,7 +176,7 @@ public final class CacheManager {
     public Set<String> keys(String table) {
         String prefix = getPrefix() + table;
         if (this.map != null) {
-            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
+            ConcurrentHashMap<String, String> map = Objects.requireNonNullElse(this.map.get(prefix), new ConcurrentHashMap<>());
 
             return map.keySet();
         }
