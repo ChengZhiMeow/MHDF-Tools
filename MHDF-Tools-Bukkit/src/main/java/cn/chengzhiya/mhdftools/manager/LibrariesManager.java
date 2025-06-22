@@ -165,6 +165,8 @@ public final class LibrariesManager {
                     MHDFLibrary.mavenCenterMirror,
                     new RelocateConfig(true)
             ));
+
+            // 数学表达式
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("net{}objecthunter"),
                     "exp4j",
