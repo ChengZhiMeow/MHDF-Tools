@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
-import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.util.message.MessageUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -19,7 +18,7 @@ public final class CustomMenuConfigUtil {
     /**
      * 保存初始自定义菜单
      */
-    public static void saveDefaultCustomMenu() throws ResourceException, FileException {
+    public static void saveDefaultCustomMenu() throws FileException {
         if (!ConfigUtil.getConfig().getBoolean("customMenuSettings.enable")) {
             return;
         }
