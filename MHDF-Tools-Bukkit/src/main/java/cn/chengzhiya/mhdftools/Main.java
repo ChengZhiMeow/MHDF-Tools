@@ -48,9 +48,6 @@ public final class Main extends JavaPlugin {
         ProxyConfigManager proxyConfigManager = new ProxyConfigManager();
         proxyConfigManager.init();
 
-        LogFilterManager logFilterManager = new LogFilterManager();
-        logFilterManager.init();
-
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
 
@@ -59,6 +56,9 @@ public final class Main extends JavaPlugin {
 
         this.minecraftLangManager = new MinecraftLangManager();
         this.minecraftLangManager.init();
+
+        LogFilterManager logFilterManager = new LogFilterManager();
+        logFilterManager.init();
     }
 
     @Override
