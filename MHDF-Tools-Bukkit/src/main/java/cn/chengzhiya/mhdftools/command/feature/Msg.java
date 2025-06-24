@@ -5,9 +5,12 @@ import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import cn.chengzhiya.mhdftools.util.feature.MsgUtil;
 import cn.chengzhiya.mhdftools.util.message.MessageUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -38,6 +41,17 @@ public final class Msg extends AbstractCommand {
         if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
             return;
+        }
+
+        final Player player = Bukkit.getPlayer(args[0]);
+
+        if (player == null) {
+            ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
+            return;
+        }
+
+        if (VanishStatusUtil.getVanishStatus(player).isEnable()) {
+            ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
         }
 
         String message = MessageUtil.mergeString(args, 1);
