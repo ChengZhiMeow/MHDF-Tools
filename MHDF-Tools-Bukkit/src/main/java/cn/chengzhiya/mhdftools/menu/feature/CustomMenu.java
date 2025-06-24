@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -30,7 +31,7 @@ public final class CustomMenu extends AbstractMenu {
 
     public CustomMenu(Player player, String menu) {
         super(
-                "customMenuSettings.enable",
+                List.of("customMenuSettings.enable"),
                 player
         );
         this.menu = menu;

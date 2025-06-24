@@ -17,7 +17,7 @@ import java.util.List;
 public final class Invsee extends AbstractCommand {
     public Invsee() {
         super(
-                "invseeSettings.enable",
+                List.of("invseeSettings.enable"),
                 "查看背包",
                 "mhdftools.commands.invsee",
                 true,

@@ -12,12 +12,14 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class BarrelMenu extends AbstractMenu {
     private final Barrel barrel;
 
     public BarrelMenu(Player player, Barrel barrel) {
         super(
-                "vanishSettings.enable",
+                List.of("vanishSettings.enable"),
                 player
         );
         this.barrel = barrel;

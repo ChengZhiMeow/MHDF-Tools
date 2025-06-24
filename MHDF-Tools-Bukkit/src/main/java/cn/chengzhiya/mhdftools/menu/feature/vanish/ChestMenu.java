@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 
 public final class ChestMenu extends AbstractMenu {
@@ -19,7 +20,7 @@ public final class ChestMenu extends AbstractMenu {
 
     public ChestMenu(Player player, Chest chest) {
         super(
-                "vanishSettings.enable",
+                List.of("vanishSettings.enable"),
                 player
         );
         this.chest = chest;

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public final class List extends AbstractCommand {
     public List() {
         super(
-                "listSettings.enable",
+                java.util.List.of("listSettings.enable"),
                 "查看在线列表",
                 "mhdftools.commands.list",
                 false,

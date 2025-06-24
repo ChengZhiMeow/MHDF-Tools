@@ -20,7 +20,7 @@ import java.util.List;
 public final class Tpa extends AbstractCommand {
     public Tpa() {
         super(
-                "tpaSettings.enable",
+                List.of("tpaSettings.enable"),
                 "请求传送到指定玩家位置",
                 "mhdftools.commands.tpa",
                 true,

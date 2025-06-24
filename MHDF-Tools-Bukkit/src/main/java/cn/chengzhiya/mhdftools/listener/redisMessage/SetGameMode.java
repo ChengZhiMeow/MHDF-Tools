@@ -7,10 +7,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public final class SetGameMode extends AbstractRedisMessageListener {
     public SetGameMode() {
         super(
-                "gamemodeSettings.enable",
+                List.of("gamemodeSettings.enable"),
                 "setGameMode"
         );
     }

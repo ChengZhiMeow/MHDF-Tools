@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.HomeData;
+import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -15,7 +15,7 @@ import java.util.List;
 public final class DelHome extends AbstractCommand {
     public DelHome() {
         super(
-                "homeSettings.enable",
+                List.of("homeSettings.enable"),
                 "删除家",
                 "mhdftools.commands.delhome",
                 true,

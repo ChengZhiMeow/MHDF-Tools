@@ -6,10 +6,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.List;
+
 public final class Economy extends AbstractListener {
     public Economy() {
         super(
-                "economySettings.enable"
+                List.of("economySettings.enable")
         );
     }
 

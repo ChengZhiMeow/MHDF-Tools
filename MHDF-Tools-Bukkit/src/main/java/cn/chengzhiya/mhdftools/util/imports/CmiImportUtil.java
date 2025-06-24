@@ -2,12 +2,12 @@ package cn.chengzhiya.mhdftools.util.imports;
 
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.entity.database.EconomyData;
-import cn.chengzhiya.mhdftools.entity.database.HomeData;
-import cn.chengzhiya.mhdftools.entity.database.WarpData;
-import cn.chengzhiya.mhdftools.entity.database.cmi.CmiUserData;
-import cn.chengzhiya.mhdftools.manager.database.CmiDatabaseManager;
+import cn.chengzhiya.mhdftools.entity.database.data.EconomyData;
+import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
+import cn.chengzhiya.mhdftools.entity.database.data.WarpData;
+import cn.chengzhiya.mhdftools.entity.database.data.cmi.CmiUserData;
+import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.manager.database.impl.CmiDatabaseManager;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;

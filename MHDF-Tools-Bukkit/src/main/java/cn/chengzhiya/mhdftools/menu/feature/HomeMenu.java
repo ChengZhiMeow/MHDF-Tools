@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.HomeData;
+import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -31,7 +31,7 @@ public final class HomeMenu extends AbstractMenu {
 
     public HomeMenu(Player player, int page) {
         super(
-                "homeSettings.enable",
+                List.of("homeSettings.enable"),
                 player
         );
         this.config = MenuConfigUtil.getMenuConfig("home");

@@ -8,10 +8,12 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSelectBundleItem;
 
+import java.util.List;
+
 public final class BundleFix extends AbstractPacketListener {
     public BundleFix() {
         super(
-                "bundleFixSettings.enable",
+                List.of("bundleFixSettings.enable"),
                 PacketListenerPriority.LOW
         );
     }

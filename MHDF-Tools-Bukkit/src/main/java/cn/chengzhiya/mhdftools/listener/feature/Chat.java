@@ -18,13 +18,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 public final class Chat extends AbstractListener {
     public Chat() {
         super(
-                "chatSettings.enable"
+                List.of("chatSettings.enable")
         );
     }
 

@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.util.database;
 
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.NickData;
+import cn.chengzhiya.mhdftools.entity.database.data.NickData;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import lombok.SneakyThrows;

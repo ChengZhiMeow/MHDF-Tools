@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class TridentDupeFix extends AbstractListener {
@@ -24,7 +25,7 @@ public final class TridentDupeFix extends AbstractListener {
 
     public TridentDupeFix() {
         super(
-                "tridentDupeFixSettings.enable"
+                List.of("tridentDupeFixSettings.enable")
         );
     }
 

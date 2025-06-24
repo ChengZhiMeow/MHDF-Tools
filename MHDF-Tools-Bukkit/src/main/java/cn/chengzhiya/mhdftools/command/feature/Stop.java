@@ -28,7 +28,7 @@ public final class Stop extends AbstractCommand {
 
     public Stop() {
         super(
-                "stopSettings.enable",
+                List.of("stopSettings.enable"),
                 "更好的关服",
                 "mhdftools.commands.stop",
                 false,

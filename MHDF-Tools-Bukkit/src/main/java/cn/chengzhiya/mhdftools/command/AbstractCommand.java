@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.interfaces.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -23,37 +24,16 @@ public abstract class AbstractCommand implements TabExecutor, Command {
     private final boolean onlyPlayer;
     private final String[] commands;
 
-    public AbstractCommand(@NotNull String description, String permission, boolean onlyPlayer, String... commands) {
-        this.enable = true;
-        this.description = description;
-        this.permission = permission;
-        this.onlyPlayer = onlyPlayer;
-        this.commands = commands;
-    }
-
-    public AbstractCommand(@NotNull String enableKey, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
-        this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        this.description = description;
-        this.permission = permission;
-        this.onlyPlayer = onlyPlayer;
-        this.commands = commands;
-    }
-
     public AbstractCommand(List<String> enableKeyList, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
-        boolean enable = true;
-        for (String enableKey : enableKeyList) {
-            if (enableKey == null || enableKey.isEmpty()) {
-                continue;
-            }
-
-            enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        }
-
-        this.enable = enable;
+        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
         this.description = description;
         this.permission = permission;
         this.onlyPlayer = onlyPlayer;
         this.commands = commands;
+    }
+
+    public AbstractCommand(@NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+        this(new ArrayList<>(), description, permission, onlyPlayer, commands);
     }
 
     @Override

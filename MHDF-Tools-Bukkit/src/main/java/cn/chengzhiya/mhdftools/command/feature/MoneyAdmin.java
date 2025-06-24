@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.EconomyData;
+import cn.chengzhiya.mhdftools.entity.database.data.EconomyData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -20,7 +20,7 @@ import java.util.List;
 public final class MoneyAdmin extends AbstractCommand {
     public MoneyAdmin() {
         super(
-                "economySettings.enable",
+                List.of("economySettings.enable"),
                 "经济管理",
                 "mhdftools.commands.moneyadmin",
                 false,

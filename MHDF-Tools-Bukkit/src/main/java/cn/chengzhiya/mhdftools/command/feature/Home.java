@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.HomeData;
+import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.feature.HomeMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -17,7 +17,7 @@ import java.util.List;
 public final class Home extends AbstractCommand {
     public Home() {
         super(
-                "homeSettings.enable",
+                List.of("homeSettings.enable"),
                 "传送到指定家",
                 "mhdftools.commands.home",
                 true,

@@ -5,11 +5,13 @@ import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public final class Economy extends AbstractPlaceholder {
     public Economy() {
         super(
-                "economySettings.enable"
+                List.of("economySettings.enable")
         );
     }
 

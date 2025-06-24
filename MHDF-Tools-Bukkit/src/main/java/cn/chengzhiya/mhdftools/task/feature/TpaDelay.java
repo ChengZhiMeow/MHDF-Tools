@@ -5,11 +5,13 @@ import cn.chengzhiya.mhdftools.task.AbstractTask;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public final class TpaDelay extends AbstractTask {
     public TpaDelay() {
         super(
-                "tpaSettings.enable",
+                List.of("tpaSettings.enable"),
                 20L
         );
     }

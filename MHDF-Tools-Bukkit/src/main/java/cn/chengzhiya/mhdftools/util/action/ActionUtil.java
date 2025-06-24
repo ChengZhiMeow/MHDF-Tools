@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.util.action;
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
+import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.kyori.adventure.bossbar.BossBar;
@@ -28,7 +29,7 @@ public final class ActionUtil {
             return;
         }
 
-        if (Main.instance.isNativeSupportAdventureApi()) {
+        if (PluginUtil.isNativeSupportAdventureApi()) {
             sender.sendMessage(message);
         } else {
             Main.instance.getAdventureManager().getAdventure()
@@ -52,7 +53,7 @@ public final class ActionUtil {
      * @param message 文本实例
      */
     public static void broadcastMessage(TextComponent message) {
-        if (Main.instance.isNativeSupportAdventureApi()) {
+        if (PluginUtil.isNativeSupportAdventureApi()) {
             Bukkit.broadcast(message);
         } else {
             ActionUtil.sendMessage(Bukkit.getConsoleSender(), message);
@@ -111,7 +112,7 @@ public final class ActionUtil {
      */
     public static void sendTitle(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            if (Main.instance.isNativeSupportAdventureApi()) {
+            if (PluginUtil.isNativeSupportAdventureApi()) {
                 player.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
                 player.sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
                 player.sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
@@ -155,7 +156,7 @@ public final class ActionUtil {
      */
     public static void sendActionBar(Player player, TextComponent message) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            if (Main.instance.isNativeSupportAdventureApi()) {
+            if (PluginUtil.isNativeSupportAdventureApi()) {
                 player.sendActionBar(message);
             } else {
                 Main.instance.getAdventureManager().getAdventure()
@@ -182,7 +183,7 @@ public final class ActionUtil {
      */
     public static void sendBossbar(Player player, BossBar bossBar) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            if (Main.instance.isNativeSupportAdventureApi()) {
+            if (PluginUtil.isNativeSupportAdventureApi()) {
                 player.showBossBar(bossBar);
             } else {
                 Main.instance.getAdventureManager().getAdventure()
@@ -199,7 +200,7 @@ public final class ActionUtil {
      */
     public static void hideBossbar(Player player, BossBar bossBar) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            if (Main.instance.isNativeSupportAdventureApi()) {
+            if (PluginUtil.isNativeSupportAdventureApi()) {
                 player.hideBossBar(bossBar);
             } else {
                 Main.instance.getAdventureManager().getAdventure()

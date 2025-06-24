@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
@@ -19,7 +20,7 @@ public final class FastChangeTime extends AbstractCommand {
 
     public FastChangeTime() {
         super(
-                "fastChangeTimeSettings.enable",
+                List.of("fastChangeTimeSettings.enable"),
                 "快速调节时间",
                 "mhdftools.commands.fastchangetime",
                 false,

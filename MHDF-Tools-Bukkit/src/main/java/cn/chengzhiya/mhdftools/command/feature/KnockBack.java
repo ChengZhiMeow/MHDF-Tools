@@ -17,7 +17,7 @@ import java.util.List;
 public final class KnockBack extends AbstractCommand {
     public KnockBack() {
         super(
-                "knockBackSettings.enable",
+                List.of("knockBackSettings.enable"),
                 "崩溃玩家客户端",
                 "mhdftools.commands.knockback",
                 false,

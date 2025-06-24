@@ -6,6 +6,7 @@ import cn.chengzhiya.mhdflibrary.entity.RelocateConfig;
 import cn.chengzhiya.mhdflibrary.entity.RepositoryConfig;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
 
@@ -210,7 +211,7 @@ public final class LibrariesManager {
                     "adventure-api",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -218,7 +219,7 @@ public final class LibrariesManager {
                     "adventure-key",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -226,7 +227,7 @@ public final class LibrariesManager {
                     "adventure-nbt",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -234,7 +235,7 @@ public final class LibrariesManager {
                     "adventure-platform-viaversion",
                     "4.4.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -242,7 +243,7 @@ public final class LibrariesManager {
                     "adventure-text-logger-slf4j",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -250,7 +251,7 @@ public final class LibrariesManager {
                     "adventure-text-minimessage",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -258,7 +259,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-ansi",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -266,7 +267,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-bungeecord",
                     "4.4.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -274,7 +275,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-gson",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -282,7 +283,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-gson-legacy-impl",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -290,7 +291,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-json",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -298,7 +299,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-json-legacy-impl",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -306,7 +307,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-legacy",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -314,7 +315,7 @@ public final class LibrariesManager {
                     "adventure-text-serializer-plain",
                     "4.21.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -322,7 +323,7 @@ public final class LibrariesManager {
                     "ansi",
                     "1.0.3",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -330,7 +331,7 @@ public final class LibrariesManager {
                     "examination-api",
                     "1.3.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -338,7 +339,7 @@ public final class LibrariesManager {
                     "examination-string",
                     "1.3.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
@@ -346,7 +347,7 @@ public final class LibrariesManager {
                     "option",
                     "1.1.0",
                     MHDFLibrary.mavenCenterMirror,
-                    !Main.instance.isNativeSupportAdventureApi(),
+                    !PluginUtil.isNativeSupportAdventureApi(),
                     new RelocateConfig(false)
             ));
         }

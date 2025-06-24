@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.EconomyData;
+import cn.chengzhiya.mhdftools.entity.database.data.EconomyData;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
 import org.bukkit.OfflinePlayer;

@@ -6,10 +6,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.List;
+
 public final class Tpa extends AbstractListener {
     public Tpa() {
         super(
-                "tpaSettings.enable"
+                List.of("tpaSettings.enable")
         );
     }
 

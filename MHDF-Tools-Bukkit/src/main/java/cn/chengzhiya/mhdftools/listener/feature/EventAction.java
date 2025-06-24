@@ -8,10 +8,12 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 
+import java.util.List;
+
 public final class EventAction extends AbstractListener {
     public EventAction() {
         super(
-                "eventActionSettings.enable"
+                List.of("eventActionSettings.enable")
         );
     }
 

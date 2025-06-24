@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.interfaces.Menu;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -12,6 +13,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,35 +21,20 @@ public abstract class AbstractMenu implements InventoryHolder, Menu {
     private final boolean enable;
     private final Player player;
 
-    public AbstractMenu(Player player) {
-        this.enable = true;
-        this.player = player;
-    }
-
-    public AbstractMenu(String enableKey, Player player) {
-        if (enableKey == null || enableKey.isEmpty()) {
-            this.enable = true;
-        } else {
-            this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        }
-
-        this.player = player;
-    }
-
     public AbstractMenu(List<String> enableKeyList, Player player) {
-        boolean enable = true;
-        for (String enableKey : enableKeyList) {
-            if (enableKey == null || enableKey.isEmpty()) {
-                continue;
-            }
-
-            enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        }
-
-        this.enable = enable;
+        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
         this.player = player;
     }
 
+    public AbstractMenu(Player player) {
+        this(new ArrayList<>(), player);
+    }
+
+    /**
+     * 触发打开菜单事件的时候
+     *
+     * @param event 触发打开菜单事件
+     */
     public void onOpen(InventoryOpenEvent event) {
         if (!isEnable()) {
             return;
@@ -56,6 +43,11 @@ public abstract class AbstractMenu implements InventoryHolder, Menu {
         open(event);
     }
 
+    /**
+     * 触发点击菜单事件的时候
+     *
+     * @param event 触发点击菜单事件
+     */
     public void onClick(InventoryClickEvent event) {
         if (!isEnable()) {
             return;
@@ -64,6 +56,11 @@ public abstract class AbstractMenu implements InventoryHolder, Menu {
         click(event);
     }
 
+    /**
+     * 触发关闭菜单事件的时候
+     *
+     * @param event 触发关闭菜单事件
+     */
     public void onClose(InventoryCloseEvent event) {
         if (!isEnable()) {
             return;
@@ -72,6 +69,9 @@ public abstract class AbstractMenu implements InventoryHolder, Menu {
         close(event);
     }
 
+    /**
+     * 打开菜单
+     */
     public void openMenu() {
         if (!isEnable()) {
             return;

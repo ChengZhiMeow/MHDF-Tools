@@ -56,7 +56,7 @@ public final class FileUtil {
      * @param replace      替换文件
      */
     @SneakyThrows
-    public static void saveResource(@NotNull String filePath, @NotNull String resourcePath, boolean replace) throws ResourceException {
+    public static void saveResource(@NotNull String filePath, @NotNull String resourcePath, boolean replace) {
         File file = new File(ConfigUtil.getDataFolder(), filePath);
         if (file.exists() && !replace) {
             return;
