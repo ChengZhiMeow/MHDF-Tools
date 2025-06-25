@@ -2,21 +2,36 @@ package cn.chengzhiya.mhdftools.util.reflection;
 
 import lombok.SneakyThrows;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public final class ReflectionUtil {
     /**
-     * 新建指定类实例的类对象
+     *  获取指定类的构造器实例
      *
      * @param clazz 类实例
+     * @param argsTypes 传参类型
+     * @return 构造器实例
+     */
+    @SneakyThrows
+    public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... argsTypes) {
+        return clazz.getConstructor(argsTypes);
+    }
+
+    /**
+     * 初始化指定构造器实例
+     *
+     * @param constructor 构造器实例
      * @param args  传入参数
      * @return 类对象
      */
     @SneakyThrows
-    public static <T> T newClass(Class<?> clazz, Object... args) {
-        return (T) clazz.getConstructor().newInstance(args);
+    public static <T> T newInstance(Constructor<?> constructor, Object... args) {
+        return (T) constructor.newInstance(args);
     }
+
+
 
     /**
      * 通过反射指定类实例获取指定方法的方法实例
