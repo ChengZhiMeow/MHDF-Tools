@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.menu.feature.LookItemMenu;
+import cn.chengzhiya.mhdftools.menu.feature.chat.LookItemMenu;
 import cn.chengzhiya.mhdftools.util.Base64Util;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;

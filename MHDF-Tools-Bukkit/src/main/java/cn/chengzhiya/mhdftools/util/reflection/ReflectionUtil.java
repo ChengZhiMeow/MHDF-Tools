@@ -8,9 +8,9 @@ import java.lang.reflect.Method;
 
 public final class ReflectionUtil {
     /**
-     *  获取指定类的构造器实例
+     * 获取指定类的构造器实例
      *
-     * @param clazz 类实例
+     * @param clazz     类实例
      * @param argsTypes 传参类型
      * @return 构造器实例
      */
@@ -23,14 +23,13 @@ public final class ReflectionUtil {
      * 初始化指定构造器实例
      *
      * @param constructor 构造器实例
-     * @param args  传入参数
+     * @param args        传入参数
      * @return 类对象
      */
     @SneakyThrows
     public static <T> T newInstance(Constructor<?> constructor, Object... args) {
         return (T) constructor.newInstance(args);
     }
-
 
 
     /**

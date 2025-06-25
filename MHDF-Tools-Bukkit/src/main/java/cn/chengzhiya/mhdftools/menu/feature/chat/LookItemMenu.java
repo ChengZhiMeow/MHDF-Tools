@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.menu.feature;
+package cn.chengzhiya.mhdftools.menu.feature.chat;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
@@ -53,6 +53,7 @@ public final class LookItemMenu extends AbstractMenu {
 
             if (key.equals("物品")) {
                 ItemStack itemStack = new ItemStackBuilder(getPlayer(), ItemStack.deserializeBytes(getData()))
+                        .persistentDataContainer("key", PersistentDataType.STRING, key)
                         .build();
 
                 MenuUtil.setMenuItem(menu, item, itemStack);

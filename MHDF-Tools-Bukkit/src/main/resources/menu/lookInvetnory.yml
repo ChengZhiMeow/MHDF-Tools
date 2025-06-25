@@ -19,9 +19,9 @@
 #########################################操作列表#########################################
 
 # 标题
-title: "&b呜呜呜,你不要过来,我错惹,别蕨我"
+title: "&b展示背包"
 # 大小
-size: 54
+size: 36
 # 命令
 commands: [ ]
 # 打开菜单时执行的操作
@@ -30,47 +30,7 @@ openActions: [ ]
 closeActions: [ ]
 # 物品
 items:
-  # 家按钮
-  家:
-    # 类型
-    # craftEngine-<CE物品ID>    ——使用CE的物品
-    # mythicMobs-<MM物品ID>     ——使用MM的物品
-    # head-<玩家ID>             ——指定玩家的头颅
-    # random_bed               ——随机颜色的床
-    type: random_bed
-    # 名称
-    name: "&e{name}"
-    # 简介
-    lore:
-      - "&b服务器: {server}"
-      - "&b世界: {world}"
-      - "&bX: {x}"
-      - "&bY: {y}"
-      - "&bZ: {z}"
-      - "&bYaw: {yaw}"
-      - "&bPitch: {pitch}"
-      - ""
-      - "&a点击传送"
+  # 物品按钮
+  物品:
     # 格子
-    slots:
-      - "0-8"
-      - "9-17"
-      - "18-26"
-      - "27-35"
-      - "36-44"
-    # 数量
-    # amount: 1
-    # 自定义模型数据
-    # customModelData: 12345
-  边框:
-    type: gray_stained_glass_pane
-    name: "&f "
-    slot: "45-53"
-  上一页:
-    type: red_stained_glass_pane
-    name: "&e上一页"
-    slot: "45"
-  下一页:
-    type: lime_stained_glass_pane
-    name: "&e下一页"
-    slot: "53"
+    slot: "0-35"

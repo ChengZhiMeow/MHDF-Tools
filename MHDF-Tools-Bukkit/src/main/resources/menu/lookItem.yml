@@ -30,7 +30,7 @@ openActions: [ ]
 closeActions: [ ]
 # 物品
 items:
-  # 边框按钮设置
+  # 边框按钮
   边框:
     type: gray_stained_glass_pane
     name: "&f "

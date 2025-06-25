@@ -558,15 +558,43 @@ chatSettings:
     # 开关
     enable: true
     # 格式
-    format: "<click:run_command:'/lookItem {uuid}'>&b[&f{name} &ax{amount}&b]"
+    format: "<click:run_command:'/lookitem {uuid}'>&7[&b{name} &fx{amount}&7]"
     # 关键词
     word:
       - "[i]"
-    # 移除展示物品缓存时间(单位: 秒)
+    # 移除缓存时间(单位: 秒)
     removeCache: 60
     # 命令
     commands:
       - "lookitem"
+  # 展示背包
+  showInventory:
+    # 开关
+    enable: true
+    # 格式
+    format: "<click:run_command:'/lookinventory {uuid}'>&7[&b{player} &f的背包&7]"
+    # 关键词
+    word:
+      - "[inv]"
+    # 移除缓存时间(单位: 秒)
+    removeCache: 60
+    # 命令
+    commands:
+      - "lookinventory"
+  # 展示末影箱
+  showEnderChest:
+    # 开关
+    enable: true
+    # 格式
+    format: "<click:run_command:'/lookenderchest {uuid}'>&7[&b{player} &f的末影箱&7]"
+    # 关键词
+    word:
+      - "[ec]"
+    # 移除缓存时间(单位: 秒)
+    removeCache: 60
+    # 命令
+    commands:
+      - "lookenderchest"
   # 私聊
   msg:
     # 开关
