@@ -31,7 +31,7 @@ public final class RedisMessageManager {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
                 AbstractRedisMessageListener redisMessageListener = clazz.getDeclaredConstructor().newInstance();
                 if (redisMessageListener.isEnable()) {
-                    this.redisPubSubConnection.async().subscribe(getPrefix() + redisMessageListener.getChanel());
+                    this.redisPubSubConnection.async().subscribe(this.getPrefix() + redisMessageListener.getChanel());
                     this.redisPubSubConnection.addListener(redisMessageListener);
                 }
             }
@@ -45,7 +45,7 @@ public final class RedisMessageManager {
      * @param message 指定消息
      */
     public void sendRedisMessage(String chanel, String message) {
-        this.redisPubSubConnection.async().publish(getPrefix() + chanel, message);
+        this.redisPubSubConnection.async().publish(this.getPrefix() + chanel, message);
     }
 
     /**

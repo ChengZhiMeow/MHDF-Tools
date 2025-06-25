@@ -36,7 +36,7 @@ public final class RedisClient {
      */
     public void connect() {
         this.redisConnection = this.redisClient.connect();
-        this.redisMessageManager = new RedisMessageManager(getServerId() + "mhdftools-message-", this.redisClient.connectPubSub());
+        this.redisMessageManager = new RedisMessageManager(getServerId() + "mhdftools-message", this.redisClient.connectPubSub());
     }
 
     /**

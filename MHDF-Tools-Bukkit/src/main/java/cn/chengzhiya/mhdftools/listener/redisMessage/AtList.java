@@ -12,7 +12,7 @@ public final class AtList extends AbstractRedisMessageListener {
     public AtList() {
         super(
                 List.of("chatSettings.enable", "chatSettings.at.enable"),
-                "setGameMode"
+                "atList"
         );
     }
 
