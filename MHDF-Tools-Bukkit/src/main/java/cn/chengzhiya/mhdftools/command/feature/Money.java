@@ -20,7 +20,7 @@ import java.util.List;
 public final class Money extends AbstractCommand {
     public Money() {
         super(
-                "economySettings.enable",
+                List.of("economySettings.enable"),
                 "查询余额",
                 "mhdftools.commands.money",
                 false,

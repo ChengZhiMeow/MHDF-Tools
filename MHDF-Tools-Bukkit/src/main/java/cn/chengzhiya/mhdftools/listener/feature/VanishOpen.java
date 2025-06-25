@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
+import cn.chengzhiya.mhdftools.entity.database.data.VanishStatus;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.BarrelMenu;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.ChestMenu;
@@ -15,10 +15,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.List;
+
 public final class VanishOpen extends AbstractListener {
     public VanishOpen() {
         super(
-                "vanishSettings.enable"
+                List.of("vanishSettings.enable")
         );
     }
 

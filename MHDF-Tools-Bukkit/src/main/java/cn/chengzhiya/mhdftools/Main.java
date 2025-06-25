@@ -1,35 +1,39 @@
 package cn.chengzhiya.mhdftools;
 
 import cn.chengzhiya.mhdftools.manager.*;
+import cn.chengzhiya.mhdftools.manager.cache.CacheManager;
+import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
+import cn.chengzhiya.mhdftools.manager.config.ConfigFolderManager;
 import cn.chengzhiya.mhdftools.manager.config.ConfigManager;
-import cn.chengzhiya.mhdftools.manager.database.MHDFDatabaseManager;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.FileUtil;
-import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
+import cn.chengzhiya.mhdftools.manager.config.ProxyConfigManager;
+import cn.chengzhiya.mhdftools.manager.database.DatabaseManager;
+import cn.chengzhiya.mhdftools.manager.database.impl.MHDFDatabaseManager;
+import cn.chengzhiya.mhdftools.manager.feature.CommandManager;
+import cn.chengzhiya.mhdftools.manager.feature.ListenerManager;
+import cn.chengzhiya.mhdftools.manager.feature.TaskManager;
+import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
 public final class Main extends JavaPlugin {
     public static Main instance;
 
-    private boolean nativeSupportAdventureApi;
-
-    private ConfigManager configManager;
     private LibrariesManager librariesManager;
+    private ConfigManager configManager;
     private MinecraftLangManager minecraftLangManager;
-    private LogFilterManager logFilterManager;
 
     private AdventureManager adventureManager;
-    private MHDFDatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
     private CacheManager cacheManager;
     private PluginHookManager pluginHookManager;
+
     private CommandManager commandManager;
     private ListenerManager listenerManager;
     private TaskManager taskManager;
+
     private BungeeCordManager bungeeCordManager;
     private BStatsManager bStatsManager;
 
@@ -38,21 +42,11 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
-        // 释放代理配置
-        {
-            FileUtil.createFolder(ConfigUtil.getDataFolder());
+        ConfigFolderManager configFolderManager = new ConfigFolderManager();
+        configFolderManager.init();
 
-            ProxyUtil.saveDefaultProxy();
-            ProxyUtil.reloadProxy();
-        }
-
-        try {
-            Class.forName("net.kyori.adventure.text.Component");
-            Player.class.getDeclaredMethod("displayName");
-            nativeSupportAdventureApi = true;
-        } catch (NoSuchMethodError | ClassNotFoundException | NoSuchMethodException e) {
-            nativeSupportAdventureApi = false;
-        }
+        ProxyConfigManager proxyConfigManager = new ProxyConfigManager();
+        proxyConfigManager.init();
 
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
@@ -63,8 +57,8 @@ public final class Main extends JavaPlugin {
         this.minecraftLangManager = new MinecraftLangManager();
         this.minecraftLangManager.init();
 
-        this.logFilterManager = new LogFilterManager();
-        this.logFilterManager.init();
+        LogFilterManager logFilterManager = new LogFilterManager();
+        logFilterManager.init();
     }
 
     @Override
@@ -76,7 +70,7 @@ public final class Main extends JavaPlugin {
         this.databaseManager.connect();
         this.databaseManager.initTable();
 
-        this.cacheManager = new CacheManager();
+        this.cacheManager = new MHDFCacheManager();
         this.cacheManager.init();
 
         this.pluginHookManager = new PluginHookManager();
@@ -98,7 +92,7 @@ public final class Main extends JavaPlugin {
         this.bStatsManager.init();
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
-        if (!isNativeSupportAdventureApi()) {
+        if (!PluginUtil.isNativeSupportAdventureApi()) {
             LogUtil.log("&c警告! 插件正在使用无服务端原生支持AdventureAPI兼容模式运行!");
         }
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
@@ -137,7 +131,6 @@ public final class Main extends JavaPlugin {
         this.cacheManager = null;
         this.databaseManager = null;
         this.adventureManager = null;
-        this.logFilterManager = null;
         this.minecraftLangManager = null;
         this.librariesManager = null;
         this.configManager = null;

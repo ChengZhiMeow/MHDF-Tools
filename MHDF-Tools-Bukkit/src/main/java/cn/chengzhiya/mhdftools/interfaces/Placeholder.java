@@ -4,5 +4,5 @@ import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 public interface Placeholder {
-    String placeholder(OfflinePlayer player, @NotNull String prams);
+    String placeholder(OfflinePlayer player, @NotNull String placeholder);
 }

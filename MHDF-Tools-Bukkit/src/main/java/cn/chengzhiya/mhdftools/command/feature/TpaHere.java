@@ -20,7 +20,7 @@ import java.util.List;
 public final class TpaHere extends AbstractCommand {
     public TpaHere() {
         super(
-                "tpahereSettings.enable",
+                List.of("tpahereSettings.enable"),
                 "请求指定玩家传送到当前位置",
                 "mhdftools.commands.tpahere",
                 true,

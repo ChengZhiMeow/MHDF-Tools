@@ -24,7 +24,7 @@ import java.util.UUID;
 public final class Motd extends AbstractPacketListener {
     public Motd() {
         super(
-                "motdSettings.enable",
+                List.of("motdSettings.enable"),
                 PacketListenerPriority.NORMAL
         );
     }

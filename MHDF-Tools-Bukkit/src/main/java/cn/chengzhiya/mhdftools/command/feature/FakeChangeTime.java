@@ -16,7 +16,7 @@ import java.util.List;
 public final class FakeChangeTime extends AbstractCommand {
     public FakeChangeTime() {
         super(
-                "fakeChangeTimeSettings.enable",
+                List.of("fakeChangeTimeSettings.enable"),
                 "虚假调节时间",
                 "mhdftools.commands.fakechangetime",
                 false,

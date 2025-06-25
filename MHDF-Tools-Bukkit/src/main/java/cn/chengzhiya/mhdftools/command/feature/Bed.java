@@ -8,10 +8,12 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class Bed extends AbstractCommand {
     public Bed() {
         super(
-                "bedSettings.enable",
+                List.of("bedSettings.enable"),
                 "回到床的位置",
                 "mhdftools.commands.bed",
                 true,

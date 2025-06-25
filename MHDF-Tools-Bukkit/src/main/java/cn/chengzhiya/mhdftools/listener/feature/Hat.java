@@ -8,10 +8,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public final class Hat extends AbstractListener {
     public Hat() {
         super(
-                "hatSettings.enable"
+                List.of("hatSettings.enable")
         );
     }
 

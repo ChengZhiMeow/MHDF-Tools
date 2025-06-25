@@ -18,13 +18,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 public final class Chat extends AbstractListener {
     public Chat() {
         super(
-                "chatSettings.enable"
+                List.of("chatSettings.enable")
         );
     }
 
@@ -86,6 +87,12 @@ public final class Chat extends AbstractListener {
 
         // 展示物品
         message = ChatUtil.applyShowItem(player, message);
+
+        // 展示背包
+        message = ChatUtil.applyShowInventory(player, message);
+
+        // 展示末影箱
+        message = ChatUtil.applyShowEnderChest(player, message);
 
         // AT玩家
         if (config.getBoolean("at.enable")) {

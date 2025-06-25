@@ -21,7 +21,7 @@ import java.util.List;
 public final class RandomTeleport extends AbstractCommand {
     public RandomTeleport() {
         super(
-                "randomTeleportSettings.enable",
+                List.of("randomTeleportSettings.enable"),
                 "随机传送",
                 "mhdftools.commands.randomteleport",
                 false,

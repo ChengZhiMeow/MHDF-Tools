@@ -5,11 +5,13 @@ import cn.chengzhiya.mhdftools.task.AbstractTask;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public final class ChatDelay extends AbstractTask {
     public ChatDelay() {
         super(
-                "chatSettings.enable",
+                List.of("chatSettings.enable"),
                 20L
         );
     }

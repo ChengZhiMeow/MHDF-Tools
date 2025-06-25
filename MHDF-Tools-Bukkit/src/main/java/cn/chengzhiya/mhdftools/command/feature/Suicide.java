@@ -7,10 +7,12 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class Suicide extends AbstractCommand {
     public Suicide() {
         super(
-                "suicideSettings.enable",
+                List.of("suicideSettings.enable"),
                 "自杀",
                 "mhdftools.commands.suicide",
                 true,

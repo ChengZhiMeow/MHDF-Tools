@@ -5,11 +5,13 @@ import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public final class Nick extends AbstractPlaceholder {
     public Nick() {
         super(
-                "nickSettings.enable"
+                List.of("nickSettings.enable")
         );
     }
 

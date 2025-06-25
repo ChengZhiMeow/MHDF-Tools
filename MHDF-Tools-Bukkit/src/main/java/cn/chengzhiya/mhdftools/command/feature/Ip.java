@@ -16,7 +16,7 @@ import java.util.Objects;
 public final class Ip extends AbstractCommand {
     public Ip() {
         super(
-                "ipSettings.enable",
+                List.of("ipSettings.enable"),
                 "查询IP信息",
                 "mhdftools.commands.ip",
                 false,

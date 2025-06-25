@@ -1,8 +1,9 @@
 package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.misc.PluginMessage;
+import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -250,7 +251,8 @@ public final class BungeeCordManager {
         data.put("playerName", playerName);
         data.put("message", message);
 
-        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("sendMessage", data.toJSONString());
+        ((RedisCacheManager) Main.instance.getCacheManager()).getRedisClient().getRedisMessageManager()
+                .sendRedisMessage("sendMessage", data.toJSONString());
     }
 
     /**
@@ -309,7 +311,8 @@ public final class BungeeCordManager {
         data.put("playerName", playerName);
         data.put("gameMode", gameMode.name());
 
-        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("setGameMode", data.toJSONString());
+        ((RedisCacheManager) Main.instance.getCacheManager()).getRedisClient().getRedisMessageManager()
+                .sendRedisMessage("setGameMode", data.toJSONString());
     }
 
     /**
@@ -337,7 +340,8 @@ public final class BungeeCordManager {
         data.put("atList", atList);
         data.put("by", by);
 
-        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("atList", data.toJSONString());
+        ((RedisCacheManager) Main.instance.getCacheManager()).getRedisClient().getRedisMessageManager()
+                .sendRedisMessage("atList", data.toJSONString());
     }
 
     /**

@@ -33,7 +33,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
 
     public TeleportRequestMenu(Player player, TeleportRequestType requestType, int page) {
         super(
-                "tpahereSettings.enable",
+                List.of("tpahereSettings.enable"),
                 player
         );
         this.requestType = requestType;

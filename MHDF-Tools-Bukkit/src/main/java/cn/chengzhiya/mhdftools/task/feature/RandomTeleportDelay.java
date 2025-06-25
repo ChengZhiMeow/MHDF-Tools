@@ -3,10 +3,12 @@ package cn.chengzhiya.mhdftools.task.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.task.AbstractTask;
 
+import java.util.List;
+
 public final class RandomTeleportDelay extends AbstractTask {
     public RandomTeleportDelay() {
         super(
-                "chatSettings.enable",
+                List.of("chatSettings.enable"),
                 20L
         );
     }

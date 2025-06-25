@@ -18,7 +18,7 @@ import java.util.List;
 public final class GameMode extends AbstractCommand {
     public GameMode() {
         super(
-                "gamemodeSettings.enable",
+                List.of("gamemodeSettings.enable"),
                 "修改玩家游戏模式",
                 "mhdftools.commands.gamemode",
                 false,

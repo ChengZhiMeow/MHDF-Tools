@@ -30,7 +30,7 @@ openActions: [ ]
 closeActions: [ ]
 # 物品
 items:
-  # 家按钮设置
+  # 家按钮
   家:
     # 类型
     # craftEngine-<CE物品ID>    ——使用CE的物品

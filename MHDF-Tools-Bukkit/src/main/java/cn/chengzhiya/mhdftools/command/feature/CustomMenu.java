@@ -15,7 +15,7 @@ import java.util.List;
 public final class CustomMenu extends AbstractCommand {
     public CustomMenu() {
         super(
-                "customMenuSettings.enable",
+                List.of("customMenuSettings.enable"),
                 "自定义菜单",
                 "mhdftools.commands.custommenu",
                 true,

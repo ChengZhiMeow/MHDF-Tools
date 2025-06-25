@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.task.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.FlyStatus;
+import cn.chengzhiya.mhdftools.entity.database.data.FlyStatus;
 import cn.chengzhiya.mhdftools.task.AbstractTask;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -10,11 +10,13 @@ import cn.chengzhiya.mhdftools.util.feature.FlyUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public final class FlyTime extends AbstractTask {
     public FlyTime() {
         super(
-                "flySettings.enable",
+                List.of("flySettings.enable"),
                 20L
         );
     }

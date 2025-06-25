@@ -18,7 +18,7 @@ import java.util.List;
 public final class Nick extends AbstractCommand {
     public Nick() {
         super(
-                "nickSettings.enable",
+                List.of("nickSettings.enable"),
                 "匿名",
                 "mhdftools.commands.nick",
                 false,

@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.FlyStatus;
+import cn.chengzhiya.mhdftools.entity.database.data.FlyStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -19,7 +19,7 @@ import java.util.List;
 public final class Fly extends AbstractCommand {
     public Fly() {
         super(
-                "flySettings.enable",
+                List.of("flySettings.enable"),
                 "飞行",
                 "mhdftools.commands.fly",
                 false,

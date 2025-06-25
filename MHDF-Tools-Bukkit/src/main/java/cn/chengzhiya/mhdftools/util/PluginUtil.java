@@ -2,8 +2,11 @@ package cn.chengzhiya.mhdftools.util;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import org.bukkit.entity.Player;
 
 public final class PluginUtil {
+    private static Boolean nativeSupportAdventureApi;
+
     /**
      * 获取插件版本号
      *
@@ -23,11 +26,29 @@ public final class PluginUtil {
     }
 
     /**
+     * 是否本地支持AdventureApi
+     *
+     * @return 结果
+     */
+    public static boolean isNativeSupportAdventureApi() {
+        if (nativeSupportAdventureApi == null) {
+            try {
+                Class.forName("net.kyori.adventure.text.Component");
+                Player.class.getDeclaredMethod("displayName");
+                nativeSupportAdventureApi = true;
+            } catch (NoSuchMethodError | ClassNotFoundException | NoSuchMethodException e) {
+                nativeSupportAdventureApi = false;
+            }
+        }
+
+        return nativeSupportAdventureApi;
+    }
+
+    /**
      * 更新检测
      */
     public static void checkUpdate() {
         if (!ConfigUtil.getConfig().getBoolean("updateCheck")) {
-            return;
         }
 
         // 等待 MHDF-HttpClient 库

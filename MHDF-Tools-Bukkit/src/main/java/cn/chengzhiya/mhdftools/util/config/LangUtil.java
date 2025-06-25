@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -30,7 +29,7 @@ public final class LangUtil {
     /**
      * 保存初始语言文件
      */
-    public static void saveDefaultLang() throws ResourceException {
+    public static void saveDefaultLang() {
         FileUtil.saveResource("lang.yml", getLangFileName(), false);
     }
 

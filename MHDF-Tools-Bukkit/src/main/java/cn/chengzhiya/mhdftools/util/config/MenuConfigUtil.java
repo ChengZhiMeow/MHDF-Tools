@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
-import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.util.message.MessageUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,7 +17,7 @@ public final class MenuConfigUtil {
     /**
      * 保存初始菜单
      */
-    public static void saveDefaultMenu() throws ResourceException, FileException {
+    public static void saveDefaultMenu() throws FileException {
         FileUtil.createFolder(getMenuFolder());
         if (ConfigUtil.getConfig().getBoolean("tpaSettings.enable")) {
             FileUtil.saveResource("menu/tpa.yml", "menu/tpa.yml", false);

@@ -16,10 +16,12 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class ShulkerBoxMenu extends AbstractMenu {
     public ShulkerBoxMenu(Player player) {
         super(
-                "fastUseSettings.enable",
+                List.of("fastUseSettings.enable"),
                 player
         );
     }

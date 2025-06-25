@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.exception.ResourceException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
@@ -50,7 +49,7 @@ public final class ConfigUtil {
     /**
      * 保存初始配置文件
      */
-    public static void saveDefaultConfig() throws ResourceException {
+    public static void saveDefaultConfig() {
         FileUtil.saveResource("config.yml", getConfigFileName(), false);
     }
 }

@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
+import cn.chengzhiya.mhdftools.entity.database.data.VanishStatus;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import org.bukkit.entity.Player;
@@ -8,10 +8,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.List;
+
 public final class VanishJoinQuit extends AbstractListener {
     public VanishJoinQuit() {
         super(
-                "vanishSettings.enable"
+                List.of("vanishSettings.enable")
         );
     }
 

@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.entity.database.HomeData;
+import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
+import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -18,7 +18,7 @@ import java.util.List;
 public final class SetHome extends AbstractCommand {
     public SetHome() {
         super(
-                "homeSettings.enable",
+                List.of("homeSettings.enable"),
                 "设置家",
                 "mhdftools.commands.sethome",
                 true,

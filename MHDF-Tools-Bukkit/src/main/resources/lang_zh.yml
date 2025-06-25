@@ -470,8 +470,18 @@ commands:
     timeFormatError: "{prefix} <#FFB8B8>超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     reset: "{prefix} <#EAE4FF>玩家{player}的时间已虚假调节已恢复默认!"
     message: "{prefix} <#EAE4FF>玩家{player}的时间已虚假调节为{time}!"
-  lookItem:
+  lookitem:
     usage: "/{command} <物品ID>"
     description: "查看物品"
     noData: "{prefix} <#FFB8B8>找不到物品数据,可能数据已过期!"
     message: "{prefix} <#EAE4FF>你打开了一个展示物品!"
+  lookinventory:
+    usage: "/{command} <背包ID>"
+    description: "查看背包"
+    noData: "{prefix} <#FFB8B8>找不到背包数据,可能数据已过期!"
+    message: "{prefix} <#EAE4FF>你打开了一个展示背包!"
+  lookenderchest:
+    usage: "/{command} <末影箱ID>"
+    description: "查看末影箱"
+    noData: "{prefix} <#FFB8B8>找不到末影箱数据,可能数据已过期!"
+    message: "{prefix} <#EAE4FF>你打开了一个展示末影箱!"

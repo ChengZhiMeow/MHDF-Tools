@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
+import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -12,10 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.List;
+
 public final class QuitMessage extends AbstractListener {
     public QuitMessage() {
         super(
-                "quitMessageSettings.enable"
+                List.of("quitMessageSettings.enable")
         );
     }
 
@@ -50,7 +53,7 @@ public final class QuitMessage extends AbstractListener {
      * @param message 文本实例
      */
     private void setQuitMessage(PlayerQuitEvent event, TextComponent message) {
-        if (Main.instance.isNativeSupportAdventureApi()) {
+        if (PluginUtil.isNativeSupportAdventureApi()) {
             event.quitMessage(message);
         } else {
             event.setQuitMessage(message.toLegacyString());

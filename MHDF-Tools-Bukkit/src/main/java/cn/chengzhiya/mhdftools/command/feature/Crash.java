@@ -18,7 +18,7 @@ import java.util.List;
 public final class Crash extends AbstractCommand {
     public Crash() {
         super(
-                "crashSettings.enable",
+                List.of("crashSettings.enable"),
                 "崩溃玩家客户端",
                 "mhdftools.commands.crash",
                 false,

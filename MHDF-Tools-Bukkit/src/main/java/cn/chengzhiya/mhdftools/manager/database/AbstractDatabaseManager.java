@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.manager.database;
 
-import cn.chengzhiya.mhdftools.entity.DatabaseConfig;
+import cn.chengzhiya.mhdftools.entity.config.DatabaseConfig;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -13,7 +13,7 @@ import java.util.TimeZone;
 
 @Getter
 @SuppressWarnings("unused")
-public abstract class AbstractDatabaseManager {
+public abstract class AbstractDatabaseManager implements DatabaseManager {
     @Setter
     private DatabaseConfig config;
     private String type = "none";
@@ -21,9 +21,7 @@ public abstract class AbstractDatabaseManager {
     private HikariDataSource hikariDataSource;
     private DataSourceConnectionSource connectionSource;
 
-    /**
-     * 连接并初始化数据库
-     */
+    @Override
     public void connect() {
         String type = getConfig().getType();
 
@@ -69,9 +67,7 @@ public abstract class AbstractDatabaseManager {
         }
     }
 
-    /**
-     * 关闭数据库连接源
-     */
+    @Override
     @SneakyThrows
     public void close() {
         this.connectionSource.close();
@@ -83,7 +79,7 @@ public abstract class AbstractDatabaseManager {
      *
      * @return 数据库配置实例
      */
-    public HikariConfig getHikariConfig(String databaseUrl) {
+    private HikariConfig getHikariConfig(String databaseUrl) {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(databaseUrl);
         config.addDataSourceProperty("useUnicode", "true");
@@ -102,7 +98,7 @@ public abstract class AbstractDatabaseManager {
      * @param config 数据库配置实例
      */
     @SneakyThrows
-    public void initDataSource(HikariConfig config) {
+    private void initDataSource(HikariConfig config) {
         this.hikariDataSource = new HikariDataSource(config);
         this.connectionSource = new DataSourceConnectionSource(this.hikariDataSource, this.databaseUrl);
     }

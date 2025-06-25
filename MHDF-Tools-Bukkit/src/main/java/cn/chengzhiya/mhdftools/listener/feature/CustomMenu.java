@@ -8,10 +8,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
+import java.util.List;
+
 public final class CustomMenu extends AbstractListener {
     public CustomMenu() {
         super(
-                "customMenuSettings.enable"
+                List.of("customMenuSettings.enable")
         );
     }
 

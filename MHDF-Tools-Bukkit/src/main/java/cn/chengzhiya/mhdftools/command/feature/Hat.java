@@ -9,10 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class Hat extends AbstractCommand {
     public Hat() {
         super(
-                "hatSettings.enable",
+                List.of("hatSettings.enable"),
                 "帽子",
                 "mhdftools.commands.hat",
                 true,

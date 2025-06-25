@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.FlyStatus;
+import cn.chengzhiya.mhdftools.entity.database.data.FlyStatus;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
@@ -12,10 +12,12 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import java.util.List;
+
 public final class AutoChangeFly extends AbstractListener {
     public AutoChangeFly() {
         super(
-                "flySettings.enable"
+                List.of("flySettings.enable")
         );
     }
 

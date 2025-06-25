@@ -10,10 +10,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public final class FastUse extends AbstractListener {
     public FastUse() {
         super(
-                "fastUseSettings.enable"
+                List.of("fastUseSettings.enable")
         );
     }
 

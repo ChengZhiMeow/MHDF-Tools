@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
@@ -19,7 +20,7 @@ public final class FastChangeWeather extends AbstractCommand {
 
     public FastChangeWeather() {
         super(
-                "fastChangeWeatherSettings.enable",
+                List.of("fastChangeWeatherSettings.enable"),
                 "快速调节天气",
                 "mhdftools.commands.fastchangeweather",
                 false,

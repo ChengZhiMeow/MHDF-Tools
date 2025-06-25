@@ -9,6 +9,7 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import com.alibaba.fastjson2.JSONObject;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -119,6 +120,108 @@ public final class ChatUtil {
             message = ColorUtil.color(message).replace(s,
                     ColorUtil.color(format).hoverEvent(item.asHoverEvent())
             ).toMiniMessageString();
+        }
+
+        return message;
+    }
+
+    /**
+     * 获取处理展示物背包的文本
+     *
+     * @param player  玩家实例
+     * @param message 文本
+     * @return 处理后的文本
+     */
+    public static String applyShowInventory(Player player, String message) {
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.showInventory");
+        if (config == null) {
+            return message;
+        }
+
+        if (!config.getBoolean("enable")) {
+            return message;
+        }
+
+        ItemStack[] contents = player.getInventory().getContents();
+        JSONObject inventoryData = new JSONObject();
+        for (int i = 0; i < contents.length; i++) {
+            ItemStack item = contents[i];
+            if (item == null || item.getType() == Material.AIR || item.getAmount() <= 0) {
+                continue;
+            }
+
+            inventoryData.put(String.valueOf(i), Base64Util.encode(item.serializeAsBytes()));
+        }
+
+        UUID uuid = UUID.randomUUID();
+        Main.instance.getCacheManager().put("showInventory", uuid.toString(), inventoryData.toString());
+
+        MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () ->
+                        Main.instance.getCacheManager().remove("showInventory", uuid.toString()),
+                20L * config.getInt("removeCache")
+        );
+
+        String format = config.getString("format");
+        if (format == null) {
+            return message;
+        }
+        format = format
+                .replace("{uuid}", uuid.toString())
+                .replace("{player}", NickUtil.getName(player));
+
+        for (String s : config.getStringList("word")) {
+            message = ColorUtil.color(message).replace(s, ColorUtil.color(format)).toMiniMessageString();
+        }
+
+        return message;
+    }
+
+    /**
+     * 获取处理展示物末影箱的文本
+     *
+     * @param player  玩家实例
+     * @param message 文本
+     * @return 处理后的文本
+     */
+    public static String applyShowEnderChest(Player player, String message) {
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.showEnderChest");
+        if (config == null) {
+            return message;
+        }
+
+        if (!config.getBoolean("enable")) {
+            return message;
+        }
+
+        ItemStack[] contents = player.getEnderChest().getContents();
+        JSONObject inventoryData = new JSONObject();
+        for (int i = 0; i < contents.length; i++) {
+            ItemStack item = contents[i];
+            if (item == null || item.getType() == Material.AIR || item.getAmount() <= 0) {
+                continue;
+            }
+
+            inventoryData.put(String.valueOf(i), Base64Util.encode(item.serializeAsBytes()));
+        }
+
+        UUID uuid = UUID.randomUUID();
+        Main.instance.getCacheManager().put("showEnderChest", uuid.toString(), inventoryData.toString());
+
+        MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () ->
+                        Main.instance.getCacheManager().remove("showEnderChest", uuid.toString()),
+                20L * config.getInt("removeCache")
+        );
+
+        String format = config.getString("format");
+        if (format == null) {
+            return message;
+        }
+        format = format
+                .replace("{uuid}", uuid.toString())
+                .replace("{player}", NickUtil.getName(player));
+
+        for (String s : config.getStringList("word")) {
+            message = ColorUtil.color(message).replace(s, ColorUtil.color(format)).toMiniMessageString();
         }
 
         return message;

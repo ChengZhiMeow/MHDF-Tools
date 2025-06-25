@@ -12,12 +12,14 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class ShulkerBoxMenu extends AbstractMenu {
     private final ShulkerBox shulkerBox;
 
     public ShulkerBoxMenu(Player player, ShulkerBox shulkerBox) {
         super(
-                "vanishSettings.enable",
+                List.of("vanishSettings.enable"),
                 player
         );
         this.shulkerBox = shulkerBox;

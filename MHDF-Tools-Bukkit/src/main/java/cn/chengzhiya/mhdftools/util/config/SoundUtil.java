@@ -1,6 +1,5 @@
 package cn.chengzhiya.mhdftools.util.config;
 
-import cn.chengzhiya.mhdftools.exception.ResourceException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +21,7 @@ public final class SoundUtil {
     /**
      * 保存初始音效文件
      */
-    public static void saveDefaultSound() throws ResourceException {
+    public static void saveDefaultSound() {
         FileUtil.saveResource("sound.yml", getSoundFileName(), false);
     }
 

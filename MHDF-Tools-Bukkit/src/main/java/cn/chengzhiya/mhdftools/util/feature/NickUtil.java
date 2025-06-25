@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.NickData;
+import cn.chengzhiya.mhdftools.entity.database.data.NickData;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.NickDataUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;

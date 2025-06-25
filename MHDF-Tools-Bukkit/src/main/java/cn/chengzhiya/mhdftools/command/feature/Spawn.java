@@ -9,10 +9,12 @@ import cn.chengzhiya.mhdftools.util.feature.SpawnUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class Spawn extends AbstractCommand {
     public Spawn() {
         super(
-                "spawnSettings.enable",
+                List.of("spawnSettings.enable"),
                 "返回出生点",
                 "mhdftools.commands.spawn",
                 true,

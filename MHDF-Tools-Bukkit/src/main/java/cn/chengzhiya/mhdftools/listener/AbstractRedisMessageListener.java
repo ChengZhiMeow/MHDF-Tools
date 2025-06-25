@@ -2,11 +2,14 @@ package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.interfaces.RedisMessageListener;
+import cn.chengzhiya.mhdftools.manager.cache.AbstractCacheManager;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import io.lettuce.core.pubsub.RedisPubSubListener;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,33 +18,18 @@ public abstract class AbstractRedisMessageListener implements RedisPubSubListene
     private final boolean enable;
     private final String chanel;
 
-    public AbstractRedisMessageListener(@NotNull String chanel) {
-        this.enable = true;
-        this.chanel = chanel;
-    }
-
-    public AbstractRedisMessageListener(@NotNull String enableKey, @NotNull String chanel) {
-        this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        this.chanel = chanel;
-    }
-
     public AbstractRedisMessageListener(List<String> enableKeyList, @NotNull String chanel) {
-        boolean enable = true;
-        for (String enableKey : enableKeyList) {
-            if (enableKey == null || enableKey.isEmpty()) {
-                continue;
-            }
-
-            enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        }
-
-        this.enable = enable;
+        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
         this.chanel = chanel;
+    }
+
+    public AbstractRedisMessageListener(@NotNull String chanel) {
+        this(new ArrayList<>(), chanel);
     }
 
     @Override
     public void message(String chanel, String message) {
-        if (!Objects.equals(chanel, Main.instance.getCacheManager().getRedisMessageManager().getPrefix() + this.chanel)) {
+        if (!Objects.equals(chanel, ((AbstractCacheManager) Main.instance.getCacheManager()).getPrefix() + this.chanel)) {
             return;
         }
         this.onMessage(message);

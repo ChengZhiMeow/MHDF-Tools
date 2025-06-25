@@ -13,10 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.List;
+
 public final class RandomTeleport extends AbstractListener {
     public RandomTeleport() {
         super(
-                "randomTeleportSettings.enable"
+                List.of("randomTeleportSettings.enable")
         );
     }
 
