@@ -31,7 +31,7 @@ public final class BundleFix extends AbstractPacketListener {
         }
 
         WrapperPlayClientSelectBundleItem wrapper = new WrapperPlayClientSelectBundleItem(event);
-        if (wrapper.getSelectedItemIndex() >= 0) {
+        if (wrapper.getSelectedItemIndex() >= -1) {
             return;
         }
 
