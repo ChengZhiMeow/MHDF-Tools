@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.manager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.misc.PluginMessage;
+import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -340,7 +341,9 @@ public final class BungeeCordManager {
         data.put("atList", atList);
         data.put("by", by);
 
-        ((RedisCacheManager) Main.instance.getCacheManager()).getRedisClient().getRedisMessageManager()
+        ((RedisCacheManager) ((MHDFCacheManager) Main.instance.getCacheManager()).getCacheManager())
+                .getRedisClient()
+                .getRedisMessageManager()
                 .sendRedisMessage("atList", data.toJSONString());
     }
 
