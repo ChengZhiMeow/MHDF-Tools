@@ -21,6 +21,7 @@ public final class RedisCacheManager extends AbstractCacheManager {
     @Override
     public void init() {
         this.redisClient = new RedisClient(getCacheConfig().getServerId(), getCacheConfig().getRedisConfig());
+        this.redisClient.connect();
     }
 
     @Override
