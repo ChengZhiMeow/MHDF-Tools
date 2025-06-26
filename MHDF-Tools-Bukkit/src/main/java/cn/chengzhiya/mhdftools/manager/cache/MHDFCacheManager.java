@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Getter
 public final class MHDFCacheManager implements CacheManager {
-    private CacheManager cacheManager;
+    private AbstractCacheManager cacheManager;
 
     public MHDFCacheManager() {
         ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("cacheSettings");
@@ -40,6 +40,11 @@ public final class MHDFCacheManager implements CacheManager {
     @Override
     public void init() {
         this.getCacheManager().init();
+    }
+
+    @Override
+    public String getPrefix() {
+        return this.getCacheManager().getPrefix();
     }
 
     @Override

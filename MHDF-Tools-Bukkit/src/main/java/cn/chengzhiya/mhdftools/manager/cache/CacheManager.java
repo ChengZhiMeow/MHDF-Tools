@@ -9,6 +9,13 @@ public interface CacheManager {
     void init();
 
     /**
+     * 获取缓存前缀
+     *
+     * @return 缓存前缀
+     */
+    String getPrefix();
+
+    /**
      * 关闭缓存
      */
     void close();

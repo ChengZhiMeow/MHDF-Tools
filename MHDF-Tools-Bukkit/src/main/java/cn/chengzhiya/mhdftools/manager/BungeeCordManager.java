@@ -252,7 +252,9 @@ public final class BungeeCordManager {
         data.put("playerName", playerName);
         data.put("message", message);
 
-        ((RedisCacheManager) Main.instance.getCacheManager()).getRedisClient().getRedisMessageManager()
+        ((RedisCacheManager) ((MHDFCacheManager) Main.instance.getCacheManager()).getCacheManager())
+                .getRedisClient()
+                .getRedisMessageManager()
                 .sendRedisMessage("sendMessage", data.toJSONString());
     }
 
