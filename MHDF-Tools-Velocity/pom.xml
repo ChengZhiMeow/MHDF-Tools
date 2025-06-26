@@ -63,6 +63,22 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${env.plugin.jar.version}</version>
+                <configuration>
+                    <outputDirectory>${project.basedir}/../build/</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${env.plugin.clean.version}</version>
+                <configuration>
+                    <outputDirectory>${project.basedir}/../build/</outputDirectory>
+                </configuration>
+            </plugin>
         </plugins>
 
         <resources>

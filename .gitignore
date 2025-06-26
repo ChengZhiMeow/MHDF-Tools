@@ -96,6 +96,7 @@ $RECYCLE.BIN/
 *.lnk
 
 target/
+build/
 libs/
 
 pom.xml.tag
