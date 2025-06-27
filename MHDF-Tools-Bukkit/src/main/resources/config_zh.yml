@@ -162,6 +162,8 @@ knockBackSettings:
 listSettings:
   # 开关
   enable: true
+  # 使用群组玩家列表
+  useBungeeCordList: false
   # 命令
   commands:
     - "list"
@@ -256,6 +258,8 @@ customMenuSettings:
 homeSettings:
   # 开关
   enable: true
+  # 存在则替换家
+  existReplace: true
   # 默认最大家数量
   # 可以通过 mhdftools.commands.home.max.<数量> 自定义
   defaultMax: 10
@@ -276,6 +280,8 @@ homeSettings:
 backSettings:
   # 开关
   enable: true
+  # 重生提示
+  respawnMessage: true
   # 命令
   commands:
     - "back"

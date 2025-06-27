@@ -11,6 +11,13 @@ import org.bukkit.command.CommandSender;
 import java.util.regex.Pattern;
 
 public final class MsgUtil {
+    /**
+     * 发送私聊消息
+     *
+     * @param sender  命令执行着实例
+     * @param target  目标玩家名称
+     * @param message 消息
+     */
     public static void sendMsg(CommandSender sender, String target, String message) {
         // 聊天延迟
         if (ConfigUtil.getConfig().getBoolean("chatSettings.delay.enable")) {

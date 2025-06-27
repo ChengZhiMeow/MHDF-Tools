@@ -46,12 +46,16 @@ public final class Tpa extends AbstractCommand {
         if (args.length == 2) {
             String targetPlayerName = Main.instance.getCacheManager().get("tpaPlayer", args[1]);
             if (targetPlayerName == null) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.noRequest"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.noRequest")
+                        .replace("{player}", args[1])
+                );
                 return;
             }
 
             if (!targetPlayerName.equals(sender.getName())) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.noRequest"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.noRequest")
+                        .replace("{player}", args[1])
+                );
                 return;
             }
 

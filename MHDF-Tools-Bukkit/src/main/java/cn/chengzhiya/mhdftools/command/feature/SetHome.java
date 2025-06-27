@@ -42,6 +42,15 @@ public final class SetHome extends AbstractCommand {
             return;
         }
 
+        if (!ConfigUtil.getConfig().getBoolean("homeSettings.existReplace")) {
+            if (HomeDataUtil.getHomeData(sender.getUniqueId(), args[0]) != null) {
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.sethome.haveHome")
+                        .replace("{home}", args[0])
+                );
+                return;
+            }
+        }
+
         int maxHome = HomeUtil.getMaxHome(sender);
         if (HomeDataUtil.getHomeDataList(sender).size() >= maxHome) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.sethome.isMax")

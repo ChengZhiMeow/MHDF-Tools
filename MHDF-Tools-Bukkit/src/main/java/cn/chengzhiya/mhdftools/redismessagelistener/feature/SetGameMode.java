@@ -1,6 +1,6 @@
-package cn.chengzhiya.mhdftools.listener.redisMessage;
+package cn.chengzhiya.mhdftools.redismessagelistener.feature;
 
-import cn.chengzhiya.mhdftools.listener.AbstractRedisMessageListener;
+import cn.chengzhiya.mhdftools.redismessagelistener.AbstractRedisMessageListener;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
 import org.bukkit.Bukkit;

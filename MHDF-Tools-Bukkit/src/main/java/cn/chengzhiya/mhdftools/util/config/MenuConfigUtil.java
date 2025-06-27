@@ -31,6 +31,12 @@ public final class MenuConfigUtil {
         if (ConfigUtil.getConfig().getBoolean("chatSettings.enable") && ConfigUtil.getConfig().getBoolean("chatSettings.showItem.enable")) {
             FileUtil.saveResource("menu/lookItem.yml", "menu/lookItem.yml", false);
         }
+        if (ConfigUtil.getConfig().getBoolean("chatSettings.enable") && ConfigUtil.getConfig().getBoolean("chatSettings.showInventory.enable")) {
+            FileUtil.saveResource("menu/lookInventory.yml", "menu/lookInventory.yml", false);
+        }
+        if (ConfigUtil.getConfig().getBoolean("chatSettings.enable") && ConfigUtil.getConfig().getBoolean("chatSettings.showEnderChest.enable")) {
+            FileUtil.saveResource("menu/lookEnderChest.yml", "menu/lookEnderChest.yml", false);
+        }
     }
 
     /**

@@ -64,7 +64,9 @@ public final class Warp extends AbstractCommand {
 
         WarpData warpData = WarpDataUtil.getWarpData(args[0]);
         if (warpData == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.warp.noWarp"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.warp.noWarp")
+                    .replace("{warp}", args[0])
+            );
             return;
         }
 

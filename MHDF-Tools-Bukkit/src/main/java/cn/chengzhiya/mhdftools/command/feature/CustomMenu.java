@@ -34,7 +34,9 @@ public final class CustomMenu extends AbstractCommand {
         }
 
         if (!CustomMenuConfigUtil.getCustomMenuList().contains(args[0])) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.custommenu.menuNotExists"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.custommenu.noMenu")
+                    .replace("{menu}", args[0])
+            );
             return;
         }
 

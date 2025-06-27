@@ -48,7 +48,7 @@ public final class Reply extends AbstractCommand {
             return;
         }
 
-        final Player player = Bukkit.getPlayer(args[0]);
+        Player player = Bukkit.getPlayer(args[0]);
 
         if (player == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));

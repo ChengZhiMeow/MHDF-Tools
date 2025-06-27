@@ -59,7 +59,7 @@ public final class CmiUserData {
     @DatabaseField(columnName = "Charges")
     private String charges;
     @DatabaseField(columnName = "Cooldowns")
-    private String cooldowns;
+    private Object cooldowns;
     @DatabaseField(columnName = "Balance")
     private BigDecimal balance;
     @DatabaseField(columnName = "Notes")
@@ -81,7 +81,7 @@ public final class CmiUserData {
     @DatabaseField(columnName = "Economy")
     private String economy;
     @DatabaseField(columnName = "Mail")
-    private String mail;
+    private Object mail;
     @DatabaseField(columnName = "FlightCharge")
     private BigDecimal flightCharge;
     @DatabaseField(columnName = "UserMeta")

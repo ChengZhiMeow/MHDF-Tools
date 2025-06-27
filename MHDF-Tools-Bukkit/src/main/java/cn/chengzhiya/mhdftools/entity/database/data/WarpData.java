@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.entity.database.data;
 
+import cn.chengzhiya.mhdftools.entity.database.Dao;
 import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @DatabaseTable(tableName = "mhdftools_warp")
-public final class WarpData {
+public final class WarpData extends Dao {
     @DatabaseField(id = true, canBeNull = false)
     private String warp;
     @DatabaseField(canBeNull = false)

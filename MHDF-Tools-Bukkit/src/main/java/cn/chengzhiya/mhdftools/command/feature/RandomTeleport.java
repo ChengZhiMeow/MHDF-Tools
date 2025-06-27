@@ -79,7 +79,9 @@ public final class RandomTeleport extends AbstractCommand {
                     worldName = args[1];
                     biome = BiomeUtil.getBiome(args[2]);
                     if (biome == null) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("mhdftools.commands.randomteleport.noBiome"));
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("mhdftools.commands.randomteleport.noBiome")
+                                .replace("{biome}", args[2])
+                        );
                         return;
                     }
 
@@ -131,14 +133,11 @@ public final class RandomTeleport extends AbstractCommand {
             return;
         }
 
-        final World world = Bukkit.getWorld(worldName);
-        if (world == null) return;
-
-        final Player finalPlayer = player;
-        final Biome finalBiome = biome;
-
+        Player finalPlayer = player;
+        String finalWorldName = worldName;
+        Biome finalBiome = biome;
         MHDFScheduler.getRegionScheduler().runTask(Main.instance, player.getLocation(), () ->
-                RandomTeleportUtil.handleRandomTeleport(sender, finalPlayer, world, finalBiome)
+                RandomTeleportUtil.handleRandomTeleport(sender, finalPlayer, finalWorldName, finalBiome)
         );
     }
 

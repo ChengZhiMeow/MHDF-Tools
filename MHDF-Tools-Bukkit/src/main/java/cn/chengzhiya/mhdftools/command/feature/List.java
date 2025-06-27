@@ -32,13 +32,16 @@ public final class List extends AbstractCommand {
             return;
         }
 
+        java.util.List<String> playerList = ConfigUtil.getConfig().getBoolean("useBungeeCordList")
+                ? Main.instance.getBungeeCordManager().getPlayerList() : Main.instance.getBungeeCordManager().getBukkitPlayerList();
+
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.list.message")
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))
                 .replace("{memory}", String.valueOf(ListUtil.getUsedMemory()))
                 .replace("{maxMemory}", String.valueOf(ListUtil.getTotalMemory()))
-                .replace("{playerCount}", String.valueOf(Main.instance.getBungeeCordManager().getPlayerList().size()))
+                .replace("{playerCount}", String.valueOf(playerList.size()))
                 .replace("{maxPlayerCount}", String.valueOf(Bukkit.getMaxPlayers()))
-                .replace("{playerList}", Main.instance.getBungeeCordManager().getPlayerList().toString())
+                .replace("{playerList}", playerList.toString())
         );
     }
 }

@@ -10,6 +10,7 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.math.RandomUtil;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import lombok.SneakyThrows;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -124,17 +125,25 @@ public final class RandomTeleportUtil {
     }
 
     /**
-     * 处理随机传送命令
+     * 处理随机传送
      *
-     * @param sender 命令执行者实例
-     * @param player 玩家实例
-     * @param world  世界实例
-     * @param biome  群系实例（可为 null）
+     * @param sender    命令执行者实例
+     * @param player    玩家实例
+     * @param worldName 世界名称
+     * @param biome     群系实例（可为 null）
      */
     @SneakyThrows
-    public static void handleRandomTeleport(CommandSender sender, Player player, World world, Biome biome) {
+    public static void handleRandomTeleport(CommandSender sender, Player player, String worldName, Biome biome) {
         long startTime = System.currentTimeMillis();
         int maxTryTime = ConfigUtil.getConfig().getInt("randomTeleportSettings.maxTryTime");
+
+        World world = Bukkit.getWorld(worldName);
+        if (world == null) {
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.noWorld")
+                    .replace("{biome}", Main.instance.getMinecraftLangManager().getBiomeName(biome))
+            );
+            return;
+        }
 
         randomTeleport(player, world, biome, maxTryTime).thenAccept(status -> {
             long duration = System.currentTimeMillis() - startTime;
@@ -142,9 +151,12 @@ public final class RandomTeleportUtil {
             switch (status) {
                 case SUCCESS -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.message")
                         .replace("{duration}", String.valueOf(duration)));
-                case NO_BIOME -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.noBiome"));
+                case NO_BIOME -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.noBiome")
+                        .replace("{biome}", Main.instance.getMinecraftLangManager().getBiomeName(biome))
+                );
                 case OUT_TRY_TIMES -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.outTryTime")
-                        .replace("{amount}", String.valueOf(maxTryTime)));
+                        .replace("{amount}", String.valueOf(maxTryTime))
+                );
                 case NO_GROUP_CONFIG -> ActionUtil.sendMessage(sender, "§c未找到传送区域配置。");
             }
         });

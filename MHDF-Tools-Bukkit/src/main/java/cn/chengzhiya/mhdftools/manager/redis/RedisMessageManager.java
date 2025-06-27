@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.manager.redis;
 
-import cn.chengzhiya.mhdftools.listener.AbstractRedisMessageListener;
+import cn.chengzhiya.mhdftools.redismessagelistener.AbstractRedisMessageListener;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
 import lombok.Getter;
 import lombok.SneakyThrows;
