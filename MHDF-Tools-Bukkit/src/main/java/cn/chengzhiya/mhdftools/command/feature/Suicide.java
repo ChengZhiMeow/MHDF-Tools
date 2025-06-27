@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Suicide extends AbstractCommand {
@@ -45,5 +46,13 @@ public final class Suicide extends AbstractCommand {
                 .replace("{usage}", LangUtil.i18n("commands.suicide.usage"))
                 .replace("{command}", label)
         );
+    }
+
+    @Override
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 1) {
+            return List.of("confirm");
+        }
+        return new ArrayList<>();
     }
 }
