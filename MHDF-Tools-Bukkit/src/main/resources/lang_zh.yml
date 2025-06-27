@@ -83,6 +83,11 @@ commands:
       explosion: "爆炸溢出"
       invalidTeleport: "无效传送"
       invalidParticle: "异常粒子"
+  pvp:
+    usage: "/{command} <世界名>"
+    description: "击退玩家"
+    message: "{prefix} <#EAE4FF>成功切换该世界的PVP模式为 {type}!"
+    worldNotExists: "{prefix} <#FFB8B8>目标世界不存在!"
   knockback:
     usage: "/{command} <玩家>"
     description: "击退玩家"
