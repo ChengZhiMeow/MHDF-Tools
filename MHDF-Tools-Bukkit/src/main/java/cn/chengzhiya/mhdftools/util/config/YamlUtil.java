@@ -56,7 +56,7 @@ public final class YamlUtil {
                 continue;
             }
 
-            result = ConfigUtil.getConfig().getBoolean(enableKey);
+            result = config.getBoolean(enableKey);
         }
 
         return result;
