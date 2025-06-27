@@ -1,7 +1,8 @@
-package cn.chengzhiya.mhdftools.listener;
+package cn.chengzhiya.mhdftools.redismessagelistener;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.interfaces.RedisMessageListener;
+import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
+import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import io.lettuce.core.pubsub.RedisPubSubListener;
@@ -28,9 +29,14 @@ public abstract class AbstractRedisMessageListener implements RedisPubSubListene
 
     @Override
     public void message(String chanel, String message) {
-        if (!Objects.equals(chanel, Main.instance.getCacheManager().getPrefix() + this.chanel)) {
+        if (!Objects.equals(chanel, ((RedisCacheManager) ((MHDFCacheManager) Main.instance.getCacheManager()).getCacheManager())
+                .getRedisClient()
+                .getRedisMessageManager()
+                .getPrefix() + this.chanel)
+        ) {
             return;
         }
+
         this.onMessage(message);
     }
 

@@ -4,6 +4,7 @@ import cn.chengzhiya.langutil.LangAPI;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import lombok.Getter;
+import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
@@ -30,5 +31,15 @@ public final class MinecraftLangManager {
      */
     public String getItemName(ItemStack item) {
         return getLangAPI().getLangManager().getItemName(item);
+    }
+
+    /**
+     * 获取群系名称
+     *
+     * @param biome 群系实例
+     * @return 群系名称
+     */
+    public String getBiomeName(Biome biome) {
+        return getLangAPI().getLangManager().getBiomeName(biome);
     }
 }

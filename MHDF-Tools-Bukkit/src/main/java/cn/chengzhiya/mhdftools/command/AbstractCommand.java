@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.command;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.interfaces.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;

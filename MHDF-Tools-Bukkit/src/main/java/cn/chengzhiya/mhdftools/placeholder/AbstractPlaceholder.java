@@ -1,6 +1,5 @@
 package cn.chengzhiya.mhdftools.placeholder;
 
-import cn.chengzhiya.mhdftools.interfaces.Placeholder;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import lombok.Getter;
@@ -33,6 +32,7 @@ public abstract class AbstractPlaceholder implements Placeholder {
         if (!isEnable()) {
             return null;
         }
+
         return this.placeholder(player, placeholder);
     }
 }

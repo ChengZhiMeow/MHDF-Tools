@@ -36,7 +36,9 @@ public final class DelWarp extends AbstractCommand {
 
         WarpData warpData = WarpDataUtil.getWarpData(args[0]);
         if (warpData == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delwarp.noWarp"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delwarp.noWarp")
+                    .replace("{warp}", args[0])
+            );
             return;
         }
 

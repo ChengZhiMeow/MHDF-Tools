@@ -3,7 +3,7 @@ configVersion: "${project.version}"
 prefix: "&8[<#CFC2FF>梦之工具&8]"
 onlyPlayer: "{prefix} <#FFB8B8>这个命令只能玩家执行!"
 noPermission: "{prefix} <#FFB8B8>你没有权限怎么做"
-usageError: "{prefix} <#FFB8B8>用法错误,正确用法: {usage}"
+usageError: "{prefix} <#FFB8B8>用法错误,正确用法: &f{usage}"
 playerOffline: "{prefix} <#FFB8B8>你指定的玩家并没有在线!"
 blackWorld: "{prefix} <#FFB8B8>当前世界无法使用这个功能!"
 commandInfoFormat: "  &f{usage}  \n &8 - &7{description}"
@@ -13,17 +13,17 @@ disable: <#FFB8B8>关闭
 menu:
   fastuse:
     shulkerBox:
-      title: "&b快速使用-潜影盒"
+      title: "<#EAE4FF>快速使用-潜影盒"
   vanish:
-    title: "&b隐身打开容器"
+    title: "<#EAE4FF>隐身-容器"
 
 chat:
-  delay: "{prefix} <#FFB8B8>冷却中,你还需要等待{delay}秒,才可以聊天!"
-  spam: "{prefix} <#FFB8B8>请不要刷屏!"
+  delay: "{prefix} <#FFB8B8>冷却中,你还需要等待&f{delay}<#FFB8B8>秒,才可以聊天!"
+  spam: "{prefix} <#FFB8B8>消息不能和上一条完全相同!"
   at:
     format: " &a@{name} "
     all: "所有人"
-    title: "&a喵?|&f你被 &a{by} &fAT了!|20|70|10"
+    title: "&e醒醒!|<#EAE4FF>你被 &f{by} <#EAE4FF>AT了!|20|70|10"
 
 gamemode:
   SURVIVAL: "生存模式"
@@ -32,7 +32,7 @@ gamemode:
   SPECTATOR: "旁观模式"
 
 economy:
-  tax: "{prefix} <#EAE4FF>你向服务器上交了{amount}的个人所得税!"
+  tax: "{prefix} <#EAE4FF>你向服务器上交了 &f{amount} <#EAE4FF>的个人所得税!"
 
 commands:
   mhdftools:
@@ -65,11 +65,11 @@ commands:
         description: "导入其他插件的数据"
         pluginNotSupport: "{prefix} <#FFB8B8>目标插件不支持导入!"
         import:
-          start: "{prefix} <#EAE4FF>开始导入{plugin}的{name}数据!"
-          done: "{prefix} <#EAE4FF>导入{plugin}的{name}数据完成(耗时: {time}ms)!"
+          start: "{prefix} <#EAE4FF>开始导入 &f{plugin} <#EAE4FF>的 &b{name} <#EAE4FF>数据!"
+          done: "{prefix} <#EAE4FF>导入 &f{plugin} <#EAE4FF>的 &b{name} <#EAE4FF>数据完成!&7(耗时: {time}ms)"
         message:
-          start: "{prefix} <#EAE4FF>开始导入{plugin}的数据!"
-          done: "{prefix} <#EAE4FF>导入{plugin}的数据完成!"
+          start: "{prefix} <#EAE4FF>开始导入 &f{plugin} <#EAE4FF>的数据!"
+          done: "{prefix} <#EAE4FF>导入 &f{plugin} <#EAE4FF>的数据完成!"
       reload:
         usage: "/{command} reload"
         description: "重载插件"
@@ -78,7 +78,7 @@ commands:
     usage: "/{command} <玩家> [崩溃类型]"
     description: "崩溃玩家客户端"
     typeNotExists: "{prefix} <#FFB8B8>目标崩端类型不存在!"
-    message: "{prefix} <#EAE4FF>崩端操作(类型: {type}),已开始!"
+    message: "{prefix} <#EAE4FF>开始尝试崩溃 &f{player} <#EAE4FF>的客户端!&7(类型: {type})<#FFB8B8>"
     types:
       explosion: "爆炸溢出"
       invalidTeleport: "无效传送"
@@ -91,7 +91,7 @@ commands:
   knockback:
     usage: "/{command} <玩家>"
     description: "击退玩家"
-    message: "{prefix} <#EAE4FF>成功击退玩家!"
+    message: "{prefix} <#EAE4FF>成功对 &f{player} <#EAE4FF>产生击退!"
   list:
     usage: "/{command}"
     description: "查看在线列表"
@@ -122,7 +122,7 @@ commands:
   flytime:
     usage: "/{command} <参数>"
     description: "限时飞行"
-    timeFormatError: "{prefix} <#EAE4FF>超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
+    timeFormatError: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
     subCommands:
       help:
         usage: "/{command} help"
@@ -137,21 +137,21 @@ commands:
       set:
         usage: "/{command} set <玩家> <时间>"
         description: "设置玩家的飞行时间"
-        message: "{prefix} &f{player}的飞行时间已修改为{time}秒"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已修改为 &b{time}秒<#EAE4FF>!"
       add:
         usage: "/{command} add <玩家> <时间>"
         description: "增加玩家的飞行时间"
-        message: "{prefix} &f{player}的飞行时间已增加为{add}秒,现在他可以飞行{time}秒"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已增加为 &e{add}秒<#EAE4FF>,现在他可以飞行 &b{time}秒<#EAE4FF>!"
       take:
         usage: "/{command} take <玩家> <时间>"
         description: "减少玩家的飞行时间"
-        message: "{prefix} &f{player}的飞行时间已减少为{take}秒,现在他可以飞行{time}秒"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已减少为 &e{take}秒<#EAE4FF>,现在他可以飞行 &b{time}秒<#EAE4FF>!"
   stop:
     usage: "/{command} <参数>"
     description: "更好的关服"
-    defaultMessage: "&b服务器已关闭!"
-    timeFormatError: "{prefix} <#EAE4FF>超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
-    countdownMessage: "{prefix} <#EAE4FF>服务器还有 &b{countdown} <#EAE4FF>秒关闭,请做好准备!"
+    defaultMessage: "<#FFB8B8>服务器已关闭!"
+    timeFormatError: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
+    countdownMessage: "{prefix} <#EAE4FF>服务器还有 &f{countdown}秒 <#EAE4FF>关闭,请做好准备!"
     kickMessage: |-
       &f
       &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
@@ -173,22 +173,22 @@ commands:
       cancel:
         usage: "/{command} cancel"
         description: "取消关服"
-        noStop: "{prefix} <#EAE4FF>没有可以取消的关服操作!"
+        noStop: "{prefix} <#FFB8B8>没有可以取消的关服操作!"
         message: "{prefix} <#EAE4FF>已取消关服操作!"
       confirm:
         usage: "/{command} confirm"
         description: "确认关服"
-        noStop: "{prefix} <#EAE4FF>没有可以确认的关服操作!"
+        noStop: "{prefix} <#FFB8B8>没有可以确认的关服操作!"
       default:
         usage: "/{command} [倒计时] [消息]"
         description: "关服"
-        inStop: "{prefix} <#EAE4FF>服务器已经在倒计时关闭了! <click:run_command:\"/stop cancel\"><hover:show_text:\"<#EAE4FF>点击确认取消\"><#CAFFB8>/stop cancel - [确认取消]</hover></click>"
+        inStop: "{prefix} <#FFB8B8>服务器已经在倒计时关闭了! <click:run_command:\"/stop cancel\"><hover:show_text:\"<#EAE4FF>点击确认取消\"><#CAFFB8>/stop cancel - [确认取消]</hover></click>"
         message: |-
           &f
           &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
           &f
-          <#EAE4FF>你确认要在&b{time}<#EAE4FF>秒后关闭服务器吗?
-          关服原因: {message} 
+          <#EAE4FF>你确认要在 &f{time}秒 <#EAE4FF>后关闭服务器吗?
+          <#EAE4FF>关服原因: &f{message} 
           &f
           <click:run_command:"/stop confirm"><hover:show_text:"<#EAE4FF>点击确认关闭"><#CAFFB8>/stop confirm - [确认关闭]</hover></click>
           &f
@@ -196,49 +196,47 @@ commands:
   tpa:
     usage: "/{command} <目标玩家>"
     description: "请求传送至指定玩家"
-    message: "{prefix} <#EAE4FF>你向{player}发送了传送请求!"
+    message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>发送了传送请求!"
     accept:
-      message: "{prefix} <#EAE4FF>你接受了{player}的传送请求!"
-      accepted: "{prefix} &f{player}接受了你的传送请求!"
+      message: "{prefix} <#EAE4FF>你接受了 &f{player} <#EAE4FF>的传送请求!"
+      accepted: "{prefix} &f{player} <#EAE4FF>接受了你的传送请求!"
     reject:
-      message: "{prefix} <#EAE4FF>你拒绝了{player}的传送请求!"
-      rejected: "{prefix} &f{player}拒绝了你的传送请求!"
+      message: "{prefix} <#EAE4FF>你拒绝了 &f{player} <#EAE4FF>的传送请求!"
+      rejected: "{prefix} &f{player} <#EAE4FF>拒绝了你的传送请求!"
     delay:
-      message: "{prefix} <#EAE4FF>你向{player}发送的传送请求超时了!"
-      timeOut: "{prefix} &f{player}向你发送的传送请求超时了!"
-    inDelay: "{prefix} <#EAE4FF>传送冷却中,你还要{delay}秒后才能发送传送请求!"
-    noRequest: "{prefix} <#FFB8B8>目标没有向你发送传送请求!"
+      message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>发送的传送请求超时了!"
+      timeOut: "{prefix} &f{player} <#EAE4FF>向你发送的传送请求超时了!"
+    inDelay: "{prefix} <#EAE4FF>传送冷却中,你还要 &f{delay}秒 <#EAE4FF>后才能发送传送请求!"
+    noRequest: "{prefix} &f{player} <#FFB8B8>没有向你发送传送请求!"
     sendSelf: "{prefix} <#FFB8B8>你不可以给自己发送传送请求!"
     requestMessage: |-
       &f
       &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
       &f
-      <#EAE4FF>玩家&b{player}<#EAE4FF>想来你这里看看!
+      &f{player} <#EAE4FF>想来你这里看看!
       &f
       <click:run_command:"/tpa accept {player}"><hover:show_text:"<#EAE4FF>点击接受{player}的传送请求"><#CAFFB8>[接受]</hover></click>   <click:run_command:"/tpa reject {player}"><hover:show_text:"<#EAE4FF>点击拒绝{player}的传送请求"><#FFB8B8>[拒绝]</hover></click>
       &f
       &7⌞                                         ⌟
   tpahere:
-    usage: "/{command} <目标玩家>"
-    description: "请求指定玩家传送到你这"
-    message: "{prefix} <#EAE4FF>你向{player}发送了传送请求!"
+    message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>发送了传送请求!"
     accept:
-      message: "{prefix} <#EAE4FF>你接受了{player}的传送请求!"
-      accepted: "{prefix} &f{player}接受了你的传送请求!"
+      message: "{prefix} <#EAE4FF>你接受了 &f{player} <#EAE4FF>的传送请求!"
+      accepted: "{prefix} &f{player} <#EAE4FF>接受了你的传送请求!"
     reject:
-      message: "{prefix} <#EAE4FF>你拒绝了{player}的传送请求!"
-      rejected: "{prefix} &f{player}拒绝了你的传送请求!"
+      message: "{prefix} <#EAE4FF>你拒绝了 &f{player} <#EAE4FF>的传送请求!"
+      rejected: "{prefix} &f{player} <#EAE4FF>拒绝了你的传送请求!"
     delay:
-      message: "{prefix} <#EAE4FF>你向{player}发送的传送请求超时了!"
-      timeOut: "{prefix} &f{player}向你发送的传送请求超时了!"
-    inDelay: "{prefix} <#EAE4FF>传送冷却中,你还要{delay}秒后才能发送传送请求!"
-    noRequest: "{prefix} <#FFB8B8>目标没有向你发送传送请求!"
+      message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>发送的传送请求超时了!"
+      timeOut: "{prefix} &f{player} <#EAE4FF>向你发送的传送请求超时了!"
+    inDelay: "{prefix} <#EAE4FF>传送冷却中,你还要 &f{delay}秒 <#EAE4FF>后才能发送传送请求!"
+    noRequest: "{prefix} &f{player} <#FFB8B8>没有向你发送传送请求!"
     sendSelf: "{prefix} <#FFB8B8>你不可以给自己发送传送请求!"
     requestMessage: |-
       &f
       &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
       &f
-      <#EAE4FF>玩家&b{player}<#EAE4FF>想让你去他那看看!
+      &f{player} <#EAE4FF>想让你去他那看看!
       &f
       <click:run_command:"/tpahere accept {player}"><hover:show_text:"<#EAE4FF>点击接受{player}的传送请求"><#CAFFB8>[接受]</hover></click>   <click:run_command:"/tpahere reject {player}"><hover:show_text:"<#EAE4FF>点击拒绝{player}的传送请求"><#FFB8B8>[拒绝]</hover></click>
       &f
@@ -246,34 +244,36 @@ commands:
   custommenu:
     usage: "/{command} <菜单>"
     description: "打开指定菜单"
-    menuNotExists: "{prefix} <#FFB8B8>目标菜单不存在!"
-    message: "{prefix} <#EAE4FF>你打开了{menu}!"
+    noMenu: "{prefix} <#FFB8B8>找不到名为 &f{menu} 的菜单!"
+    message: "{prefix} <#EAE4FF>你打开了 &f{menu}<#FFB8B8>!"
   home:
     usage: "/{command} [家名称]"
     description: "返回到指定家"
-    noHome: "{prefix} <#FFB8B8>目标家不存在!"
-    openMenuMessage: "{prefix} <#EAE4FF>你打开了家列表"
-    teleportMessage: "{prefix} <#EAE4FF>你传送到了{home}!"
+    noHome: "{prefix} <#FFB8B8>找不到名为 &f{home} <#FFB8B8>的家!"
+    openMenuMessage: "{prefix} <#EAE4FF>你打开了家列表!"
+    message: "{prefix} <#EAE4FF>你传送到了 &f{home}<#FFB8B8>!"
   sethome:
     usage: "/{command} <家名称>"
     description: "设置家"
-    isMax: "{prefix} <#FFB8B8>你已经设置了{amount}个家了,无法设置更多了!"
-    message: "{prefix} <#EAE4FF>你设置了{home}!"
+    haveHome: "{prefix} <#FFB8B8>你已经有一个名为 &f{home} <#FFB8B8>的家了,请不要重复设置!"
+    isMax: "{prefix} <#FFB8B8>你已经设置了 &f{amount}个 <#FFB8B8>家了,没有办法设置更多家了!"
+    message: "{prefix} <#EAE4FF>你设置了一个名为 &f{home} <#EAE4FF>的家!"
   delhome:
     usage: "/{command} <家名称>"
     description: "删除家"
-    noHome: "{prefix} <#FFB8B8>目标家不存在!"
-    message: "{prefix} <#EAE4FF>你删除了{home}!"
+    noHome: "{prefix} <#FFB8B8>找不到名为 &f{home} <#FFB8B8>的家!"
+    message: "{prefix} <#EAE4FF>你删除了一个名为 &f{home} <#EAE4FF>的家!"
   back:
     usage: "/{command}"
     description: "返回死亡点"
     noLocation: "{prefix} <#EAE4FF>找不到你上次死亡点的位置!"
-    message: "{prefix} <#EAE4FF>你来到了死亡点,输入&e/tpback<#EAE4FF>返回传送前的位置!"
+    respawnMessage: "{prefix} <#EAE4FF>输入 &e/back <#EAE4FF>返回死亡点!"
+    message: "{prefix} <#EAE4FF>你来到了死亡点,输入 &e/tpback #EAE4FF>返回传送前的位置!"
   tpback:
     usage: "/{command}"
     description: "返回传送前的位置"
     noLocation: "{prefix} <#EAE4FF>找不到你上次传送前的位置!"
-    message: "{prefix} <#EAE4FF>你来到了传送前的位置,输入&e/tpback<#EAE4FF>返回传送前的位置!"
+    message: "{prefix} <#EAE4FF>你来到了传送前的位置,输入 &e/tpback <#EAE4FF>返回传送前的位置!"
   spawn:
     usage: "/{command}"
     description: "返回出生点"
@@ -285,7 +285,7 @@ commands:
   nick:
     usage: "/{command} <名称> [玩家]"
     description: "修改玩家匿名名称"
-    message: "{prefix} &f{player}的名称现在为{name}!"
+    message: "{prefix} &f{player} <#EAE4FF>的名称已修改为 &b{name} <#EAE4FF>!"
   ip:
     usage: "/{command} <玩家>"
     description: "查询一个玩家的IP信息"
@@ -301,8 +301,8 @@ commands:
   gamemode:
     usage: "/{command} <游戏模式> [玩家]"
     description: "修改玩家游戏模式"
-    noGameMode: "{prefix} <#FFB8B8>目标游戏模式不存在!"
-    message: "{prefix} &f{player}的游戏模式已被更新为{gamemode}!"
+    noGameMode: "{prefix} <#FFB8B8>找不到名为 &f{gamemode} #FFB8B8>的游戏模式!"
+    message: "{prefix} &f{player} <#EAE4FF>的游戏模式已被更新为 &b{gamemode} <#EAE4FF>!"
   bed:
     usage: "/{command}"
     description: "回到床的位置"
@@ -329,33 +329,33 @@ commands:
   warp:
     usage: "/{command} <传送点> [玩家]"
     description: "传送到指定传送点"
-    noWarp: "{prefix} <#FFB8B8>目标传送点不存在!"
-    message: "{prefix} <#EAE4FF>你来到了{warp}!"
+    noHome: "{prefix} <#FFB8B8>找不到名为 &f{warp} <#FFB8B8>的传送点!"
+    message: "{prefix} <#EAE4FF>你传送到了 &f{warp}<#FFB8B8>!"
   setwarp:
     usage: "/{command} <传送点>"
     description: "设置传送点"
-    message: "{prefix} <#EAE4FF>你设置了{warp}!"
+    message: "{prefix} <#EAE4FF>你设置了一个名为 &f{warp} <#EAE4FF>的传送点!"
   delwarp:
     usage: "/{command} <传送点>"
     description: "删除传送点"
-    noWarp: "{prefix} <#FFB8B8>目标传送点不存在!"
-    message: "{prefix} <#EAE4FF>你删除了{warp}!"
+    noHome: "{prefix} <#FFB8B8>找不到名为 &f{warp} <#FFB8B8>的传送点!"
+    message: "{prefix} <#EAE4FF>你删除了一个名为 &f{warp} <#EAE4FF>的传送点!"
   money:
     usage: "/{command} [玩家]"
     description: "查询余额"
-    message: "{prefix} &f{player}的余额为{amount}!"
+    message: "{prefix} &f{player} <#FFB8B8>的余额为 &b{amount}<#FFB8B8>!"
   pay:
     usage: "/{command} <玩家> <金额>"
-    description: "查询余额"
+    description: "转账"
     paySelf: "{prefix} <#FFB8B8>你不可以给自己转账!"
-    moneyFormatError: "{prefix} <#FFB8B8>超级大笨蛋,金额怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
+    moneyFormatError: "{prefix} <#FFB8B8>金额不能是非数字的内容!"
     noMoney: "{prefix} <#FFB8B8>你没有那么多的钱!"
-    message: "{prefix} <#EAE4FF>你向{player}转了{amount}!"
-    receivedMessage: "{prefix} &f{player}向你转了{amount}"
+    message: "{prefix} <#EAE4FF>你向 &f{player} <#FFB8B8>转了 &b{amount}<#FFB8B8>!"
+    receivedMessage: "{prefix} &f{player} <#FFB8B8>向你转了 &b{amount}<#FFB8B8>!"
   moneyadmin:
     usage: "/{command} <参数>"
     description: "经济管理"
-    moneyFormatError: "{prefix} <#FFB8B8>超级大笨蛋,金额怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
+    moneyFormatError: "{prefix} <#FFB8B8>金额不能是非数字的内容!"
     subCommands:
       help:
         usage: "/{command} help"
@@ -370,24 +370,24 @@ commands:
       set:
         usage: "/{command} set <玩家> <金额>"
         description: "设置经济"
-        message: "{prefix} <#EAE4FF>玩家{player}的余额被设置为{amount}!"
+        message: "{prefix} &f{player} <#EAE4FF>的余额被设置为 &b{amount}<#EAE4FF>!"
       add:
         usage: "/{command} add <玩家> <金额>"
         description: "增加经济"
-        message: "{prefix} <#EAE4FF>玩家{player}的余额被增加{change},他现在有{amount}!"
+        message: "{prefix} &f{player} <#EAE4FF>的余额被增加 &e{change}<#EAE4FF>,他现在有 &b{amount}<#EAE4FF>!"
       take:
         usage: "/{command} take <玩家> <金额>"
         description: "扣除经济"
-        message: "{prefix} <#EAE4FF>玩家{player}的余额被扣除{change},他现在有{amount}!"
+        message: "{prefix} &f{player} <#EAE4FF>的余额被扣除 &e{change}<#EAE4FF>,他现在有 &b{amount}<#EAE4FF>!"
   randomteleport:
     usage: "/{command} [参数]"
     description: "随机传送"
-    delay: "{prefix} <#FFB8B8>冷却中,你还需要等待{delay}秒,才可以传送!"
-    blackWorld: "{prefix} <#FFB8B8>目标世界不允许传送!"
-    noWorld: "{prefix} <#FFB8B8>找不到目标世界!"
-    noBiome: "{prefix} <#FFB8B8>找不到目标群系!"
-    outTryTime: "{prefix} <#FFB8B8>重试次数超过{amount},终止传送!"
-    message: "{prefix} <#EAE4FF>传送成功!(耗时: {duration}ms)"
+    delay: "{prefix} <#FFB8B8>冷却中,你还需要等待 &f{delay}秒<#FFB8B8>,才可以传送!"
+    blackWorld: "{prefix} <#FFB8B8>世界 &f{world} 不允许随机传送!"
+    noWorld: "{prefix} <#FFB8B8>找不到名为 &f{world} <#FFB8B8>的世界!"
+    noBiome: "{prefix} <#FFB8B8>找不到名为 &f{biome} <#FFB8B8>的群系!"
+    outTryTime: "{prefix} <#FFB8B8>重试次数超过 &f{amount}<#FFB8B8>,终止传送!"
+    message: "{prefix} <#EAE4FF>传送成功!&7(耗时: {duration}ms)"
     sucCommands:
       help:
         usage: "/{command} help"
@@ -433,20 +433,18 @@ commands:
       add:
         usage: "/{command} add <玩家>"
         description: "增加屏蔽玩家"
-        haveIgnore: "{prefix} <#FFB8B8>目标玩家已经被你屏蔽了!"
-        blacklist: "{prefix} <#FFB8B8>小杂鱼,目标玩家是不能屏蔽的人噢~"
-        message: "{prefix} &a你屏蔽了{target}!"
-        sendSelf: "{prefix} <#FFB8B8>您不能忽略自己的消息!"
+        haveIgnore: "{prefix} <#FFB8B8>你已经屏蔽了 &f{player}<#FFB8B8>,无法重复忽略!"
+        blacklist: "{prefix} <#FFB8B8>你不能屏蔽 &f{player}!"
+        ignoreSelf: "{prefix} <#FFB8B8>您不能屏蔽自己的消息!"
+        message: "{prefix} <#EAE4FF>你屏蔽了 &f{player}!"
       remove:
         usage: "/{command} remove <玩家>"
         description: "移除屏蔽玩家"
-        noIgnore: "{prefix} <#FFB8B8>目标玩家没有被你屏蔽!"
-        message: "{prefix} &a你取消屏蔽了{target}!"
+        noIgnore: "{prefix} &f{player} <#FFB8B8>没有被你屏蔽!"
+        message: "{prefix} <#EAE4FF>你取消屏蔽了 &f{player}!"
   msg:
     usage: "/{command} <玩家> <消息>"
     description: "发送私聊消息"
-    delay: "{prefix} <#FFB8B8>冷却中,你还需要等待{delay}秒,才可以私聊!"
-    spam: "{prefix} <#FFB8B8>请不要刷屏!"
     receive: "{prefix} &7{player}悄悄向你说: {message}"
     send: "{prefix} &7你向{target}悄悄说: {message}"
   reply:
@@ -459,22 +457,22 @@ commands:
     types:
       inventory: "背包"
       enderchest: "末影箱"
-    typeNotExists: "{prefix} <#FFB8B8>目标背包类型不存在!"
-    message: "{prefix} <#EAE4FF>你打开了{player}的{type}!"
+    noType: "{prefix} <#FFB8B8>找不到名为 &f{type} <#FFB8B8>的背包类型!"
+    message: "{prefix} <#EAE4FF>你打开了 &f{player} 的 &b{type}!"
   fastchangetime:
     usage: "/{command}"
     description: "快速调节时间"
-    message: "{prefix} <#EAE4FF>时间已调节为{time}!"
+    message: "{prefix} <#EAE4FF>时间已调节为 &f{time}<#EAE4FF>!"
   fastchangeweather:
     usage: "/{command}"
     description: "快速调节天气"
-    message: "{prefix} <#EAE4FF>雨天已设置为{storm},打雷已设置为{thunder}!"
+    message: "{prefix} <#EAE4FF>雨天已设置为 &f{storm}<#EAE4FF>,打雷已设置为 &f{thunder}<#EAE4FF>!"
   fakechangetime:
     usage: "/{command} <时间> [玩家]"
     description: "虚假调节时间"
-    timeFormatError: "{prefix} <#FFB8B8>超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
-    reset: "{prefix} <#EAE4FF>玩家{player}的时间已虚假调节已恢复默认!"
-    message: "{prefix} <#EAE4FF>玩家{player}的时间已虚假调节为{time}!"
+    timeFormatError: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
+    reset: "{prefix} &f{player} <#EAE4FF>的虚假时间调节已关闭!"
+    message: "{prefix} &f{player} <#EAE4FF>的虚假时间调节已设置为 &b{time}!"
   lookitem:
     usage: "/{command} <物品ID>"
     description: "查看物品"

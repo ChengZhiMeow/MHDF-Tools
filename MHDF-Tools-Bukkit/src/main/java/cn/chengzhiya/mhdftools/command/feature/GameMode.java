@@ -60,7 +60,9 @@ public final class GameMode extends AbstractCommand {
 
         org.bukkit.GameMode gameMode = GameModeUtil.getGameMode(args[0]);
         if (gameMode == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.gamemode.noGameMode"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.gamemode.noGameMode")
+                    .replace("{gamemode}", args[0])
+            );
             return;
         }
 

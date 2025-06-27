@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.manager.database.impl;
 
 import cn.chengzhiya.mhdftools.entity.config.DatabaseConfig;
-import cn.chengzhiya.mhdftools.interfaces.Dao;
+import cn.chengzhiya.mhdftools.entity.database.Dao;
 import cn.chengzhiya.mhdftools.manager.database.AbstractDatabaseManager;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import com.j256.ormlite.table.TableUtils;
@@ -41,8 +41,11 @@ public final class MHDFDatabaseManager extends AbstractDatabaseManager {
 
         for (Class<? extends Dao> clazz : reflections.getSubTypesOf(Dao.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                Dao dao = clazz.getDeclaredConstructor().newInstance();
-                TableUtils.createTableIfNotExists(getConnectionSource(), dao.getClass());
+                try {
+                    Dao dao = clazz.getDeclaredConstructor().newInstance();
+                    TableUtils.createTableIfNotExists(getConnectionSource(), dao.getClass());
+                } catch (Exception ignored) {
+                }
             }
         }
     }

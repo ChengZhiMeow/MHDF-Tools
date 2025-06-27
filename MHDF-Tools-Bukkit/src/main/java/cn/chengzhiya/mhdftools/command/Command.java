@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.interfaces;
+package cn.chengzhiya.mhdftools.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

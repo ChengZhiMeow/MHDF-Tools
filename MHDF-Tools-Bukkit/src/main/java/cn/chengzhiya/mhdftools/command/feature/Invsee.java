@@ -42,14 +42,15 @@ public final class Invsee extends AbstractCommand {
             return;
         }
 
-        String inventoryType = args[1];
-        if (InvseeUtil.invsee(sender, target, inventoryType)) {
+        if (InvseeUtil.invsee(sender, target, args[1])) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.invsee.message")
-                    .replace("{type}", LangUtil.i18n("commands.invsee.types." + inventoryType))
+                    .replace("{type}", LangUtil.i18n("commands.invsee.types." + args[1]))
                     .replace("{player}", target.getName())
             );
         } else {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.invsee.typeNotExists"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.invsee.noType")
+                    .replace("{type}", args[1])
+            );
         }
     }
 

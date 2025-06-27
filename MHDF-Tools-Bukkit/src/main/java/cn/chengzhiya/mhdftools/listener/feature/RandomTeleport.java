@@ -2,12 +2,8 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
 import cn.chengzhiya.mhdftools.util.world.BiomeUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,24 +26,20 @@ public final class RandomTeleport extends AbstractListener {
         if (rtpWorld == null) {
             return;
         }
-        String rtpBiome = Main.instance.getCacheManager().get("randomTeleportBiome", player.getName());
-
-        Main.instance.getCacheManager().remove("randomTeleportWorld", player.getName());
-
-        World world = Bukkit.getWorld(rtpWorld);
-        if (world == null) {
-            ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
-        }
 
         Biome biome = null;
+        String rtpBiome = Main.instance.getCacheManager().get("randomTeleportBiome", player.getName());
         if (rtpBiome != null) {
             biome = BiomeUtil.getBiome(rtpBiome);
         }
 
+        Main.instance.getCacheManager().remove("randomTeleportWorld", player.getName());
+        Main.instance.getCacheManager().remove("randomTeleportBiome", player.getName());
+
         RandomTeleportUtil.handleRandomTeleport(
                 player,
                 player,
-                world,
+                rtpWorld,
                 biome
         );
     }

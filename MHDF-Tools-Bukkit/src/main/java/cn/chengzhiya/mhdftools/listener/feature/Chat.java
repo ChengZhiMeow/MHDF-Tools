@@ -85,6 +85,13 @@ public final class Chat extends AbstractListener {
             message = ChatUtil.applyBlackWord(message);
         }
 
+        // AT玩家
+        if (config.getBoolean("at.enable")) {
+            Set<String> atList = AtUtil.getAtList(player, message);
+            message = ChatUtil.applyAt(message, atList);
+            Main.instance.getBungeeCordManager().atList(atList, player.getName());
+        }
+
         // 展示物品
         message = ChatUtil.applyShowItem(player, message);
 
@@ -93,13 +100,6 @@ public final class Chat extends AbstractListener {
 
         // 展示末影箱
         message = ChatUtil.applyShowEnderChest(player, message);
-
-        // AT玩家
-        if (config.getBoolean("at.enable")) {
-            Set<String> atList = AtUtil.getAtList(player, message);
-            message = ChatUtil.applyAt(message, atList);
-            Main.instance.getBungeeCordManager().atList(atList, player.getName());
-        }
 
         // 发送消息
         String formatMessage = ChatUtil.getFormatMessage(player, message);

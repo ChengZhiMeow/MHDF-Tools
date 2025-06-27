@@ -1,6 +1,5 @@
 package cn.chengzhiya.mhdftools.hook;
 
-import cn.chengzhiya.mhdftools.interfaces.Hook;
 import lombok.Getter;
 
 @Getter

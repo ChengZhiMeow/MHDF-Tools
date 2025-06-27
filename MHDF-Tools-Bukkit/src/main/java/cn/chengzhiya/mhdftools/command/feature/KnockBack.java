@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -49,7 +50,7 @@ public final class KnockBack extends AbstractCommand {
         Vector vector = new Vector(x, y, z);
         player.setVelocity(vector);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.knockback.message")
-                .replace("{player}", player.getName())
+                .replace("{player}", NickUtil.getName(player))
         );
     }
 

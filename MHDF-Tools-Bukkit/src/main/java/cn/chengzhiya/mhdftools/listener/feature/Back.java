@@ -3,10 +3,14 @@ package cn.chengzhiya.mhdftools.listener.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.List;
 
@@ -28,5 +32,15 @@ public final class Back extends AbstractListener {
         );
 
         Main.instance.getCacheManager().put("back", player.getName(), bungeeCordLocation.toBase64());
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        if (!ConfigUtil.getConfig().getBoolean("backSettings.respawnMessage")) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        ActionUtil.sendMessage(player, LangUtil.i18n("commands.back.respawnMessage"));
     }
 }

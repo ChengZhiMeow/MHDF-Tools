@@ -55,14 +55,18 @@ public final class Ignore extends AbstractCommand {
             if (args[0].equals("add")) {
                 if (!sender.hasPermission("mhdftools.bypass.ignore.blacklist")) {
                     if (ConfigUtil.getConfig().getStringList("ignoreSettings.blacklist").contains(args[1])) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.blacklist"));
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.blacklist")
+                                .replace("{player}", args[1])
+                        );
                         return;
                     }
                 }
 
                 OfflinePlayer ignorePlayer = Bukkit.getOfflinePlayer(args[1]);
                 if (IgnoreDataUtil.isIgnore(sender, ignorePlayer)) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.haveIgnore"));
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.haveIgnore")
+                            .replace("{player}", args[1])
+                    );
                     return;
                 }
 
@@ -77,7 +81,7 @@ public final class Ignore extends AbstractCommand {
                 IgnoreDataUtil.updateIgnoreData(ignoreData);
 
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.message")
-                        .replace("{target}", ignorePlayer.getName())
+                        .replace("{player}", args[1])
                 );
                 return;
             }
@@ -86,7 +90,9 @@ public final class Ignore extends AbstractCommand {
             if (args[0].equals("remove")) {
                 OfflinePlayer ignorePlayer = Bukkit.getOfflinePlayer(args[1]);
                 if (!IgnoreDataUtil.isIgnore(sender, ignorePlayer)) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.noIgnore"));
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.noIgnore")
+                            .replace("{player}", args[1])
+                    );
                     return;
                 }
 
@@ -94,7 +100,7 @@ public final class Ignore extends AbstractCommand {
                 IgnoreDataUtil.removeIgnoreData(ignoreData);
 
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.message")
-                        .replace("{target}", ignorePlayer.getName())
+                        .replace("{player}", args[1])
                 );
                 return;
             }
