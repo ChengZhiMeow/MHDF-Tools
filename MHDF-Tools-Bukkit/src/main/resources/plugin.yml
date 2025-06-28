@@ -121,7 +121,13 @@ permissions:
     description: 查看在线列表
     default: true
   mhdftools.commands.lookitem:
-    description: 展示物品
+    description: 查看展示物品
+    default: true
+  mhdftools.commands.lookinventory:
+    description: 查看展示背包
+    default: true
+  mhdftools.commands.lookenderchest:
+    description: 查看展示末影箱
     default: true
   mhdftools.commands.mhdftools:
     description: 梦之工具主命令

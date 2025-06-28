@@ -56,7 +56,7 @@ public final class YamlUtil {
                 continue;
             }
 
-            result = ConfigUtil.getConfig().getBoolean(enableKey);
+            result = config.getBoolean(enableKey);
         }
 
         return result;
@@ -107,10 +107,13 @@ public final class YamlUtil {
                 jarConfigKeys = filteredKeys;
             }
 
+            forKey:
             for (String key : jarConfigKeys) {
                 // 绕过部分配置项使其不被更新加入
-                if (jarConfig.getComments(key).contains("!noUpdate")) {
-                    continue;
+                for (String s : key.split("\\.")) {
+                    if (jarConfig.getComments(s).contains("!noUpdate")) {
+                        break forKey;
+                    }
                 }
 
                 config.set(key, jarConfig.get(key));

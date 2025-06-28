@@ -76,6 +76,13 @@ public final class Chat extends AbstractListener {
             }
         }
 
+        // AT玩家
+        if (config.getBoolean("at.enable")) {
+            Set<String> atList = AtUtil.getAtList(player, message);
+            message = ChatUtil.applyAt(message, atList);
+            Main.instance.getBungeeCordManager().atList(atList, player.getName());
+        }
+
         int delay = config.getInt("delay.delay");
         Main.instance.getCacheManager().put("chatDelay", player.getName(), String.valueOf(delay));
         Main.instance.getCacheManager().put("lastChat", player.getName(), message);
@@ -83,13 +90,6 @@ public final class Chat extends AbstractListener {
         // 替换词
         if (!player.hasPermission("mhdftools.bypass.chat.replaceWord")) {
             message = ChatUtil.applyBlackWord(message);
-        }
-
-        // AT玩家
-        if (config.getBoolean("at.enable")) {
-            Set<String> atList = AtUtil.getAtList(player, message);
-            message = ChatUtil.applyAt(message, atList);
-            Main.instance.getBungeeCordManager().atList(atList, player.getName());
         }
 
         // 展示物品
