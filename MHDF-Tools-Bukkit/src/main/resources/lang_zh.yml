@@ -83,6 +83,12 @@ commands:
       explosion: "爆炸溢出"
       invalidTeleport: "无效传送"
       invalidParticle: "异常粒子"
+  pvp:
+    usage: "/{command}"
+    description: "开启/关闭PVP摸索"
+    message: "{prefix} <#EAE4FF>成功切换PVP模式为 {type}!"
+    enable: "&a开启"
+    disable: "&c关闭"
   knockback:
     usage: "/{command} <玩家>"
     description: "击退玩家"
