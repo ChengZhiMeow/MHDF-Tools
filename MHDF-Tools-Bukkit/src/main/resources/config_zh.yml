@@ -254,7 +254,7 @@ customMenuSettings:
   commands:
     - "menu"
 
-# 世界PVP控制系统
+# PVP控制系统
 pvpSettings:
   # 开关
   enable: true
