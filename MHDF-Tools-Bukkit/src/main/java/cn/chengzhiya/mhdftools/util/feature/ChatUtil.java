@@ -5,16 +5,19 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.Base64Util;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
+import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson2.JSONObject;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.Random;
@@ -94,9 +97,10 @@ public final class ChatUtil {
         }
 
         ItemStack item = player.getInventory().getItemInMainHand();
+        ItemMeta meta = item.getItemMeta();
         Material itemType = item.getType();
 
-        if (itemType.isAir() || itemType.isEmpty()) {
+        if (itemType.isAir()) {
             return message;
         }
 
@@ -111,14 +115,23 @@ public final class ChatUtil {
         if (format == null) {
             return message;
         }
-        format = format
+        Component displayName = PluginUtil.isNativeSupportAdventureApi() && meta.hasCustomName() ? meta.customName() : ColorUtil.color(Main.instance.getMinecraftLangManager().getItemName(item));
+        TextComponent formatComponent = ColorUtil.color(format)
                 .replace("{uuid}", uuid.toString())
-                .replace("{name}", Main.instance.getMinecraftLangManager().getItemName(item).replace("§", "&"))
+                .replace("{name}", displayName)
                 .replace("{amount}", String.valueOf(item.getAmount()));
 
         for (String s : config.getStringList("word")) {
-            message = ColorUtil.color(message).replace(s,
-                    ColorUtil.color(format).hoverEvent(item.asHoverEvent())
+            message = ColorUtil.color(message).replace(
+                    s,
+                    formatComponent.hoverEvent(item.asHoverEvent())
+            ).toMiniMessageString();
+        }
+
+        for (String s : config.getStringList("word")) {
+            message = ColorUtil.color(message).replace(
+                    s,
+                    formatComponent.hoverEvent(item.asHoverEvent())
             ).toMiniMessageString();
         }
 
