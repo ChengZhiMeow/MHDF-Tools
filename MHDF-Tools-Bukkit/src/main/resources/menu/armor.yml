@@ -1,0 +1,18 @@
+title: "<#EAE4FF>查看装备"
+size: 27
+commands: [ ]
+openActions: [ ]
+closeActions: [ ]
+items:
+  边框:
+    type: gray_stained_glass_pane
+    name: "&f "
+    slot: "0-26"
+  头盔:
+    slot: 11
+  胸甲:
+    slot: 13
+  裤子:
+    slot: 15
+  鞋子:
+    slot: 17

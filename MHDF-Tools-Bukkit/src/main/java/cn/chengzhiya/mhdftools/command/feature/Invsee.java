@@ -60,7 +60,7 @@ public final class Invsee extends AbstractCommand {
             return Main.instance.getBungeeCordManager().getPlayerList();
         }
         if (args.length == 2) {
-            return Arrays.asList("inventory", "enderchest");
+            return Arrays.asList("inventory", "enderchest", "armor");
         }
         return new ArrayList<>();
     }

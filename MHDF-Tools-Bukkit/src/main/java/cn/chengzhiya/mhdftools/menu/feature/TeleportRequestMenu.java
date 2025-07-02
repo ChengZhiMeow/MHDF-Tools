@@ -27,8 +27,8 @@ import java.util.Locale;
 
 @Getter
 public final class TeleportRequestMenu extends AbstractMenu {
-    private final TeleportRequestType requestType;
     private final YamlConfiguration config;
+    private final TeleportRequestType requestType;
     private final int page;
 
     public TeleportRequestMenu(Player player, TeleportRequestType requestType, int page) {
@@ -36,8 +36,9 @@ public final class TeleportRequestMenu extends AbstractMenu {
                 List.of("tpahereSettings.enable"),
                 player
         );
-        this.requestType = requestType;
+
         this.config = MenuConfigUtil.getMenuConfig(requestType.name().toLowerCase(Locale.ROOT));
+        this.requestType = requestType;
         this.page = page;
     }
 

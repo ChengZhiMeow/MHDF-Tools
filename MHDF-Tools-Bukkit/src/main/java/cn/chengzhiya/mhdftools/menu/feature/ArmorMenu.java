@@ -3,12 +3,10 @@ package cn.chengzhiya.mhdftools.menu.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.CustomMenuConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -22,29 +20,25 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
 @Getter
-public final class CustomMenu extends AbstractMenu {
+public final class ArmorMenu extends AbstractMenu {
     private final YamlConfiguration config;
-    private final String menu;
+    private final Player target;
 
-    public CustomMenu(Player player, String menu) {
+    public ArmorMenu(Player player, Player target) {
         super(
-                List.of("customMenuSettings.enable"),
+                List.of("invseeSettings.enable"),
                 player
         );
 
-        this.config = CustomMenuConfigUtil.getCustomMenuConfig(menu);
-        this.menu = menu;
+        this.config = MenuConfigUtil.getMenuConfig("armor");
+        this.target = target;
     }
 
     @Override
     public @NotNull Inventory getInventory() {
-        int size = getConfig().getInt("size");
-        String title = getConfig().getString("title");
-
-        Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
+        Inventory menu = MenuUtil.createInventory(this, getConfig());
 
         ConfigurationSection items = getConfig().getConfigurationSection("items");
         if (items == null) {
@@ -57,7 +51,20 @@ public final class CustomMenu extends AbstractMenu {
                 continue;
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, getConfig(), key);
+            ItemStack armor = switch (key) {
+                case "头盔" -> getPlayer().getInventory().getHelmet();
+                case "胸甲" -> getPlayer().getInventory().getChestplate();
+                case "裤子" -> getPlayer().getInventory().getLeggings();
+                case "鞋子" -> getPlayer().getInventory().getBoots();
+                default -> null;
+            };
+
+            if (armor != null) {
+                MenuUtil.setMenuItem(menu, item, armor);
+                continue;
+            }
+
+            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -75,20 +82,44 @@ public final class CustomMenu extends AbstractMenu {
             return;
         }
 
-        event.setCancelled(true);
-
         PersistentDataContainerView container = itemStack.getPersistentDataContainer();
-
         String key = container.get(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING);
-        if (key == null) {
+        if (key != null) {
+            event.setCancelled(true);
+            MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
             return;
         }
 
-        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+        this.updateArmor(event.getInventory());
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
         ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+
+        this.updateArmor(event.getInventory());
+    }
+
+    /**
+     * 更新装备
+     */
+    private void updateArmor(Inventory menu) {
+        List<String> armorList = List.of("头盔", "胸甲", "裤子", "鞋子");
+        for (String key : armorList) {
+            ConfigurationSection item = getConfig().getConfigurationSection("items." + key);
+            if (item == null) {
+                continue;
+            }
+
+            int slot = MenuUtil.getSlotList(item).get(0);
+            ItemStack armor = menu.getItem(slot);
+
+            switch (key) {
+                case "头盔" -> getPlayer().getInventory().setHelmet(armor);
+                case "胸甲" -> getPlayer().getInventory().setChestplate(armor);
+                case "裤子" -> getPlayer().getInventory().setLeggings(armor);
+                case "鞋子" -> getPlayer().getInventory().setBoots(armor);
+            }
+        }
     }
 }

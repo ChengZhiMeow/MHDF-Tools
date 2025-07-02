@@ -10,7 +10,6 @@ import cn.chengzhiya.mhdftools.util.feature.MsgUtil;
 import cn.chengzhiya.mhdftools.util.message.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

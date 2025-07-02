@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdftools.menu.feature.ArmorMenu;
 import org.bukkit.entity.Player;
 
 public final class InvseeUtil {
@@ -15,6 +16,7 @@ public final class InvseeUtil {
         switch (inventoryType) {
             case "inventory" -> player.openInventory(target.getInventory());
             case "enderchest" -> player.openInventory(target.getEnderChest());
+            case "armor" -> new ArmorMenu(player, target).openMenu();
             default -> {
                 return false;
             }
