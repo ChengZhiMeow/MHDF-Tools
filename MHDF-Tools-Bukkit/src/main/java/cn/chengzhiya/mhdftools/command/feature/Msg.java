@@ -43,14 +43,7 @@ public final class Msg extends AbstractCommand {
             return;
         }
 
-        Player player = Bukkit.getPlayer(args[0]);
-
-        if (player == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
-            return;
-        }
-
-        if (VanishStatusUtil.getVanishStatus(player).isEnable()) {
+        if (VanishStatusUtil.getVanishStatus(Bukkit.getOfflinePlayer(args[0])).isEnable()) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
         }
 
