@@ -94,7 +94,7 @@ commands:
       &f
       &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
       &f
-      &8▪ &fTPS: <#CFC2FF>{tps}
+      &8▪ &7TPS: &f{tps}
       &8▪ &7内存占用: &f{memory}MB &7/ &b{maxMemory}MB
       &8▪ &7玩家人数: &f{playerCount} &7/ &f{maxPlayerCount}
       &8▪ &7玩家列表:
