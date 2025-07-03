@@ -549,13 +549,34 @@ chatSettings:
     replace:
       - # 文本
         word:
+          - "((https|http)?:\/\/)[^\s]+"
+        # 替换方式
+        # word  ——替换目标词
+        # line  ——替换整句
+        type: "regex"
+        # 使用正则匹配
+        regex: true
+        # 绕过
+        bypass:
+          # 开关
+          enable: false
+        # 替换后的文本
+        replaceWord: "<click:open_url:'{value}'><hover:show_text:'<#EAE4FF>点击打开网页'>{value}</hover></click>"
+      - # 文本
+        word:
           - "傻逼"
         # 替换方式
         # word  ——替换目标词
         # line  ——替换整句
         type: "line"
-        # 替换后的文本
-        # replaceWord: "喵"
+        # 使用正则匹配
+        regex: false
+        # 绕过
+        bypass:
+          # 开关
+          enable: true
+          # 权限
+          permission: "mhdftools.bypass.chat.blackword"
         # 替换后的句子(随机选择)
         lineList:
           - "主人,我错惹喵~"
@@ -564,7 +585,7 @@ chatSettings:
     # 开关
     enable: true
     # 格式
-    format: "<click:run_command:'/lookitem {uuid}'>&7[&b{name} &fx{amount}&7]"
+    format: "<click:run_command:'/lookitem {uuid}'>&7[&f{name} <#EAE4FF>x{amount}&7]"
     # 关键词
     word:
       - "[i]"
@@ -578,7 +599,7 @@ chatSettings:
     # 开关
     enable: true
     # 格式
-    format: "<click:run_command:'/lookinventory {uuid}'>&7[&b{player} &f的背包&7]"
+    format: "<click:run_command:'/lookinventory {uuid}'>&7[&f{player} <#EAE4FF>的背包&7]"
     # 关键词
     word:
       - "[inv]"
@@ -592,7 +613,7 @@ chatSettings:
     # 开关
     enable: true
     # 格式
-    format: "<click:run_command:'/lookenderchest {uuid}'>&7[&b{player} &f的末影箱&7]"
+    format: "<click:run_command:'/lookenderchest {uuid}'>&7[&f{player} <#EAE4FF>的末影箱&7]"
     # 关键词
     word:
       - "[ec]"

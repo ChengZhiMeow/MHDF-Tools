@@ -88,9 +88,7 @@ public final class Chat extends AbstractListener {
         Main.instance.getCacheManager().put("lastChat", player.getName(), message);
 
         // 替换词
-        if (!player.hasPermission("mhdftools.bypass.chat.replaceWord")) {
-            message = ChatUtil.applyBlackWord(message);
-        }
+        message = ChatUtil.applyReplaceWord(player, message);
 
         // 展示物品
         message = ChatUtil.applyShowItem(player, message);

@@ -59,9 +59,7 @@ public final class MsgUtil {
         Main.instance.getCacheManager().put("lastChat", sender.getName(), message);
 
         // 替换词
-        if (!sender.hasPermission("mhdftools.bypass.chat.replaceWord")) {
-            message = ChatUtil.applyBlackWord(message);
-        }
+        message = ChatUtil.applyReplaceWord(sender, message);
 
         Main.instance.getCacheManager().put("reply", sender.getName(), target);
         Main.instance.getCacheManager().put("reply", target, sender.getName());

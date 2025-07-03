@@ -13,6 +13,7 @@ import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public final class ChatUtil {
      * @param message 文本
      * @return 处理后的文本
      */
-    public static String applyBlackWord(String message) {
+    public static String applyReplaceWord(CommandSender player, String message) {
         ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.replaceWord");
         if (config == null) {
             return message;
@@ -50,9 +51,34 @@ public final class ChatUtil {
                 return message;
             }
 
-            for (String s : replace.getStringList("word")) {
-                if (!message.contains(s)) {
+            String permission = replace.getString("bypass.permission");
+            if (replace.getBoolean("bypass.enable")) {
+                if (permission == null) {
                     continue;
+                }
+
+                if (player.hasPermission(permission)) {
+                    continue;
+                }
+            }
+
+            boolean regex = replace.getBoolean("regex");
+            for (String s : replace.getStringList("word")) {
+                String value;
+                if (regex) {
+                    Pattern pattern = Pattern.compile(s);
+                    Matcher matcher = pattern.matcher(message);
+                    if (matcher.find()) {
+                        continue;
+                    }
+
+                    value = matcher.group();
+                } else {
+                    if (!message.contains(s)) {
+                        continue;
+                    }
+
+                    value = s;
                 }
 
                 switch (type) {
@@ -70,9 +96,11 @@ public final class ChatUtil {
                             break;
                         }
 
-                        message = message.replace(s, word);
+                        message = message.replace(value, word);
                     }
                 }
+
+                message = message.replace("{value}", value);
             }
         }
 

@@ -28,9 +28,6 @@ permissions:
   mhdftools.bypass.chat.spam:
     description: 聊天禁止刷屏绕过
     default: op
-  mhdftools.bypass.chat.replaceWord:
-    description: 聊天替换词绕过
-    default: op
   mhdftools.bypass.ignore.blacklist:
     description: 屏蔽禁止屏蔽列表绕过
     default: op
