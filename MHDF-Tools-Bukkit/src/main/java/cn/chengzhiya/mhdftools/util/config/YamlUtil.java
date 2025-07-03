@@ -109,16 +109,28 @@ public final class YamlUtil {
 
             forKey:
             for (String key : jarConfigKeys) {
+                String[] keyParts = key.split("\\.");
+                StringBuilder prefixBuilder = new StringBuilder();
+
                 // 绕过部分配置项使其不被更新加入
-                for (String s : key.split("\\.")) {
-                    if (jarConfig.getComments(s).contains("!noUpdate")) {
-                        break forKey;
+                for (int i = 0; i < keyParts.length; i++) {
+                    String part = keyParts[i];
+
+                    if (i > 0) {
+                        prefixBuilder.append('.');
+                    }
+                    prefixBuilder.append(part);
+
+                    List<String> prefixComments = jarConfig.getComments(prefixBuilder.toString());
+                    if (prefixComments.contains("!noUpdate")) {
+                        continue forKey;
                     }
                 }
 
+                // 更新配置值
                 config.set(key, jarConfig.get(key));
 
-                // 补全注释
+                // 更新注释
                 List<String> comments = jarConfig.getComments(key);
                 if (!comments.isEmpty()) {
                     config.setComments(key, comments);
