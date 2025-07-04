@@ -40,12 +40,13 @@ public final class MHDFDatabaseManager extends AbstractDatabaseManager {
         Reflections reflections = new Reflections(Dao.class.getPackageName());
 
         for (Class<? extends Dao> clazz : reflections.getSubTypesOf(Dao.class)) {
-            if (!Modifier.isAbstract(clazz.getModifiers())) {
-                try {
-                    Dao dao = clazz.getDeclaredConstructor().newInstance();
-                    TableUtils.createTableIfNotExists(getConnectionSource(), dao.getClass());
-                } catch (Exception ignored) {
-                }
+            if (Modifier.isAbstract(clazz.getModifiers())) {
+                continue;
+            }
+
+            try {
+                TableUtils.createTableIfNotExists(getConnectionSource(), clazz);
+            } catch (Exception ignored) {
             }
         }
     }

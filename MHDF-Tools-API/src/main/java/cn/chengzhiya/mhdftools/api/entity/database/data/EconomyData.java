@@ -18,7 +18,7 @@ import java.util.UUID;
 public final class EconomyData extends Dao {
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;
-    @DatabaseField(format = "20,2", canBeNull = false)
+    @DatabaseField(format = "20,2", columnName = "bigDecimal", canBeNull = false)
     private BigDecimal money;
 
     public EconomyData() {

@@ -60,6 +60,10 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public String getName() {
+        if (this.getPlayer() != null) {
+            return this.getPlayer().getName();
+        }
+
         if (name == null) {
             PlayerData data = MHDFToolsAPIHelper.getInstance().getPlayerDataManager().get(this);
             this.name = data.getName();
@@ -71,10 +75,10 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     @Override
     public String getDisplayName() {
         if (ConfigUtil.getConfig().getBoolean("nickSettings.enable") && this.hasNickData()) {
-            return getName();
+            return this.getNickData().getNick();
         }
 
-        return this.getNickData().getNick();
+        return getName();
     }
 
     @Override

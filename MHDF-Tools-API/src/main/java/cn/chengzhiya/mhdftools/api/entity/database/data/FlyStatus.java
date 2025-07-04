@@ -17,7 +17,7 @@ import java.util.UUID;
 public final class FlyStatus extends Dao {
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(columnName = "isEnable", canBeNull = false)
     private boolean enable;
     @DatabaseField(canBeNull = false)
     private long time;

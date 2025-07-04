@@ -1,5 +1,7 @@
 package cn.chengzhiya.mhdftools;
 
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIImpl;
 import cn.chengzhiya.mhdftools.manager.*;
 import cn.chengzhiya.mhdftools.manager.cache.CacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
@@ -65,6 +67,8 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         this.adventureManager = new AdventureManager();
         this.adventureManager.init();
+
+        MHDFToolsAPIHelper.setInstance(new MHDFToolsAPIImpl());
 
         this.databaseManager = new MHDFDatabaseManager();
         this.databaseManager.connect();

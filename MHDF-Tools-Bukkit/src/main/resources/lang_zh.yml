@@ -66,7 +66,7 @@ commands:
         pluginNotSupport: "{prefix} <#FFB8B8>目标插件不支持导入!"
         import:
           start: "{prefix} <#EAE4FF>开始导入 &f{plugin} <#EAE4FF>的 &b{name} <#EAE4FF>数据!"
-          done: "{prefix} <#EAE4FF>导入 &f{plugin} <#EAE4FF>的 &b{name} <#EAE4FF>数据完成!&7(耗时: {time}ms)"
+          done: "{prefix} <#EAE4FF>导入 &f{plugin} <#EAE4FF>的 &e{name} <#EAE4FF>数据完成!&7(耗时: {time}ms)"
         message:
           start: "{prefix} <#EAE4FF>开始导入 &f{plugin} <#EAE4FF>的数据!"
           done: "{prefix} <#EAE4FF>导入 &f{plugin} <#EAE4FF>的数据完成!"
@@ -280,7 +280,7 @@ commands:
   nick:
     usage: "/{command} <名称> [玩家]"
     description: "修改玩家匿名名称"
-    message: "{prefix} &f{player} <#EAE4FF>的名称已修改为 &b{name} <#EAE4FF>!"
+    message: "{prefix} &f{player} <#EAE4FF>的名称已修改为 &b{name}<#EAE4FF>!"
   ip:
     usage: "/{command} <玩家>"
     description: "查询一个玩家的IP信息"
@@ -297,7 +297,7 @@ commands:
     usage: "/{command} <游戏模式> [玩家]"
     description: "修改玩家游戏模式"
     noGameMode: "{prefix} <#FFB8B8>找不到名为 &f{gamemode} #FFB8B8>的游戏模式!"
-    message: "{prefix} &f{player} <#EAE4FF>的游戏模式已被更新为 &b{gamemode} <#EAE4FF>!"
+    message: "{prefix} &f{player} <#EAE4FF>的游戏模式已被更新为 &b{gamemode}<#EAE4FF>!"
   bed:
     usage: "/{command}"
     description: "回到床的位置"
@@ -338,15 +338,15 @@ commands:
   money:
     usage: "/{command} [玩家]"
     description: "查询余额"
-    message: "{prefix} &f{player} <#FFB8B8>的余额为 &b{amount}<#FFB8B8>!"
+    message: "{prefix} &f{player} <#EAE4FF>的余额为 &b{amount}<#FFB8B8>!"
   pay:
     usage: "/{command} <玩家> <金额>"
     description: "转账"
     paySelf: "{prefix} <#FFB8B8>你不可以给自己转账!"
     moneyFormatError: "{prefix} <#FFB8B8>金额不能是非数字的内容!"
     noMoney: "{prefix} <#FFB8B8>你没有那么多的钱!"
-    message: "{prefix} <#EAE4FF>你向 &f{player} <#FFB8B8>转了 &b{amount}<#FFB8B8>!"
-    receivedMessage: "{prefix} &f{player} <#FFB8B8>向你转了 &b{amount}<#FFB8B8>!"
+    message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>转了 &b{amount}<#EAE4FF>!"
+    receivedMessage: "{prefix} &f{player} <#EAE4FF>向你转了 &b{amount}<#EAE4FF>!"
   moneyadmin:
     usage: "/{command} <参数>"
     description: "经济管理"
