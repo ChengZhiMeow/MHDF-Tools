@@ -2,8 +2,9 @@ package cn.chengzhiya.mhdftools.util.imports;
 
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
-import cn.chengzhiya.mhdftools.entity.database.data.WarpData;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhiya.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhiya.mhdftools.entity.database.data.huskhomes.HuskHomesHomeData;
 import cn.chengzhiya.mhdftools.entity.database.data.huskhomes.HuskHomesPositionData;
 import cn.chengzhiya.mhdftools.entity.database.data.huskhomes.HuskHomesPositionInfoData;
@@ -12,8 +13,6 @@ import cn.chengzhiya.mhdftools.manager.database.impl.HuskHomesDatabaseManager;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
-import cn.chengzhiya.mhdftools.util.database.WarpDataUtil;
 import org.bukkit.command.CommandSender;
 
 public final class HuskHomesImportUtil {
@@ -44,12 +43,8 @@ public final class HuskHomesImportUtil {
                         HuskHomesPositionInfoData huskHomesPositionInfoData = huskHomesManager.getHuskHomesPositionInfoData(huskHomesHomeData.getPositionInfoId());
                         HuskHomesPositionData huskHomesPositionData = huskHomesManager.getHuskHomesPositionData(huskHomesPositionInfoData.getPositionId());
 
-                        HomeData homeData = new HomeData();
-                        homeData.setHome(huskHomesPositionInfoData.getName());
-                        homeData.setPlayer(huskHomesHomeData.getOwner());
-                        homeData.setLocation(huskHomesPositionData.toBungeeCordLocation());
-
-                        HomeDataUtil.updateHomeData(homeData);
+                        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(huskHomesHomeData.getOwner());
+                        player.setHome(huskHomesPositionInfoData.getName(), huskHomesPositionData.toBungeeCordLocation());
                     }
 
                     Long endTime = System.currentTimeMillis();
@@ -74,11 +69,9 @@ public final class HuskHomesImportUtil {
                         HuskHomesPositionInfoData huskHomesPositionInfoData = huskHomesManager.getHuskHomesPositionInfoData(huskHomesWarpData.getPositionInfoId());
                         HuskHomesPositionData huskHomesPositionData = huskHomesManager.getHuskHomesPositionData(huskHomesPositionInfoData.getPositionId());
 
-                        WarpData warpData = new WarpData();
-                        warpData.setWarp(huskHomesPositionInfoData.getName());
-                        warpData.setLocation(huskHomesPositionData.toBungeeCordLocation());
-
-                        WarpDataUtil.updateWarpData(warpData);
+                        WarpData data = new WarpData(huskHomesPositionInfoData.getName());
+                        data.setLocation(huskHomesPositionData.toBungeeCordLocation());
+                        MHDFToolsAPIHelper.getInstance().getWarpDataManager().update(data);
                     }
 
                     Long endTime = System.currentTimeMillis();

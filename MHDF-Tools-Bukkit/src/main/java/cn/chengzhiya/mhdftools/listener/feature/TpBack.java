@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -27,6 +27,6 @@ public final class TpBack extends AbstractListener {
                 location
         );
 
-        Main.instance.getCacheManager().put("back", player.getName(), bungeeCordLocation.toBase64());
+        Main.instance.getCacheManager().put("back", player.getName(), bungeeCordLocation.toString());
     }
 }

@@ -1,11 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -57,10 +58,11 @@ public final class Nick extends AbstractCommand {
             return;
         }
 
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (args[0].equals("off")) {
-            NickUtil.resetNickName(player);
+            mhdfPlayer.deleteNick();
         } else {
-            NickUtil.setNickName(player, ColorUtil.miniMessage(args[0]));
+            mhdfPlayer.setNick(args[0]);
         }
 
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.nick.message")

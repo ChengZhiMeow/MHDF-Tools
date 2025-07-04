@@ -1,12 +1,13 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhiya.mhdftools.api.entity.database.data.IgnoreData;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.data.IgnoreData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -28,11 +29,12 @@ public final class Ignore extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
         if (args.length == 1) {
             // 屏蔽玩家列表
             if (args[0].equalsIgnoreCase("list")) {
                 StringBuilder listStringBuilder = new StringBuilder();
-                List<IgnoreData> ignoreDataList = IgnoreDataUtil.getIgnoreDataList(sender);
+                List<IgnoreData> ignoreDataList = mhdfPlayer.getIgnoreList();
                 for (int i = 0; i < ignoreDataList.size(); i++) {
                     IgnoreData ignoreData = ignoreDataList.get(i);
                     OfflinePlayer ignorePlayer = Bukkit.getOfflinePlayer(ignoreData.getIgnore());
@@ -62,23 +64,20 @@ public final class Ignore extends AbstractCommand {
                     }
                 }
 
-                OfflinePlayer ignorePlayer = Bukkit.getOfflinePlayer(args[1]);
-                if (IgnoreDataUtil.isIgnore(sender, ignorePlayer)) {
+                MHDFToolsPlayer mhdfIgnorePlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[1]);
+                if (mhdfPlayer.isIgnore(mhdfIgnorePlayer)) {
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.haveIgnore")
                             .replace("{player}", args[1])
                     );
                     return;
                 }
 
-                if (ignorePlayer.getUniqueId().equals(sender.getUniqueId())) {
+                if (mhdfPlayer.equals(mhdfIgnorePlayer)) {
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.sendSelf"));
                     return;
                 }
 
-                IgnoreData ignoreData = new IgnoreData();
-                ignoreData.setPlayer(sender.getUniqueId());
-                ignoreData.setIgnore(ignorePlayer.getUniqueId());
-                IgnoreDataUtil.updateIgnoreData(ignoreData);
+                mhdfPlayer.ignore(mhdfIgnorePlayer);
 
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.message")
                         .replace("{player}", args[1])
@@ -88,16 +87,16 @@ public final class Ignore extends AbstractCommand {
 
             // 移除屏蔽玩家
             if (args[0].equals("remove")) {
-                OfflinePlayer ignorePlayer = Bukkit.getOfflinePlayer(args[1]);
-                if (!IgnoreDataUtil.isIgnore(sender, ignorePlayer)) {
+                MHDFToolsPlayer mhdfIgnorePlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[1]);
+
+                if (!mhdfPlayer.isIgnore(mhdfIgnorePlayer)) {
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.noIgnore")
                             .replace("{player}", args[1])
                     );
                     return;
                 }
 
-                IgnoreData ignoreData = IgnoreDataUtil.getIgnoreData(sender, ignorePlayer);
-                IgnoreDataUtil.removeIgnoreData(ignoreData);
+                mhdfPlayer.deleteIgnore(mhdfIgnorePlayer);
 
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.message")
                         .replace("{player}", args[1])
@@ -125,7 +124,8 @@ public final class Ignore extends AbstractCommand {
                 return Main.instance.getBungeeCordManager().getPlayerList();
             }
             if (args[0].equals("remove")) {
-                return IgnoreDataUtil.getIgnoreDataList(sender).stream()
+                MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+                return mhdfPlayer.getIgnoreList().stream()
                         .map(d -> Bukkit.getOfflinePlayer(d.getIgnore()))
                         .map(OfflinePlayer::getName)
                         .toList();

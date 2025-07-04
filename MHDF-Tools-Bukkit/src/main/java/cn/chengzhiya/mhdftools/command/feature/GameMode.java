@@ -1,12 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.GameModeUtil;
-import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -68,7 +68,7 @@ public final class GameMode extends AbstractCommand {
 
         Main.instance.getBungeeCordManager().setGameMode(player, gameMode);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.gamemode.message")
-                .replace("{player}", NickUtil.getName(player))
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{gamemode}", LangUtil.i18n("gamemode." + gameMode.name()))
         );
     }

@@ -1,12 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.CrashUtil;
-import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -50,7 +50,7 @@ public final class Crash extends AbstractCommand {
 
         if (crashType != null && CrashUtil.crashPlayerClient(player, crashType)) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.crash.message")
-                    .replace("{player}", NickUtil.getName(player))
+                    .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                     .replace("{type}", LangUtil.i18n("commands.crash.types." + crashType))
             );
         } else {

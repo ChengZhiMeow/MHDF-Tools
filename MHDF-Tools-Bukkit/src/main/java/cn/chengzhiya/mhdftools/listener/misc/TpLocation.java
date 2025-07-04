@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.listener.misc;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import org.bukkit.entity.Player;

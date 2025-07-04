@@ -1,17 +1,16 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -102,14 +101,15 @@ public final class Chat extends AbstractListener {
         // 发送消息
         String formatMessage = ChatUtil.getFormatMessage(player, message);
 
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         Main.instance.getBungeeCordManager().sendMessage(
                 "console",
                 formatMessage
         );
         for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
             if (config.getBoolean("ignore.enable")) {
-                OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
-                if (IgnoreDataUtil.isIgnore(targetPlayer, player)) {
+                MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target);
+                if (mhdfTargetPlayer.isIgnore(mhdfPlayer)) {
                     continue;
                 }
             }

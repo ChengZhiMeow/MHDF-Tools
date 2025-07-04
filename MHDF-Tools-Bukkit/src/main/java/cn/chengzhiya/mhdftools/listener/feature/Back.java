@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -31,7 +31,7 @@ public final class Back extends AbstractListener {
                 location
         );
 
-        Main.instance.getCacheManager().put("back", player.getName(), bungeeCordLocation.toBase64());
+        Main.instance.getCacheManager().put("back", player.getName(), bungeeCordLocation.toString());
     }
 
     @EventHandler

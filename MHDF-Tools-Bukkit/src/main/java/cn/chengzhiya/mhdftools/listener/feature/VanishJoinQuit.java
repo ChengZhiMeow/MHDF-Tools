@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.data.VanishStatus;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -20,8 +20,8 @@ public final class VanishJoinQuit extends AbstractListener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
-        if (!vanishStatus.isEnable()) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (!mhdfPlayer.isEnableVanish()) {
             return;
         }
 
@@ -31,8 +31,8 @@ public final class VanishJoinQuit extends AbstractListener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
-        if (!vanishStatus.isEnable()) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (!mhdfPlayer.isEnableVanish()) {
             return;
         }
 

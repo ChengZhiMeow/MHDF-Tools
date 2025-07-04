@@ -1,11 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import cn.chengzhiya.mhdftools.util.feature.MsgUtil;
 import cn.chengzhiya.mhdftools.util.message.MessageUtil;
 import org.bukkit.Bukkit;
@@ -42,7 +43,8 @@ public final class Msg extends AbstractCommand {
             return;
         }
 
-        if (VanishStatusUtil.getVanishStatus(Bukkit.getOfflinePlayer(args[0])).isEnable()) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(Bukkit.getOfflinePlayer(args[0]));
+        if (mhdfPlayer.isEnableVanish()) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
         }
 

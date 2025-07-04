@@ -1,10 +1,9 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.data.FlyStatus;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
-import cn.chengzhiya.mhdftools.util.feature.FlyUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -32,9 +31,9 @@ public final class AutoChangeFly extends AbstractListener {
         }
 
         Player player = event.getPlayer();
-
-        if (allowChange(player)) {
-            FlyUtil.enableFly(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (this.allowChange(player)) {
+            mhdfPlayer.disableFly();
         }
     }
 
@@ -50,9 +49,9 @@ public final class AutoChangeFly extends AbstractListener {
         }
 
         Player player = event.getPlayer();
-
-        if (allowChange(player)) {
-            FlyUtil.enableFly(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (this.allowChange(player)) {
+            mhdfPlayer.disableFly();
         }
     }
 
@@ -68,9 +67,9 @@ public final class AutoChangeFly extends AbstractListener {
         }
 
         Player player = event.getPlayer();
-
-        if (allowChange(player)) {
-            FlyUtil.enableFly(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (this.allowChange(player)) {
+            mhdfPlayer.disableFly();
         }
     }
 
@@ -88,8 +87,9 @@ public final class AutoChangeFly extends AbstractListener {
             return;
         }
 
-        if (allowChange(player)) {
-            FlyUtil.disableFly(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (this.allowChange(player)) {
+            mhdfPlayer.disableFly();
         }
     }
 
@@ -99,19 +99,18 @@ public final class AutoChangeFly extends AbstractListener {
      * @param player 玩家实例
      */
     private boolean allowChange(Player player) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         // 目标世界在 自动关闭飞行世界列表 当中
         if (ConfigUtil.getConfig().getStringList("flySettings.autoDisable.worldList").contains(player.getWorld().getName())) {
-            FlyUtil.disableFly(player);
+            mhdfPlayer.disableFly();
             return false;
         }
-
-        FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
 
         // 不处理没有开启飞行的玩家
-        if (!flyStatus.isEnable()) {
+        if (!mhdfPlayer.isEnableFly()) {
             return false;
         }
 
-        return !FlyUtil.isAllowedFlyingGameMode(player);
+        return !mhdfPlayer.isAllowedFlyingGameMode();
     }
 }

@@ -1,12 +1,11 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public final class TpaUtil {
@@ -17,6 +16,7 @@ public final class TpaUtil {
      * @param targetName 玩家ID
      */
     public static void sendTpaRequest(Player player, String targetName) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (!Main.instance.getBungeeCordManager().ifPlayerOnline(targetName)) {
             ActionUtil.sendMessage(player, LangUtil.i18n("playerOffline"));
             return;
@@ -38,18 +38,17 @@ public final class TpaUtil {
         Main.instance.getCacheManager().put("tpaPlayer", player.getName(), targetName);
         Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
-        OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
-
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.message")
-                .replace("{player}", NickUtil.getName(target))
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
         );
 
-        if (IgnoreDataUtil.isIgnore(target, player)) {
+        MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName);
+        if (mhdfTargetPlayer.isIgnore(mhdfPlayer)) {
             return;
         }
 
         Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpa.requestMessage")
-                .replaceByMiniMessage("{player}", NickUtil.getName(player))
+                .replaceByMiniMessage("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
         );
     }
 }

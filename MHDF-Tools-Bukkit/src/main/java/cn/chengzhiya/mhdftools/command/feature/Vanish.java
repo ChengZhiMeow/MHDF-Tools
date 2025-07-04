@@ -1,13 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.data.VanishStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
-import cn.chengzhiya.mhdftools.util.feature.VanishUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -61,19 +60,19 @@ public final class Vanish extends AbstractCommand {
         }
 
         // 切换隐身
-        VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
-        if (!vanishStatus.isEnable()) {
-            VanishUtil.enableVanish(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (!mhdfPlayer.isEnableVanish()) {
+            mhdfPlayer.enableVanish();
             if (sendToSender) {
-                VanishUtil.sendChangeVanishMessage(sender, player, true);
+                this.sendChangeVanishMessage(sender, player, true);
             }
-            VanishUtil.sendChangeVanishMessage(player, player, true);
+            this.sendChangeVanishMessage(player, player, true);
         } else {
-            VanishUtil.disableVanish(player);
+            mhdfPlayer.disableVanish();
             if (sendToSender) {
-                VanishUtil.sendChangeVanishMessage(sender, player, false);
+                this.sendChangeVanishMessage(sender, player, false);
             }
-            VanishUtil.sendChangeVanishMessage(player, player, false);
+            this.sendChangeVanishMessage(player, player, false);
         }
     }
 
@@ -83,5 +82,21 @@ public final class Vanish extends AbstractCommand {
             return Main.instance.getBungeeCordManager().getPlayerList();
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * 给指定目标实例发送切换隐身的提示
+     *
+     * @param sender 接收信息的目标实例
+     * @param player 开启隐身的玩家实例
+     * @param enable 是否开启隐身
+     */
+    private void sendChangeVanishMessage(CommandSender sender, Player player, boolean enable) {
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.vanish.message")
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                .replace("{change}",
+                        enable ? LangUtil.i18n("enable") : LangUtil.i18n("disable")
+                )
+        );
     }
 }

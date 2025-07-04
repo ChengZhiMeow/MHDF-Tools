@@ -1,13 +1,13 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
 import cn.chengzhiya.mhdftools.menu.feature.TeleportRequestMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -72,21 +72,21 @@ public final class TpaHere extends AbstractCommand {
                 case "accept" -> {
                     Main.instance.getBungeeCordManager().teleportPlayer(sender, args[1]);
                     Main.instance.getBungeeCordManager().sendMessage(args[1], LangUtil.i18n("commands.tpahere.accept.accepted")
-                            .replace("{player}", NickUtil.getName(sender))
+                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
                     );
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.accept.message")
-                            .replace("{player}", NickUtil.getName(target))
+                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
                     );
                     return;
                 }
                 case "reject" -> {
                     Main.instance.getBungeeCordManager().sendMessage(args[1], LangUtil.i18n("commands.tpahere.reject.rejected")
-                            .replace("{player}", NickUtil.getName(sender))
+                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
                     );
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.reject.message")
-                            .replace("{player}", NickUtil.getName(target))
+                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
                     );
                     return;
                 }

@@ -549,11 +549,11 @@ chatSettings:
     replace:
       - # 文本
         word:
-          - "((https|http)?:\/\/)[^\s]+"
+          - '((https|http)?://)[^\s]+'
         # 替换方式
         # word  ——替换目标词
         # line  ——替换整句
-        type: "regex"
+        type: "word"
         # 使用正则匹配
         regex: true
         # 绕过

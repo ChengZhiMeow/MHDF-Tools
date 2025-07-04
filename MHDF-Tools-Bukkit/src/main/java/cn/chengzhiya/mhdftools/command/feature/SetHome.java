@@ -1,12 +1,13 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhiya.mhdftools.api.entity.database.data.HomeData;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.HomeUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -42,8 +43,9 @@ public final class SetHome extends AbstractCommand {
             return;
         }
 
+        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
         if (!ConfigUtil.getConfig().getBoolean("homeSettings.existReplace")) {
-            if (HomeDataUtil.getHomeData(sender.getUniqueId(), args[0]) != null) {
+            if (player.hasHome(args[0])) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.sethome.haveHome")
                         .replace("{home}", args[0])
                 );
@@ -52,7 +54,7 @@ public final class SetHome extends AbstractCommand {
         }
 
         int maxHome = HomeUtil.getMaxHome(sender);
-        if (HomeDataUtil.getHomeDataList(sender).size() >= maxHome) {
+        if (player.getHomeList().size() >= maxHome) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.sethome.isMax")
                     .replace("{amount}", String.valueOf(maxHome))
             );
@@ -60,13 +62,8 @@ public final class SetHome extends AbstractCommand {
         }
 
         Location location = sender.getLocation();
+        player.setHome(args[0], new BungeeCordLocation(location));
 
-        HomeData homeData = new HomeData();
-        homeData.setPlayer(sender.getUniqueId());
-        homeData.setHome(args[0]);
-        homeData.setLocation(new BungeeCordLocation(location));
-
-        HomeDataUtil.updateHomeData(homeData);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.sethome.message")
                 .replace("{home}", args[0])
         );
@@ -75,7 +72,8 @@ public final class SetHome extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return HomeDataUtil.getHomeDataList(sender).stream()
+            MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+            return player.getHomeList().stream()
                     .map(HomeData::getHome)
                     .toList();
         }

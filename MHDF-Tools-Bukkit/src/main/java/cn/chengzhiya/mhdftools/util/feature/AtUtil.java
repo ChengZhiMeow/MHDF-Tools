@@ -1,14 +1,13 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.data.IgnoreData;
-import cn.chengzhiya.mhdftools.entity.database.data.VanishStatus;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhiya.mhdftools.api.entity.database.data.VanishStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.SoundUtil;
-import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
-import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -18,7 +17,6 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 public final class AtUtil {
     @Getter
@@ -40,13 +38,13 @@ public final class AtUtil {
 
         // 禁止AT隐身玩家
         List<String> onlinePlayerList = Main.instance.getBungeeCordManager().getPlayerList();
-        for (VanishStatus vanishStatus : VanishStatusUtil.getVanishStatusList()) {
+        for (VanishStatus vanishStatus : MHDFToolsAPIHelper.getInstance().getVanishStatusManager().getList()) {
             if (!vanishStatus.isEnable()) {
                 continue;
             }
-            UUID vanishPlayerUuid = vanishStatus.getPlayer();
-            OfflinePlayer vanishPlayer = Bukkit.getOfflinePlayer(vanishPlayerUuid);
-            onlinePlayerList.remove(vanishPlayer.getName());
+
+            MHDFToolsPlayer mhdfVanishPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(vanishStatus.getPlayer());
+            onlinePlayerList.remove(mhdfVanishPlayer.getName());
         }
 
         for (String playerName : onlinePlayerList) {
@@ -77,14 +75,15 @@ public final class AtUtil {
      * @param player 玩家实例
      */
     public static void at(Player player, String by) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (player == null) {
             return;
         }
 
         // 屏蔽黑名单列表中的AT
         OfflinePlayer byPlayer = Bukkit.getOfflinePlayer(by);
-        IgnoreData ignoreData = IgnoreDataUtil.getIgnoreData(player, byPlayer);
-        if (ignoreData != null) {
+        MHDFToolsPlayer mhdfByPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(byPlayer);
+        if (mhdfPlayer.isIgnore(mhdfByPlayer)) {
             return;
         }
 

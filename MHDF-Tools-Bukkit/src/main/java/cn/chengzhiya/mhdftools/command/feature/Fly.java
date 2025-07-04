@@ -1,13 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.data.FlyStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
-import cn.chengzhiya.mhdftools.util.feature.FlyUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -37,8 +36,8 @@ public final class Fly extends AbstractCommand {
             sendToSender = false;
             player = (Player) sender;
 
-            FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
-            if (!sender.hasPermission("mhdftools.commands.fly.infinite") && flyStatus.getTime() <= 0) {
+            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+            if (!sender.hasPermission("mhdftools.commands.fly.infinite") && mhdfPlayer.getFlyTime() <= 0) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
@@ -66,21 +65,21 @@ public final class Fly extends AbstractCommand {
             return;
         }
 
-        // 切换飞行
-        FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
-        if (!flyStatus.isEnable()) {
-            FlyUtil.enableFly(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (mhdfPlayer.isEnableFly()) {
+            mhdfPlayer.enableFly();
             if (sendToSender) {
-                FlyUtil.sendChangeFlyMessage(sender, player, true);
+                this.sendChangeFlyMessage(sender, player, true);
             }
-            FlyUtil.sendChangeFlyMessage(player, player, true);
-        } else {
-            FlyUtil.disableFly(player);
-            if (sendToSender) {
-                FlyUtil.sendChangeFlyMessage(sender, player, false);
-            }
-            FlyUtil.sendChangeFlyMessage(player, player, false);
+            this.sendChangeFlyMessage(player, player, true);
+            return;
         }
+
+        mhdfPlayer.disableFly();
+        if (sendToSender) {
+            this.sendChangeFlyMessage(sender, player, false);
+        }
+        this.sendChangeFlyMessage(player, player, false);
     }
 
     @Override
@@ -89,5 +88,22 @@ public final class Fly extends AbstractCommand {
             return Main.instance.getBungeeCordManager().getPlayerList();
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * 给指定目标实例发送切换飞行的提示
+     *
+     * @param sender 接收信息的目标实例
+     * @param player 开启飞行的玩家实例
+     * @param enable 是否开启飞行
+     */
+    private void sendChangeFlyMessage(CommandSender sender, Player player, boolean enable) {
+        ActionUtil.sendMessage(sender,
+                LangUtil.i18n("commands.fly.message")
+                        .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                        .replace("{change}",
+                                enable ? LangUtil.i18n("enable") : LangUtil.i18n("disable")
+                        )
+        );
     }
 }

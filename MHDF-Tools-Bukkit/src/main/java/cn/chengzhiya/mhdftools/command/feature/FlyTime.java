@@ -1,14 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.data.FlyStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,8 +30,7 @@ public final class FlyTime extends AbstractCommand {
         if (args.length == 3) {
             switch (args[0]) {
                 case "set", "add", "take" -> {
-                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-
+                    MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[1]);
                     long inputTime;
                     try {
                         inputTime = Long.parseLong(args[2]);
@@ -42,26 +39,22 @@ public final class FlyTime extends AbstractCommand {
                         return;
                     }
 
-                    FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
-
                     if (args[0].equals("set")) {
-                        flyStatus.setTime(inputTime);
+                        mhdfPlayer.setFlyTime(inputTime);
                     }
 
                     if (args[0].equals("add")) {
-                        flyStatus.setTime(flyStatus.getTime() + inputTime);
+                        mhdfPlayer.addFlyTime(inputTime);
                     }
 
                     if (args[0].equals("take")) {
-                        flyStatus.setTime(flyStatus.getTime() - inputTime);
+                        mhdfPlayer.takeFlyTime(inputTime);
                     }
-
-                    FlyStatusUtil.updateFlyStatus(flyStatus);
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.flytime.subCommands." + args[0] + ".message")
                             .replace("{player}", args[1])
                             .replace("{change}", String.valueOf(inputTime))
-                            .replace("{amount}", String.valueOf(flyStatus.getTime()))
+                            .replace("{amount}", String.valueOf(mhdfPlayer.getFlyTime()))
                     );
                     return;
                 }

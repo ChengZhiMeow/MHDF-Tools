@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.entity.database.data.huskhomes;
 
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;

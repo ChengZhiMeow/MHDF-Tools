@@ -1,14 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.data.EconomyData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
-import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
-import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -54,13 +52,12 @@ public final class Pay extends AbstractCommand {
             return;
         }
 
-        EconomyData economyData = EconomyDataUtil.getEconomyData(sender);
-        if (economyData.getBigDecimal().compareTo(amount) < 0) {
+        MHDFToolsPlayer mhdfPayPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+        if (mhdfPayPlayer.getMoney().compareTo(amount) < 0) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.pay.noMoney"));
             return;
         }
-
-        EconomyUtil.takeMoney(sender, amount);
+        mhdfPayPlayer.takeMoney(amount);
 
         BigDecimal tax = BigDecimalUtil.toBigDecimal(0);
         if (ConfigUtil.getConfig().getBoolean("economySettings.personalIncomeTax.enable")) {
@@ -73,15 +70,16 @@ public final class Pay extends AbstractCommand {
             );
         }
 
-        EconomyUtil.addMoney(player, amount.subtract(tax));
+        MHDFToolsPlayer mhdfGetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        mhdfGetPlayer.addMoney(amount.subtract(tax));
 
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.pay.message")
-                .replace("{player}", NickUtil.getName(player))
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{amount}", String.valueOf(amount))
         );
 
         ActionUtil.sendMessage(player.getPlayer(), LangUtil.i18n("commands.pay.receivedMessage")
-                .replace("{player}", NickUtil.getName(sender))
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
                 .replace("{amount}", String.valueOf(amount))
         );
     }

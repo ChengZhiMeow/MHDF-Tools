@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.placeholder.feature;
 
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.placeholder.AbstractPlaceholder;
-import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +21,7 @@ public final class Nick extends AbstractPlaceholder {
             return null;
         }
         if (prams.equals("nick_name")) {
-            return NickUtil.getName(player);
+            return MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName();
         }
 
         return null;

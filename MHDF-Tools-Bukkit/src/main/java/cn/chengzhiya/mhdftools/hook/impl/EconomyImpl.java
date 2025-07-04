@@ -1,11 +1,11 @@
 package cn.chengzhiya.mhdftools.hook.impl;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
-import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
 import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.Economy;
@@ -56,12 +56,13 @@ public final class EconomyImpl extends AbstractEconomy {
     }
 
     public String currencyNameSingular() {
-        return EconomyUtil.getMoneyName();
+        return MHDFToolsAPIHelper.getInstance().getEconomyDataManager().getMoneyName();
     }
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        return EconomyDataUtil.getEconomyData(player) != null;
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        return mhdfPlayer.hasEconomyData();
     }
 
     @Override
@@ -82,7 +83,8 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        return EconomyUtil.getMoney(player).doubleValue();
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        return mhdfPlayer.getMoney().doubleValue();
     }
 
     @Override
@@ -113,7 +115,9 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
-        EconomyUtil.takeMoney(player, BigDecimalUtil.toBigDecimal(amount));
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        mhdfPlayer.takeMoney(BigDecimalUtil.toBigDecimal(amount));
+
         return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
@@ -142,7 +146,10 @@ public final class EconomyImpl extends AbstractEconomy {
                     .replace("{amount}", String.valueOf(tax))
             );
         }
-        EconomyUtil.addMoney(player, BigDecimalUtil.toBigDecimal(amount - tax));
+
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        mhdfPlayer.addMoney(BigDecimalUtil.toBigDecimal(amount - tax));
+
         return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
@@ -214,7 +221,12 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public boolean createPlayerAccount(OfflinePlayer player) {
-        EconomyDataUtil.initEconomyData(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (mhdfPlayer.hasEconomyData()) {
+            return false;
+        }
+
+        mhdfPlayer.setMoney(mhdfPlayer.getMoney());
         return true;
     }
 

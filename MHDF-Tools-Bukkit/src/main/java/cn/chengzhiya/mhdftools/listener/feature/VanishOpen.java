@@ -1,11 +1,11 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.database.data.VanishStatus;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.BarrelMenu;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.ChestMenu;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.ShulkerBoxMenu;
-import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -37,8 +37,8 @@ public final class VanishOpen extends AbstractListener {
         }
         Block block = event.getClickedBlock();
 
-        VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
-        if (!vanishStatus.isEnable()) {
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (!mhdfPlayer.isEnableVanish()) {
             return;
         }
 

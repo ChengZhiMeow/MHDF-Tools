@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.Base64Util;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
@@ -68,7 +69,7 @@ public final class ChatUtil {
                 if (regex) {
                     Pattern pattern = Pattern.compile(s);
                     Matcher matcher = pattern.matcher(message);
-                    if (matcher.find()) {
+                    if (!matcher.find()) {
                         continue;
                     }
 
@@ -208,7 +209,7 @@ public final class ChatUtil {
         }
         format = format
                 .replace("{uuid}", uuid.toString())
-                .replace("{player}", NickUtil.getName(player));
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName());
 
         for (String s : config.getStringList("word")) {
             message = ColorUtil.color(message).replace(s, ColorUtil.color(format)).toMiniMessageString();
@@ -259,7 +260,7 @@ public final class ChatUtil {
         }
         format = format
                 .replace("{uuid}", uuid.toString())
-                .replace("{player}", NickUtil.getName(player));
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName());
 
         for (String s : config.getStringList("word")) {
             message = ColorUtil.color(message).replace(s, ColorUtil.color(format)).toMiniMessageString();
@@ -333,7 +334,7 @@ public final class ChatUtil {
 
         return Main.instance.getPluginHookManager().getPlaceholderAPIHook()
                 .placeholder(player, format)
-                .replace("{player}", NickUtil.getName(player))
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{message}", message);
     }
 }

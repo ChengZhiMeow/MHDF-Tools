@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.misc.PluginMessage;
 import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
@@ -210,7 +210,7 @@ public final class BungeeCordManager {
             player.teleportAsync(bungeeCordLocation.toLocation());
             return;
         }
-        Main.instance.getCacheManager().put("tpLocation", playerName, bungeeCordLocation.toBase64());
+        Main.instance.getCacheManager().put("tpLocation", playerName, bungeeCordLocation.toString());
 
         connectServer(playerName, bungeeCordLocation.getServer());
     }

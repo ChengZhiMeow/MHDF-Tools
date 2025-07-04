@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,7 @@ public final class FakeChangeTimeUtil {
     public static void sendFakeChangeTimeMessage(CommandSender sender, Player player, long time) {
         ActionUtil.sendMessage(sender,
                 LangUtil.i18n("commands.fakeChangeTime.message")
-                        .replace("{player}", NickUtil.getName(player))
+                        .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                         .replace("{time}", String.valueOf(time))
         );
     }

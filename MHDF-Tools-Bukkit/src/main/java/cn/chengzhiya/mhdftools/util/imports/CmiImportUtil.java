@@ -2,19 +2,16 @@ package cn.chengzhiya.mhdftools.util.imports;
 
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.data.EconomyData;
-import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
-import cn.chengzhiya.mhdftools.entity.database.data.WarpData;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhiya.mhdftools.api.entity.database.data.WarpData;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.entity.database.data.cmi.CmiUserData;
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.manager.database.impl.CmiDatabaseManager;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.plugin.CmiConfigUtil;
-import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
-import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
-import cn.chengzhiya.mhdftools.util.database.WarpDataUtil;
 import org.bukkit.command.CommandSender;
 
 public final class CmiImportUtil {
@@ -67,12 +64,8 @@ public final class CmiImportUtil {
                             String name = home.substring(0, split);
                             String location = home.substring(split);
 
-                            HomeData homeData = new HomeData();
-                            homeData.setHome(name);
-                            homeData.setPlayer(cmiUserData.getPlayerUuid());
-                            homeData.setLocation(cmiLocationToBungeeCordLocation(location.split(":")));
-
-                            HomeDataUtil.updateHomeData(homeData);
+                            MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(cmiUserData.getPlayerUuid());
+                            player.setHome(name, cmiLocationToBungeeCordLocation(location.split(":")));
                         }
                     }
 
@@ -100,11 +93,9 @@ public final class CmiImportUtil {
                             continue;
                         }
 
-                        WarpData warpData = new WarpData();
-                        warpData.setWarp(name);
-                        warpData.setLocation(cmiLocationToBungeeCordLocation(location.split(";")));
-
-                        WarpDataUtil.updateWarpData(warpData);
+                        WarpData data = new WarpData(name);
+                        data.setLocation(cmiLocationToBungeeCordLocation(location.split(";")));
+                        MHDFToolsAPIHelper.getInstance().getWarpDataManager().update(data);
                     }
 
                     Long endTime = System.currentTimeMillis();
@@ -126,11 +117,8 @@ public final class CmiImportUtil {
                     Long startTime = System.currentTimeMillis();
 
                     for (CmiUserData cmiUserData : cmiDatabaseManager.getCmiUserDataList()) {
-                        EconomyData economyData = new EconomyData();
-                        economyData.setPlayer(cmiUserData.getPlayerUuid());
-                        economyData.setBigDecimal(cmiUserData.getBalance());
-
-                        EconomyDataUtil.updateEconomyData(economyData);
+                        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(cmiUserData.getPlayerUuid());
+                        player.setMoney(cmiUserData.getBalance());
                     }
 
                     Long endTime = System.currentTimeMillis();

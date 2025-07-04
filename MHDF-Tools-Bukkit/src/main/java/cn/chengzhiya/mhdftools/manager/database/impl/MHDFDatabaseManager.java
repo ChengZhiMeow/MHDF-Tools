@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.manager.database.impl;
 
+import cn.chengzhiya.mhdftools.api.entity.database.Dao;
 import cn.chengzhiya.mhdftools.entity.config.DatabaseConfig;
-import cn.chengzhiya.mhdftools.entity.database.Dao;
 import cn.chengzhiya.mhdftools.manager.database.AbstractDatabaseManager;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import com.j256.ormlite.table.TableUtils;

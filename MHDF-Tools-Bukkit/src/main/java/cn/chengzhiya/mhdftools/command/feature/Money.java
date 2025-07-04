@@ -1,19 +1,18 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
-import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +29,11 @@ public final class Money extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        String name = null;
+        OfflinePlayer player = null;
 
         // 查询自己的余额
         if (args.length == 0 && sender instanceof Player) {
-            name = sender.getName();
+            player = (OfflinePlayer) sender;
         }
 
         // 查询其他玩家的余额
@@ -44,11 +43,11 @@ public final class Money extends AbstractCommand {
                 return;
             }
 
-            name = args[0];
+            player = Bukkit.getOfflinePlayer(args[0]);
         }
 
         // 输出帮助信息
-        if (name == null) {
+        if (player == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.money.usage"))
                     .replace("{command}", label)
@@ -56,11 +55,10 @@ public final class Money extends AbstractCommand {
             return;
         }
 
-        OfflinePlayer player = Bukkit.getOfflinePlayer(name);
-        BigDecimal money = EconomyUtil.getMoney(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.money.message")
-                .replace("{player}", NickUtil.getName(player))
-                .replace("{amount}", money.toString())
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                .replace("{amount}", mhdfPlayer.getMoney().toString())
         );
     }
 

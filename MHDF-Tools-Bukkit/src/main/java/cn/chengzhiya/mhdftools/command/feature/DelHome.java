@@ -1,11 +1,12 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhiya.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,15 +40,15 @@ public final class DelHome extends AbstractCommand {
             return;
         }
 
-        HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
-        if (homeData == null) {
+        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+        if (!player.hasHome(args[0])) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delhome.noHome")
                     .replace("{home}", args[0])
             );
             return;
         }
 
-        HomeDataUtil.removeHomeData(homeData);
+        player.deleteHome(args[0]);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delhome.message")
                 .replace("{home}", args[0])
         );
@@ -56,7 +57,9 @@ public final class DelHome extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return HomeDataUtil.getHomeDataList(sender).stream()
+            MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+
+            return player.getHomeList().stream()
                     .map(HomeData::getHome)
                     .toList();
         }

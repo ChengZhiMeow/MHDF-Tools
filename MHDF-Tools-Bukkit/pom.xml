@@ -167,6 +167,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-Tools-API</artifactId>
+            <version>${env.project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>${env.server.paper.api.version}</version>

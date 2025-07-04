@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.location.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;

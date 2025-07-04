@@ -1,7 +1,8 @@
 package cn.chengzhiya.mhdftools.placeholder.feature;
 
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.placeholder.AbstractPlaceholder;
-import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,10 +22,11 @@ public final class Economy extends AbstractPlaceholder {
             return null;
         }
         if (prams.equals("money_amount")) {
-            return EconomyUtil.getMoney(player).toString();
+            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+            return mhdfPlayer.toString();
         }
         if (prams.equals("money_name")) {
-            return EconomyUtil.getMoneyName();
+            return MHDFToolsAPIHelper.getInstance().getEconomyDataManager().getMoneyName();
         }
 
         return null;

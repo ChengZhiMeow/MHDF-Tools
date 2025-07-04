@@ -1,12 +1,13 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.data.HomeData;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhiya.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
-import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
@@ -48,7 +49,8 @@ public final class HomeMenu extends AbstractMenu {
             return menu;
         }
 
-        List<HomeData> homeList = HomeDataUtil.getHomeDataList(getPlayer());
+        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(getPlayer());
+        List<HomeData> homeList = player.getHomeList();
         List<Integer> homeSlotList = MenuUtil.getSlotList(items.getConfigurationSection("家"));
 
         int start = (page - 1) * homeSlotList.size();
@@ -124,7 +126,8 @@ public final class HomeMenu extends AbstractMenu {
                     return;
                 }
 
-                HomeData homeData = HomeDataUtil.getHomeData(getPlayer(), home);
+                MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(getPlayer());
+                HomeData homeData = player.getHome(home);
 
                 Main.instance.getBungeeCordManager().teleportLocation(getPlayer(), homeData.toBungeeCordLocation());
                 Main.instance.getBungeeCordManager().sendMessage(getPlayer(), LangUtil.i18n("commands.home.teleportMessage")
@@ -144,23 +147,23 @@ public final class HomeMenu extends AbstractMenu {
     /**
      * 处理家数据实例文本
      *
-     * @param message  文本
-     * @param homeData 家数据实例
+     * @param message 文本
+     * @param data    家数据实例
      * @return 处理后的文本
      */
-    private String applyHomeDataString(String message, HomeData homeData) {
+    private String applyHomeDataString(String message, HomeData data) {
         if (message == null) {
             return null;
         }
 
         return message
-                .replace("{name}", homeData.getHome())
-                .replace("{server}", homeData.getServer())
-                .replace("{world}", homeData.getWorld())
-                .replace("{x}", String.valueOf(homeData.getX()))
-                .replace("{y}", String.valueOf(homeData.getY()))
-                .replace("{z}", String.valueOf(homeData.getZ()))
-                .replace("{yaw}", String.valueOf(homeData.getYaw()))
-                .replace("{pitch}", String.valueOf(homeData.getPitch()));
+                .replace("{name}", data.getHome())
+                .replace("{server}", data.getServer())
+                .replace("{world}", data.getWorld())
+                .replace("{x}", String.valueOf(data.getX()))
+                .replace("{y}", String.valueOf(data.getY()))
+                .replace("{z}", String.valueOf(data.getZ()))
+                .replace("{yaw}", String.valueOf(data.getYaw()))
+                .replace("{pitch}", String.valueOf(data.getPitch()));
     }
 }
