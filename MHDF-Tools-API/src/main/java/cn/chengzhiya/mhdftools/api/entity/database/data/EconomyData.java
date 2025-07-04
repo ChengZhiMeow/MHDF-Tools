@@ -6,12 +6,14 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 @DatabaseTable(tableName = "mhdftools_economy")
 public final class EconomyData extends Dao {
     @DatabaseField(id = true, canBeNull = false)

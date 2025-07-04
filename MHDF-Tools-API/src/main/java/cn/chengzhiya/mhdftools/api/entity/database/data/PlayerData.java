@@ -5,12 +5,14 @@ import cn.chengzhiya.mhdftools.api.entity.database.Dao;
 import com.j256.ormlite.field.DatabaseField;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.bukkit.OfflinePlayer;
 
 import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 public final class PlayerData extends Dao {
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;

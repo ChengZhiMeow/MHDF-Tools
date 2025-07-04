@@ -6,9 +6,11 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @DatabaseTable(tableName = "mhdftools_warp")
 public final class WarpData extends Dao {
     @DatabaseField(id = true, canBeNull = false)

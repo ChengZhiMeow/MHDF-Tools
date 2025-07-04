@@ -11,6 +11,7 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
+import lombok.ToString;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
+@ToString
 public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     private final UUID uuid;
     private String name;
@@ -345,10 +347,5 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     @Override
     public boolean equals(MHDFToolsPlayer target) {
         return this.getUuid().equals(target.getUuid());
-    }
-
-    @Override
-    public String toString() {
-        return "MHDFToolsPlayerImpl{uuid=" + this.getUuid() + ",name=" + this.getName() + "}";
     }
 }
