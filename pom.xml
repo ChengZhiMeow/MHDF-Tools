@@ -18,6 +18,8 @@
         <env.plugin.shade.version>3.6.0</env.plugin.shade.version>
         <env.plugin.jar.version>3.4.2</env.plugin.jar.version>
         <env.plugin.clean.version>3.5.0</env.plugin.clean.version>
+        <env.plugin.javadoc.version>3.11.2</env.plugin.javadoc.version>
+        <env.plugin.deploy.version>3.1.4</env.plugin.deploy.version>
 
         <!--lombok-->
         <env.lib.lombok.version>1.18.30</env.lib.lombok.version>
@@ -70,6 +72,13 @@
     </properties>
 
     <name>MHDF-Tools</name>
+
+    <distributionManagement>
+        <repository>
+            <id>chengzhimeow-maven-repo</id>
+            <url>https://maven.chengzhimeow.cn/releases/</url>
+        </repository>
+    </distributionManagement>
 
     <modules>
         <module>MHDF-Tools-API</module>

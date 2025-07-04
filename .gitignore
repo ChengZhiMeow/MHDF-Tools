@@ -97,6 +97,7 @@ $RECYCLE.BIN/
 
 target/
 build/
+javadoc/
 libs/
 
 pom.xml.tag

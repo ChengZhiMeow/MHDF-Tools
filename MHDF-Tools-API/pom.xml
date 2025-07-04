@@ -44,6 +44,14 @@
                     <outputDirectory>${project.basedir}/../build/</outputDirectory>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${env.plugin.javadoc.version}</version>
+                <configuration>
+                    <outputDirectory>${project.basedir}/../javadoc/</outputDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
