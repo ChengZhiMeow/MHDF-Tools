@@ -82,7 +82,7 @@ permissions:
   mhdftools.commands.fly.infinite:
     description: 无限飞行时长
     default: op
-  mhdftools.commands.fly.give:
+  mhdftools.commands.fly.other:
     description: 给予他人飞行
     default: op
   mhdftools.commands.flytime:

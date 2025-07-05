@@ -29,11 +29,11 @@ public final class Fly extends AbstractCommand {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         Player player = null;
-        boolean sendToSender = true;
+        boolean changeOther = true;
 
         // 切换玩家自己的飞行模式
         if (args.length == 0 && sender instanceof Player) {
-            sendToSender = false;
+            changeOther = false;
             player = (Player) sender;
 
             MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
@@ -45,7 +45,7 @@ public final class Fly extends AbstractCommand {
 
         // 切换其他玩家的飞行模式
         if (args.length == 1) {
-            if (!sender.hasPermission("mhdftools.commands.fly.give")) {
+            if (!sender.hasPermission("mhdftools.commands.fly.other")) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
@@ -68,7 +68,7 @@ public final class Fly extends AbstractCommand {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (!mhdfPlayer.isEnableFly()) {
             mhdfPlayer.enableFly();
-            if (sendToSender) {
+            if (changeOther) {
                 this.sendChangeFlyMessage(sender, player, true);
             }
             this.sendChangeFlyMessage(player, player, true);
@@ -76,7 +76,7 @@ public final class Fly extends AbstractCommand {
         }
 
         mhdfPlayer.disableFly();
-        if (sendToSender) {
+        if (changeOther) {
             this.sendChangeFlyMessage(sender, player, false);
         }
         this.sendChangeFlyMessage(player, player, false);

@@ -15,7 +15,7 @@ public final class CustomMenuConfigUtil {
     @Getter
     private static final ConcurrentHashMap<String, YamlConfiguration> customMenuHashMap = new ConcurrentHashMap<>();
     @Getter
-    private static final ConcurrentHashMap<String, String> customMenuIdCommandHashMap =  new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, String> customMenuIdCommandHashMap = new ConcurrentHashMap<>();
 
     /**
      * 保存初始自定义菜单
