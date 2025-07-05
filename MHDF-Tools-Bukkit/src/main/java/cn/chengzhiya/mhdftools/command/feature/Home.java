@@ -41,7 +41,7 @@ public final class Home extends AbstractCommand {
 
         if (args.length == 1) {
             MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
-            if (player.hasHome(args[0])) {
+            if (!player.hasHome(args[0])) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.home.noHome")
                         .replace("{home}", args[0])
                 );
