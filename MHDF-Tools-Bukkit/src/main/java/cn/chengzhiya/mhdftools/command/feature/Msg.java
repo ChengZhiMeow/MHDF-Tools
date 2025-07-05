@@ -43,7 +43,7 @@ public final class Msg extends AbstractCommand {
             return;
         }
 
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(Bukkit.getOfflinePlayer(args[0]));
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[0]);
         if (mhdfPlayer.isEnableVanish()) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
         }

@@ -49,14 +49,7 @@ public final class Reply extends AbstractCommand {
             return;
         }
 
-        Player player = Bukkit.getPlayer(args[0]);
-
-        if (player == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
-            return;
-        }
-
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(replyTarget);
         if (mhdfPlayer.isEnableVanish()) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
         }
