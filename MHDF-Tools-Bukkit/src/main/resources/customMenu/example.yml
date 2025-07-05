@@ -19,7 +19,7 @@
 #########################################操作列表#########################################
 
 # 标题
-title: "&b呜呜呜,你不要过来,我错惹,别蕨我"
+title: "<#EAE4FF>示例菜单"
 # 大小
 size: 54
 # 命令
@@ -43,7 +43,7 @@ items:
     name: "&b你好 %player_name%!"
     # 简介
     lore:
-      - "&b喵喵喵,坏掉惹"
+      - "&fHello world!"
     # 数量
     amount: 64
     # 自定义模型数据
@@ -68,14 +68,14 @@ items:
         # hasItem 当玩家拥有<物品>的这个物品时
         type: "permission"
         # 权限
-        permission: "mhdftools.橙汁の使用权"
+        permission: "mhdftools.测试菜单.点击物品1"
         # 输入
         # input: "%player_name%"
         # 输出
         # output: 12345
         # 不满足条件时的操作
         denyActions:
-          - "[message]|&c哼,杂鱼,别想进来❤"
+          - "[message]|&c你没有权限怎么做!"
         # 物品
         # item:
           # 类型
@@ -95,4 +95,4 @@ items:
           # customModelData: 12345
     # 点击操作
     clickActions:
-      - "[message]|&b欸？！怎么...么大❤会..会坏.❤.坏掉的吧..我错惹,别过来❤"
+      - "[message]|&b你点击了物品1!"

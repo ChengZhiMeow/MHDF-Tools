@@ -57,7 +57,7 @@ public final class CustomMenu extends AbstractMenu {
                 continue;
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, getConfig(), key);
+            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
         }
 
         return menu;

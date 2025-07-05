@@ -31,6 +31,7 @@ public final class CustomMenu extends AbstractCommand {
                     .replace("{usage}", LangUtil.i18n("commands.custommenu.usage"))
                     .replace("{command}", label)
             );
+            return;
         }
 
         if (!CustomMenuConfigUtil.getCustomMenuList().contains(args[0])) {

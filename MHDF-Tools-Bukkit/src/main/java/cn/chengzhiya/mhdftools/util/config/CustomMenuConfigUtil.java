@@ -14,6 +14,8 @@ public final class CustomMenuConfigUtil {
     private static final File customMenuFolder = new File(ConfigUtil.getDataFolder(), "customMenu");
     @Getter
     private static final ConcurrentHashMap<String, YamlConfiguration> customMenuHashMap = new ConcurrentHashMap<>();
+    @Getter
+    private static final ConcurrentHashMap<String, String> customMenuIdCommandHashMap =  new ConcurrentHashMap<>();
 
     /**
      * 保存初始自定义菜单
@@ -39,6 +41,7 @@ public final class CustomMenuConfigUtil {
         }
 
         getCustomMenuHashMap().clear();
+        getCustomMenuIdCommandHashMap().clear();
         for (File file : FileUtil.listFiles(getCustomMenuFolder())) {
             String path = file.getPath().replace("/", "\\");
             if (!path.endsWith(".yml")) {
@@ -48,6 +51,9 @@ public final class CustomMenuConfigUtil {
             path = MessageUtil.subString(path, "\\customMenu\\");
 
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+            for (String command : config.getStringList("commands")) {
+                getCustomMenuIdCommandHashMap().put(command, path);
+            }
             getCustomMenuHashMap().put(path, config);
         }
     }
@@ -59,6 +65,16 @@ public final class CustomMenuConfigUtil {
      */
     public static Set<String> getCustomMenuList() {
         return getCustomMenuHashMap().keySet();
+    }
+
+    /**
+     * 获取菜单配置文件实例
+     *
+     * @param command 命令
+     * @return 配置文件实例
+     */
+    public static String getCustomMenuByCommand(String command) {
+        return getCustomMenuIdCommandHashMap().get(command);
     }
 
     /**
