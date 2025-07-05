@@ -38,13 +38,13 @@ public final class Back extends AbstractCommand {
             return;
         }
 
-        String backLocationBase64 = Main.instance.getCacheManager().get("back", sender.getName());
-        if (backLocationBase64 == null) {
+        String backLocation = Main.instance.getCacheManager().get("back", sender.getName());
+        if (backLocation == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.back.noLocation"));
             return;
         }
 
-        Main.instance.getBungeeCordManager().teleportLocation(sender, new BungeeCordLocation(backLocationBase64));
+        Main.instance.getBungeeCordManager().teleportLocation(sender, new BungeeCordLocation(backLocation));
         Main.instance.getBungeeCordManager().sendMessage(sender, LangUtil.i18n("commands.back.message"));
     }
 }

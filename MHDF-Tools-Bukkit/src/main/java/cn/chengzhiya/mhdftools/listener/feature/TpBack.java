@@ -27,6 +27,6 @@ public final class TpBack extends AbstractListener {
                 location
         );
 
-        Main.instance.getCacheManager().put("back", player.getName(), bungeeCordLocation.toString());
+        Main.instance.getCacheManager().put("tpback", player.getName(), bungeeCordLocation.toString());
     }
 }
