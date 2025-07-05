@@ -27,7 +27,7 @@ public final class LookItem extends AbstractCommand {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 1) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.lookItem.usage"))
+                    .replace("{usage}", LangUtil.i18n("commands.lookitem.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -35,11 +35,11 @@ public final class LookItem extends AbstractCommand {
 
         String data = Main.instance.getCacheManager().get("showItem", args[0]);
         if (data == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.lookItem.noData"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.lookitem.noData"));
             return;
         }
 
         new LookItemMenu(sender, Base64Util.decode(data)).openMenu();
-        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.lookItem.message"));
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.lookitem.message"));
     }
 }
