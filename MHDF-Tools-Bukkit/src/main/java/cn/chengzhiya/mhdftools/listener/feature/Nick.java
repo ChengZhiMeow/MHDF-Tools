@@ -21,7 +21,7 @@ public final class Nick extends AbstractListener {
         Player player = event.getPlayer();
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (mhdfPlayer.hasNickData()) {
+        if (!mhdfPlayer.hasNickData()) {
             return;
         }
 
