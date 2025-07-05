@@ -58,7 +58,9 @@ public final class FakeChangeTime extends AbstractCommand {
         }
 
         if (args[0].equals("reset")) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.fakechangetime.reset"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.fakechangetime.reset")
+                    .replace("{player}", player.getName())
+            );
             player.resetPlayerTime();
             return;
         }
