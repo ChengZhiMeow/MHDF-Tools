@@ -66,7 +66,7 @@ public final class Fly extends AbstractCommand {
         }
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (mhdfPlayer.isEnableFly()) {
+        if (!mhdfPlayer.isEnableFly()) {
             mhdfPlayer.enableFly();
             if (sendToSender) {
                 this.sendChangeFlyMessage(sender, player, true);
