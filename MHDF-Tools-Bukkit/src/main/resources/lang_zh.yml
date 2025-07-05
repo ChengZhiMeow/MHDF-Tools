@@ -262,13 +262,13 @@ commands:
     usage: "/{command}"
     description: "返回死亡点"
     noLocation: "{prefix} <#EAE4FF>找不到你上次死亡点的位置!"
-    respawnMessage: "{prefix} <#EAE4FF>输入 &e/back <#EAE4FF>返回死亡点!"
-    message: "{prefix} <#EAE4FF>你来到了死亡点,输入 &e/tpback #EAE4FF>返回传送前的位置!"
+    respawnMessage: "{prefix} <#EAE4FF>输入 &f/back <#EAE4FF>返回死亡点!"
+    message: "{prefix} <#EAE4FF>你来到了死亡点,输入 &f/tpback <#EAE4FF>返回传送前的位置!"
   tpback:
     usage: "/{command}"
     description: "返回传送前的位置"
     noLocation: "{prefix} <#EAE4FF>找不到你上次传送前的位置!"
-    message: "{prefix} <#EAE4FF>你来到了传送前的位置,输入 &e/tpback <#EAE4FF>返回传送前的位置!"
+    message: "{prefix} <#EAE4FF>你来到了传送前的位置,输入 &f/tpback <#EAE4FF>返回传送前的位置!"
   spawn:
     usage: "/{command}"
     description: "返回出生点"
