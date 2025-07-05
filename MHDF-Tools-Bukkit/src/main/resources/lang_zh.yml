@@ -132,15 +132,15 @@ commands:
       set:
         usage: "/{command} set <玩家> <时间>"
         description: "设置玩家的飞行时间"
-        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已修改为 &b{time}秒<#EAE4FF>!"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已修改为 &b{change}秒<#EAE4FF>!"
       add:
         usage: "/{command} add <玩家> <时间>"
         description: "增加玩家的飞行时间"
-        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已增加为 &e{add}秒<#EAE4FF>,现在他可以飞行 &b{time}秒<#EAE4FF>!"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已增加为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"
       take:
         usage: "/{command} take <玩家> <时间>"
         description: "减少玩家的飞行时间"
-        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已减少为 &e{take}秒<#EAE4FF>,现在他可以飞行 &b{time}秒<#EAE4FF>!"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已减少为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"
   stop:
     usage: "/{command} <参数>"
     description: "更好的关服"
