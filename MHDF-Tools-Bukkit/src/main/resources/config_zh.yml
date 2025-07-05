@@ -579,7 +579,7 @@ chatSettings:
           permission: "mhdftools.bypass.chat.blackword"
         # 替换后的句子(随机选择)
         lineList:
-          - "主人,我错惹喵~"
+          - "你好帅"
   # 展示物品
   showItem:
     # 开关
@@ -759,7 +759,7 @@ eventActionSettings:
           weight: 0
           # 操作
           action:
-            - "[message]|&e主人早上好噢~"
+            - "[message]|&e你好,欢迎加入服务器~"
         # 拥有 mhdftools.group.eventaction.<操作ID>.<名字> 权限的提示
         # 例如 mhdftools.group.eventaction.<操作ID>.admin
         admin:
@@ -767,7 +767,7 @@ eventActionSettings:
           weight: 1
           # 操作
           action:
-            - "[message]|&e主人和我结婚吧~"
+            - "[message]|&e管理员你好,今天的工作开始了呢~"
 
 # 时间操作
 timeActionSettings:
@@ -788,7 +788,7 @@ timeActionSettings:
       time: "0:0:15"
       # 操作
       action:
-        - "[broadcast]|&e谢谢主人喵,谢谢使用梦之工具喵~"
+        - "[broadcast]|&e感谢使用梦之工具~"
     # 自定义命名
     lunch:
       # 类型
@@ -801,7 +801,7 @@ timeActionSettings:
       time: "12:0:0"
       # 操作
       action:
-        - "[broadcast]|&e主人喵,中午该吃饭咯~"
+        - "[broadcast]|&e到点了,该吃饭了~"
 
 # motd
 # {online}  ——当前在线
@@ -815,7 +815,7 @@ motdSettings:
     # 开关
     enable: true
     # 版本名称(不支持RGB)
-    name: "&a点击就送香香软软可爱橙汁汁"
+    name: "&e自定义版本信息"
   # 玩家数量
   players:
     # 开关
@@ -831,17 +831,18 @@ motdSettings:
       # 开关
       enable: true
       # 数量(数学表达式)
-      amount: "5835"
+      amount: "{online}*2+1"
     # 假玩家列表
     fakeSample:
       # 开关
       enable: true
       # 文本列表(不支持RGB)
       text:
-        - "&b其实还可以送你一个可爱小猫娘噢~"
+        - "&b我是玩家列表第一行"
+        - "&b我是玩家列表第二行"
   # 简介
   description:
     - # 第一行
-      line1: "<gradient:#F18989:#EAB5B5>骗你的,但是可以送你香香软软的杉杉噢</gradient>"
+      line1: "<gradient:#F18989:#EAB5B5>这是MOTD信息的第一行</gradient>"
       # 第二行
-      line2: "<gradient:#F1BB89:#EADFB5>怎么生气了,我错惹,橙汁给你行了吧www</gradient>"
+      line2: "<gradient:#F1BB89:#EADFB5>这是MOTD信息的第二行www</gradient>"
