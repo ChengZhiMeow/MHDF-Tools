@@ -39,7 +39,7 @@ public final class TpaUtil {
         Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.message")
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName).getDisplayName())
         );
 
         MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName);

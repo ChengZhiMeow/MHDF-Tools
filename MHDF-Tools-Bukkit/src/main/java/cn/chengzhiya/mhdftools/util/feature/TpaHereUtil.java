@@ -39,7 +39,7 @@ public final class TpaHereUtil {
         Main.instance.getCacheManager().put("tpahereDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpahereSettings.delay")));
 
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpahere.message")
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName).getDisplayName())
         );
 
         MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName);
