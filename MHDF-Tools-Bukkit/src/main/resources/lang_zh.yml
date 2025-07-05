@@ -450,6 +450,7 @@ commands:
     usage: "/{command} <玩家> <背包类型>"
     description: "查看背包"
     types:
+      armor: "装备栏"
       inventory: "背包"
       enderchest: "末影箱"
     noType: "{prefix} <#FFB8B8>找不到名为 &f{type} <#FFB8B8>的背包类型!"

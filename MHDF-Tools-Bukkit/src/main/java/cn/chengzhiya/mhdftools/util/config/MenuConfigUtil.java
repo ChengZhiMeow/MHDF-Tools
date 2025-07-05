@@ -19,6 +19,9 @@ public final class MenuConfigUtil {
      */
     public static void saveDefaultMenu() throws FileException {
         FileUtil.createFolder(getMenuFolder());
+        if (ConfigUtil.getConfig().getBoolean("invseeSettings.enable")) {
+            FileUtil.saveResource("menu/armor.yml", "menu/armor.yml", false);
+        }
         if (ConfigUtil.getConfig().getBoolean("tpaSettings.enable")) {
             FileUtil.saveResource("menu/tpa.yml", "menu/tpa.yml", false);
         }
