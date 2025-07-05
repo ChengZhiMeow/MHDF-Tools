@@ -31,6 +31,14 @@ public interface EconomyDataManager {
      * 更新指定经济数据实例在数据库中的数据
      *
      * @param economyData 经济数据实例
+     * @param async  异步处理
+     */
+    void update(EconomyData economyData, boolean async);
+
+    /**
+     * 更新指定经济数据实例在数据库中的数据
+     *
+     * @param economyData 经济数据实例
      */
     void update(EconomyData economyData);
 }

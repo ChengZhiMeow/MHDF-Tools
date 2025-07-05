@@ -105,7 +105,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public void setMoney(BigDecimal money) {
         EconomyData data = this.getEconomyData();
         data.setMoney(money);
-        MHDFToolsAPIHelper.getInstance().getEconomyDataManager().update(data);
+        MHDFToolsAPIHelper.getInstance().getEconomyDataManager().update(data, false);
     }
 
     @Override

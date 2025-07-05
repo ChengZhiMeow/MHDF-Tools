@@ -32,8 +32,24 @@ public interface WarpDataManager {
      * 删除指定传送点数据实例在数据库中的数据
      *
      * @param warpData 传送点数据实例
+     * @param async  异步处理
+     */
+    void delete(WarpData warpData, boolean async);
+
+    /**
+     * 删除指定传送点数据实例在数据库中的数据
+     *
+     * @param warpData 传送点数据实例
      */
     void delete(WarpData warpData);
+
+    /**
+     * 更新指定传送点数据实例在数据库中的数据
+     *
+     * @param warpData 传送点数据实例
+     * @param async  异步处理
+     */
+    void update(WarpData warpData, boolean async);
 
     /**
      * 更新指定传送点数据实例在数据库中的数据

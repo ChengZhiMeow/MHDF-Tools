@@ -131,20 +131,18 @@ public abstract class AbstractDaoManager<V, K> {
      */
     @SneakyThrows
     public void delete(V entity, boolean async) {
-        Runnable runnable = () -> {
-            try {
-                this.getDao().delete(entity);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        };
-
         if (async) {
-            MHDFScheduler.getAsyncScheduler().runTask(Main.instance, runnable);
+            MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+                try {
+                    this.getDao().delete(entity);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             return;
         }
 
-        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, runnable);
+        this.getDao().delete(entity);
     }
 
     /**
@@ -154,7 +152,7 @@ public abstract class AbstractDaoManager<V, K> {
      */
     @SneakyThrows
     public void delete(V entity) {
-        delete(entity, true);
+        delete(entity, false);
     }
 
     /**
@@ -163,21 +161,20 @@ public abstract class AbstractDaoManager<V, K> {
      * @param entity 数据实例
      * @param async  异步处理
      */
+    @SneakyThrows
     public void update(V entity, boolean async) {
-        Runnable runnable = () -> {
-            try {
-                this.getDao().createOrUpdate(entity);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        };
-
         if (async) {
-            MHDFScheduler.getAsyncScheduler().runTask(Main.instance, runnable);
+            MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+                try {
+                    this.getDao().createOrUpdate(entity);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             return;
         }
 
-        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, runnable);
+        this.getDao().createOrUpdate(entity);
     }
 
     /**
@@ -186,6 +183,6 @@ public abstract class AbstractDaoManager<V, K> {
      * @param entity 数据实例
      */
     public void update(V entity) {
-        this.update(entity, true);
+        this.update(entity, false);
     }
 }

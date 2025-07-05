@@ -33,6 +33,14 @@ public interface FlyStatusManager {
      * 更新指定飞行状态实例在数据库中的数据
      *
      * @param flyStatus 飞行状态实例
+     * @param async  异步处理
+     */
+    void update(FlyStatus flyStatus, boolean async);
+
+    /**
+     * 更新指定飞行状态实例在数据库中的数据
+     *
+     * @param flyStatus 飞行状态实例
      */
     void update(FlyStatus flyStatus);
 }
