@@ -3,6 +3,7 @@ version: '${project.version}'
 main: cn.chengzhiya.mhdftools.Main
 api-version: '1.13'
 folia-supported: true
+load: STARTUP
 authoendrs: [ BaiShenYao_Dog, Dg32z_ ]
 softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]
 permissions:
