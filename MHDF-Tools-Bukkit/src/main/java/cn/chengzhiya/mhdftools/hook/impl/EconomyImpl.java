@@ -123,7 +123,7 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, String world, double amount) {
-        return this.depositPlayer(player, amount);
+        return this.withdrawPlayer(player, amount);
     }
 
     @Override
