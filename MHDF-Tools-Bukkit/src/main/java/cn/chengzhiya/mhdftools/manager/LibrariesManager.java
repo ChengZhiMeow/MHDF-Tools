@@ -78,7 +78,7 @@ public final class LibrariesManager {
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}github{}retrooper"),
                     "packetevents-api",
-                    "2.8.0",
+                    "2.9.1",
                     codemc,
                     new RelocateConfig(true, true,
                             handleString("io{}github{}retrooper")
