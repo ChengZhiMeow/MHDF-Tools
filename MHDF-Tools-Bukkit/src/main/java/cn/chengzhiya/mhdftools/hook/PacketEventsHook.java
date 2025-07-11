@@ -8,7 +8,6 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.ConnectionState;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.protocol.player.UserProfile;
-import com.github.retrooper.packetevents.util.TimeStampMode;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
@@ -32,8 +31,7 @@ public final class PacketEventsHook extends AbstractHook {
                 .kickOnPacketException(true)
                 .checkForUpdates(false)
                 .reEncodeByDefault(false)
-                .debug(false)
-                .timeStampMode(TimeStampMode.NANO);
+                .debug(false);
         PacketEvents.getAPI().load();
         this.serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
 
