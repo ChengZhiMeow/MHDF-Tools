@@ -148,6 +148,9 @@ crashSettings:
 knockBackSettings:
   #开关
   enable: true
+  # 默认击退模式
+  # (normal, random)
+  defaultType: "normal"
   #击退的
   vector:
     x: 0.75
