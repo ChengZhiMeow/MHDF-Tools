@@ -87,7 +87,7 @@ public final class LibrariesManager {
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}github{}retrooper"),
                     "packetevents-netty-common",
-                    "2.8.0",
+                    "2.9.1",
                     codemc,
                     new RelocateConfig(true, true,
                             handleString("io{}github{}retrooper")
@@ -96,7 +96,7 @@ public final class LibrariesManager {
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}github{}retrooper"),
                     "packetevents-spigot",
-                    "2.8.0",
+                    "2.9.1",
                     codemc,
                     new RelocateConfig(true, true,
                             handleString("io{}github{}retrooper")
