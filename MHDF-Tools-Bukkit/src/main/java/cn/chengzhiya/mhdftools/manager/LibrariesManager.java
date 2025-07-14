@@ -105,6 +105,27 @@ public final class LibrariesManager {
 
             // 数据库
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
+                    handleString("cn{}chengzhiya"),
+                    "MHDF-Database-API",
+                    "1.0.2",
+                    chengzhiMeow,
+                    new RelocateConfig(true)
+            ));
+            mhdfLibrary.addDependencyConfig(new DependencyConfig(
+                    handleString("cn{}chengzhiya"),
+                    "MHDF-Database-MySQL",
+                    "1.0.2",
+                    chengzhiMeow,
+                    new RelocateConfig(true)
+            ));
+            mhdfLibrary.addDependencyConfig(new DependencyConfig(
+                    handleString("cn{}chengzhiya"),
+                    "MHDF-Database-H2",
+                    "1.0.2",
+                    chengzhiMeow,
+                    new RelocateConfig(true)
+            ));
+            mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}j256{}ormlite"),
                     "ormlite-core",
                     "6.1",
@@ -126,6 +147,13 @@ public final class LibrariesManager {
                     new RelocateConfig(true)
             ));
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
+                    handleString("com{}mysql"),
+                    "mysql-connector-j",
+                    "9.1.0",
+                    MHDFLibrary.mavenCenterMirror,
+                    new RelocateConfig(true)
+            ));
+            mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}h2database"),
                     "h2",
                     "2.3.232",
@@ -133,13 +161,6 @@ public final class LibrariesManager {
                     new RelocateConfig(true, false,
                             handleString("org{}h2")
                     )
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}mysql"),
-                    "mysql-connector-j",
-                    "9.1.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
             ));
 
             // redis

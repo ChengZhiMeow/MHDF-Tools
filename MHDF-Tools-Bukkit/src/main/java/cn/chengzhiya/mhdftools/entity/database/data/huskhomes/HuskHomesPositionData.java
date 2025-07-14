@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.entity.database.data.huskhomes;
 
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@DatabaseTable
 public final class HuskHomesPositionData {
     @DatabaseField(canBeNull = false)
     private int id;

@@ -58,6 +58,18 @@
                                 </relocation>
 
                                 <relocation>
+                                    <pattern>cn.chengzhiya.mhdfscheduler</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>cn.chengzhiya.mhdfdatabase</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfdatabase</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>cn.chengzhiya.langutil</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.langutil</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>net.kyori.adventure.platform</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.net.kyori.adventure.platform</shadedPattern>
                                 </relocation>
@@ -92,14 +104,6 @@
                                 <relocation>
                                     <pattern>net.objecthunter</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.net.objecthunter</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>cn.chengzhiya.mhdfscheduler</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>cn.chengzhiya.langutil</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.langutil</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>net.objecthunterl</pattern>
@@ -261,6 +265,31 @@
         </dependency>
 
         <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-Database-API</artifactId>
+            <version>${env.lib.mhdf.database.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-Database-MySQL</artifactId>
+            <version>${env.lib.mhdf.database.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-Database-H2</artifactId>
+            <version>${env.lib.mhdf.database.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2</artifactId>
             <version>${env.lib.fastjson.version}</version>
@@ -271,31 +300,6 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>${env.lib.reflections.version}</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-core</artifactId>
-            <version>${env.lib.ormlite.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-jdbc</artifactId>
-            <version>${env.lib.ormlite.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${env.lib.hikaricp.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

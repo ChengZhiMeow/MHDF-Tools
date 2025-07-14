@@ -17,7 +17,7 @@ public final class RedisMessageManager {
         this.prefix = prefix;
         this.redisPubSubConnection = redisPubSubConnection;
 
-        registerListener();
+        this.registerListener();
     }
 
     /**

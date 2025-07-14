@@ -8,8 +8,7 @@ import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
 import cn.chengzhiya.mhdftools.manager.config.ConfigFolderManager;
 import cn.chengzhiya.mhdftools.manager.config.ConfigManager;
 import cn.chengzhiya.mhdftools.manager.config.ProxyConfigManager;
-import cn.chengzhiya.mhdftools.manager.database.DatabaseManager;
-import cn.chengzhiya.mhdftools.manager.database.impl.MHDFDatabaseManager;
+import cn.chengzhiya.mhdftools.manager.database.MHDFDatabaseManager;
 import cn.chengzhiya.mhdftools.manager.feature.CommandManager;
 import cn.chengzhiya.mhdftools.manager.feature.ListenerManager;
 import cn.chengzhiya.mhdftools.manager.feature.TaskManager;
@@ -28,7 +27,7 @@ public final class Main extends JavaPlugin {
     private MinecraftLangManager minecraftLangManager;
 
     private AdventureManager adventureManager;
-    private DatabaseManager databaseManager;
+    private MHDFDatabaseManager databaseManager;
     private CacheManager cacheManager;
     private PluginHookManager pluginHookManager;
 

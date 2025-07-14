@@ -45,15 +45,14 @@
         <!--语言管理-->
         <env.lib.mhdf.langutil.version>1.3.1</env.lib.mhdf.langutil.version>
 
+        <!--数据库-->
+        <env.lib.mhdf.database.version>1.0.2</env.lib.mhdf.database.version>
+
         <!--json处理-->
         <env.lib.fastjson.version>2.0.53</env.lib.fastjson.version>
 
         <!--反射-->
         <env.lib.reflections.version>0.10.2</env.lib.reflections.version>
-
-        <!--数据库-->
-        <env.lib.ormlite.version>6.1</env.lib.ormlite.version>
-        <env.lib.hikaricp.version>6.1.0</env.lib.hikaricp.version>
 
         <!--redis-->
         <env.lib.lettuce.version>6.5.5.RELEASE</env.lib.lettuce.version>

@@ -1,8 +1,9 @@
 package cn.chengzhiya.mhdftools.api.manager.feature;
 
+import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.PlayerData;
-import cn.chengzhiya.mhdftools.api.manager.database.AbstractDaoManager;
 import com.j256.ormlite.stmt.QueryBuilder;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
@@ -10,6 +11,10 @@ import org.bukkit.Bukkit;
 import java.util.UUID;
 
 public final class PlayerDataManagerImpl extends AbstractDaoManager<PlayerData, UUID> implements PlayerDataManager {
+    public PlayerDataManagerImpl() {
+        super(Main.instance.getDatabaseManager().getDatabase());
+    }
+
     @Override
     public boolean hasData(MHDFToolsPlayer player) {
         return getById(player.getUuid()) != null;

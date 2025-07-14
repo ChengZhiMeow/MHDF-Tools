@@ -67,6 +67,9 @@ databaseSettings:
   h2:
     # 数据库文件
     file: "database.db"
+  # 自定义连接参数
+  prams:
+
 
 # 缓存
 cacheSettings:

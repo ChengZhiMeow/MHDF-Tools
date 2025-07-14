@@ -1,9 +1,14 @@
 package cn.chengzhiya.mhdftools.api.manager.feature;
 
+import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.database.data.WarpData;
-import cn.chengzhiya.mhdftools.api.manager.database.AbstractDaoManager;
 
 public final class WarpDataManagerImpl extends AbstractDaoManager<WarpData, String> implements WarpDataManager {
+    public WarpDataManagerImpl() {
+        super(Main.instance.getDatabaseManager().getDatabase());
+    }
+
     @Override
     public boolean hasData(String name) {
         return getById(name) != null;

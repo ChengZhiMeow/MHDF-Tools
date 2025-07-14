@@ -1,12 +1,17 @@
 package cn.chengzhiya.mhdftools.api.manager.feature;
 
+import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.FlyStatus;
-import cn.chengzhiya.mhdftools.api.manager.database.AbstractDaoManager;
 
 import java.util.UUID;
 
 public final class FlyStatusManagerImpl extends AbstractDaoManager<FlyStatus, UUID> implements FlyStatusManager {
+    public FlyStatusManagerImpl() {
+        super(Main.instance.getDatabaseManager().getDatabase());
+    }
+
     @Override
     public boolean isEnable(MHDFToolsPlayer player) {
         FlyStatus status = getById(player.getUuid());

@@ -7,7 +7,7 @@ import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.entity.database.data.cmi.CmiUserData;
-import cn.chengzhiya.mhdftools.manager.database.impl.CmiDatabaseManager;
+import cn.chengzhiya.mhdftools.manager.database.CmiDatabaseManager;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -42,9 +42,9 @@ public final class CmiImportUtil {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "Cmi")
             );
-            CmiDatabaseManager cmiDatabaseManager = new CmiDatabaseManager();
-            cmiDatabaseManager.connect();
-            cmiDatabaseManager.initDao();
+            CmiDatabaseManager databaseManager = new CmiDatabaseManager();
+            databaseManager.connect();
+            databaseManager.initTable();
 
             // 导入家数据
             {
@@ -55,7 +55,7 @@ public final class CmiImportUtil {
                     );
                     Long startTime = System.currentTimeMillis();
 
-                    for (CmiUserData cmiUserData : cmiDatabaseManager.getCmiUserDataList()) {
+                    for (CmiUserData cmiUserData : databaseManager.getUserDataManager().getList()) {
                         String[] homeList = cmiUserData.getHomes()
                                 .replaceAll("\\$-0%%", ":")
                                 .split(";");
@@ -116,7 +116,7 @@ public final class CmiImportUtil {
                     );
                     Long startTime = System.currentTimeMillis();
 
-                    for (CmiUserData cmiUserData : cmiDatabaseManager.getCmiUserDataList()) {
+                    for (CmiUserData cmiUserData : databaseManager.getUserDataManager().getList()) {
                         MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(cmiUserData.getPlayerUuid());
                         player.setMoney(cmiUserData.getBalance());
                     }
@@ -130,7 +130,7 @@ public final class CmiImportUtil {
                 }
             }
 
-            cmiDatabaseManager.close();
+            databaseManager.close();
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.done")
                     .replace("{plugin}", "Cmi")
             );

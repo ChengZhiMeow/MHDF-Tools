@@ -9,7 +9,7 @@ import cn.chengzhiya.mhdftools.entity.database.data.huskhomes.HuskHomesHomeData;
 import cn.chengzhiya.mhdftools.entity.database.data.huskhomes.HuskHomesPositionData;
 import cn.chengzhiya.mhdftools.entity.database.data.huskhomes.HuskHomesPositionInfoData;
 import cn.chengzhiya.mhdftools.entity.database.data.huskhomes.HuskHomesWarpData;
-import cn.chengzhiya.mhdftools.manager.database.impl.HuskHomesDatabaseManager;
+import cn.chengzhiya.mhdftools.manager.database.HuskHomesDatabaseManager;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -26,9 +26,9 @@ public final class HuskHomesImportUtil {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "HuskHomes")
             );
-            HuskHomesDatabaseManager huskHomesManager = new HuskHomesDatabaseManager();
-            huskHomesManager.connect();
-            huskHomesManager.initDao();
+            HuskHomesDatabaseManager databaseManager = new HuskHomesDatabaseManager();
+            databaseManager.connect();
+            databaseManager.initTable();
 
             // 导入家数据
             {
@@ -39,12 +39,12 @@ public final class HuskHomesImportUtil {
                     );
                     Long startTime = System.currentTimeMillis();
 
-                    for (HuskHomesHomeData huskHomesHomeData : huskHomesManager.getHuskHomesHomeDataList()) {
-                        HuskHomesPositionInfoData huskHomesPositionInfoData = huskHomesManager.getHuskHomesPositionInfoData(huskHomesHomeData.getPositionInfoId());
-                        HuskHomesPositionData huskHomesPositionData = huskHomesManager.getHuskHomesPositionData(huskHomesPositionInfoData.getPositionId());
+                    for (HuskHomesHomeData homeData : databaseManager.getHomeDataManager().getList()) {
+                        HuskHomesPositionInfoData positionInfoData = databaseManager.getPositionInfoDataManager().getById(homeData.getPositionInfoId());
+                        HuskHomesPositionData positionData = databaseManager.getPositionDataManager().getById(positionInfoData.getPositionId());
 
-                        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(huskHomesHomeData.getOwner());
-                        player.setHome(huskHomesPositionInfoData.getName(), huskHomesPositionData.toBungeeCordLocation());
+                        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(homeData.getOwner());
+                        player.setHome(positionInfoData.getName(), positionData.toBungeeCordLocation());
                     }
 
                     Long endTime = System.currentTimeMillis();
@@ -65,12 +65,12 @@ public final class HuskHomesImportUtil {
                     );
                     Long startTime = System.currentTimeMillis();
 
-                    for (HuskHomesWarpData huskHomesWarpData : huskHomesManager.getHuskHomesWarpDataList()) {
-                        HuskHomesPositionInfoData huskHomesPositionInfoData = huskHomesManager.getHuskHomesPositionInfoData(huskHomesWarpData.getPositionInfoId());
-                        HuskHomesPositionData huskHomesPositionData = huskHomesManager.getHuskHomesPositionData(huskHomesPositionInfoData.getPositionId());
+                    for (HuskHomesWarpData warpData : databaseManager.getWarpDataManager().getList()) {
+                        HuskHomesPositionInfoData positionInfoData = databaseManager.getPositionInfoDataManager().getById(warpData.getPositionInfoId());
+                        HuskHomesPositionData positionData = databaseManager.getPositionDataManager().getById(positionInfoData.getPositionId());
 
-                        WarpData data = new WarpData(huskHomesPositionInfoData.getName());
-                        data.setLocation(huskHomesPositionData.toBungeeCordLocation());
+                        WarpData data = new WarpData(positionInfoData.getName());
+                        data.setLocation(positionData.toBungeeCordLocation());
                         MHDFToolsAPIHelper.getInstance().getWarpDataManager().update(data);
                     }
 
@@ -83,7 +83,7 @@ public final class HuskHomesImportUtil {
                 }
             }
 
-            huskHomesManager.close();
+            databaseManager.close();
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.done")
                     .replace("{plugin}", "HuskHomes")
             );

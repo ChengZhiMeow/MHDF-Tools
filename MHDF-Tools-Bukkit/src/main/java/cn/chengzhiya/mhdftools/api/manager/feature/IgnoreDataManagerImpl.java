@@ -1,8 +1,9 @@
 package cn.chengzhiya.mhdftools.api.manager.feature;
 
+import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.IgnoreData;
-import cn.chengzhiya.mhdftools.api.manager.database.AbstractDaoManager;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import lombok.SneakyThrows;
@@ -10,6 +11,10 @@ import lombok.SneakyThrows;
 import java.util.List;
 
 public final class IgnoreDataManagerImpl extends AbstractDaoManager<IgnoreData, Integer> implements IgnoreDataManager {
+    public IgnoreDataManagerImpl() {
+        super(Main.instance.getDatabaseManager().getDatabase());
+    }
+
     @Override
     @SneakyThrows
     public List<IgnoreData> getList(MHDFToolsPlayer player) {

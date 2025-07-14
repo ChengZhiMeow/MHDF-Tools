@@ -1,12 +1,17 @@
 package cn.chengzhiya.mhdftools.api.manager.feature;
 
+import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.NickData;
-import cn.chengzhiya.mhdftools.api.manager.database.AbstractDaoManager;
 
 import java.util.UUID;
 
 public final class NickDataManagerImpl extends AbstractDaoManager<NickData, UUID> implements NickDataManager {
+    public NickDataManagerImpl() {
+        super(Main.instance.getDatabaseManager().getDatabase());
+    }
+
     @Override
     public boolean hasData(MHDFToolsPlayer player) {
         return getById(player.getUuid()) != null;

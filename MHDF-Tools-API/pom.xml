@@ -96,10 +96,16 @@
         </dependency>
 
         <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-core</artifactId>
-            <version>${env.lib.ormlite.version}</version>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-Database-API</artifactId>
+            <version>${env.lib.mhdf.database.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
