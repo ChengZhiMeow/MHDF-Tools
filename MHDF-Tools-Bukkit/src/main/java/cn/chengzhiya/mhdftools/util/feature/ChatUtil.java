@@ -7,9 +7,6 @@ import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.Base64Util;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.Component;
@@ -36,7 +33,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String applyReplaceWord(CommandSender player, String message) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.replaceWord");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.replaceWord");
         if (config == null) {
             return message;
         }
@@ -45,7 +42,7 @@ public final class ChatUtil {
             return message;
         }
 
-        List<YamlConfiguration> replaceList = YamlUtil.getConfigurationSectionList(config, "replace");
+        List<YamlConfiguration> replaceList = Main.instance.getConfigManager().getConfigManager().getYamlConfigurationList("chatSettings.replaceWord.replace");
         for (YamlConfiguration replace : replaceList) {
             String type = replace.getString("type");
             if (type == null) {
@@ -116,7 +113,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String applyShowItem(Player player, String message) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.showItem");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.showItem");
         if (config == null) {
             return message;
         }
@@ -175,7 +172,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String applyShowInventory(Player player, String message) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.showInventory");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.showInventory");
         if (config == null) {
             return message;
         }
@@ -226,7 +223,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String applyShowEnderChest(Player player, String message) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.showEnderChest");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.showEnderChest");
         if (config == null) {
             return message;
         }
@@ -277,7 +274,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String applyAt(String message, Set<String> atList) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.at");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.at");
         if (config == null) {
             return message;
         }
@@ -288,7 +285,7 @@ public final class ChatUtil {
         }
 
         TextComponent messageComponent = ColorUtil.color(message);
-        TextComponent format = LangUtil.i18n("chat.at.format");
+        TextComponent format = Main.instance.getConfigManager().getLangManager().i18n("chat.at.format");
         for (String at : atList) {
             Pattern pattern = Pattern.compile(patternFormat.replace("{at}", at));
             Matcher matcher = pattern.matcher(message);
@@ -306,7 +303,7 @@ public final class ChatUtil {
 
                 if (matcher.find()) {
                     messageComponent = messageComponent
-                            .replace(matcher.group(), format.replace("{name}", LangUtil.i18n("chat.at.all")));
+                            .replace(matcher.group(), format.replace("{name}", Main.instance.getConfigManager().getLangManager().i18n("chat.at.all")));
                 }
             }
         }
@@ -322,7 +319,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String getFormatMessage(Player player, String message) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.format");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.format");
         String group = GroupUtil.getGroup(player, config, "mhdftools.group.chatformat.");
 
         String format;

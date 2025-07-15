@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.EconomyData;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 
 import java.util.UUID;
@@ -16,7 +15,7 @@ public final class EconomyDataManagerImpl extends AbstractDaoManager<EconomyData
 
     @Override
     public String getMoneyName() {
-        return ConfigUtil.getConfig().getString("economySettings.name");
+        return Main.instance.getConfigManager().getConfigManager().getData().getString("economySettings.name");
     }
 
     @Override
@@ -28,7 +27,7 @@ public final class EconomyDataManagerImpl extends AbstractDaoManager<EconomyData
     public EconomyData get(MHDFToolsPlayer player) {
         return getByIdOrDefault(
                 player.getUuid(),
-                new EconomyData(player, BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default")))
+                new EconomyData(player, BigDecimalUtil.toBigDecimal(Main.instance.getConfigManager().getConfigManager().getData().getDouble("economySettings.default")))
         );
     }
 }

@@ -7,7 +7,6 @@ import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
@@ -64,7 +63,7 @@ public final class BungeeCordManager {
      * @return 结果
      */
     public boolean isBungeeCordMode() {
-        return ConfigUtil.getConfig().getBoolean("bungeeCordSettings.enable");
+        return Main.instance.getConfigManager().getConfigManager().getData().getBoolean("bungeeCordSettings.enable");
     }
 
     /**

@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.task.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.task.AbstractTask;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -37,7 +37,7 @@ public final class TimeAction extends AbstractTask {
 
     @Override
     public void run() {
-        ConfigurationSection actionList = ConfigUtil.getConfig().getConfigurationSection("timeActionSettings.actionList");
+        ConfigurationSection actionList = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("timeActionSettings.actionList");
         if (actionList == null) {
             return;
         }

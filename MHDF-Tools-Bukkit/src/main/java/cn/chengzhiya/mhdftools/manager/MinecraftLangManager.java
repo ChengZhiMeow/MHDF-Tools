@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.langutil.LangAPI;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import lombok.Getter;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
@@ -10,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 
 public final class MinecraftLangManager {
-    private final File file = new File(ConfigUtil.getDataFolder(), "minecraftLang");
+    private final File file = new File(Main.instance.getDataFolder(), "minecraftLang");
     @Getter
     private LangAPI langAPI;
 

@@ -4,8 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.Economy;
@@ -140,9 +138,9 @@ public final class EconomyImpl extends AbstractEconomy {
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
         double tax = 0;
-        if (ConfigUtil.getConfig().getBoolean("economySettings.personalIncomeTax.enable")) {
-            tax = amount * ConfigUtil.getConfig().getDouble("economySettings.personalIncomeTax.rate");
-            ActionUtil.sendMessage(player.getPlayer(), LangUtil.i18n("economy.tax")
+        if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("economySettings.personalIncomeTax.enable")) {
+            tax = amount * Main.instance.getConfigManager().getConfigManager().getData().getDouble("economySettings.personalIncomeTax.rate");
+            ActionUtil.sendMessage(player.getPlayer(), Main.instance.getConfigManager().getLangManager().i18n("economy.tax")
                     .replace("{amount}", String.valueOf(tax))
             );
         }

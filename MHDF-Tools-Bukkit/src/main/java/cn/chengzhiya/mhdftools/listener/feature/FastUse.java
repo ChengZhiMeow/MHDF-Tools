@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.menu.feature.fastuse.ShulkerBoxMenu;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +31,7 @@ public final class FastUse extends AbstractListener {
         // 潜影盒
         if (item.getType().toString().endsWith("SHULKER_BOX")) {
             // 不处理功能未开启的情况
-            if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.shulkerBox")) {
+            if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("fastUseSettings.shulkerBox")) {
                 return;
             }
 
@@ -47,7 +47,7 @@ public final class FastUse extends AbstractListener {
         // 末影箱
         if (item.getType() == Material.ENDER_CHEST) {
             // 不处理功能未开启的情况
-            if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.enderChest")) {
+            if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("fastUseSettings.enderChest")) {
                 return;
             }
 
@@ -63,7 +63,7 @@ public final class FastUse extends AbstractListener {
         // 工作台
         if (item.getType() == Material.CRAFTING_TABLE) {
             // 不处理功能未开启的情况
-            if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.craftingTable")) {
+            if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("fastUseSettings.craftingTable")) {
                 return;
             }
 

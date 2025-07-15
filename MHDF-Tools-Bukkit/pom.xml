@@ -66,6 +66,10 @@
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfdatabase</shadedPattern>
                                 </relocation>
                                 <relocation>
+                                    <pattern>cn.chengzhiya.mhdfyaml</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfyaml</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>cn.chengzhiya.langutil</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.langutil</shadedPattern>
                                 </relocation>
@@ -249,6 +253,13 @@
             <artifactId>MHDF-Scheduler</artifactId>
             <version>${env.lib.mhdf.scheduler.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-YAML</artifactId>
+            <version>${env.lib.mhdf.yaml.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>

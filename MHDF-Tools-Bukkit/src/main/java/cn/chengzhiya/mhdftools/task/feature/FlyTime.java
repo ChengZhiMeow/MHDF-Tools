@@ -1,11 +1,10 @@
 package cn.chengzhiya.mhdftools.task.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.task.AbstractTask;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.config.SoundUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -40,14 +39,14 @@ public final class FlyTime extends AbstractTask {
             }
 
             // 发送迫降提示
-            String title = LangUtil.getString("commands.fly.fallMessage." + mhdfPlayer.getFlyTime());
+            String title = Main.instance.getConfigManager().getLangManager().getString("commands.fly.fallMessage." + mhdfPlayer.getFlyTime());
             if (!title.isEmpty()) {
                 String[] args = title.split("\\|");
                 ActionUtil.sendTitle(player, args[0], args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));
             }
 
             // 播放音效
-            String sound = SoundUtil.getSound("flyFall." + mhdfPlayer.getFlyTime());
+            String sound = Main.instance.getConfigManager().getSoundManager().getData().getString("flyFall." + mhdfPlayer.getFlyTime());
             if (!sound.isEmpty()) {
                 String[] args = sound.split("\\|");
                 ActionUtil.playSound(player, args[0], Float.parseFloat(args[1]), Float.parseFloat(args[2]));

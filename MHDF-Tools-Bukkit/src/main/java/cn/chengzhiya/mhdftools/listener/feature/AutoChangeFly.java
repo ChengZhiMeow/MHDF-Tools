@@ -1,9 +1,9 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -26,7 +26,7 @@ public final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.joinServer")) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.joinServer")) {
             return;
         }
 
@@ -44,7 +44,7 @@ public final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.changeWorld")) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.changeWorld")) {
             return;
         }
 
@@ -62,7 +62,7 @@ public final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.respawn")) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.respawn")) {
             return;
         }
 
@@ -79,7 +79,7 @@ public final class AutoChangeFly extends AbstractListener {
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoDisable.takeHealth")) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoDisable.takeHealth")) {
             return;
         }
 
@@ -101,7 +101,7 @@ public final class AutoChangeFly extends AbstractListener {
     private boolean allowChange(Player player) {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         // 目标世界在 自动关闭飞行世界列表 当中
-        if (ConfigUtil.getConfig().getStringList("flySettings.autoDisable.worldList").contains(player.getWorld().getName())) {
+        if (Main.instance.getConfigManager().getConfigManager().getData().getStringList("flySettings.autoDisable.worldList").contains(player.getWorld().getName())) {
             mhdfPlayer.disableFly();
             return false;
         }

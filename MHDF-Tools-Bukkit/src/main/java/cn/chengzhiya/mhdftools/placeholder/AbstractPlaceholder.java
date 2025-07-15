@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.placeholder;
 
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import lombok.Getter;
 import org.bukkit.OfflinePlayer;
@@ -14,7 +14,7 @@ public abstract class AbstractPlaceholder implements Placeholder {
     private final boolean enable;
 
     public AbstractPlaceholder(List<String> enableKeyList) {
-        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(Main.instance.getConfigManager().getConfigManager().getData(), enableKeyList);
     }
 
     public AbstractPlaceholder() {

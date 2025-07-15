@@ -1,9 +1,8 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.FakeChangeTimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -13,14 +12,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class FakeChangeTime extends AbstractCommand {
+final class FakeChangeTime extends AbstractCommand {
     public FakeChangeTime() {
         super(
                 List.of("fakeChangeTimeSettings.enable"),
                 "虚假调节时间",
                 "mhdftools.commands.fakechangetime",
                 false,
-                ConfigUtil.getConfig().getStringList("fakeChangeTimeSettings.commands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("fakeChangeTimeSettings.commands").toArray(new String[0])
         );
     }
 
@@ -38,11 +37,11 @@ public final class FakeChangeTime extends AbstractCommand {
         // 修改其他玩家的的虚假时间
         if (args.length == 2) {
             if (!sender.hasPermission("mhdftools.commands.fakechangetime.other")) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("noPermission"));
                 return;
             }
             if (Bukkit.getPlayer(args[1]) == null) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[1]);
@@ -50,15 +49,15 @@ public final class FakeChangeTime extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.fakechangetime.usage"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                    .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.fakechangetime.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
         if (args[0].equals("reset")) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.fakechangetime.reset")
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.fakechangetime.reset")
                     .replace("{player}", player.getName())
             );
             player.resetPlayerTime();
@@ -69,7 +68,7 @@ public final class FakeChangeTime extends AbstractCommand {
         try {
             time = Long.parseLong(args[0]);
         } catch (NumberFormatException e) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.fakechangetime.timeFormatError"));
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.fakechangetime.timeFormatError"));
             return;
         }
 

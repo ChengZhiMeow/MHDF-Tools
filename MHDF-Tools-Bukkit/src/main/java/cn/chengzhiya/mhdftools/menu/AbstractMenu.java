@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.menu;
 
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -21,7 +20,7 @@ public abstract class AbstractMenu implements InventoryHolder, Menu {
     private final Player player;
 
     public AbstractMenu(List<String> enableKeyList, Player player) {
-        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(Main.instance.getConfigManager().getConfigManager().getData(), enableKeyList);
         this.player = player;
     }
 

@@ -4,8 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,11 +34,11 @@ public final class Back extends AbstractListener {
 
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
-        if (!ConfigUtil.getConfig().getBoolean("backSettings.respawnMessage")) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("backSettings.respawnMessage")) {
             return;
         }
 
         Player player = event.getPlayer();
-        ActionUtil.sendMessage(player, LangUtil.i18n("commands.back.respawnMessage"));
+        ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("commands.back.respawnMessage"));
     }
 }

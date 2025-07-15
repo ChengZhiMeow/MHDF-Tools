@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import com.alibaba.fastjson2.JSONObject;
 import io.papermc.paper.persistence.PersistentDataContainerView;
@@ -33,7 +32,7 @@ public final class LookEnderChestMenu extends AbstractMenu {
                 List.of("chatSettings.enable", "chatSettings.showEnderChest.enable"),
                 player
         );
-        this.config = MenuConfigUtil.getMenuConfig("lookEnderChest");
+        this.config = Main.instance.getConfigManager().getMenuManager().getData("lookEnderChest.yml");
         this.data = data;
     }
 

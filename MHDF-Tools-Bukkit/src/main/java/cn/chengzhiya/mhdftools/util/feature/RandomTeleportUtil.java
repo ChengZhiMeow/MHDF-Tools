@@ -5,8 +5,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.enums.RandomTeleportStatus;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.math.RandomUtil;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import lombok.SneakyThrows;
@@ -33,7 +31,7 @@ public final class RandomTeleportUtil {
      * @return 组配置实例
      */
     public static ConfigurationSection getGroupConfigurationSection(Player player) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("randomTeleportSettings");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("randomTeleportSettings");
         if (config == null) {
             return null;
         }
@@ -114,7 +112,7 @@ public final class RandomTeleportUtil {
      * 使用配置次数自动尝试
      */
     public static CompletableFuture<RandomTeleportStatus> randomTeleport(Player player, World world) {
-        return randomTeleport(player, world, ConfigUtil.getConfig().getInt("randomTeleportSettings.maxTryTime"));
+        return randomTeleport(player, world, Main.instance.getConfigManager().getConfigManager().getData().getInt("randomTeleportSettings.maxTryTime"));
     }
 
     /**
@@ -135,11 +133,11 @@ public final class RandomTeleportUtil {
     @SneakyThrows
     public static void handleRandomTeleport(CommandSender sender, Player player, String worldName, Biome biome) {
         long startTime = System.currentTimeMillis();
-        int maxTryTime = ConfigUtil.getConfig().getInt("randomTeleportSettings.maxTryTime");
+        int maxTryTime = Main.instance.getConfigManager().getConfigManager().getData().getInt("randomTeleportSettings.maxTryTime");
 
         World world = Bukkit.getWorld(worldName);
         if (world == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.noWorld")
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.noWorld")
                     .replace("{biome}", Main.instance.getMinecraftLangManager().getBiomeName(biome))
             );
             return;
@@ -149,14 +147,17 @@ public final class RandomTeleportUtil {
             long duration = System.currentTimeMillis() - startTime;
 
             switch (status) {
-                case SUCCESS -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.message")
-                        .replace("{duration}", String.valueOf(duration)));
-                case NO_BIOME -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.noBiome")
-                        .replace("{biome}", Main.instance.getMinecraftLangManager().getBiomeName(biome))
-                );
-                case OUT_TRY_TIMES -> ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.outTryTime")
-                        .replace("{amount}", String.valueOf(maxTryTime))
-                );
+                case SUCCESS ->
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.message")
+                                .replace("{duration}", String.valueOf(duration)));
+                case NO_BIOME ->
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.noBiome")
+                                .replace("{biome}", Main.instance.getMinecraftLangManager().getBiomeName(biome))
+                        );
+                case OUT_TRY_TIMES ->
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.outTryTime")
+                                .replace("{amount}", String.valueOf(maxTryTime))
+                        );
                 case NO_GROUP_CONFIG -> ActionUtil.sendMessage(sender, "§c未找到传送区域配置。");
             }
         });

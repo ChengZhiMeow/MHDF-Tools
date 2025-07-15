@@ -5,7 +5,6 @@ import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.imports.CmiImportUtil;
 import cn.chengzhiya.mhdftools.util.imports.HuskHomesImportUtil;
 import org.bukkit.command.CommandSender;
@@ -14,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MHDFTools extends AbstractCommand {
+final class MHDFTools extends AbstractCommand {
     public MHDFTools() {
         super(
                 "梦之工具主命令",
@@ -42,7 +41,7 @@ public final class MHDFTools extends AbstractCommand {
                         page = maxPage;
                     }
 
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.feature.message")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.feature.message")
                             .replace("{helpList}", getFeatureHelpMessage(page, commandList))
                             .replace("{page}", String.valueOf(page))
                             .replace("{maxPage}", String.valueOf(maxPage))
@@ -54,9 +53,9 @@ public final class MHDFTools extends AbstractCommand {
                 }
                 // 重载插件配置
                 case "reload" -> {
-                    Main.instance.getConfigManager().reloadAll();
+                    Main.instance.getConfigManager().reload();
 
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.reload.message")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.reload.message")
                             .replace("{command}", label)
                     );
                     return;
@@ -64,8 +63,8 @@ public final class MHDFTools extends AbstractCommand {
                 // 导入插件数据
                 case "import" -> {
                     if (args.length != 2) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                                .replace("{usage}", LangUtil.i18n("commands.mhdftools.subCommands.import.usage"))
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                                .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.usage"))
                                 .replace("{command}", label)
                         );
                         return;
@@ -75,7 +74,7 @@ public final class MHDFTools extends AbstractCommand {
                         case "huskhomes" -> HuskHomesImportUtil.importHuskHomesData(sender);
                         case "cmi" -> CmiImportUtil.importCmiData(sender);
                         default ->
-                                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.pluginNotSupport"));
+                                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.pluginNotSupport"));
                     }
                     return;
                 }
@@ -84,8 +83,8 @@ public final class MHDFTools extends AbstractCommand {
 
         // 输出帮助信息
         {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.help.message")
-                    .replace("{helpList}", LangUtil.getHelpList("commands.mhdftools.subCommands"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.help.message")
+                    .replace("{helpList}", Main.instance.getConfigManager().getLangManager().getHelpList("commands.mhdftools.subCommands"))
                     .replace("{command}", label)
             );
         }
@@ -94,7 +93,7 @@ public final class MHDFTools extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(LangUtil.getKeys("commands.mhdftools.subCommands"));
+            return new ArrayList<>(Main.instance.getConfigManager().getLangManager().getKeys("commands.mhdftools.subCommands"));
         }
         if (args.length == 2) {
             if (args[0].equals("import")) {
@@ -119,7 +118,7 @@ public final class MHDFTools extends AbstractCommand {
         for (int i = start; i < end; i++) {
             String command = commandList.get(i);
 
-            textComponentBuilder.append(LangUtil.getCommandInfo("commands." + command)
+            textComponentBuilder.append(Main.instance.getConfigManager().getLangManager().getCommandInfo("commands." + command)
                     .replace("{command}", command)
             );
             if (!command.equals(commandList.get(end - 1))) {

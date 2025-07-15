@@ -5,8 +5,6 @@ import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -15,14 +13,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MoneyAdmin extends AbstractCommand {
+final class MoneyAdmin extends AbstractCommand {
     public MoneyAdmin() {
         super(
                 List.of("economySettings.enable"),
                 "经济管理",
                 "mhdftools.commands.moneyadmin",
                 false,
-                ConfigUtil.getConfig().getStringList("economySettings.moneyadminCommands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("economySettings.moneyadminCommands").toArray(new String[0])
         );
     }
 
@@ -36,7 +34,7 @@ public final class MoneyAdmin extends AbstractCommand {
                     try {
                         change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[2]));
                     } catch (NumberFormatException e) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.moneyFormatError"));
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.moneyadmin.moneyFormatError"));
                         return;
                     }
 
@@ -52,7 +50,7 @@ public final class MoneyAdmin extends AbstractCommand {
                         mhdfPlayer.takeMoney(change);
                     }
 
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
                             .replace("{player}", args[1])
                             .replace("{change}", change.toString())
                             .replace("{amount}", mhdfPlayer.getMoney().toString())
@@ -64,8 +62,8 @@ public final class MoneyAdmin extends AbstractCommand {
 
         // 输出帮助信息
         {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands.help.message")
-                    .replace("{helpList}", LangUtil.getHelpList("commands.moneyadmin.subCommands"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.moneyadmin.subCommands.help.message")
+                    .replace("{helpList}", Main.instance.getConfigManager().getLangManager().getHelpList("commands.moneyadmin.subCommands"))
                     .replace("{command}", label)
             );
         }
@@ -74,7 +72,7 @@ public final class MoneyAdmin extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(LangUtil.getKeys("commands.moneyadmin.subCommands"));
+            return new ArrayList<>(Main.instance.getConfigManager().getLangManager().getKeys("commands.moneyadmin.subCommands"));
         }
         if (args.length == 2) {
             switch (args[0]) {

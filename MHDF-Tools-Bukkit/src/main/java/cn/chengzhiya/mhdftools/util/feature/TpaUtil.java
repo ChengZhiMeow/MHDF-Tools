@@ -4,8 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.entity.Player;
 
 public final class TpaUtil {
@@ -18,27 +16,27 @@ public final class TpaUtil {
     public static void sendTpaRequest(Player player, String targetName) {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (!Main.instance.getBungeeCordManager().ifPlayerOnline(targetName)) {
-            ActionUtil.sendMessage(player, LangUtil.i18n("playerOffline"));
+            ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("playerOffline"));
             return;
         }
 
         if (targetName.equals(player.getName())) {
-            ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.sendSelf"));
+            ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("commands.tpa.sendSelf"));
             return;
         }
 
         String delay = Main.instance.getCacheManager().get("tpaDelay", player.getName());
         if (delay != null) {
-            ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.inDelay")
+            ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("commands.tpa.inDelay")
                     .replace("{delay}", delay)
             );
             return;
         }
 
         Main.instance.getCacheManager().put("tpaPlayer", player.getName(), targetName);
-        Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
+        Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(Main.instance.getConfigManager().getConfigManager().getData().getInt("tpaSettings.delay")));
 
-        ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.message")
+        ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("commands.tpa.message")
                 .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName).getDisplayName())
         );
 
@@ -47,7 +45,7 @@ public final class TpaUtil {
             return;
         }
 
-        Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpa.requestMessage")
+        Main.instance.getBungeeCordManager().sendMessage(targetName, Main.instance.getConfigManager().getLangManager().i18n("commands.tpa.requestMessage")
                 .replaceByMiniMessage("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
         );
     }

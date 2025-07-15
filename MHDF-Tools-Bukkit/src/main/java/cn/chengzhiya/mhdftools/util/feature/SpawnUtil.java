@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -13,7 +12,7 @@ public final class SpawnUtil {
      * @param player 玩家实例
      */
     public static void teleportSpawn(Player player) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("spawnSettings.location");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("spawnSettings.location");
         if (config == null) {
             return;
         }

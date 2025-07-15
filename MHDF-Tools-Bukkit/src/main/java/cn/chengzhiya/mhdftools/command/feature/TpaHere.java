@@ -6,8 +6,6 @@ import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
 import cn.chengzhiya.mhdftools.menu.feature.TeleportRequestMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -17,21 +15,21 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class TpaHere extends AbstractCommand {
+final class TpaHere extends AbstractCommand {
     public TpaHere() {
         super(
                 List.of("tpahereSettings.enable"),
                 "请求指定玩家传送到当前位置",
                 "mhdftools.commands.tpahere",
                 true,
-                ConfigUtil.getConfig().getStringList("tpahereSettings.commands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("tpahereSettings.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
-        if (ConfigUtil.getConfig().getStringList("tpahereSettings.blackWorld").contains(sender.getWorld().getName())) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("blackWorld"));
+        if (Main.instance.getConfigManager().getConfigManager().getData().getStringList("tpahereSettings.blackWorld").contains(sender.getWorld().getName())) {
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("blackWorld"));
             return;
         }
 
@@ -46,14 +44,14 @@ public final class TpaHere extends AbstractCommand {
         if (args.length == 2) {
             String targetPlayerName = Main.instance.getCacheManager().get("tpaherePlayer", args[1]);
             if (targetPlayerName == null) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.noRequest")
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.tpahere.noRequest")
                         .replace("{player}", args[1])
                 );
                 return;
             }
 
             if (!targetPlayerName.equals(sender.getName())) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.noRequest")
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.tpahere.noRequest")
                         .replace("{player}", args[1])
                 );
                 return;
@@ -63,7 +61,7 @@ public final class TpaHere extends AbstractCommand {
             Main.instance.getCacheManager().remove("tpahereDelay", args[1]);
 
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[1])) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("playerOffline"));
                 return;
             }
 
@@ -71,21 +69,21 @@ public final class TpaHere extends AbstractCommand {
             switch (args[0]) {
                 case "accept" -> {
                     Main.instance.getBungeeCordManager().teleportPlayer(sender, args[1]);
-                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangUtil.i18n("commands.tpahere.accept.accepted")
+                    Main.instance.getBungeeCordManager().sendMessage(args[1], Main.instance.getConfigManager().getLangManager().i18n("commands.tpahere.accept.accepted")
                             .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
                     );
 
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.accept.message")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.tpahere.accept.message")
                             .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
                     );
                     return;
                 }
                 case "reject" -> {
-                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangUtil.i18n("commands.tpahere.reject.rejected")
+                    Main.instance.getBungeeCordManager().sendMessage(args[1], Main.instance.getConfigManager().getLangManager().i18n("commands.tpahere.reject.rejected")
                             .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
                     );
 
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.reject.message")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.tpahere.reject.message")
                             .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
                     );
                     return;
@@ -94,8 +92,8 @@ public final class TpaHere extends AbstractCommand {
         }
 
         {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.tpahere.usage"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                    .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.tpahere.usage"))
                     .replace("{command}", label)
             );
         }

@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.menu.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.CustomMenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
@@ -27,16 +26,14 @@ import java.util.Objects;
 @Getter
 public final class CustomMenu extends AbstractMenu {
     private final YamlConfiguration config;
-    private final String menu;
 
-    public CustomMenu(Player player, String menu) {
+    public CustomMenu(Player player, YamlConfiguration config) {
         super(
                 List.of("customMenuSettings.enable"),
                 player
         );
 
-        this.config = CustomMenuConfigUtil.getCustomMenuConfig(menu);
-        this.menu = menu;
+        this.config = config;
     }
 
     @Override

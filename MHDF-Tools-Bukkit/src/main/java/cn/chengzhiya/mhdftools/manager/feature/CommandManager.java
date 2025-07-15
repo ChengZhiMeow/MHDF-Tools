@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import lombok.Getter;
@@ -64,7 +63,7 @@ public final class CommandManager {
         command.setDescription(abstractCommand.getDescription());
         command.setPermission(abstractCommand.getPermission());
 
-        TextComponent permissionMessage = LangUtil.i18n("noPermission");
+        TextComponent permissionMessage = Main.instance.getConfigManager().getLangManager().i18n("noPermission");
         if (PluginUtil.isNativeSupportAdventureApi()) {
             command.permissionMessage(permissionMessage);
         } else {

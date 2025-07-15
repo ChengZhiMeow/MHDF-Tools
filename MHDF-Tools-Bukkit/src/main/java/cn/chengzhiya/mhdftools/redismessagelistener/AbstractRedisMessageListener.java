@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.redismessagelistener;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import io.lettuce.core.pubsub.RedisPubSubListener;
 import lombok.Getter;
@@ -19,7 +18,7 @@ public abstract class AbstractRedisMessageListener implements RedisPubSubListene
     private final String chanel;
 
     public AbstractRedisMessageListener(List<String> enableKeyList, @NotNull String chanel) {
-        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(Main.instance.getConfigManager().getConfigManager().getData(), enableKeyList);
         this.chanel = chanel;
     }
 

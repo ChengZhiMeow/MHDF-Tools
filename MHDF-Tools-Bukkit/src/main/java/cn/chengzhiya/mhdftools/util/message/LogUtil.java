@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.util.message;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.Bukkit;
 
 public final class LogUtil {
@@ -25,7 +25,7 @@ public final class LogUtil {
      * @param args    参数
      */
     public static void debug(String message, String... args) {
-        if (!ConfigUtil.getConfig().getBoolean("debug")) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("debug")) {
             return;
         }
 

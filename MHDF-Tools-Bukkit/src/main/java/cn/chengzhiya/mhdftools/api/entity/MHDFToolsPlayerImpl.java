@@ -7,7 +7,6 @@ import cn.chengzhiya.mhdftools.api.entity.database.data.*;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
@@ -74,7 +73,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public String getDisplayName() {
-        if (ConfigUtil.getConfig().getBoolean("nickSettings.enable") && this.hasNickData()) {
+        if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("nickSettings.enable") && this.hasNickData()) {
             return this.getNickData().getNick();
         }
 

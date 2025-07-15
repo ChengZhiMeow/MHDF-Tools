@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.listener;
 
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
@@ -16,7 +16,7 @@ public abstract class AbstractPacketListener implements PacketListener {
     private final PacketListenerPriority priority;
 
     public AbstractPacketListener(List<String> enableKeyList, @NotNull PacketListenerPriority priority) {
-        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(Main.instance.getConfigManager().getConfigManager().getData(), enableKeyList);
         this.priority = priority;
     }
 

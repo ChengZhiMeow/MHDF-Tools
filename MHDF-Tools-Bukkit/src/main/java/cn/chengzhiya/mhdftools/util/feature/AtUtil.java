@@ -5,9 +5,6 @@ import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.VanishStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.config.SoundUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -29,7 +26,7 @@ public final class AtUtil {
      * @return AT列表
      */
     public static Set<String> getAtList(Player player, String message) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.at");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.at");
         if (config == null) {
             return new HashSet<>();
         }
@@ -88,7 +85,7 @@ public final class AtUtil {
         }
 
         // 发送AT提示
-        String title = LangUtil.getString("chat.at.title")
+        String title = Main.instance.getConfigManager().getLangManager().getString("chat.at.title")
                 .replace("{by}", by);
         if (!title.isEmpty()) {
             String[] args = title.split("\\|");
@@ -96,7 +93,7 @@ public final class AtUtil {
         }
 
         // 播放音效
-        String sound = SoundUtil.getSound("chat.at");
+        String sound = Main.instance.getConfigManager().getSoundManager().getData().getString("chat.at");
         if (!sound.isEmpty()) {
             String[] args = sound.split("\\|");
             ActionUtil.playSound(player, args[0], Float.parseFloat(args[1]), Float.parseFloat(args[2]));

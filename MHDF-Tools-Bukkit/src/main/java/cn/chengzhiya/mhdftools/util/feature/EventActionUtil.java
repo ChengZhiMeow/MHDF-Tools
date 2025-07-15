@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -28,7 +28,7 @@ public final class EventActionUtil {
      * @return 操作列表
      */
     private static List<String> getActionList(Player player, String event) {
-        ConfigurationSection actionList = ConfigUtil.getConfig().getConfigurationSection("eventActionSettings.actionList");
+        ConfigurationSection actionList = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("eventActionSettings.actionList");
         if (actionList == null) {
             return new ArrayList<>();
         }

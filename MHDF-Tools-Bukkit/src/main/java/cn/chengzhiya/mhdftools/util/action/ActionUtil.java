@@ -315,7 +315,7 @@ public final class ActionUtil {
             }
             case "[menu]" -> {
                 if (sender instanceof Player player) {
-                    CustomMenuUtil.openCustomMenu(player, args[1]);
+                    CustomMenuUtil.openCustomMenu(player, Main.instance.getConfigManager().getCustomMenuManager().getCustomMenuById(args[1]));
                 }
             }
             case "[close]" -> {

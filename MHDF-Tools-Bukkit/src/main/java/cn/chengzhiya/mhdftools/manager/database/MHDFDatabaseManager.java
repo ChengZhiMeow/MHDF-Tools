@@ -5,8 +5,8 @@ import cn.chengzhiya.mhdfdatabase.entity.DatabaseConfig;
 import cn.chengzhiya.mhdfdatabase.entity.DatabaseConnectConfig;
 import cn.chengzhiya.mhdfdatabase.impl.H2DatabaseServiceImpl;
 import cn.chengzhiya.mhdfdatabase.impl.MySQLDatabaseServiceImpl;
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.database.Dao;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
@@ -31,7 +31,7 @@ public final class MHDFDatabaseManager {
      * 初始化配置
      */
     private void initConfig() {
-        ConfigurationSection database = ConfigUtil.getConfig().getConfigurationSection("databaseSettings");
+        ConfigurationSection database = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("databaseSettings");
         if (database == null) {
             return;
         }
@@ -42,7 +42,7 @@ public final class MHDFDatabaseManager {
         connectConfig.setUser(database.getString("mysql.user"));
         connectConfig.setPassword(database.getString("mysql.password"));
         connectConfig.setFile(
-                new File(ConfigUtil.getDataFolder(), Objects.requireNonNull(database.getString("h2.file")))
+                new File(Main.instance.getDataFolder(), Objects.requireNonNull(database.getString("h2.file")))
         );
 
         ConfigurationSection prams = database.getConfigurationSection("prams");

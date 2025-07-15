@@ -3,8 +3,6 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -12,14 +10,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public final class SetSpawn extends AbstractCommand {
+final class SetSpawn extends AbstractCommand {
     public SetSpawn() {
         super(
                 List.of("spawnSettings.enable"),
                 "设置出生点",
                 "mhdftools.commands.setspawn",
                 true,
-                ConfigUtil.getConfig().getStringList("spawnSettings.setspawnCommands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("spawnSettings.setspawnCommands").toArray(new String[0])
         );
     }
 
@@ -27,14 +25,14 @@ public final class SetSpawn extends AbstractCommand {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.setspawn.usage"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                    .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.setspawn.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("spawnSettings.location");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("spawnSettings.location");
         if (config == null) {
             return;
         }
@@ -49,10 +47,10 @@ public final class SetSpawn extends AbstractCommand {
         config.set("yaw", location.getYaw());
         config.set("pitch", location.getPitch());
 
-        ConfigUtil.getConfig().set("spawnSettings.location", config);
-        ConfigUtil.saveConfig();
-        ConfigUtil.reloadConfig();
+        Main.instance.getConfigManager().getConfigManager().getData().set("spawnSettings.location", config);
+        Main.instance.getConfigManager().getConfigManager().save();
+        Main.instance.getConfigManager().getConfigManager().reload();
 
-        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.setspawn.message"));
+        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.setspawn.message"));
     }
 }

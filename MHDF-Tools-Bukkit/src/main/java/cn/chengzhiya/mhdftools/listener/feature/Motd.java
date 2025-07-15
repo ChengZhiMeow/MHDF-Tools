@@ -2,8 +2,6 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractPacketListener;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import cn.chengzhiya.mhdftools.util.feature.MotdUtil;
 import cn.chengzhiya.mhdftools.util.math.MathUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -35,7 +33,7 @@ public final class Motd extends AbstractPacketListener {
             return;
         }
 
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("motdSettings");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("motdSettings");
         if (config == null) {
             return;
         }
@@ -84,7 +82,7 @@ public final class Motd extends AbstractPacketListener {
             data.add("players", playersData);
         }
 
-        List<YamlConfiguration> descriptionList = YamlUtil.getConfigurationSectionList(config, "description");
+        List<YamlConfiguration> descriptionList = Main.instance.getConfigManager().getConfigManager().getYamlConfigurationList("motdSettings.description");
         {
             YamlConfiguration description = descriptionList.get(new Random().nextInt(descriptionList.size()));
             JsonArray descriptionData = new JsonArray();

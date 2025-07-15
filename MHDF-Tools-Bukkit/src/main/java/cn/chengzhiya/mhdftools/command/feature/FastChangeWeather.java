@@ -1,8 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.FastChangeWeatherUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
-public final class FastChangeWeather extends AbstractCommand {
+final class FastChangeWeather extends AbstractCommand {
     private final ConcurrentHashMap<String, ConfigurationSection> commandConfigHashMap = new ConcurrentHashMap<>();
 
     public FastChangeWeather() {
@@ -28,7 +27,7 @@ public final class FastChangeWeather extends AbstractCommand {
         );
 
         {
-            ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("fastChangeWeatherSettings.weather");
+            ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("fastChangeWeatherSettings.weather");
             if (config == null) {
                 return;
             }
@@ -58,9 +57,9 @@ public final class FastChangeWeather extends AbstractCommand {
             world.setThundering(thunder);
         }
 
-        sender.sendMessage(LangUtil.i18n("commands.fastchangeweather.message")
-                .replace("{storm}", storm ? LangUtil.i18n("enable") : LangUtil.i18n("disable"))
-                .replace("{thunder}", thunder ? LangUtil.i18n("enable") : LangUtil.i18n("disable"))
+        sender.sendMessage(Main.instance.getConfigManager().getLangManager().i18n("commands.fastchangeweather.message")
+                .replace("{storm}", storm ? Main.instance.getConfigManager().getLangManager().i18n("enable") : Main.instance.getConfigManager().getLangManager().i18n("disable"))
+                .replace("{thunder}", thunder ? Main.instance.getConfigManager().getLangManager().i18n("enable") : Main.instance.getConfigManager().getLangManager().i18n("disable"))
         );
     }
 }

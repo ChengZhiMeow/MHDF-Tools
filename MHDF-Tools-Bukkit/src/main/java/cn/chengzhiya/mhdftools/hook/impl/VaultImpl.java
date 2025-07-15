@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.hook.impl;
 
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Main;
 import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -13,7 +13,7 @@ public final class VaultImpl {
     private Economy economy;
 
     public VaultImpl() {
-        this.enableEconomy = ConfigUtil.getConfig().getBoolean("economySettings.enable");
+        this.enableEconomy = Main.instance.getConfigManager().getConfigManager().getData().getBoolean("economySettings.enable");
         if (isEnableEconomy()) {
             this.economyImpl = new EconomyImpl();
         }

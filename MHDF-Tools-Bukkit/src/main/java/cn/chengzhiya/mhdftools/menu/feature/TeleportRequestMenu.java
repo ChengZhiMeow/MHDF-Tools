@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
@@ -37,7 +36,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
                 player
         );
 
-        this.config = MenuConfigUtil.getMenuConfig(requestType.name().toLowerCase(Locale.ROOT));
+        this.config = Main.instance.getConfigManager().getMenuManager().getData(requestType.name().toLowerCase(Locale.ROOT) + ".yml");
         this.requestType = requestType;
         this.page = page;
     }

@@ -5,8 +5,6 @@ import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,14 +13,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Vanish extends AbstractCommand {
+final class Vanish extends AbstractCommand {
     public Vanish() {
         super(
                 List.of("vanishSettings.enable"),
                 "隐身",
                 "mhdftools.commands.vanish",
                 false,
-                ConfigUtil.getConfig().getStringList("vanishSettings.commands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("vanishSettings.commands").toArray(new String[0])
         );
     }
 
@@ -40,11 +38,11 @@ public final class Vanish extends AbstractCommand {
         // 切换其他玩家的隐身模式
         if (args.length == 1) {
             if (!sender.hasPermission("mhdftools.commands.vanish.give")) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("noPermission"));
                 return;
             }
             if (Bukkit.getPlayer(args[0]) == null) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[0]);
@@ -52,8 +50,8 @@ public final class Vanish extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.vanish.usage"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                    .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.vanish.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -92,10 +90,10 @@ public final class Vanish extends AbstractCommand {
      * @param enable 是否开启隐身
      */
     private void sendChangeVanishMessage(CommandSender sender, Player player, boolean enable) {
-        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.vanish.message")
+        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.vanish.message")
                 .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{change}",
-                        enable ? LangUtil.i18n("enable") : LangUtil.i18n("disable")
+                        enable ? Main.instance.getConfigManager().getLangManager().i18n("enable") : Main.instance.getConfigManager().getLangManager().i18n("disable")
                 )
         );
     }

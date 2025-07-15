@@ -9,8 +9,6 @@ import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.entity.database.data.cmi.CmiUserData;
 import cn.chengzhiya.mhdftools.manager.database.CmiDatabaseManager;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.plugin.CmiConfigUtil;
 import org.bukkit.command.CommandSender;
 
@@ -39,7 +37,7 @@ public final class CmiImportUtil {
      */
     public static void importCmiData(CommandSender sender) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.start")
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "Cmi")
             );
             CmiDatabaseManager databaseManager = new CmiDatabaseManager();
@@ -48,8 +46,8 @@ public final class CmiImportUtil {
 
             // 导入家数据
             {
-                if (ConfigUtil.getConfig().getBoolean("homeSettings.enable")) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.import.start")
+                if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("homeSettings.enable")) {
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.import.start")
                             .replace("{plugin}", "Cmi")
                             .replace("{name}", "家系统")
                     );
@@ -70,7 +68,7 @@ public final class CmiImportUtil {
                     }
 
                     Long endTime = System.currentTimeMillis();
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.import.done")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.import.done")
                             .replace("{plugin}", "Cmi")
                             .replace("{name}", "家系统")
                             .replace("{time}", String.valueOf(endTime - startTime))
@@ -80,8 +78,8 @@ public final class CmiImportUtil {
 
             // 导入传送点数据
             {
-                if (ConfigUtil.getConfig().getBoolean("warpSettings.enable")) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.import.start")
+                if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("warpSettings.enable")) {
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.import.start")
                             .replace("{plugin}", "Cmi")
                             .replace("{name}", "传送点系统")
                     );
@@ -99,7 +97,7 @@ public final class CmiImportUtil {
                     }
 
                     Long endTime = System.currentTimeMillis();
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.import.done")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.import.done")
                             .replace("{plugin}", "Cmi")
                             .replace("{name}", "传送点系统")
                             .replace("{time}", String.valueOf(endTime - startTime))
@@ -109,8 +107,8 @@ public final class CmiImportUtil {
 
             // 导入经济数据
             {
-                if (ConfigUtil.getConfig().getBoolean("homeSettings.enable")) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.import.start")
+                if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("homeSettings.enable")) {
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.import.start")
                             .replace("{plugin}", "Cmi")
                             .replace("{name}", "经济系统")
                     );
@@ -122,7 +120,7 @@ public final class CmiImportUtil {
                     }
 
                     Long endTime = System.currentTimeMillis();
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.import.done")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.import.done")
                             .replace("{plugin}", "Cmi")
                             .replace("{name}", "经济系统")
                             .replace("{time}", String.valueOf(endTime - startTime))
@@ -131,7 +129,7 @@ public final class CmiImportUtil {
             }
 
             databaseManager.close();
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.done")
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.import.message.done")
                     .replace("{plugin}", "Cmi")
             );
         });

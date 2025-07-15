@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Main;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public final class FastChangeTimeUtil {
      * @return 命令列表
      */
     public static List<String> getCommandList() {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("fastChangeTimeSettings.time");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("fastChangeTimeSettings.time");
         if (config == null) {
             return new ArrayList<>();
         }

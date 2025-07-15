@@ -5,8 +5,6 @@ import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,14 +13,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Fly extends AbstractCommand {
+final class Fly extends AbstractCommand {
     public Fly() {
         super(
                 List.of("flySettings.enable"),
                 "飞行",
                 "mhdftools.commands.fly",
                 false,
-                ConfigUtil.getConfig().getStringList("flySettings.commands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("flySettings.commands").toArray(new String[0])
         );
     }
 
@@ -38,7 +36,7 @@ public final class Fly extends AbstractCommand {
 
             MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
             if (!sender.hasPermission("mhdftools.commands.fly.infinite") && mhdfPlayer.getFlyTime() <= 0) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("noPermission"));
                 return;
             }
         }
@@ -46,11 +44,11 @@ public final class Fly extends AbstractCommand {
         // 切换其他玩家的飞行模式
         if (args.length == 1) {
             if (!sender.hasPermission("mhdftools.commands.fly.other")) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("noPermission"));
                 return;
             }
             if (Bukkit.getPlayer(args[0]) == null) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[0]);
@@ -58,8 +56,8 @@ public final class Fly extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.fly.usage"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                    .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.fly.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -99,10 +97,10 @@ public final class Fly extends AbstractCommand {
      */
     private void sendChangeFlyMessage(CommandSender sender, Player player, boolean enable) {
         ActionUtil.sendMessage(sender,
-                LangUtil.i18n("commands.fly.message")
+                Main.instance.getConfigManager().getLangManager().i18n("commands.fly.message")
                         .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                         .replace("{change}",
-                                enable ? LangUtil.i18n("enable") : LangUtil.i18n("disable")
+                                enable ? Main.instance.getConfigManager().getLangManager().i18n("enable") : Main.instance.getConfigManager().getLangManager().i18n("disable")
                         )
         );
     }

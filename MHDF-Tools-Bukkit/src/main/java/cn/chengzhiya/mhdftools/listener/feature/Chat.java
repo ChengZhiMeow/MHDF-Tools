@@ -5,8 +5,6 @@ import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -33,7 +31,7 @@ public final class Chat extends AbstractListener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings");
         if (config == null) {
             return;
         }
@@ -43,7 +41,7 @@ public final class Chat extends AbstractListener {
             if (!player.hasPermission("mhdftools.bypass.chat.delay")) {
                 String delayData = Main.instance.getCacheManager().get("chatDelay", player.getName());
                 if (delayData != null) {
-                    ActionUtil.sendMessage(player, LangUtil.i18n("chat.delay")
+                    ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("chat.delay")
                             .replace("{delay}", delayData)
                     );
                     event.setCancelled(true);
@@ -68,7 +66,7 @@ public final class Chat extends AbstractListener {
             if (!player.hasPermission("mhdftools.bypass.chat.spam")) {
                 String spamData = Main.instance.getCacheManager().get("lastChat", player.getName());
                 if (spamData != null && spamData.equals(message)) {
-                    ActionUtil.sendMessage(player, LangUtil.i18n("chat.spam"));
+                    ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("chat.spam"));
                     event.setCancelled(true);
                     return;
                 }

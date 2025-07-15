@@ -6,8 +6,6 @@ import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
@@ -36,7 +34,7 @@ public final class HomeMenu extends AbstractMenu {
                 player
         );
 
-        this.config = MenuConfigUtil.getMenuConfig("home");
+        this.config = Main.instance.getConfigManager().getMenuManager().getData("home.yml");
         this.page = page;
     }
 
@@ -130,7 +128,7 @@ public final class HomeMenu extends AbstractMenu {
                 HomeData homeData = player.getHome(home);
 
                 Main.instance.getBungeeCordManager().teleportLocation(getPlayer(), homeData.toBungeeCordLocation());
-                Main.instance.getBungeeCordManager().sendMessage(getPlayer(), LangUtil.i18n("commands.home.teleportMessage")
+                Main.instance.getBungeeCordManager().sendMessage(getPlayer(), Main.instance.getConfigManager().getLangManager().i18n("commands.home.teleportMessage")
                         .replace("{home}", homeData.getHome())
                 );
             }

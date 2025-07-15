@@ -5,15 +5,14 @@ import cn.chengzhiya.mhdftools.api.MHDFToolsAPIImpl;
 import cn.chengzhiya.mhdftools.manager.*;
 import cn.chengzhiya.mhdftools.manager.cache.CacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
-import cn.chengzhiya.mhdftools.manager.config.ConfigFolderManager;
-import cn.chengzhiya.mhdftools.manager.config.ConfigManager;
-import cn.chengzhiya.mhdftools.manager.config.ProxyConfigManager;
+import cn.chengzhiya.mhdftools.manager.config.ConfigMainManager;
 import cn.chengzhiya.mhdftools.manager.database.MHDFDatabaseManager;
 import cn.chengzhiya.mhdftools.manager.feature.CommandManager;
 import cn.chengzhiya.mhdftools.manager.feature.ListenerManager;
 import cn.chengzhiya.mhdftools.manager.feature.TaskManager;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
+import cn.chengzhiya.mhdfyaml.MHDFYaml;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +22,8 @@ public final class Main extends JavaPlugin {
     public static Main instance;
 
     private LibrariesManager librariesManager;
-    private ConfigManager configManager;
+    private MHDFYaml yamlManager;
+    private ConfigMainManager configManager;
     private MinecraftLangManager minecraftLangManager;
 
     private AdventureManager adventureManager;
@@ -43,17 +43,13 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
-        ConfigFolderManager configFolderManager = new ConfigFolderManager();
-        configFolderManager.init();
+        this.yamlManager = new MHDFYaml(this);
 
-        ProxyConfigManager proxyConfigManager = new ProxyConfigManager();
-        proxyConfigManager.init();
+        this.configManager = new ConfigMainManager();
+        this.configManager.init();
 
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
-
-        this.configManager = new ConfigManager();
-        this.configManager.init();
 
         this.minecraftLangManager = new MinecraftLangManager();
         this.minecraftLangManager.init();
@@ -66,8 +62,6 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         this.adventureManager = new AdventureManager();
         this.adventureManager.init();
-
-        MHDFToolsAPIHelper.setInstance(new MHDFToolsAPIImpl());
 
         this.databaseManager = new MHDFDatabaseManager();
         this.databaseManager.connect();
@@ -93,6 +87,8 @@ public final class Main extends JavaPlugin {
 
         this.bStatsManager = new BStatsManager();
         this.bStatsManager.init();
+
+        MHDFToolsAPIHelper.setInstance(new MHDFToolsAPIImpl());
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         if (!PluginUtil.isNativeSupportAdventureApi()) {

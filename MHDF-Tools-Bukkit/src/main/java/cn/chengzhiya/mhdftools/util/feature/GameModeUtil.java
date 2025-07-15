@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Main;
 import org.bukkit.GameMode;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -12,7 +12,7 @@ public final class GameModeUtil {
      * @return 游戏模式实例
      */
     public static GameMode getGameMode(String gameModeString) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("gamemodeSettings.gamemode");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("gamemodeSettings.gamemode");
         if (config == null) {
             return null;
         }

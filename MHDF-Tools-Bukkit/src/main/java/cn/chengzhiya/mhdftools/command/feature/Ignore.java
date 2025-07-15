@@ -6,8 +6,6 @@ import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.IgnoreData;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -16,14 +14,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Ignore extends AbstractCommand {
+final class Ignore extends AbstractCommand {
     public Ignore() {
         super(
                 List.of("chatSettings.ignore.enable"),
                 "屏蔽",
                 "mhdftools.commands.ignore",
                 true,
-                ConfigUtil.getConfig().getStringList("ignoreSettings.commands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("ignoreSettings.commands").toArray(new String[0])
         );
     }
 
@@ -45,7 +43,7 @@ public final class Ignore extends AbstractCommand {
                     }
                 }
 
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.list.message")
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.list.message")
                         .replace("{list}", !listStringBuilder.isEmpty() ? listStringBuilder.toString() : "空")
                 );
                 return;
@@ -56,8 +54,8 @@ public final class Ignore extends AbstractCommand {
             // 增加屏蔽玩家
             if (args[0].equals("add")) {
                 if (!sender.hasPermission("mhdftools.bypass.ignore.blacklist")) {
-                    if (ConfigUtil.getConfig().getStringList("ignoreSettings.blacklist").contains(args[1])) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.blacklist")
+                    if (Main.instance.getConfigManager().getConfigManager().getData().getStringList("ignoreSettings.blacklist").contains(args[1])) {
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.add.blacklist")
                                 .replace("{player}", args[1])
                         );
                         return;
@@ -66,20 +64,20 @@ public final class Ignore extends AbstractCommand {
 
                 MHDFToolsPlayer mhdfIgnorePlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[1]);
                 if (mhdfPlayer.isIgnore(mhdfIgnorePlayer)) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.haveIgnore")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.add.haveIgnore")
                             .replace("{player}", args[1])
                     );
                     return;
                 }
 
                 if (mhdfPlayer.equals(mhdfIgnorePlayer)) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.sendSelf"));
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.add.sendSelf"));
                     return;
                 }
 
                 mhdfPlayer.ignore(mhdfIgnorePlayer);
 
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.message")
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.add.message")
                         .replace("{player}", args[1])
                 );
                 return;
@@ -90,7 +88,7 @@ public final class Ignore extends AbstractCommand {
                 MHDFToolsPlayer mhdfIgnorePlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[1]);
 
                 if (!mhdfPlayer.isIgnore(mhdfIgnorePlayer)) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.noIgnore")
+                    ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.remove.noIgnore")
                             .replace("{player}", args[1])
                     );
                     return;
@@ -98,7 +96,7 @@ public final class Ignore extends AbstractCommand {
 
                 mhdfPlayer.deleteIgnore(mhdfIgnorePlayer);
 
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.message")
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.remove.message")
                         .replace("{player}", args[1])
                 );
                 return;
@@ -107,8 +105,8 @@ public final class Ignore extends AbstractCommand {
 
         // 输出帮助信息
         {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.help.message")
-                    .replace("{helpList}", LangUtil.getHelpList("commands.ignore.subCommands"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.ignore.subCommands.help.message")
+                    .replace("{helpList}", Main.instance.getConfigManager().getLangManager().getHelpList("commands.ignore.subCommands"))
                     .replace("{command}", label)
             );
         }
@@ -117,7 +115,7 @@ public final class Ignore extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(LangUtil.getKeys("commands.ignore.subCommands"));
+            return new ArrayList<>(Main.instance.getConfigManager().getLangManager().getKeys("commands.ignore.subCommands"));
         }
         if (args.length == 2) {
             if (args[0].equals("add")) {

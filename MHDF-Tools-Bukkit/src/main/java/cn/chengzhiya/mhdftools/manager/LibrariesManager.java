@@ -7,8 +7,6 @@ import cn.chengzhiya.mhdflibrary.entity.RepositoryConfig;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
 
 import java.io.File;
 
@@ -25,9 +23,9 @@ public final class LibrariesManager {
                 Main.class,
                 new LibraryLoggerManager(),
                 "cn.chengzhiya.mhdftools.libs",
-                new File(ConfigUtil.getDataFolder(), "libs")
+                new File(Main.instance.getDataFolder(), "libs")
         );
-        mhdfLibrary.getHttpManager().setProxy(ProxyUtil.getProxy());
+        mhdfLibrary.getHttpManager().setProxy(Main.instance.getConfigManager().getProxyManager().getProxy());
 
         // 依赖
         {

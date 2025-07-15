@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.util.message;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +25,7 @@ public final class ColorUtil {
      */
     public static String legacyColor(@NotNull String message) {
         message = message
-                .replace("{prefix}", LangUtil.getString("prefix"))
+                .replace("{prefix}", Main.instance.getConfigManager().getLangManager().getString("prefix"))
                 .replace("{version}", PluginUtil.getVersion());
         return legacy(message);
     }

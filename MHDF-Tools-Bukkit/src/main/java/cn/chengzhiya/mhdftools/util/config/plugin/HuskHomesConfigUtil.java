@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.util.config.plugin;
 
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Main;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -8,7 +8,7 @@ import java.io.File;
 
 public final class HuskHomesConfigUtil {
     @Getter
-    private static final File dataFolder = new File(ConfigUtil.getDataFolder().getParent(), "HuskHomes");
+    private static final File dataFolder = new File(Main.instance.getDataFolder().getParent(), "HuskHomes");
     @Getter
     private static final File configFile = new File(dataFolder, "config.yml");
     private static YamlConfiguration config;

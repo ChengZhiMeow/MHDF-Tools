@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
@@ -32,7 +31,7 @@ public final class LookItemMenu extends AbstractMenu {
                 List.of("chatSettings.enable", "chatSettings.showItem.enable"),
                 player
         );
-        this.config = MenuConfigUtil.getMenuConfig("lookItem");
+        this.config = Main.instance.getConfigManager().getMenuManager().getData("lookItem.yml");
         this.data = data;
     }
 

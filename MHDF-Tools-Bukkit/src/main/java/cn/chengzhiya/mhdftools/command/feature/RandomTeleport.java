@@ -4,8 +4,6 @@ import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
 import cn.chengzhiya.mhdftools.util.world.BiomeUtil;
 import org.bukkit.Bukkit;
@@ -18,14 +16,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class RandomTeleport extends AbstractCommand {
+final class RandomTeleport extends AbstractCommand {
     public RandomTeleport() {
         super(
                 List.of("randomTeleportSettings.enable"),
                 "随机传送",
                 "mhdftools.commands.randomteleport",
                 false,
-                ConfigUtil.getConfig().getStringList("randomTeleportSettings.commands").toArray(new String[0])
+                Main.instance.getConfigManager().getConfigManager().getData().getStringList("randomTeleportSettings.commands").toArray(new String[0])
         );
     }
 
@@ -41,8 +39,8 @@ public final class RandomTeleport extends AbstractCommand {
             switch (args[0]) {
                 case "world" -> {
                     if (args.length < 2) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                                .replace("{usage}", LangUtil.i18n("commands.randomteleport.subCommands.world.usage"))
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                                .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.subCommands.world.usage"))
                                 .replace("{command}", label)
                         );
                         return;
@@ -51,11 +49,11 @@ public final class RandomTeleport extends AbstractCommand {
 
                     if (args.length >= 3) {
                         if (Bukkit.getPlayer(args[2]) == null) {
-                            ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
+                            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("playerOffline"));
                             return;
                         }
                         if (!sender.hasPermission("mhdftools.commands.randomteleport.other")) {
-                            ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
+                            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("noPermission"));
                             return;
                         }
                         player = Bukkit.getPlayer(args[2]);
@@ -69,8 +67,8 @@ public final class RandomTeleport extends AbstractCommand {
                 }
                 case "biome" -> {
                     if (args.length < 3) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                                .replace("{usage}", LangUtil.i18n("commands.randomteleport.subCommands.biome.usage"))
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                                .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.subCommands.biome.usage"))
                                 .replace("{command}", label)
                         );
                         return;
@@ -79,7 +77,7 @@ public final class RandomTeleport extends AbstractCommand {
                     worldName = args[1];
                     biome = BiomeUtil.getBiome(args[2]);
                     if (biome == null) {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("mhdftools.commands.randomteleport.noBiome")
+                        ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("mhdftools.commands.randomteleport.noBiome")
                                 .replace("{biome}", args[2])
                         );
                         return;
@@ -87,11 +85,11 @@ public final class RandomTeleport extends AbstractCommand {
 
                     if (args.length >= 4) {
                         if (Bukkit.getPlayer(args[3]) == null) {
-                            ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
+                            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("playerOffline"));
                             return;
                         }
                         if (!sender.hasPermission("mhdftools.commands.randomteleport.other")) {
-                            ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
+                            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("noPermission"));
                             return;
                         }
                         player = Bukkit.getPlayer(args[3]);
@@ -107,8 +105,8 @@ public final class RandomTeleport extends AbstractCommand {
 
             // 输出帮助信息
             {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.help.message")
-                        .replace("{helpList}", LangUtil.getHelpList("commands.randomteleport.subCommands"))
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.subCommands.help.message")
+                        .replace("{helpList}", Main.instance.getConfigManager().getLangManager().getHelpList("commands.randomteleport.subCommands"))
                         .replace("{command}", label)
                 );
             }
@@ -117,8 +115,8 @@ public final class RandomTeleport extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.randomteleport.usage"))
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("usageError")
+                    .replace("{usage}", Main.instance.getConfigManager().getLangManager().i18n("commands.randomteleport.usage"))
                     .replace("{command}", label)
             );
             return;

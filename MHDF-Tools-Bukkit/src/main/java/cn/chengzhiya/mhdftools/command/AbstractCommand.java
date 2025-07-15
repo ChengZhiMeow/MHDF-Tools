@@ -2,8 +2,6 @@ package cn.chengzhiya.mhdftools.command;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
@@ -24,7 +22,7 @@ public abstract class AbstractCommand implements TabExecutor, Command {
     private final String[] commands;
 
     public AbstractCommand(List<String> enableKeyList, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
-        this.enable = YamlUtil.equalsTrue(ConfigUtil.getConfig(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(Main.instance.getConfigManager().getConfigManager().getData(), enableKeyList);
         this.description = description;
         this.permission = permission;
         this.onlyPlayer = onlyPlayer;
@@ -41,7 +39,7 @@ public abstract class AbstractCommand implements TabExecutor, Command {
             if (sender instanceof Player player) {
                 execute(player, label, args);
             } else {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("onlyPlayer"));
+                ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("onlyPlayer"));
             }
             return false;
         }

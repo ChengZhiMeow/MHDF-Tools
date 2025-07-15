@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
@@ -24,6 +24,6 @@ public final class HomeUtil {
                 .toList());
         amountList.sort(Comparator.reverseOrder());
 
-        return !amountList.isEmpty() ? amountList.get(0) : ConfigUtil.getConfig().getInt("homeSettings.defaultMax");
+        return !amountList.isEmpty() ? amountList.get(0) : Main.instance.getConfigManager().getConfigManager().getData().getInt("homeSettings.defaultMax");
     }
 }

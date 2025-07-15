@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.feature.SpawnUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public final class AutoTeleportSpawn extends AbstractListener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("spawnSettings.autoTeleport");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("spawnSettings.autoTeleport");
         if (config == null) {
             return;
         }
@@ -36,7 +36,7 @@ public final class AutoTeleportSpawn extends AbstractListener {
 
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("spawnSettings.autoTeleport");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("spawnSettings.autoTeleport");
         if (config == null) {
             return;
         }

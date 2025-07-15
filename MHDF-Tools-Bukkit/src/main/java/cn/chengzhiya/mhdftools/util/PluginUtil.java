@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.util;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.entity.Player;
 
 public final class PluginUtil {
@@ -48,7 +47,7 @@ public final class PluginUtil {
      * 更新检测
      */
     public static void checkUpdate() {
-        if (!ConfigUtil.getConfig().getBoolean("updateCheck")) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("updateCheck")) {
         }
 
         // 等待 MHDF-HttpClient 库

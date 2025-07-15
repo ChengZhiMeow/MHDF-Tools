@@ -1,10 +1,10 @@
 package cn.chengzhiya.mhdftools.manager.cache;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.config.CacheConfig;
 import cn.chengzhiya.mhdftools.entity.config.RedisConfig;
 import cn.chengzhiya.mhdftools.manager.cache.impl.MapCacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -15,7 +15,7 @@ public final class MHDFCacheManager implements CacheManager {
     private AbstractCacheManager cacheManager;
 
     public MHDFCacheManager() {
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("cacheSettings");
+        ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("cacheSettings");
         if (config == null) {
             return;
         }

@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.menu.feature.vanish;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
-import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Barrel;
 import org.bukkit.entity.Player;
@@ -27,7 +27,7 @@ public final class BarrelMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(this, InventoryType.BARREL, LangUtil.i18n("menu.vanish.title"));
+        Inventory inventory = Bukkit.createInventory(this, InventoryType.BARREL, Main.instance.getConfigManager().getLangManager().i18n("menu.vanish.title"));
         inventory.setContents(barrel.getInventory().getContents());
 
         return inventory;
