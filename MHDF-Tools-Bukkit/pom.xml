@@ -175,10 +175,6 @@
             <id>momirealms</id>
             <url>https://repo.momirealms.net/releases/</url>
         </repository>
-        <repository>
-            <id>chengzhimeow-maven-repo</id>
-            <url>https://maven.chengzhimeow.cn/releases/</url>
-        </repository>
     </repositories>
 
     <dependencies>
