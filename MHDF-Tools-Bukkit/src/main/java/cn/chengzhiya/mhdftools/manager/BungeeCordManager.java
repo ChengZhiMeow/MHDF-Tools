@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.listener.misc.PluginMessage;
 import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
 import cn.chengzhiya.mhdftools.text.TextComponent;
@@ -15,12 +14,16 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -402,5 +405,53 @@ public final class BungeeCordManager {
      */
     public boolean ifPlayerOnline(String name) {
         return getPlayerList().contains(name);
+    }
+
+    private static final class PluginMessage implements PluginMessageListener {
+        @Override
+        @SneakyThrows
+        public void onPluginMessageReceived(@NotNull String channel, @NotNull Player messagePlayer, byte @NotNull [] messageData) {
+            if (!channel.equals("BungeeCord")) {
+                return;
+            }
+
+            DataInputStream in = new DataInputStream(new ByteArrayInputStream(messageData));
+
+            String subchannel = in.readUTF();
+            switch (subchannel) {
+                case "mhdf_tools" -> {
+                    JSONObject data = JSONObject.parseObject(in.readUTF());
+
+                    LogUtil.debug("收到来自群组端的梦之工具消息 | 消息: {}",
+                            data.toJSONString()
+                    );
+
+                    String action = data.getString("action");
+                    String from = data.getString("from");
+                    String to = data.getString("to");
+                    JSONObject params = data.getJSONObject("params");
+
+                    switch (action) {
+                        case "serverInfo" -> {
+                            LogUtil.debug("更新服务器名称 | 名称: {}",
+                                    from
+                            );
+                            Main.instance.getBungeeCordManager().setServerName(from);
+                        }
+                    }
+                }
+                case "PlayerList" -> {
+                    in.readUTF();
+                    String playerListString = in.readUTF();
+
+                    LogUtil.debug("更新在线玩家列表 | 在线列表: {}",
+                            playerListString
+                    );
+
+                    List<String> playerList = List.of(playerListString.split(", "));
+                    Main.instance.getBungeeCordManager().setBungeeCordPlayerList(playerList);
+                }
+            }
+        }
     }
 }
