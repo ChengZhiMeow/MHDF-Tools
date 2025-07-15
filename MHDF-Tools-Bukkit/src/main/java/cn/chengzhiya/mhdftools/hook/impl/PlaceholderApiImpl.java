@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,12 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
         for (Class<? extends AbstractPlaceholder> clazz : reflections.getSubTypesOf(AbstractPlaceholder.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                AbstractPlaceholder abstractPlaceholder = clazz.getDeclaredConstructor().newInstance();
-                if (abstractPlaceholder.isEnable()) {
-                    placeholderList.add(abstractPlaceholder);
+                Constructor<? extends AbstractPlaceholder> constructor = clazz.getConstructor();
+                constructor.setAccessible(true);
+                AbstractPlaceholder placeholder = constructor.newInstance();
+
+                if (placeholder.isEnable()) {
+                    placeholderList.add(placeholder);
                 }
             }
         }

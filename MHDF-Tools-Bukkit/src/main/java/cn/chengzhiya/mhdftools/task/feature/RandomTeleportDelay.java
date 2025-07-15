@@ -5,7 +5,7 @@ import cn.chengzhiya.mhdftools.task.AbstractTask;
 
 import java.util.List;
 
-public final class RandomTeleportDelay extends AbstractTask {
+final class RandomTeleportDelay extends AbstractTask {
     public RandomTeleportDelay() {
         super(
                 List.of("chatSettings.enable"),

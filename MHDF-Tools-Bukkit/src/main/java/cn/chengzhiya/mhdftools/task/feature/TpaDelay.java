@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public final class TpaDelay extends AbstractTask {
+final class TpaDelay extends AbstractTask {
     public TpaDelay() {
         super(
                 List.of("tpaSettings.enable"),

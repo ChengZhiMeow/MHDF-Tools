@@ -10,7 +10,7 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSe
 
 import java.util.List;
 
-public final class BundleFix extends AbstractPacketListener {
+final class BundleFix extends AbstractPacketListener {
     public BundleFix() {
         super(
                 List.of("bundleFixSettings.enable"),

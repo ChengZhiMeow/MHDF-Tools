@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public final class InitPlayerData extends AbstractListener {
+final class InitPlayerData extends AbstractListener {
     public InitPlayerData() {
         super();
     }

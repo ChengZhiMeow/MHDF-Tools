@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
 
-public final class VanishJoinQuit extends AbstractListener {
+final class VanishJoinQuit extends AbstractListener {
     public VanishJoinQuit() {
         super(
                 List.of("vanishSettings.enable")

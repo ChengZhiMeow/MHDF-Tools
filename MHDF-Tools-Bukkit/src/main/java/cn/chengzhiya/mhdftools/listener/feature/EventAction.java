@@ -10,7 +10,7 @@ import org.bukkit.event.player.*;
 
 import java.util.List;
 
-public final class EventAction extends AbstractListener {
+final class EventAction extends AbstractListener {
     public EventAction() {
         super(
                 List.of("eventActionSettings.enable")

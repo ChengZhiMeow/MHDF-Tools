@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public final class Chat extends AbstractListener {
+final class Chat extends AbstractListener {
     public Chat() {
         super(
                 List.of("chatSettings.enable")

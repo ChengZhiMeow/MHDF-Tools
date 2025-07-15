@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
 
-public final class TpaHere extends AbstractListener {
+final class TpaHere extends AbstractListener {
     public TpaHere() {
         super(
                 List.of("tpahereSettings.enable")

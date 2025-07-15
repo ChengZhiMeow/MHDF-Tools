@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
 
-public final class Tpa extends AbstractListener {
+final class Tpa extends AbstractListener {
     public Tpa() {
         super(
                 List.of("tpaSettings.enable")

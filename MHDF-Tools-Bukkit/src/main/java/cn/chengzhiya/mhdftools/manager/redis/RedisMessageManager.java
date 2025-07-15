@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 public final class RedisMessageManager {
@@ -29,10 +30,13 @@ public final class RedisMessageManager {
 
         for (Class<? extends AbstractRedisMessageListener> clazz : reflections.getSubTypesOf(AbstractRedisMessageListener.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                AbstractRedisMessageListener redisMessageListener = clazz.getDeclaredConstructor().newInstance();
-                if (redisMessageListener.isEnable()) {
-                    this.redisPubSubConnection.async().subscribe(this.getPrefix() + redisMessageListener.getChanel());
-                    this.redisPubSubConnection.addListener(redisMessageListener);
+                Constructor<? extends AbstractRedisMessageListener> constructor = clazz.getConstructor();
+                constructor.setAccessible(true);
+                AbstractRedisMessageListener listener = constructor.newInstance();
+
+                if (listener.isEnable()) {
+                    this.redisPubSubConnection.async().subscribe(this.getPrefix() + listener.getChanel());
+                    this.redisPubSubConnection.addListener(listener);
                 }
             }
         }

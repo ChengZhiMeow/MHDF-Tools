@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.List;
 
-public final class JoinMessage extends AbstractListener {
+final class JoinMessage extends AbstractListener {
     public JoinMessage() {
         super(
                 List.of("joinMessageSettings.enable")

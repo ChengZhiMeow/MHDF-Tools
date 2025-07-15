@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.List;
 
-public final class RandomTeleport extends AbstractListener {
+final class RandomTeleport extends AbstractListener {
     public RandomTeleport() {
         super(
                 List.of("randomTeleportSettings.enable")

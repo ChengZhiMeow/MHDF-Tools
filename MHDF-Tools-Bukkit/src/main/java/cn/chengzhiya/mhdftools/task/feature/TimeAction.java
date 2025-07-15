@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
-public final class TimeAction extends AbstractTask {
+final class TimeAction extends AbstractTask {
     private final ConcurrentHashMap<String, Integer> delayHashMap = new ConcurrentHashMap<>();
 
     public TimeAction() {

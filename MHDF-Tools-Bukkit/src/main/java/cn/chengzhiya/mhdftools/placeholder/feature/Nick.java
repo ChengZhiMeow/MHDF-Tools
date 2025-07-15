@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public final class Nick extends AbstractPlaceholder {
+final class Nick extends AbstractPlaceholder {
     public Nick() {
         super(
                 List.of("nickSettings.enable")

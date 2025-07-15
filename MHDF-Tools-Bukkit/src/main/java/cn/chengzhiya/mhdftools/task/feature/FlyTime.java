@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public final class FlyTime extends AbstractTask {
+final class FlyTime extends AbstractTask {
     public FlyTime() {
         super(
                 List.of("flySettings.enable"),

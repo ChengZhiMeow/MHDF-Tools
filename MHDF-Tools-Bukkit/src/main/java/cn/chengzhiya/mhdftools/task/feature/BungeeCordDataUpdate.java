@@ -6,7 +6,7 @@ import cn.chengzhiya.mhdftools.task.AbstractTask;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public final class BungeeCordDataUpdate extends AbstractTask {
+final class BungeeCordDataUpdate extends AbstractTask {
     public BungeeCordDataUpdate() {
         super(
                 List.of("bungeeCordSettings.enable"),

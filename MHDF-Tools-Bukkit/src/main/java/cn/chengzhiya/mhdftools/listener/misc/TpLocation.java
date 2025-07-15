@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class TpLocation extends AbstractListener {
+final class TpLocation extends AbstractListener {
     public TpLocation() {
         super();
     }

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public final class AutoChangeVanish extends AbstractTask {
+final class AutoChangeVanish extends AbstractTask {
     public AutoChangeVanish() {
         super(
                 List.of("vanishSettings.enable"),

@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public final class FastUse extends AbstractListener {
+final class FastUse extends AbstractListener {
     public FastUse() {
         super(
                 List.of("fastUseSettings.enable")

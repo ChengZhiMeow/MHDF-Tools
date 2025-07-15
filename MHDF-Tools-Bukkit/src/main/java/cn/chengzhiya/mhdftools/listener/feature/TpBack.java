@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.List;
 
-public final class TpBack extends AbstractListener {
+final class TpBack extends AbstractListener {
     public TpBack() {
         super(
                 List.of("tpbackSettings.enable")

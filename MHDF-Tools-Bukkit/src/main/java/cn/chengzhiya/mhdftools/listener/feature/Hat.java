@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public final class Hat extends AbstractListener {
+final class Hat extends AbstractListener {
     public Hat() {
         super(
                 List.of("hatSettings.enable")

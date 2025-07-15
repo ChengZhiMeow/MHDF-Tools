@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class TridentDupeFix extends AbstractListener {
+final class TridentDupeFix extends AbstractListener {
     private final Set<String> useTridentSet = new HashSet<>();
 
     public TridentDupeFix() {

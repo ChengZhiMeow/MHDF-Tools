@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.task.AbstractTask;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 @SuppressWarnings("unused")
@@ -18,9 +19,12 @@ public final class TaskManager {
 
         for (Class<? extends AbstractTask> clazz : reflections.getSubTypesOf(AbstractTask.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                AbstractTask abstractTask = clazz.getDeclaredConstructor().newInstance();
-                if (abstractTask.isEnable()) {
-                    abstractTask.runTaskTimerAsynchronously(Main.instance, 0L, abstractTask.getTime());
+                Constructor<? extends AbstractTask> constructor = clazz.getConstructor();
+                constructor.setAccessible(true);
+                AbstractTask task = constructor.newInstance();
+
+                if (task.isEnable()) {
+                    task.runTaskTimerAsynchronously(Main.instance, 0L, task.getTime());
                 }
             }
         }

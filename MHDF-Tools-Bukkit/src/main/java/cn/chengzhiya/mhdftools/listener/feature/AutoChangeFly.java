@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.List;
 
-public final class AutoChangeFly extends AbstractListener {
+final class AutoChangeFly extends AbstractListener {
     public AutoChangeFly() {
         super(
                 List.of("flySettings.enable")

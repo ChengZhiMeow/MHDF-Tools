@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.List;
 
-public final class AutoTeleportSpawn extends AbstractListener {
+final class AutoTeleportSpawn extends AbstractListener {
     public AutoTeleportSpawn() {
         super(
                 List.of("spawnSettings.enable")

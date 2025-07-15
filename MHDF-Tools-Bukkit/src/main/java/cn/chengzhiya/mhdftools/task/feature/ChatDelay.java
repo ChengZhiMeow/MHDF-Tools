@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public final class ChatDelay extends AbstractTask {
+final class ChatDelay extends AbstractTask {
     public ChatDelay() {
         super(
                 List.of("chatSettings.enable"),

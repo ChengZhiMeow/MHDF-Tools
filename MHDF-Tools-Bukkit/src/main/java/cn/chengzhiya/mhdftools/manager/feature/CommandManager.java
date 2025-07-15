@@ -33,10 +33,13 @@ public final class CommandManager {
 
         for (Class<? extends AbstractCommand> clazz : reflections.getSubTypesOf(AbstractCommand.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                AbstractCommand command = clazz.getDeclaredConstructor().newInstance();
+                Constructor<? extends AbstractCommand> constructor = clazz.getConstructor();
+                constructor.setAccessible(true);
+                AbstractCommand command = constructor.newInstance();
+
                 if (command.isEnable()) {
-                    registerCommand(command);
-                    getRegisterCommandIdList().add(command.getPermission()
+                    this.registerCommand(command);
+                    this.getRegisterCommandIdList().add(command.getPermission()
                             .replace("mhdftools.commands.", "")
                     );
                 }

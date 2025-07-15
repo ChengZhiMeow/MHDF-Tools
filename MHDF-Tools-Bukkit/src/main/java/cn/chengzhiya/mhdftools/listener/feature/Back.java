@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.List;
 
-public final class Back extends AbstractListener {
+final class Back extends AbstractListener {
     public Back() {
         super(
                 List.of("backSettings.enable")

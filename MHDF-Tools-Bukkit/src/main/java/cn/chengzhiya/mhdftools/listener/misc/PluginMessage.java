@@ -12,7 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.util.List;
 
-public final class PluginMessage implements PluginMessageListener {
+final class PluginMessage implements PluginMessageListener {
     @Override
     @SneakyThrows
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player messagePlayer, byte @NotNull [] messageData) {

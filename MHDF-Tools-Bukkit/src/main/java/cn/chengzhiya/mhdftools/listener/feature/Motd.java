@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public final class Motd extends AbstractPacketListener {
+final class Motd extends AbstractPacketListener {
     public Motd() {
         super(
                 List.of("motdSettings.enable"),

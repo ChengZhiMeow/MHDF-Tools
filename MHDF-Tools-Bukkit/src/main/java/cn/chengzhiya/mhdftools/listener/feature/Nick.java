@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.List;
 
-public final class Nick extends AbstractListener {
+final class Nick extends AbstractListener {
     public Nick() {
         super(
                 List.of("nickSettings.enable")

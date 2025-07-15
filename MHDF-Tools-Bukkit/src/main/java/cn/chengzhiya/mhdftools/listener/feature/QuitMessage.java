@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
 
-public final class QuitMessage extends AbstractListener {
+final class QuitMessage extends AbstractListener {
     public QuitMessage() {
         super(
                 List.of("quitMessageSettings.enable")
