@@ -1,0 +1,6 @@
+1. TODO 重置 back功能
+(1) 将 tpback back unback 三合一
+(2) 增加菜单功能
+(3) 一次记录N条数据 像home一样
+2. TODO 增加PVP开关
+3. TODO 为更多的命令增加玩家参数
