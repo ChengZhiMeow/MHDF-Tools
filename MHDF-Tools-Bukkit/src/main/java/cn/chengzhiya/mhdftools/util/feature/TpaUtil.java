@@ -37,7 +37,7 @@ public final class TpaUtil {
         Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(Main.instance.getConfigManager().getConfigManager().getData().getInt("tpaSettings.delay")));
 
         ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("commands.tpa.message")
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName).getDisplayName())
+                .replace("{player}", targetName)
         );
 
         MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName);
@@ -46,7 +46,7 @@ public final class TpaUtil {
         }
 
         Main.instance.getBungeeCordManager().sendMessage(targetName, Main.instance.getConfigManager().getLangManager().i18n("commands.tpa.requestMessage")
-                .replaceByMiniMessage("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                .replaceByMiniMessage("{player}", player.getName())
         );
     }
 }
