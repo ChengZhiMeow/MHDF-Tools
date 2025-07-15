@@ -69,7 +69,7 @@
         <!--hook插件-->
         <env.hook.placeholderapi.version>2.11.6</env.hook.placeholderapi.version>
         <env.hook.mythicmobs.version>5.6.2</env.hook.mythicmobs.version>
-        <env.hook.craftengine.version>0.0.59</env.hook.craftengine.version>
+        <env.hook.craftengine.version>0.0.60</env.hook.craftengine.version>
         <env.hook.vault.version>1.7</env.hook.vault.version>
     </properties>
 
