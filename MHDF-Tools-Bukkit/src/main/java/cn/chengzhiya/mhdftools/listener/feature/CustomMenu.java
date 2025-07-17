@@ -24,6 +24,10 @@ final class CustomMenu extends AbstractListener {
         String command = args[0].replace("/", "");
 
         YamlConfiguration config = Main.instance.getConfigManager().getCustomMenuManager().getCustomMenuByCommand(command);
+        if (config == null) {
+            return;
+        }
+
         CustomMenuUtil.openCustomMenu(player, config);
         event.setCancelled(true);
     }

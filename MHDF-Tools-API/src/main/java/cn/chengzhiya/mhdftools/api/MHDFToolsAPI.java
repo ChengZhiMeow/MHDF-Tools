@@ -68,6 +68,13 @@ public interface MHDFToolsAPI {
     WarpDataManager getWarpDataManager();
 
     /**
+     * 获取位置记录数据控制器实例
+     *
+     * @return 位置记录数据控制器实例
+     */
+    BackDataManager getBackDataManager();
+
+    /**
      * 获取服务器名称
      *
      * @return 服务器名称

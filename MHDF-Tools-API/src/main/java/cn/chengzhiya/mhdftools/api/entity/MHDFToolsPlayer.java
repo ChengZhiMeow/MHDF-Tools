@@ -264,6 +264,39 @@ public interface MHDFToolsPlayer {
      */
     void showPlayer();
 
+    /**
+     * 获取位置记录数据实例列表
+     *
+     * @param amount 数量
+     * @return 位置记录数据实例列表
+     */
+    List<BackData> getBackDataList(int amount);
+
+    /**
+     * 获取位置记录数据实例列表
+     *
+     * @param type 位置类型
+     * @param amount 数量
+     * @return 位置记录数据实例列表
+     */
+    List<BackData> getBackDataList(String type, int amount);
+
+    /**
+     * 获取位置记录数据实例
+     *
+     * @param id 位置记录数据ID
+     * @return 位置记录数据实例
+     */
+    BackData getBackData(int id);
+
+    /**
+     * 添加位置记录
+     *
+     * @param type 位置类型
+     * @param location 群组位置实例
+     */
+    void addBack(String type, BungeeCordLocation location);
+
     boolean equals(MHDFToolsPlayer target);
 
     String toString();

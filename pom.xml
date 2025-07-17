@@ -11,7 +11,7 @@
 
     <properties>
         <env.java.version>17</env.java.version>
-        <env.project.version>3.2.0</env.project.version>
+        <env.project.version>3.2.1</env.project.version>
 
         <!--maven插件-->
         <env.plugin.compiler.version>3.14.0</env.plugin.compiler.version>
@@ -43,7 +43,7 @@
         <env.lib.mhdf.scheduler.version>1.0.1</env.lib.mhdf.scheduler.version>
 
         <!--YAML配置-->
-        <env.lib.mhdf.yaml.version>1.1.2</env.lib.mhdf.yaml.version>
+        <env.lib.mhdf.yaml.version>1.1.7</env.lib.mhdf.yaml.version>
 
         <!--语言管理-->
         <env.lib.mhdf.langutil.version>1.3.1</env.lib.mhdf.langutil.version>

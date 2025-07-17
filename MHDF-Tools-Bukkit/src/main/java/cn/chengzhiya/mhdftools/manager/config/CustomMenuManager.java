@@ -54,7 +54,7 @@ public final class CustomMenuManager extends FolderYamlManager {
      */
     public YamlConfiguration getCustomMenuById(String id) {
         return super.getData(super.getFileList().stream()
-                .filter(f -> f.getPath().endsWith(id))
+                .filter(f -> f.getPath().endsWith(id + ".yml"))
                 .findFirst()
                 .orElse(null)
         );

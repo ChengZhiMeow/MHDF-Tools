@@ -348,6 +348,26 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     }
 
     @Override
+    public List<BackData> getBackDataList(int amount) {
+        return MHDFToolsAPIHelper.getInstance().getBackDataManager().getList(this, amount);
+    }
+
+    @Override
+    public List<BackData> getBackDataList(String type, int amount) {
+        return MHDFToolsAPIHelper.getInstance().getBackDataManager().getList(this, type, amount);
+    }
+
+    @Override
+    public BackData getBackData(int id) {
+        return MHDFToolsAPIHelper.getInstance().getBackDataManager().getById(id);
+    }
+
+    @Override
+    public void addBack(String type, BungeeCordLocation location) {
+        MHDFToolsAPIHelper.getInstance().getBackDataManager().update(new BackData(this, type, location));
+    }
+
+    @Override
     public boolean equals(MHDFToolsPlayer target) {
         return this.getUuid().equals(target.getUuid());
     }

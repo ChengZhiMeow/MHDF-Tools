@@ -282,26 +282,24 @@ homeSettings:
   blackWorld:
     - "pvp"
 
-# 返回死亡点
+# 返回上次位置
 backSettings:
   # 开关
   enable: true
+  # 默认最大保存数量
+  # 可以通过 mhdftools.commands.back.max.<数量> 自定义
+  defaultMax: 5
+  # 保存类型
+  save:
+    # 传送
+    teleport: true
+    # 死亡
+    death: true
   # 重生提示
   respawnMessage: true
   # 命令
   commands:
     - "back"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-
-# 返回传送前的位置
-tpbackSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "tpback"
   # 黑名单世界
   blackWorld:
     - "pvp"

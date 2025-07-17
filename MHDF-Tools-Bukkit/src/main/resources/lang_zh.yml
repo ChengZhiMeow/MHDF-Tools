@@ -263,15 +263,14 @@ commands:
     message: "{prefix} <#EAE4FF>你删除了一个名为 &f{home} <#EAE4FF>的家!"
   back:
     usage: "/{command}"
-    description: "返回死亡点"
-    noLocation: "{prefix} <#EAE4FF>找不到你上次死亡点的位置!"
+    description: "返回位置记录"
+    noLocation: "{prefix} <#EAE4FF>找不到你上次的位置记录!"
     respawnMessage: "{prefix} <#EAE4FF>输入 &f/back <#EAE4FF>返回死亡点!"
-    message: "{prefix} <#EAE4FF>你来到了死亡点,输入 &f/tpback <#EAE4FF>返回传送前的位置!"
-  tpback:
-    usage: "/{command}"
-    description: "返回传送前的位置"
-    noLocation: "{prefix} <#EAE4FF>找不到你上次传送前的位置!"
-    message: "{prefix} <#EAE4FF>你来到了传送前的位置,输入 &f/tpback <#EAE4FF>返回传送前的位置!"
+    type:
+      teleport: "传送前的位置"
+      death: "死亡位置"
+    openMenuMessage: "{prefix} <#EAE4FF>你打开了位置记录列表!"
+    message: "{prefix} <#EAE4FF>你来到了该位置记录,输入 &f/back <#EAE4FF>返回传送前的位置!"
   spawn:
     usage: "/{command}"
     description: "返回出生点"

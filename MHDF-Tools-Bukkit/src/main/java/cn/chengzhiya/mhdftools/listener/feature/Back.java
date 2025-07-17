@@ -1,14 +1,14 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.List;
 
@@ -20,25 +20,25 @@ final class Back extends AbstractListener {
     }
 
     @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent event) {
-        Player player = event.getEntity();
-        Location location = player.getLocation();
-
-        BungeeCordLocation bungeeCordLocation = new BungeeCordLocation(
-                Main.instance.getBungeeCordManager().getServerName(),
-                location
-        );
-
-        Main.instance.getCacheManager().put("back", player.getName(), bungeeCordLocation.toString());
-    }
-
-    @EventHandler
-    public void onPlayerRespawn(PlayerRespawnEvent event) {
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("backSettings.respawnMessage")) {
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("backSettings.save.teleport")) {
             return;
         }
 
-        Player player = event.getPlayer();
-        ActionUtil.sendMessage(player, Main.instance.getConfigManager().getLangManager().i18n("commands.back.respawnMessage"));
+        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+        player.addBack("teleport", new BungeeCordLocation(event.getFrom()));
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("backSettings.save.death")) {
+            return;
+        }
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("backSettings.respawnMessage")) {
+            ActionUtil.sendMessage(event.getPlayer(), Main.instance.getConfigManager().getLangManager().i18n("commands.back.respawnMessage"));
+        }
+
+        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+        player.addBack("death", new BungeeCordLocation(event.getPlayer().getLocation()));
     }
 }
