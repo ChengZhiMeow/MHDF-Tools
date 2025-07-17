@@ -77,7 +77,7 @@ public final class LibrariesManager {
             String packeteventsVersion = "2.8.0";
             if (version == 1245) {
                 packeteventsVersion = "2.9.0";
-            }else if (version >= 1246) {
+            } else if (version >= 1246) {
                 packeteventsVersion = "2.9.1";
             }
 
