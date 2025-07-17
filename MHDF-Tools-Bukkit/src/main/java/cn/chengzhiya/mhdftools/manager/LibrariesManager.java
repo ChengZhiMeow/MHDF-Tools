@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdflibrary.entity.RepositoryConfig;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 
@@ -72,11 +73,19 @@ public final class LibrariesManager {
                     )
             ));
 
+            int version = Integer.parseInt(Bukkit.getMinecraftVersion().replace(".", ""));
+            String packeteventsVersion = "2.8.0";
+            if (version == 1245) {
+                packeteventsVersion = "2.9.0";
+            }else if (version >= 1246) {
+                packeteventsVersion = "2.9.1";
+            }
+
             // packetevents-api
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}github{}retrooper"),
                     "packetevents-api",
-                    "2.9.1",
+                    packeteventsVersion,
                     codemc,
                     new RelocateConfig(true, true,
                             handleString("io{}github{}retrooper")
@@ -85,7 +94,7 @@ public final class LibrariesManager {
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}github{}retrooper"),
                     "packetevents-netty-common",
-                    "2.9.1",
+                    packeteventsVersion,
                     codemc,
                     new RelocateConfig(true, true,
                             handleString("io{}github{}retrooper")
@@ -94,7 +103,7 @@ public final class LibrariesManager {
             mhdfLibrary.addDependencyConfig(new DependencyConfig(
                     handleString("com{}github{}retrooper"),
                     "packetevents-spigot",
-                    "2.9.1",
+                    packeteventsVersion,
                     codemc,
                     new RelocateConfig(true, true,
                             handleString("io{}github{}retrooper")

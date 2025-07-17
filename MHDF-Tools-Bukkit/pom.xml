@@ -44,11 +44,6 @@
 
                             <relocations>
                                 <relocation>
-                                    <pattern>cn.chengzhiya.mhdflibrary</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.library</shadedPattern>
-                                </relocation>
-
-                                <relocation>
                                     <pattern>org.h2</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.org.h2</shadedPattern>
                                 </relocation>
@@ -58,8 +53,16 @@
                                 </relocation>
 
                                 <relocation>
+                                    <pattern>cn.chengzhiya.mhdflibrary</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.library</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>cn.chengzhiya.mhdfscheduler</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>cn.chengzhiya.mhdfreflection</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfreflection</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>cn.chengzhiya.mhdfdatabase</pattern>
