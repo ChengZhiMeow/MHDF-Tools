@@ -75,9 +75,9 @@ public final class LibrariesManager {
 
             int version = Integer.parseInt(Bukkit.getMinecraftVersion().replace(".", ""));
             String packeteventsVersion = "2.8.0";
-            if (version == 1245) {
+            if (version == 1215) {
                 packeteventsVersion = "2.9.0";
-            } else if (version >= 1246) {
+            } else if (version >= 1216) {
                 packeteventsVersion = "2.9.1";
             }
 
