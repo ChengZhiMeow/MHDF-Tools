@@ -38,12 +38,12 @@ public final class CustomMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        int size = getConfig().getInt("size");
-        String title = getConfig().getString("title");
+        int size = this.getConfig().getInt("size");
+        String title = this.getConfig().getString("title");
 
         Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
 
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
+        ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) {
             return menu;
         }
@@ -54,7 +54,7 @@ public final class CustomMenu extends AbstractMenu {
                 continue;
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(this.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -62,7 +62,7 @@ public final class CustomMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(this.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -81,11 +81,11 @@ public final class CustomMenu extends AbstractMenu {
             return;
         }
 
-        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+        MenuUtil.runItemClickAction(this.getPlayer(), this.getConfig(), key);
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+        ActionUtil.runActionList(this.getPlayer(), this.getConfig().getStringList("closeActions"));
     }
 }
