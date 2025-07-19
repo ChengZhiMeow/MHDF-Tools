@@ -681,7 +681,7 @@ economySettings:
   default: 1000.0
   # 货币名称
   name: "金币"
-  # 个人所得税
+  # 个人所得税(获得金币时支付)
   personalIncomeTax:
     # 开关
     enable: true
