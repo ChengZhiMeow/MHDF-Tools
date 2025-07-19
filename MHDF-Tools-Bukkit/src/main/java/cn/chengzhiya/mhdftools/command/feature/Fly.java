@@ -94,7 +94,7 @@ final class Fly extends Command {
      * 给指定目标实例发送切换飞行的提示
      *
      * @param sender 接收信息的目标实例
-     * @param player 开启飞行的玩家实例
+     * @param player 调整飞行的玩家实例
      * @param enable 是否开启飞行
      */
     private void sendChangeFlyMessage(CommandSender sender, Player player, boolean enable) {

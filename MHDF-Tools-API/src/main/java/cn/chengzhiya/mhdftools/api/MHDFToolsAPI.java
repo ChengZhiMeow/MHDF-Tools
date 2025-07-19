@@ -75,6 +75,14 @@ public interface MHDFToolsAPI {
     BackDataManager getBackDataManager();
 
     /**
+     * 获取PVP状态控制器实例
+     *
+     * @return PVP状态控制器实例
+     */
+    PvpStatusManager getPvpStatusManager();
+
+
+    /**
      * 获取服务器名称
      *
      * @return 服务器名称

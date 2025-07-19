@@ -25,7 +25,7 @@ public final class IgnoreDataManagerImpl extends AbstractDaoManager<IgnoreData, 
         queryBuilder.setWhere(where);
 
 
-        return queryForList(queryBuilder);
+        return super.queryForList(queryBuilder);
     }
 
     @SneakyThrows
@@ -44,11 +44,11 @@ public final class IgnoreDataManagerImpl extends AbstractDaoManager<IgnoreData, 
 
     @Override
     public boolean hasData(MHDFToolsPlayer player, MHDFToolsPlayer ignore) {
-        return queryFirst(getQueryBuilder(player, ignore)) != null;
+        return super.queryFirst(this.getQueryBuilder(player, ignore)) != null;
     }
 
     @Override
     public IgnoreData get(MHDFToolsPlayer player, MHDFToolsPlayer ignore) {
-        return queryFirstOrDefault(getQueryBuilder(player, ignore), new IgnoreData(player, ignore));
+        return super.queryFirstOrDefault(this.getQueryBuilder(player, ignore), new IgnoreData(player, ignore));
     }
 }

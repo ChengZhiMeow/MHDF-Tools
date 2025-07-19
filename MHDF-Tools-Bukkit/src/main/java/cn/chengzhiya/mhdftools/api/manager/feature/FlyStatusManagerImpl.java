@@ -14,12 +14,12 @@ public final class FlyStatusManagerImpl extends AbstractDaoManager<FlyStatus, UU
 
     @Override
     public boolean isEnable(MHDFToolsPlayer player) {
-        FlyStatus status = getById(player.getUuid());
+        FlyStatus status = super.getById(player.getUuid());
         return status != null && status.isEnable();
     }
 
     @Override
     public FlyStatus get(MHDFToolsPlayer player) {
-        return getByIdOrDefault(player.getUuid(), new FlyStatus(player));
+        return super.getByIdOrDefault(player.getUuid(), new FlyStatus(player));
     }
 }

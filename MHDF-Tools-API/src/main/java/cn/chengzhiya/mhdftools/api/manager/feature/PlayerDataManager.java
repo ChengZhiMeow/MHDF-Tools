@@ -32,7 +32,7 @@ public interface PlayerDataManager {
      * 更新指定玩家数据实例在数据库中的数据
      *
      * @param playerData 玩家数据实例
-     * @param async  异步处理
+     * @param async      异步处理
      */
     void update(PlayerData playerData, boolean async);
 

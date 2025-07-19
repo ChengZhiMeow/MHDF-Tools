@@ -17,12 +17,12 @@ public final class PlayerDataManagerImpl extends AbstractDaoManager<PlayerData, 
 
     @Override
     public boolean hasData(MHDFToolsPlayer player) {
-        return getById(player.getUuid()) != null;
+        return super.getById(player.getUuid()) != null;
     }
 
     @Override
     public PlayerData get(MHDFToolsPlayer player) {
-        return getByIdOrDefault(
+        return super.getByIdOrDefault(
                 player.getUuid(),
                 player.getPlayer() != null ? new PlayerData(player.getPlayer()) : new PlayerData(player)
         );
@@ -37,6 +37,6 @@ public final class PlayerDataManagerImpl extends AbstractDaoManager<PlayerData, 
                         .eq("name", name)
         );
 
-        return queryFirstOrDefault(queryBuilder, new PlayerData(Bukkit.getOfflinePlayer(name)));
+        return super.queryFirstOrDefault(queryBuilder, new PlayerData(Bukkit.getOfflinePlayer(name)));
     }
 }

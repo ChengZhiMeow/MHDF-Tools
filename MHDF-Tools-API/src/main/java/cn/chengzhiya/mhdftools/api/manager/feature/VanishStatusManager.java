@@ -33,7 +33,7 @@ public interface VanishStatusManager {
      * 更新指定隐身状态实例在数据库中的数据
      *
      * @param vanishStatus 隐身状态实例
-     * @param async  异步处理
+     * @param async        异步处理
      */
     void update(VanishStatus vanishStatus, boolean async);
 

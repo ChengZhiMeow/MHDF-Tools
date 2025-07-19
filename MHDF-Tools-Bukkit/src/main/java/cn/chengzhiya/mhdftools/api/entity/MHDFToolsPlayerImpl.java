@@ -368,6 +368,30 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     }
 
     @Override
+    public boolean isEnablePvp() {
+        return MHDFToolsAPIHelper.getInstance().getPvpStatusManager().isEnable(this);
+    }
+
+    @Override
+    public PvpStatus getPvpStatus() {
+        return MHDFToolsAPIHelper.getInstance().getPvpStatusManager().get(this);
+    }
+
+    @Override
+    public void enablePvp() {
+        PvpStatus status = this.getPvpStatus();
+        status.setEnable(true);
+        MHDFToolsAPIHelper.getInstance().getPvpStatusManager().update(status);
+    }
+
+    @Override
+    public void disablePvp() {
+        PvpStatus status = this.getPvpStatus();
+        status.setEnable(false);
+        MHDFToolsAPIHelper.getInstance().getPvpStatusManager().update(status);
+    }
+
+    @Override
     public boolean equals(MHDFToolsPlayer target) {
         return this.getUuid().equals(target.getUuid());
     }

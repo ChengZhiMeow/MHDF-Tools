@@ -20,12 +20,12 @@ public final class EconomyDataManagerImpl extends AbstractDaoManager<EconomyData
 
     @Override
     public boolean hasData(MHDFToolsPlayer player) {
-        return getById(player.getUuid()) != null;
+        return super.getById(player.getUuid()) != null;
     }
 
     @Override
     public EconomyData get(MHDFToolsPlayer player) {
-        return getByIdOrDefault(
+        return super.getByIdOrDefault(
                 player.getUuid(),
                 new EconomyData(player, BigDecimalUtil.toBigDecimal(Main.instance.getConfigManager().getConfigManager().getData().getDouble("economySettings.default")))
         );

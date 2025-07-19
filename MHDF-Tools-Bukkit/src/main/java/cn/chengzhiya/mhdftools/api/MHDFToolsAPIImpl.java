@@ -19,6 +19,7 @@ public final class MHDFToolsAPIImpl implements MHDFToolsAPI {
     private final VanishStatusManager vanishStatusManager;
     private final WarpDataManager warpDataManager;
     private final BackDataManager backDataManager;
+    private final PvpStatusManager pvpStatusManager;
 
     public MHDFToolsAPIImpl() {
         this.playerManager = new PlayerManagerImpl();
@@ -32,6 +33,7 @@ public final class MHDFToolsAPIImpl implements MHDFToolsAPI {
         this.vanishStatusManager = new VanishStatusManagerImpl();
         this.warpDataManager = new WarpDataManagerImpl();
         this.backDataManager = new BackDataManagerImpl();
+        this.pvpStatusManager = new PvpStatusManagerImpl();
     }
 
     @Override

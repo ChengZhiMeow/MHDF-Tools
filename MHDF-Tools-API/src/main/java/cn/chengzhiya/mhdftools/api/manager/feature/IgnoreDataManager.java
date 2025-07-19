@@ -37,7 +37,7 @@ public interface IgnoreDataManager {
      * 删除指定屏蔽数据实例在数据库中的数据
      *
      * @param ignoreData 屏蔽数据实例
-     * @param async  异步处理
+     * @param async      异步处理
      */
     void delete(IgnoreData ignoreData, boolean async);
 
@@ -52,7 +52,7 @@ public interface IgnoreDataManager {
      * 更新指定屏蔽数据实例在数据库中的数据
      *
      * @param ignoreData 屏蔽数据实例
-     * @param async  异步处理
+     * @param async      异步处理
      */
     void update(IgnoreData ignoreData, boolean async);
 

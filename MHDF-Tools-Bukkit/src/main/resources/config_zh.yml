@@ -698,6 +698,16 @@ economySettings:
   payCommands:
     - "pay"
 
+# PVP开关
+pvpSettings:
+  # 开关
+  enable: true
+  # 默认
+  default: true
+  # 命令
+  commands:
+    - "pay"
+
 # 进服消息
 joinMessageSettings:
   # 开关

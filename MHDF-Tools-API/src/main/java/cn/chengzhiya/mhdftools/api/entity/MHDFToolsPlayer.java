@@ -275,7 +275,7 @@ public interface MHDFToolsPlayer {
     /**
      * 获取位置记录数据实例列表
      *
-     * @param type 位置类型
+     * @param type   位置类型
      * @param amount 数量
      * @return 位置记录数据实例列表
      */
@@ -292,10 +292,34 @@ public interface MHDFToolsPlayer {
     /**
      * 添加位置记录
      *
-     * @param type 位置类型
+     * @param type     位置类型
      * @param location 群组位置实例
      */
     void addBack(String type, BungeeCordLocation location);
+
+    /**
+     * 检测是否开启PVP
+     *
+     * @return 结果
+     */
+    boolean isEnablePvp();
+
+    /**
+     * 获取PVP状态实例
+     *
+     * @return PVP状态实例
+     */
+    PvpStatus getPvpStatus();
+
+    /**
+     * 开启PVP
+     */
+    void enablePvp();
+
+    /**
+     * 关闭PVP
+     */
+    void disablePvp();
 
     boolean equals(MHDFToolsPlayer target);
 

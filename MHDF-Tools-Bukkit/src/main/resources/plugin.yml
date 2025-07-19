@@ -47,7 +47,7 @@ permissions:
     default: op
 
   mhdftools.commands.back:
-    description: 返回死亡位置
+    description: 返回位置记录
     default: true
   mhdftools.commands.bed:
     description: 回到床的位置
@@ -151,6 +151,12 @@ permissions:
   mhdftools.commands.pay:
     description: 转账
     default: true
+  mhdftools.commands.pvp:
+    description: PVP开关
+    default: true
+  mhdftools.commands.pvp.other:
+    description: 切换他人PVP开关
+    default: op
   mhdftools.commands.randomteleport:
     description: 随机传送
     default: true
@@ -180,9 +186,6 @@ permissions:
     default: true
   mhdftools.commands.tpahere:
     description: 请求指定玩家传送到当前位置
-    default: true
-  mhdftools.commands.tpback:
-    description: 返回传送前的位置
     default: true
   mhdftools.commands.vanish:
     description: 隐身

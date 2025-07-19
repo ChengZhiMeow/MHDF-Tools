@@ -14,12 +14,12 @@ public final class VanishStatusManagerImpl extends AbstractDaoManager<VanishStat
 
     @Override
     public boolean isEnable(MHDFToolsPlayer player) {
-        VanishStatus status = getById(player.getUuid());
+        VanishStatus status = super.getById(player.getUuid());
         return status != null && status.isEnable();
     }
 
     @Override
     public VanishStatus get(MHDFToolsPlayer player) {
-        return getByIdOrDefault(player.getUuid(), new VanishStatus(player));
+        return super.getByIdOrDefault(player.getUuid(), new VanishStatus(player));
     }
 }

@@ -24,7 +24,7 @@ public interface NickDataManager {
      * 删除指定匿名数据实例在数据库中的数据
      *
      * @param nickData 匿名数据实例
-     * @param async  异步处理
+     * @param async    异步处理
      */
     void delete(NickData nickData, boolean async);
 
@@ -39,7 +39,7 @@ public interface NickDataManager {
      * 更新指定匿名数据实例在数据库中的数据
      *
      * @param nickData 匿名数据实例
-     * @param async  异步处理
+     * @param async    异步处理
      */
     void update(NickData nickData, boolean async);
 

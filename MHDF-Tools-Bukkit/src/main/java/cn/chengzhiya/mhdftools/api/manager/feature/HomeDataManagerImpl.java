@@ -25,7 +25,7 @@ public final class HomeDataManagerImpl extends AbstractDaoManager<HomeData, Inte
         queryBuilder.setWhere(where);
 
 
-        return queryForList(queryBuilder);
+        return super.queryForList(queryBuilder);
     }
 
     @SneakyThrows
@@ -44,11 +44,11 @@ public final class HomeDataManagerImpl extends AbstractDaoManager<HomeData, Inte
 
     @Override
     public boolean hasData(MHDFToolsPlayer player, String name) {
-        return queryFirst(getQueryBuilder(player, name)) != null;
+        return super.queryFirst(this.getQueryBuilder(player, name)) != null;
     }
 
     @Override
     public HomeData get(MHDFToolsPlayer player, String name) {
-        return queryFirstOrDefault(getQueryBuilder(player, name), new HomeData(player, name));
+        return super.queryFirstOrDefault(this.getQueryBuilder(player, name), new HomeData(player, name));
     }
 }

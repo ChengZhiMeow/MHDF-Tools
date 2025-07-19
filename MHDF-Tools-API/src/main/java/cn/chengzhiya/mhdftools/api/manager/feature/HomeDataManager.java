@@ -33,7 +33,7 @@ public interface HomeDataManager {
      * 删除指定家数据实例在数据库中的数据
      *
      * @param homeData 家数据实例
-     * @param async  异步处理
+     * @param async    异步处理
      */
     void delete(HomeData homeData, boolean async);
 
@@ -48,7 +48,7 @@ public interface HomeDataManager {
      * 更新指定家数据实例在数据库中的数据
      *
      * @param homeData 家数据实例
-     * @param async  异步处理
+     * @param async    异步处理
      */
     void update(HomeData homeData, boolean async);
 

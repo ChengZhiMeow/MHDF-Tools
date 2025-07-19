@@ -14,11 +14,11 @@ public final class NickDataManagerImpl extends AbstractDaoManager<NickData, UUID
 
     @Override
     public boolean hasData(MHDFToolsPlayer player) {
-        return getById(player.getUuid()) != null;
+        return super.getById(player.getUuid()) != null;
     }
 
     @Override
     public NickData get(MHDFToolsPlayer player) {
-        return getByIdOrDefault(player.getUuid(), new NickData(player));
+        return super.getByIdOrDefault(player.getUuid(), new NickData(player));
     }
 }
