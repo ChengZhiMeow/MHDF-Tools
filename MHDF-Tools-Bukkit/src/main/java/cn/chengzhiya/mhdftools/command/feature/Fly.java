@@ -65,19 +65,21 @@ final class Fly extends Command {
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (!mhdfPlayer.isEnableFly()) {
-            mhdfPlayer.enableFly();
             if (changeOther) {
+                mhdfPlayer.setFlyTime(Integer.MAX_VALUE);
                 this.sendChangeFlyMessage(sender, player, true);
             }
             this.sendChangeFlyMessage(player, player, true);
+            mhdfPlayer.enableFly();
             return;
         }
 
-        mhdfPlayer.disableFly();
         if (changeOther) {
+            mhdfPlayer.setFlyTime(0);
             this.sendChangeFlyMessage(sender, player, false);
         }
         this.sendChangeFlyMessage(player, player, false);
+        mhdfPlayer.disableFly();
     }
 
     @Override
