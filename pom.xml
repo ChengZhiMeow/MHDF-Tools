@@ -11,7 +11,7 @@
 
     <properties>
         <env.java.version>17</env.java.version>
-        <env.project.version>3.2.1</env.project.version>
+        <env.project.version>3.2.2</env.project.version>
 
         <!--maven插件-->
         <env.plugin.compiler.version>3.14.0</env.plugin.compiler.version>
