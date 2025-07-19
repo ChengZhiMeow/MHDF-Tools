@@ -19,7 +19,7 @@ public final class MythicMobsImpl {
      * @return 物品实例
      */
     public ItemStack getItem(String id) {
-        return getApi().getItemManager().getItemStack(id);
+        return this.getApi().getItemManager().getItemStack(id);
     }
 
     /**
@@ -29,6 +29,6 @@ public final class MythicMobsImpl {
      * @return 物品ID
      */
     public String getItemId(ItemStack itemStack) {
-        return getApi().getItemManager().getMythicTypeFromItem(itemStack);
+        return this.getApi().getItemManager().getMythicTypeFromItem(itemStack);
     }
 }

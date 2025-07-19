@@ -1,12 +1,12 @@
 package cn.chengzhiya.mhdftools.task.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.task.Task;
 
 import java.util.List;
 
 @SuppressWarnings("unused")
-final class BungeeCordDataUpdate extends AbstractTask {
+final class BungeeCordDataUpdate extends Task {
     public BungeeCordDataUpdate() {
         super(
                 List.of("bungeeCordSettings.enable"),

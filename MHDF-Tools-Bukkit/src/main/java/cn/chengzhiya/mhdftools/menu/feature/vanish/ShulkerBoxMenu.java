@@ -1,7 +1,8 @@
 package cn.chengzhiya.mhdftools.menu.feature.vanish;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
@@ -14,7 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public final class ShulkerBoxMenu extends AbstractMenu {
+@Getter
+public final class ShulkerBoxMenu extends Menu {
     private final ShulkerBox shulkerBox;
 
     public ShulkerBoxMenu(Player player, ShulkerBox shulkerBox) {
@@ -39,15 +41,15 @@ public final class ShulkerBoxMenu extends AbstractMenu {
 
     @Override
     public void click(InventoryClickEvent event) {
-        saveInventory(event.getInventory());
+        this.saveInventory(event.getInventory());
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        saveInventory(event.getInventory());
+        this.saveInventory(event.getInventory());
     }
 
     private void saveInventory(Inventory inventory) {
-        shulkerBox.getInventory().setContents(inventory.getContents());
+        this.getShulkerBox().getInventory().setContents(inventory.getContents());
     }
 }

@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-public final class CustomMenu extends AbstractMenu {
+public final class CustomMenu extends Menu {
     private final YamlConfiguration config;
 
     public CustomMenu(Player player, YamlConfiguration config) {
@@ -54,7 +54,7 @@ public final class CustomMenu extends AbstractMenu {
                 continue;
             }
 
-            MenuUtil.setMenuItem(this.getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(super.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -62,7 +62,7 @@ public final class CustomMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(this.getPlayer(), this.getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -81,7 +81,7 @@ public final class CustomMenu extends AbstractMenu {
             return;
         }
 
-        MenuUtil.runItemClickAction(this.getPlayer(), this.getConfig(), key);
+        MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
     }
 
     @Override

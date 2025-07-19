@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Getter
-public final class ArmorMenu extends AbstractMenu {
+public final class ArmorMenu extends Menu {
     private final YamlConfiguration config;
     private final Player target;
 
@@ -37,9 +37,9 @@ public final class ArmorMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory menu = MenuUtil.createInventory(this, getConfig());
+        Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
+        ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) {
             return menu;
         }
@@ -51,10 +51,10 @@ public final class ArmorMenu extends AbstractMenu {
             }
 
             ItemStack armor = switch (key) {
-                case "头盔" -> getPlayer().getInventory().getHelmet();
-                case "胸甲" -> getPlayer().getInventory().getChestplate();
-                case "裤子" -> getPlayer().getInventory().getLeggings();
-                case "鞋子" -> getPlayer().getInventory().getBoots();
+                case "头盔" -> super.getPlayer().getInventory().getHelmet();
+                case "胸甲" -> super.getPlayer().getInventory().getChestplate();
+                case "裤子" -> super.getPlayer().getInventory().getLeggings();
+                case "鞋子" -> super.getPlayer().getInventory().getBoots();
                 default -> null;
             };
 
@@ -63,7 +63,7 @@ public final class ArmorMenu extends AbstractMenu {
                 continue;
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(super.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -71,7 +71,7 @@ public final class ArmorMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -85,7 +85,7 @@ public final class ArmorMenu extends AbstractMenu {
         String key = container.get(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING);
         if (key != null) {
             event.setCancelled(true);
-            MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+            MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
             return;
         }
 
@@ -94,7 +94,7 @@ public final class ArmorMenu extends AbstractMenu {
 
     @Override
     public void close(InventoryCloseEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("closeActions"));
 
         this.updateArmor(event.getInventory());
     }
@@ -105,7 +105,7 @@ public final class ArmorMenu extends AbstractMenu {
     private void updateArmor(Inventory menu) {
         List<String> armorList = List.of("头盔", "胸甲", "裤子", "鞋子");
         for (String key : armorList) {
-            ConfigurationSection item = getConfig().getConfigurationSection("items." + key);
+            ConfigurationSection item = this.getConfig().getConfigurationSection("items." + key);
             if (item == null) {
                 continue;
             }
@@ -114,10 +114,10 @@ public final class ArmorMenu extends AbstractMenu {
             ItemStack armor = menu.getItem(slot);
 
             switch (key) {
-                case "头盔" -> getPlayer().getInventory().setHelmet(armor);
-                case "胸甲" -> getPlayer().getInventory().setChestplate(armor);
-                case "裤子" -> getPlayer().getInventory().setLeggings(armor);
-                case "鞋子" -> getPlayer().getInventory().setBoots(armor);
+                case "头盔" -> super.getPlayer().getInventory().setHelmet(armor);
+                case "胸甲" -> super.getPlayer().getInventory().setChestplate(armor);
+                case "裤子" -> super.getPlayer().getInventory().setLeggings(armor);
+                case "鞋子" -> super.getPlayer().getInventory().setBoots(armor);
             }
         }
     }

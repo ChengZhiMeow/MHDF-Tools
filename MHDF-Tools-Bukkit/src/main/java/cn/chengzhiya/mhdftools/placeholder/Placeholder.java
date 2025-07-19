@@ -1,9 +1,26 @@
 package cn.chengzhiya.mhdftools.placeholder;
 
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.config.YamlUtil;
+import lombok.Getter;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public interface Placeholder {
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+public abstract class Placeholder {
+    private final boolean enable;
+
+    public Placeholder(List<String> enableKeyList) {
+        this.enable = YamlUtil.equalsTrue(Main.instance.getConfigManager().getConfigManager().getData(), enableKeyList);
+    }
+
+    public Placeholder() {
+        this(new ArrayList<>());
+    }
+
     /**
      * 获取指定玩家实例指定变量的值
      *
@@ -11,5 +28,20 @@ public interface Placeholder {
      * @param placeholder 变量
      * @return 指定玩家实例下指定变量的值
      */
-    String placeholder(OfflinePlayer player, @NotNull String placeholder);
+    abstract public String placeholder(OfflinePlayer player, @NotNull String placeholder);
+
+    /**
+     * 获取指定玩家实例指定变量的值
+     *
+     * @param player      玩家实例
+     * @param placeholder 变量
+     * @return 指定玩家实例下指定变量的值
+     */
+    public String onPlaceholder(OfflinePlayer player, @NotNull String placeholder) {
+        if (!this.isEnable()) {
+            return null;
+        }
+
+        return this.placeholder(player, placeholder);
+    }
 }

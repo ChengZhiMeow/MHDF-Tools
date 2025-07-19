@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 
 @Getter
-public final class VaultHook extends AbstractHook {
+public final class VaultHook extends Hook {
     private VaultImpl api;
 
     /**
@@ -26,7 +26,7 @@ public final class VaultHook extends AbstractHook {
     public void unhook() {
         super.enable = false;
         if (this.api != null) {
-            getApi().unhook();
+            this.getApi().unhook();
         }
         this.api = null;
     }

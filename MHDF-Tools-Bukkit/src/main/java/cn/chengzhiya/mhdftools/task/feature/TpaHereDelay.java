@@ -1,14 +1,14 @@
 package cn.chengzhiya.mhdftools.task.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.task.Task;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
 @SuppressWarnings("unused")
-final class TpaHereDelay extends AbstractTask {
+final class TpaHereDelay extends Task {
     public TpaHereDelay() {
         super(
                 List.of("tpahereSettings.enable"),

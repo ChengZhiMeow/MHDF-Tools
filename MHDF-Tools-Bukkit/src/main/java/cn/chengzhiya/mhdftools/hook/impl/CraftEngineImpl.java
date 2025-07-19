@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.hook.impl;
 
 import lombok.Getter;
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
-import net.momirealms.craftengine.bukkit.plugin.BukkitCraftEngine;
 import net.momirealms.craftengine.core.item.CustomItem;
 import net.momirealms.craftengine.core.plugin.CraftEngine;
 import net.momirealms.craftengine.core.util.Key;
@@ -12,11 +11,9 @@ import org.bukkit.inventory.ItemStack;
 @Getter
 public final class CraftEngineImpl {
     private final CraftEngine api;
-    private final BukkitCraftEngine bukkitApi;
 
     public CraftEngineImpl() {
         this.api = CraftEngine.instance();
-        this.bukkitApi = BukkitCraftEngine.instance();
     }
 
     /**
@@ -41,7 +38,7 @@ public final class CraftEngineImpl {
      * @return 物品ID
      */
     public String getItemId(ItemStack itemStack) {
-        Key key = getApi().itemManager().customItemId(itemStack);
+        Key key = this.getApi().itemManager().customItemId(itemStack);
         if (key == null) {
             return null;
         }

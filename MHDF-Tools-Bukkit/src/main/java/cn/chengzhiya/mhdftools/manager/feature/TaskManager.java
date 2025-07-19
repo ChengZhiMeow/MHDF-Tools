@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.manager.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.task.Task;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
@@ -15,13 +15,13 @@ public final class TaskManager {
      */
     @SneakyThrows
     public void init() {
-        Reflections reflections = new Reflections(AbstractTask.class.getPackageName());
+        Reflections reflections = new Reflections(Task.class.getPackageName());
 
-        for (Class<? extends AbstractTask> clazz : reflections.getSubTypesOf(AbstractTask.class)) {
+        for (Class<? extends Task> clazz : reflections.getSubTypesOf(Task.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                Constructor<? extends AbstractTask> constructor = clazz.getConstructor();
+                Constructor<? extends Task> constructor = clazz.getConstructor();
                 constructor.setAccessible(true);
-                AbstractTask task = constructor.newInstance();
+                Task task = constructor.newInstance();
 
                 if (task.isEnable()) {
                     task.runTaskTimerAsynchronously(Main.instance, 0L, task.getTime());

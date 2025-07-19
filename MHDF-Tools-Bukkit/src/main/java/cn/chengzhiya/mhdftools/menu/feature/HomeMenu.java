@@ -4,7 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.HomeData;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Getter
-public final class HomeMenu extends AbstractMenu {
+public final class HomeMenu extends Menu {
     private final YamlConfiguration config;
     private final int page;
 
@@ -40,19 +40,19 @@ public final class HomeMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory menu = MenuUtil.createInventory(this, getConfig());
+        Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
+        ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) {
             return menu;
         }
 
-        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(getPlayer());
+        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
         List<HomeData> homeList = player.getHomeList();
         List<Integer> homeSlotList = MenuUtil.getSlotList(items.getConfigurationSection("家"));
 
-        int start = (page - 1) * homeSlotList.size();
-        int maxEnd = page * homeSlotList.size();
+        int start = (this.getPage() - 1) * homeSlotList.size();
+        int maxEnd = this.getPage() * homeSlotList.size();
         int end = Math.min(homeList.size(), maxEnd);
 
         for (String key : items.getKeys(false)) {
@@ -67,7 +67,7 @@ public final class HomeMenu extends AbstractMenu {
                     for (int i = start; i < end; i++) {
                         HomeData homeData = homeList.get(i);
 
-                        ItemStack itemStack = MenuUtil.getMenuItemStackBuilder(getPlayer(), item, s -> applyHomeDataString(s, homeData), key)
+                        ItemStack itemStack = MenuUtil.getMenuItemStackBuilder(super.getPlayer(), item, s -> this.applyHomeDataString(s, homeData), key)
                                 .persistentDataContainer("home", PersistentDataType.STRING, homeData.getHome())
                                 .build();
 
@@ -88,7 +88,7 @@ public final class HomeMenu extends AbstractMenu {
                 }
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(super.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -96,7 +96,7 @@ public final class HomeMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -115,7 +115,7 @@ public final class HomeMenu extends AbstractMenu {
             return;
         }
 
-        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+        MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
 
         switch (key) {
             case "家" -> {
@@ -124,22 +124,22 @@ public final class HomeMenu extends AbstractMenu {
                     return;
                 }
 
-                MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(getPlayer());
+                MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
                 HomeData homeData = player.getHome(home);
 
-                Main.instance.getBungeeCordManager().teleportLocation(getPlayer(), homeData.toBungeeCordLocation());
-                Main.instance.getBungeeCordManager().sendMessage(getPlayer(), Main.instance.getConfigManager().getLangManager().i18n("commands.home.teleportMessage")
+                Main.instance.getBungeeCordManager().teleportLocation(super.getPlayer(), homeData.toBungeeCordLocation());
+                Main.instance.getBungeeCordManager().sendMessage(super.getPlayer(), Main.instance.getConfigManager().getLangManager().i18n("commands.home.teleportMessage")
                         .replace("{home}", homeData.getHome())
                 );
             }
-            case "上一页" -> new HomeMenu(getPlayer(), getPage() - 1).openMenu();
-            case "下一页" -> new HomeMenu(getPlayer(), getPage() + 1).openMenu();
+            case "上一页" -> new HomeMenu(super.getPlayer(), this.getPage() - 1).openMenu();
+            case "下一页" -> new HomeMenu(super.getPlayer(), this.getPage() + 1).openMenu();
         }
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("closeActions"));
     }
 
     /**

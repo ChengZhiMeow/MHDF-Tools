@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.redismessagelistener.feature;
 
-import cn.chengzhiya.mhdftools.redismessagelistener.AbstractRedisMessageListener;
+import cn.chengzhiya.mhdftools.redismessagelistener.RedisMessageListener;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
 import org.bukkit.Bukkit;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public final class SetGameMode extends AbstractRedisMessageListener {
+public final class SetGameMode extends RedisMessageListener {
     public SetGameMode() {
         super(
                 List.of("gamemodeSettings.enable"),

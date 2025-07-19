@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.manager.cache.impl;
 
 import cn.chengzhiya.mhdftools.entity.config.CacheConfig;
-import cn.chengzhiya.mhdftools.manager.cache.AbstractCacheManager;
+import cn.chengzhiya.mhdftools.manager.cache.CacheManager;
 import lombok.Getter;
 
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
-public final class MapCacheManager extends AbstractCacheManager {
+public final class MapCacheManager extends CacheManager {
     private Map<String, Map<String, String>> map;
 
     public MapCacheManager(CacheConfig cacheConfig) {

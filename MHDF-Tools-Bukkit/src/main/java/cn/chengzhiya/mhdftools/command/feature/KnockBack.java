@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-final class KnockBack extends AbstractCommand {
+final class KnockBack extends Command {
 
     private final Random rand = new Random();
 

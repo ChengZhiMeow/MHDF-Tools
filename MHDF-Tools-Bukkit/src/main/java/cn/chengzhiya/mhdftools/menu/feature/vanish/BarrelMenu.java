@@ -1,7 +1,8 @@
 package cn.chengzhiya.mhdftools.menu.feature.vanish;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Barrel;
 import org.bukkit.entity.Player;
@@ -14,7 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public final class BarrelMenu extends AbstractMenu {
+@Getter
+public final class BarrelMenu extends Menu {
     private final Barrel barrel;
 
     public BarrelMenu(Player player, Barrel barrel) {
@@ -39,15 +41,15 @@ public final class BarrelMenu extends AbstractMenu {
 
     @Override
     public void click(InventoryClickEvent event) {
-        saveInventory(event.getInventory());
+        this.saveInventory(event.getInventory());
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        saveInventory(event.getInventory());
+        this.saveInventory(event.getInventory());
     }
 
     private void saveInventory(Inventory inventory) {
-        barrel.getInventory().setContents(inventory.getContents());
+        this.getBarrel().getInventory().setContents(inventory.getContents());
     }
 }

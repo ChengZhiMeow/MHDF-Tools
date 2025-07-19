@@ -1,8 +1,9 @@
 package cn.chengzhiya.mhdftools.task.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.task.Task;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -11,7 +12,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
-final class TimeAction extends AbstractTask {
+@Getter
+final class TimeAction extends Task {
     private final ConcurrentHashMap<String, Integer> delayHashMap = new ConcurrentHashMap<>();
 
     public TimeAction() {
@@ -60,15 +62,15 @@ final class TimeAction extends AbstractTask {
 
             switch (type) {
                 case "定时操作" -> {
-                    int delay = delayHashMap.getOrDefault(key, 0);
+                    int delay = this.getDelayHashMap().getOrDefault(key, 0);
 
                     if (delay >= getDelayTime(time)) {
                         ActionUtil.runActionList(Bukkit.getConsoleSender(), action.getStringList("action"));
-                        delayHashMap.remove(key);
+                        this.getDelayHashMap().remove(key);
                         return;
                     }
 
-                    delayHashMap.put(key, delay + 1);
+                    this.getDelayHashMap().put(key, delay + 1);
                 }
                 case "定点操作" -> {
                     String[] data = time.split(":");

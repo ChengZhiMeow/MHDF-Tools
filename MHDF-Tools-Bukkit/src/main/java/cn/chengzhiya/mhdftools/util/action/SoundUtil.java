@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.util.action;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -27,8 +26,8 @@ public final class SoundUtil {
                     ));
         }
 
-        return ReflectionUtil.invokeMethod(
-                ReflectionUtil.getMethod(Sound.class, "valueOf", true, String.class),
+        return Main.instance.getReflectionManager().invokeMethod(
+                Main.instance.getReflectionManager().getMethod(Sound.class, "valueOf", true, String.class),
                 Sound.class,
                 key
         );

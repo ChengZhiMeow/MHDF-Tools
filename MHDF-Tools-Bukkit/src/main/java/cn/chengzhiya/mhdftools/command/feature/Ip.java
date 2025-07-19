@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.IpUtil;
 import org.bukkit.Bukkit;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-final class Ip extends AbstractCommand {
+final class Ip extends Command {
     public Ip() {
         super(
                 List.of("ipSettings.enable"),

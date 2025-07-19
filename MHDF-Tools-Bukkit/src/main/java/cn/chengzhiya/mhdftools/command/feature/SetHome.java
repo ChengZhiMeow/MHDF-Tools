@@ -5,7 +5,7 @@ import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.HomeUtil;
 import org.bukkit.Location;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class SetHome extends AbstractCommand {
+final class SetHome extends Command {
     public SetHome() {
         super(
                 List.of("homeSettings.enable"),

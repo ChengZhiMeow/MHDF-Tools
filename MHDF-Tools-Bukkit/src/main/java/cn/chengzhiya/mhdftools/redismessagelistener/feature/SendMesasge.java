@@ -1,13 +1,13 @@
 package cn.chengzhiya.mhdftools.redismessagelistener.feature;
 
-import cn.chengzhiya.mhdftools.redismessagelistener.AbstractRedisMessageListener;
+import cn.chengzhiya.mhdftools.redismessagelistener.RedisMessageListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public final class SendMesasge extends AbstractRedisMessageListener {
+public final class SendMesasge extends RedisMessageListener {
     public SendMesasge() {
         super(
                 "sendMessage"

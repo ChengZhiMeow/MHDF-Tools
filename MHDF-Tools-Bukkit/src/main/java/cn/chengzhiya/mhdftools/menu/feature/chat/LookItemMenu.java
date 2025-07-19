@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.menu.feature.chat;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Getter
-public final class LookItemMenu extends AbstractMenu {
+public final class LookItemMenu extends Menu {
     private final YamlConfiguration config;
     private final byte[] data;
 
@@ -37,9 +37,9 @@ public final class LookItemMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory menu = MenuUtil.createInventory(this, getConfig());
+        Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
+        ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) {
             return menu;
         }
@@ -51,7 +51,7 @@ public final class LookItemMenu extends AbstractMenu {
             }
 
             if (key.equals("物品")) {
-                ItemStack itemStack = new ItemStackBuilder(getPlayer(), ItemStack.deserializeBytes(getData()))
+                ItemStack itemStack = new ItemStackBuilder(super.getPlayer(), ItemStack.deserializeBytes(this.getData()))
                         .persistentDataContainer("key", PersistentDataType.STRING, key)
                         .build();
 
@@ -59,7 +59,7 @@ public final class LookItemMenu extends AbstractMenu {
                 continue;
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(super.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -67,7 +67,7 @@ public final class LookItemMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -86,11 +86,11 @@ public final class LookItemMenu extends AbstractMenu {
             return;
         }
 
-        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+        MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("closeActions"));
     }
 }

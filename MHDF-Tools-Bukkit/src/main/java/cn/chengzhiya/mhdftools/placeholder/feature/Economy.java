@@ -2,14 +2,14 @@ package cn.chengzhiya.mhdftools.placeholder.feature;
 
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
-import cn.chengzhiya.mhdftools.placeholder.AbstractPlaceholder;
+import cn.chengzhiya.mhdftools.placeholder.Placeholder;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 @SuppressWarnings("unused")
-final class Economy extends AbstractPlaceholder {
+final class Economy extends Placeholder {
     public Economy() {
         super(
                 List.of("economySettings.enable")

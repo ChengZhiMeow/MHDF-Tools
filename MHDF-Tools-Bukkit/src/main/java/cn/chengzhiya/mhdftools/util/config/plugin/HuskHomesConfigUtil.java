@@ -27,7 +27,7 @@ public final class HuskHomesConfigUtil {
      */
     public static YamlConfiguration getConfig() {
         if (config == null) {
-            reloadConfig();
+            HuskHomesConfigUtil.reloadConfig();
         }
 
         return config;

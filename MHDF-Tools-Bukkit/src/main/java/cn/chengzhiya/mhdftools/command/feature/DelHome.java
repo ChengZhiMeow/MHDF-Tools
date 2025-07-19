@@ -4,7 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.HomeData;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class DelHome extends AbstractCommand {
+final class DelHome extends Command {
     public DelHome() {
         super(
                 List.of("homeSettings.enable"),

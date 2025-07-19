@@ -51,7 +51,7 @@ public final class ColorUtil {
         StringBuilder stringBuilder = new StringBuilder();
         char[] chars = legacy.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if (isColorCode(chars[i])) {
+            if (ColorUtil.isColorCode(chars[i])) {
                 stringBuilder.append(chars[i]);
                 continue;
             }
@@ -84,12 +84,12 @@ public final class ColorUtil {
                 case 'k' -> stringBuilder.append("<obf>");
                 case 'x' -> {
                     if (i + 13 >= chars.length
-                            || isColorCode(chars[i + 2])
-                            || isColorCode(chars[i + 4])
-                            || isColorCode(chars[i + 6])
-                            || isColorCode(chars[i + 8])
-                            || isColorCode(chars[i + 10])
-                            || isColorCode(chars[i + 12])) {
+                            || ColorUtil.isColorCode(chars[i + 2])
+                            || ColorUtil.isColorCode(chars[i + 4])
+                            || ColorUtil.isColorCode(chars[i + 6])
+                            || ColorUtil.isColorCode(chars[i + 8])
+                            || ColorUtil.isColorCode(chars[i + 10])
+                            || ColorUtil.isColorCode(chars[i + 12])) {
                         stringBuilder.append(chars[i]);
                         continue;
                     }
@@ -131,7 +131,7 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     public static String miniMessage(@NotNull String message) {
-        return legacyColorToMiniMessage(legacyToMiniMessage(legacyColor(message)));
+        return ColorUtil.legacyColorToMiniMessage(ColorUtil.legacyToMiniMessage(ColorUtil.legacyColor(message)));
     }
 
     /**
@@ -141,6 +141,6 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     public static TextComponent color(@NotNull String message) {
-        return new TextComponent(MiniMessageUtil.miniMessage("<!i>" + miniMessage(message)));
+        return new TextComponent(MiniMessageUtil.miniMessage("<!i>" + ColorUtil.miniMessage(message)));
     }
 }

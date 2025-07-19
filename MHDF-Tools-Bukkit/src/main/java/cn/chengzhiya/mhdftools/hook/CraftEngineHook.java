@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 @Getter
-public final class CraftEngineHook extends AbstractHook {
+public final class CraftEngineHook extends Hook {
     private CraftEngineImpl api;
 
     @Override
@@ -31,8 +31,8 @@ public final class CraftEngineHook extends AbstractHook {
      * @return 物品实例
      */
     public ItemStack getItem(String item) {
-        if (isEnable()) {
-            return getApi().getItem(item);
+        if (super.isEnable()) {
+            return this.getApi().getItem(item);
         }
         return new ItemStack(Material.AIR);
     }
@@ -44,8 +44,8 @@ public final class CraftEngineHook extends AbstractHook {
      * @return 物品ID
      */
     public String getItemId(ItemStack itemStack) {
-        if (isEnable()) {
-            return getApi().getItemId(itemStack);
+        if (super.isEnable()) {
+            return this.getApi().getItemId(itemStack);
         }
         return null;
     }

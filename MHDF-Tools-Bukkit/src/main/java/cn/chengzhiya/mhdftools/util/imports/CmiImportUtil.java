@@ -63,7 +63,7 @@ public final class CmiImportUtil {
                             String location = home.substring(split);
 
                             MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(cmiUserData.getPlayerUuid());
-                            player.setHome(name, cmiLocationToBungeeCordLocation(location.split(":")));
+                            player.setHome(name, CmiImportUtil.cmiLocationToBungeeCordLocation(location.split(":")));
                         }
                     }
 
@@ -92,7 +92,7 @@ public final class CmiImportUtil {
                         }
 
                         WarpData data = new WarpData(name);
-                        data.setLocation(cmiLocationToBungeeCordLocation(location.split(";")));
+                        data.setLocation(CmiImportUtil.cmiLocationToBungeeCordLocation(location.split(";")));
                         MHDFToolsAPIHelper.getInstance().getWarpDataManager().update(data);
                     }
 

@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 @Getter
-public final class PlaceholderApiHook extends AbstractHook {
+public final class PlaceholderApiHook extends Hook {
     private PlaceholderApiImpl api;
 
     /**
@@ -37,8 +37,8 @@ public final class PlaceholderApiHook extends AbstractHook {
      * @return 处理过后的文本
      */
     public String placeholder(OfflinePlayer player, String message) {
-        if (isEnable()) {
-            return getApi().placeholder(player, message);
+        if (super.isEnable()) {
+            return this.getApi().placeholder(player, message);
         }
         return message;
     }

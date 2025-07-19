@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.InvseeUtil;
 import org.bukkit.Bukkit;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-final class Invsee extends AbstractCommand {
+final class Invsee extends Command {
     public Invsee() {
         super(
                 List.of("invseeSettings.enable"),

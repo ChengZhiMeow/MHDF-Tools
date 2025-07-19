@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.feature.FastChangeTimeUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
-final class FastChangeTime extends AbstractCommand {
+final class FastChangeTime extends Command {
     private final ConcurrentHashMap<String, ConfigurationSection> commandConfigHashMap = new ConcurrentHashMap<>();
 
     public FastChangeTime() {

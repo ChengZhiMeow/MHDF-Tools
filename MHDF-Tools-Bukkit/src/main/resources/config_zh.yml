@@ -70,7 +70,6 @@ databaseSettings:
   # 自定义连接参数
   prams:
 
-
 # 缓存
 cacheSettings:
   # 存储类型
@@ -220,8 +219,12 @@ stopSettings:
   confirm: true
   # 关闭服务器的时候保存存档
   autoSave: true
-  # 默认倒计时(-1关闭)
-  defaultCountdown: 5
+  # 倒计时
+  countdown:
+    # 默认时间(-1关闭)
+    default: 5
+    # 显示提示的时间
+    messageTime: [5,4,3,2,1]
   # 命令
   commands:
     - "stop"

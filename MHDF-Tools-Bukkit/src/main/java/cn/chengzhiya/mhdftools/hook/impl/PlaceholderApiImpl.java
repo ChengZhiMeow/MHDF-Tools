@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.hook.impl;
 
-import cn.chengzhiya.mhdftools.placeholder.AbstractPlaceholder;
+import cn.chengzhiya.mhdftools.placeholder.Placeholder;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
 import lombok.SneakyThrows;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -16,17 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class PlaceholderApiImpl extends PlaceholderExpansion {
-    private final List<AbstractPlaceholder> placeholderList = new ArrayList<>();
+    private final List<Placeholder> placeholderList = new ArrayList<>();
 
     @SneakyThrows
     public PlaceholderApiImpl() {
-        Reflections reflections = new Reflections(AbstractPlaceholder.class.getPackageName());
+        Reflections reflections = new Reflections(Placeholder.class.getPackageName());
 
-        for (Class<? extends AbstractPlaceholder> clazz : reflections.getSubTypesOf(AbstractPlaceholder.class)) {
+        for (Class<? extends Placeholder> clazz : reflections.getSubTypesOf(Placeholder.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                Constructor<? extends AbstractPlaceholder> constructor = clazz.getConstructor();
+                Constructor<? extends Placeholder> constructor = clazz.getConstructor();
                 constructor.setAccessible(true);
-                AbstractPlaceholder placeholder = constructor.newInstance();
+                Placeholder placeholder = constructor.newInstance();
 
                 if (placeholder.isEnable()) {
                     placeholderList.add(placeholder);
@@ -68,7 +68,7 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
-        for (AbstractPlaceholder placeholder : placeholderList) {
+        for (Placeholder placeholder : placeholderList) {
             String result = placeholder.onPlaceholder(player, params);
             if (result != null) {
                 return result;

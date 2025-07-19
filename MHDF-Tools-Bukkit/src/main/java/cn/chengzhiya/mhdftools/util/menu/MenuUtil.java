@@ -81,7 +81,7 @@ public final class MenuUtil {
         List<Integer> slotList = new ArrayList<>();
 
         for (String slot : slots) {
-            slotList.addAll(getSlotList(slot));
+            slotList.addAll(MenuUtil.getSlotList(slot));
         }
 
         return slotList;
@@ -100,9 +100,9 @@ public final class MenuUtil {
 
         List<Integer> slotList = new ArrayList<>();
         if (!config.getStringList("slots").isEmpty()) {
-            slotList.addAll(getSlotList(config.getStringList("slots")));
+            slotList.addAll(MenuUtil.getSlotList(config.getStringList("slots")));
         } else {
-            slotList.addAll(getSlotList(config.getString("slot")));
+            slotList.addAll(MenuUtil.getSlotList(config.getString("slot")));
         }
 
         return slotList;
@@ -151,7 +151,7 @@ public final class MenuUtil {
             return;
         }
 
-        runItemClickAction(player, items.getConfigurationSection(key));
+        MenuUtil.runItemClickAction(player, items.getConfigurationSection(key));
     }
 
     /**
@@ -177,7 +177,7 @@ public final class MenuUtil {
      * @return 菜单物品构建实例
      */
     public static ItemStackBuilder getMenuItemStackBuilder(Player player, ConfigurationSection item, String key) {
-        return getMenuItemStackBuilder(player, item, Function.identity(), key);
+        return MenuUtil.getMenuItemStackBuilder(player, item, Function.identity(), key);
     }
 
     /**
@@ -189,7 +189,7 @@ public final class MenuUtil {
      * @param key    物品ID
      */
     public static void setMenuItem(Player player, Inventory menu, ConfigurationSection item, String key) {
-        setMenuItem(menu, item, getMenuItemStackBuilder(player, item, key).build());
+        MenuUtil.setMenuItem(menu, item, MenuUtil.getMenuItemStackBuilder(player, item, key).build());
     }
 
     /**

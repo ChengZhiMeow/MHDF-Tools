@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaUtil;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Getter
-public final class TeleportRequestMenu extends AbstractMenu {
+public final class TeleportRequestMenu extends Menu {
     private final YamlConfiguration config;
     private final TeleportRequestType requestType;
     private final int page;
@@ -43,9 +43,9 @@ public final class TeleportRequestMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory menu = MenuUtil.createInventory(this, getConfig());
+        Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
+        ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) {
             return menu;
         }
@@ -53,8 +53,8 @@ public final class TeleportRequestMenu extends AbstractMenu {
         List<String> playerList = Main.instance.getBungeeCordManager().getPlayerList();
         List<Integer> playerSlotList = MenuUtil.getSlotList(items.getConfigurationSection("玩家"));
 
-        int start = (page - 1) * playerSlotList.size();
-        int maxEnd = page * playerSlotList.size();
+        int start = (this.getPage() - 1) * playerSlotList.size();
+        int maxEnd = this.getPage() * playerSlotList.size();
         int end = Math.min(playerList.size(), maxEnd);
 
         for (String key : items.getKeys(false)) {
@@ -69,7 +69,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
                     for (int i = start; i < end; i++) {
                         String target = playerList.get(i);
 
-                        ItemStack itemStack = MenuUtil.getMenuItemStackBuilder(getPlayer(), item, s -> applyTpaDataString(s, getPlayer().getName(), target), key)
+                        ItemStack itemStack = MenuUtil.getMenuItemStackBuilder(super.getPlayer(), item, s -> this.applyTpaDataString(s, super.getPlayer().getName(), target), key)
                                 .persistentDataContainer("target", PersistentDataType.STRING, target)
                                 .build();
 
@@ -90,7 +90,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
                 }
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(super.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -98,7 +98,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -117,7 +117,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
             return;
         }
 
-        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+        MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
 
         switch (key) {
             case "玩家" -> {
@@ -127,18 +127,20 @@ public final class TeleportRequestMenu extends AbstractMenu {
                 }
 
                 switch (getRequestType()) {
-                    case TPAHERE -> TpaHereUtil.sendTpaHereRequest(getPlayer(), target);
-                    case TPA -> TpaUtil.sendTpaRequest(getPlayer(), target);
+                    case TPAHERE -> TpaHereUtil.sendTpaHereRequest(super.getPlayer(), target);
+                    case TPA -> TpaUtil.sendTpaRequest(super.getPlayer(), target);
                 }
             }
-            case "上一页" -> new TeleportRequestMenu(getPlayer(), getRequestType(), getPage() - 1).openMenu();
-            case "下一页" -> new TeleportRequestMenu(getPlayer(), getRequestType(), getPage() + 1).openMenu();
+            case "上一页" ->
+                    new TeleportRequestMenu(super.getPlayer(), this.getRequestType(), this.getPage() - 1).openMenu();
+            case "下一页" ->
+                    new TeleportRequestMenu(super.getPlayer(), this.getRequestType(), this.getPage() + 1).openMenu();
         }
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("closeActions"));
     }
 
     /**

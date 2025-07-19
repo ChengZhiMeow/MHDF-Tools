@@ -1,7 +1,12 @@
 package cn.chengzhiya.mhdftools.hook;
 
-public interface Hook {
-    void hook();
+import lombok.Getter;
 
-    void unhook();
+@Getter
+public abstract class Hook {
+    public boolean enable = false;
+
+    abstract public void hook();
+
+    abstract public void unhook();
 }

@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.FakeChangeTimeUtil;
 import org.bukkit.Bukkit;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class FakeChangeTime extends AbstractCommand {
+final class FakeChangeTime extends Command {
     public FakeChangeTime() {
         super(
                 List.of("fakeChangeTimeSettings.enable"),

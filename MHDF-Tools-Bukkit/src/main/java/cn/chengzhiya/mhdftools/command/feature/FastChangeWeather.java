@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.feature.FastChangeWeatherUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
-final class FastChangeWeather extends AbstractCommand {
+final class FastChangeWeather extends Command {
     private final ConcurrentHashMap<String, ConfigurationSection> commandConfigHashMap = new ConcurrentHashMap<>();
 
     public FastChangeWeather() {

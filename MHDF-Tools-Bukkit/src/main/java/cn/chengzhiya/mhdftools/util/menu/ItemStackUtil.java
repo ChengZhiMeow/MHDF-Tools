@@ -34,6 +34,6 @@ public final class ItemStackUtil {
      * @return 物品构建实例
      */
     public static ItemStackBuilder getItemStackBuilder(Player player, ConfigurationSection item) {
-        return getItemStackBuilder(player, item, Function.identity());
+        return ItemStackUtil.getItemStackBuilder(player, item, Function.identity());
     }
 }

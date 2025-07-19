@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.menu.feature.chat;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import com.alibaba.fastjson2.JSONObject;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Getter
-public final class LookEnderChestMenu extends AbstractMenu {
+public final class LookEnderChestMenu extends Menu {
     private final YamlConfiguration config;
     private final JSONObject data;
 
@@ -38,9 +38,9 @@ public final class LookEnderChestMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory menu = MenuUtil.createInventory(this, getConfig());
+        Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
+        ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) {
             return menu;
         }
@@ -54,12 +54,12 @@ public final class LookEnderChestMenu extends AbstractMenu {
             if (key.equals("物品")) {
                 List<Integer> slotList = MenuUtil.getSlotList(item);
                 for (int slot : slotList) {
-                    byte[] itemData = getData().getBytes(String.valueOf(slot));
+                    byte[] itemData = this.getData().getBytes(String.valueOf(slot));
                     if (itemData == null) {
                         continue;
                     }
 
-                    ItemStack itemStack = new ItemStackBuilder(getPlayer(), ItemStack.deserializeBytes(itemData))
+                    ItemStack itemStack = new ItemStackBuilder(super.getPlayer(), ItemStack.deserializeBytes(itemData))
                             .persistentDataContainer("key", PersistentDataType.STRING, key)
                             .build();
 
@@ -68,7 +68,7 @@ public final class LookEnderChestMenu extends AbstractMenu {
                 continue;
             }
 
-            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(super.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -76,7 +76,7 @@ public final class LookEnderChestMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -95,11 +95,11 @@ public final class LookEnderChestMenu extends AbstractMenu {
             return;
         }
 
-        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+        MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("closeActions"));
     }
 }

@@ -45,7 +45,7 @@ public final class ItemStackBuilder {
 
                 item.setItemMeta(meta);
             } else if (type.equals("random_bed")) {
-                item = new ItemStack(getRandomBed());
+                item = new ItemStack(this.getRandomBed());
             } else {
                 Material material = Material.matchMaterial(type);
                 if (material != null) {

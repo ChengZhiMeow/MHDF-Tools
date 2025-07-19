@@ -4,7 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.api.entity.database.data.BackData;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.BackUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
@@ -28,7 +28,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 @Getter
-public final class BackMenu extends AbstractMenu {
+public final class BackMenu extends Menu {
     private final YamlConfiguration config;
     private final int page;
 
@@ -44,19 +44,19 @@ public final class BackMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory menu = MenuUtil.createInventory(this, getConfig());
+        Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
+        ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) {
             return menu;
         }
 
-        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(this.getPlayer());
-        List<BackData> backList = player.getBackDataList(BackUtil.getMaxBack(this.getPlayer()));
+        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
+        List<BackData> backList = player.getBackDataList(BackUtil.getMaxBack(super.getPlayer()));
         List<Integer> backSlotList = MenuUtil.getSlotList(items.getConfigurationSection("位置"));
 
-        int start = (page - 1) * backSlotList.size();
-        int maxEnd = page * backSlotList.size();
+        int start = (this.getPage() - 1) * backSlotList.size();
+        int maxEnd = this.getPage() * backSlotList.size();
         int end = Math.min(backList.size(), maxEnd);
 
         for (String key : items.getKeys(false)) {
@@ -71,7 +71,7 @@ public final class BackMenu extends AbstractMenu {
                     for (int i = start; i < end; i++) {
                         BackData backData = backList.get(i);
 
-                        ItemStack itemStack = MenuUtil.getMenuItemStackBuilder(this.getPlayer(), item, s -> this.applyBackDataString(s, backData), key)
+                        ItemStack itemStack = MenuUtil.getMenuItemStackBuilder(super.getPlayer(), item, s -> this.applyBackDataString(s, backData), key)
                                 .persistentDataContainer("id", PersistentDataType.INTEGER, backData.getId())
                                 .build();
 
@@ -92,7 +92,7 @@ public final class BackMenu extends AbstractMenu {
                 }
             }
 
-            MenuUtil.setMenuItem(this.getPlayer(), menu, item, key);
+            MenuUtil.setMenuItem(super.getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -100,7 +100,7 @@ public final class BackMenu extends AbstractMenu {
 
     @Override
     public void open(InventoryOpenEvent event) {
-        ActionUtil.runActionList(this.getPlayer(), getConfig().getStringList("openActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("openActions"));
     }
 
     @Override
@@ -119,7 +119,7 @@ public final class BackMenu extends AbstractMenu {
             return;
         }
 
-        MenuUtil.runItemClickAction(this.getPlayer(), getConfig(), key);
+        MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
 
         switch (key) {
             case "位置" -> {
@@ -128,20 +128,20 @@ public final class BackMenu extends AbstractMenu {
                     return;
                 }
 
-                MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(this.getPlayer());
+                MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
                 BackData backData = player.getBackData(id);
 
-                Main.instance.getBungeeCordManager().teleportLocation(this.getPlayer(), backData.toBungeeCordLocation());
-                Main.instance.getBungeeCordManager().sendMessage(this.getPlayer(), Main.instance.getConfigManager().getLangManager().i18n("commands.back.message"));
+                Main.instance.getBungeeCordManager().teleportLocation(super.getPlayer(), backData.toBungeeCordLocation());
+                Main.instance.getBungeeCordManager().sendMessage(super.getPlayer(), Main.instance.getConfigManager().getLangManager().i18n("commands.back.message"));
             }
-            case "上一页" -> new BackMenu(this.getPlayer(), getPage() - 1).openMenu();
-            case "下一页" -> new BackMenu(this.getPlayer(), getPage() + 1).openMenu();
+            case "上一页" -> new BackMenu(super.getPlayer(), this.getPage() - 1).openMenu();
+            case "下一页" -> new BackMenu(super.getPlayer(), this.getPage() + 1).openMenu();
         }
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+        ActionUtil.runActionList(super.getPlayer(), this.getConfig().getStringList("closeActions"));
     }
 
     /**

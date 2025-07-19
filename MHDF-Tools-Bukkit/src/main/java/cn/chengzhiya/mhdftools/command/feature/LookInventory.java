@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.menu.feature.chat.LookInventoryMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import com.alibaba.fastjson2.JSONObject;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-final class LookInventory extends AbstractCommand {
+final class LookInventory extends Command {
     public LookInventory() {
         super(
                 List.of("chatSettings.enable", "chatSettings.showInventory.enable"),

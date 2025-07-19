@@ -12,16 +12,6 @@ import java.util.List;
 
 public final class EventActionUtil {
     /**
-     * 执行操作
-     *
-     * @param player 玩家实例
-     * @param event  事件
-     */
-    public static void runAction(Player player, String event) {
-        ActionUtil.runActionList(player, getActionList(player, event));
-    }
-
-    /**
      * 获取指定事件的操作列表
      *
      * @param event 事件
@@ -85,5 +75,15 @@ public final class EventActionUtil {
                 String.valueOf(list)
         );
         return list;
+    }
+
+    /**
+     * 执行操作
+     *
+     * @param player 玩家实例
+     * @param event  事件
+     */
+    public static void runAction(Player player, String event) {
+        ActionUtil.runActionList(player, EventActionUtil.getActionList(player, event));
     }
 }

@@ -44,7 +44,7 @@ public final class ActionUtil {
      * @param message 消息
      */
     public static void sendMessage(CommandSender sender, String message) {
-        sendMessage(sender, ColorUtil.color(message));
+        ActionUtil.sendMessage(sender, ColorUtil.color(message));
     }
 
     /**
@@ -69,7 +69,7 @@ public final class ActionUtil {
      * @param message 消息
      */
     public static void broadcastMessage(String message) {
-        broadcastMessage(ColorUtil.color(message));
+        ActionUtil.broadcastMessage(ColorUtil.color(message));
     }
 
     /**
@@ -135,7 +135,7 @@ public final class ActionUtil {
      * @param subTitle 小标题文本
      */
     public static void sendTitle(Player player, String title, String subTitle) {
-        sendTitle(player, title, subTitle, 10, 70, 20);
+        ActionUtil.sendTitle(player, title, subTitle, 10, 70, 20);
     }
 
     /**
@@ -145,7 +145,7 @@ public final class ActionUtil {
      * @param title  大标题文本
      */
     public static void sendTitle(Player player, String title) {
-        sendTitle(player, title, "", 10, 70, 20);
+        ActionUtil.sendTitle(player, title, "", 10, 70, 20);
     }
 
     /**
@@ -172,7 +172,7 @@ public final class ActionUtil {
      * @param message 消息
      */
     public static void sendActionBar(Player player, String message) {
-        sendActionBar(player, ColorUtil.color(message));
+        ActionUtil.sendActionBar(player, ColorUtil.color(message));
     }
 
     /**
@@ -217,7 +217,7 @@ public final class ActionUtil {
      * @param time    停留时间
      */
     public static void sendTimeBossbar(Player player, BossBar bossBar, Long time) {
-        sendBossbar(player, bossBar);
+        ActionUtil.sendBossbar(player, bossBar);
         MHDFScheduler.getAsyncScheduler().runTaskTimer(Main.instance, () ->
                 hideBossbar(player, bossBar), 0, time
         );
@@ -254,19 +254,19 @@ public final class ActionUtil {
                     Main.instance.getBungeeCordManager().connectServer(player, args[1]);
                 }
             }
-            case "[player]" -> runCommand(sender, args[1], false);
-            case "[player_op]" -> runCommand(sender, args[1], true);
-            case "[console]" -> runCommand(Bukkit.getConsoleSender(), args[1], true);
+            case "[player]" -> ActionUtil.runCommand(sender, args[1], false);
+            case "[player_op]" -> ActionUtil.runCommand(sender, args[1], true);
+            case "[console]" -> ActionUtil.runCommand(Bukkit.getConsoleSender(), args[1], true);
             case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(args[1]);
-            case "[message]" -> sendMessage(sender, args[1]);
+            case "[message]" -> ActionUtil.sendMessage(sender, args[1]);
             case "[actionbar]" -> {
                 if (sender instanceof Player player) {
-                    sendActionBar(player, args[1]);
+                    ActionUtil.sendActionBar(player, args[1]);
                 }
             }
             case "[bossbar]" -> {
                 if (sender instanceof Player player) {
-                    sendBossbar(
+                    ActionUtil.sendBossbar(
                             player,
                             BossBarUtil.getBossBar(
                                     args[1],
@@ -278,7 +278,7 @@ public final class ActionUtil {
             }
             case "[title]" -> {
                 if (sender instanceof Player player) {
-                    sendTitle(
+                    ActionUtil.sendTitle(
                             player,
                             args[1],
                             args[2],
@@ -295,7 +295,7 @@ public final class ActionUtil {
             }
             case "[sound_bukkit]" -> {
                 if (sender instanceof Player player) {
-                    playSound(
+                    ActionUtil.playSound(
                             player,
                             SoundUtil.getSound(args[1]),
                             Float.valueOf(args[2]),
@@ -305,7 +305,7 @@ public final class ActionUtil {
             }
             case "[sound_minecraft]" -> {
                 if (sender instanceof Player player) {
-                    playSound(
+                    ActionUtil.playSound(
                             player,
                             args[1],
                             Float.valueOf(args[2]),

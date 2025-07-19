@@ -2,14 +2,14 @@ package cn.chengzhiya.mhdftools.task.feature;
 
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
-import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.task.Task;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
 @SuppressWarnings("unused")
-final class AutoChangeVanish extends AbstractTask {
+final class AutoChangeVanish extends Task {
     public AutoChangeVanish() {
         super(
                 List.of("vanishSettings.enable"),

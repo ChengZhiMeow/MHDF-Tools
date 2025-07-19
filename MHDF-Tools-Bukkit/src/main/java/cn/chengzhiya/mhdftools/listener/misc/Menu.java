@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.listener.misc;
 
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -19,7 +18,7 @@ final class Menu extends AbstractListener {
         Inventory inventory = event.getInventory();
         InventoryHolder holder = inventory.getHolder();
 
-        if (holder instanceof AbstractMenu menu) {
+        if (holder instanceof cn.chengzhiya.mhdftools.menu.Menu menu) {
             menu.onOpen(event);
         }
     }
@@ -29,7 +28,7 @@ final class Menu extends AbstractListener {
         Inventory inventory = event.getInventory();
         InventoryHolder inventoryHolder = inventory.getHolder();
 
-        if (inventoryHolder instanceof AbstractMenu menu) {
+        if (inventoryHolder instanceof cn.chengzhiya.mhdftools.menu.Menu menu) {
             menu.onClick(event);
         }
     }
@@ -39,7 +38,7 @@ final class Menu extends AbstractListener {
         Inventory inventory = event.getInventory();
         InventoryHolder inventoryHolder = inventory.getHolder();
 
-        if (inventoryHolder instanceof AbstractMenu menu) {
+        if (inventoryHolder instanceof cn.chengzhiya.mhdftools.menu.Menu menu) {
             menu.onClose(event);
         }
     }

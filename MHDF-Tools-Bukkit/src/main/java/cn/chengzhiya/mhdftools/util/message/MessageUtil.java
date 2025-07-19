@@ -30,7 +30,7 @@ public final class MessageUtil {
      * @return 拼接后的文本
      */
     public static String mergeString(String[] strings, String append) {
-        return mergeString(strings, 0, append);
+        return MessageUtil.mergeString(strings, 0, append);
     }
 
     /**
@@ -41,7 +41,7 @@ public final class MessageUtil {
      * @return 拼接后的文本
      */
     public static String mergeString(String[] strings, int origin) {
-        return mergeString(strings, origin, " ");
+        return MessageUtil.mergeString(strings, origin, " ");
     }
 
     /**
@@ -51,7 +51,7 @@ public final class MessageUtil {
      * @return 拼接后的文本
      */
     public static String mergeString(String[] strings) {
-        return mergeString(strings, 0, " ");
+        return MessageUtil.mergeString(strings, 0, " ");
     }
 
     /**
@@ -93,6 +93,6 @@ public final class MessageUtil {
      * @return 分割后的文本
      */
     public static String subString(String string, String split) {
-        return subString(string, split, string.length());
+        return MessageUtil.subString(string, split, string.length());
     }
 }

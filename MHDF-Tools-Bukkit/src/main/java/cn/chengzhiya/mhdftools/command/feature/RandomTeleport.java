@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
 import cn.chengzhiya.mhdftools.util.world.BiomeUtil;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class RandomTeleport extends AbstractCommand {
+final class RandomTeleport extends Command {
     public RandomTeleport() {
         super(
                 List.of("randomTeleportSettings.enable"),

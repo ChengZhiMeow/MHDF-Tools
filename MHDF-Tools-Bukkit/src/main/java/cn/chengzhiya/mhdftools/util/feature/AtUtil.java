@@ -94,7 +94,7 @@ public final class AtUtil {
 
         // 播放音效
         String sound = Main.instance.getConfigManager().getSoundManager().getData().getString("chat.at");
-        if (!sound.isEmpty()) {
+        if (sound != null && !sound.isEmpty()) {
             String[] args = sound.split("\\|");
             ActionUtil.playSound(player, args[0], Float.parseFloat(args[1]), Float.parseFloat(args[2]));
         }
@@ -111,7 +111,7 @@ public final class AtUtil {
                 Bukkit.getOnlinePlayers().forEach(p -> at(p, by));
                 continue;
             }
-            at(Bukkit.getPlayer(at), by);
+            AtUtil.at(Bukkit.getPlayer(at), by);
         }
     }
 }

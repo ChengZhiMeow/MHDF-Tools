@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public abstract class AbstractTask extends MHDFRunnable {
+public abstract class Task extends MHDFRunnable {
     private final boolean enable;
     private final Long time;
 
-    public AbstractTask(List<String> enableKeyList, @NotNull Long time) {
+    public Task(List<String> enableKeyList, @NotNull Long time) {
         this.enable = YamlUtil.equalsTrue(Main.instance.getConfigManager().getConfigManager().getData(), enableKeyList);
         this.time = time;
     }
 
-    public AbstractTask(@NotNull Long time) {
+    public Task(@NotNull Long time) {
         this(new ArrayList<>(), time);
     }
 }

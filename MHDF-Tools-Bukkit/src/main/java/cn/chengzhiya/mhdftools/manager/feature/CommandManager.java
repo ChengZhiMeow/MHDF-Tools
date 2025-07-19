@@ -1,11 +1,10 @@
 package cn.chengzhiya.mhdftools.manager.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
-import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandMap;
@@ -29,13 +28,13 @@ public final class CommandManager {
      */
     @SneakyThrows
     public void init() {
-        Reflections reflections = new Reflections(AbstractCommand.class.getPackageName());
+        Reflections reflections = new Reflections(Command.class.getPackageName());
 
-        for (Class<? extends AbstractCommand> clazz : reflections.getSubTypesOf(AbstractCommand.class)) {
+        for (Class<? extends Command> clazz : reflections.getSubTypesOf(Command.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                Constructor<? extends AbstractCommand> constructor = clazz.getConstructor();
+                Constructor<? extends Command> constructor = clazz.getConstructor();
                 constructor.setAccessible(true);
-                AbstractCommand command = constructor.newInstance();
+                Command command = constructor.newInstance();
 
                 if (command.isEnable()) {
                     this.registerCommand(command);
@@ -52,7 +51,7 @@ public final class CommandManager {
      *
      * @param abstractCommand 命令实例
      */
-    private void registerCommand(AbstractCommand abstractCommand) throws Exception {
+    private void registerCommand(Command abstractCommand) throws Exception {
         Constructor<PluginCommand> commandConstructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
         commandConstructor.setAccessible(true);
         if (abstractCommand.getCommands().length == 0) {
@@ -80,8 +79,8 @@ public final class CommandManager {
         try {
             commandMap = Main.instance.getServer().getCommandMap();
         } catch (NoSuchMethodError e) {
-            commandMap = ReflectionUtil.getFieldValue(
-                    ReflectionUtil.getField(
+            commandMap = Main.instance.getReflectionManager().getFieldValue(
+                    Main.instance.getReflectionManager().getField(
                             Main.instance.getServer().getClass(),
                             "commandMap",
                             true

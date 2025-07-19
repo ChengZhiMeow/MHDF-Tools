@@ -1,7 +1,8 @@
 package cn.chengzhiya.mhdftools.menu.feature.vanish;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
@@ -15,7 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-public final class ChestMenu extends AbstractMenu {
+@Getter
+public final class ChestMenu extends Menu {
     private final Chest chest;
 
     public ChestMenu(Player player, Chest chest) {
@@ -40,20 +42,20 @@ public final class ChestMenu extends AbstractMenu {
 
     @Override
     public void click(InventoryClickEvent event) {
-        saveInventory(event.getInventory());
+        this.saveInventory(event.getInventory());
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        saveInventory(event.getInventory());
+        this.saveInventory(event.getInventory());
     }
 
     private void saveInventory(Inventory inventory) {
-        if (chest.getInventory().getHolder() instanceof DoubleChest doubleChest) {
+        if (this.getChest().getInventory().getHolder() instanceof DoubleChest doubleChest) {
             Objects.requireNonNull(doubleChest.getLeftSide()).getInventory().setContents(inventory.getContents());
             Objects.requireNonNull(doubleChest.getRightSide()).getInventory().setContents(inventory.getContents());
         } else {
-            chest.getInventory().setContents(inventory.getContents());
+            this.getChest().getInventory().setContents(inventory.getContents());
         }
     }
 }

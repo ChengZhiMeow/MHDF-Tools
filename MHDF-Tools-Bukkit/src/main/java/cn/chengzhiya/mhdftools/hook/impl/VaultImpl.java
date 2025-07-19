@@ -14,7 +14,7 @@ public final class VaultImpl {
 
     public VaultImpl() {
         this.enableEconomy = Main.instance.getConfigManager().getConfigManager().getData().getBoolean("economySettings.enable");
-        if (isEnableEconomy()) {
+        if (this.isEnableEconomy()) {
             this.economyImpl = new EconomyImpl();
         }
 
@@ -25,7 +25,7 @@ public final class VaultImpl {
     }
 
     public void unhook() {
-        if (isEnableEconomy()) {
+        if (this.isEnableEconomy()) {
             this.economyImpl.unhook();
         }
         this.enableEconomy = false;

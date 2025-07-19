@@ -22,7 +22,7 @@ public final class Base64Util {
      * @return base64字符串
      */
     public static String encode(String string) {
-        return encode(string.getBytes(StandardCharsets.UTF_8));
+        return Base64Util.encode(string.getBytes(StandardCharsets.UTF_8));
     }
 
     /**
@@ -42,6 +42,6 @@ public final class Base64Util {
      * @return 原文本
      */
     public static byte[] decode(String string) {
-        return decode(string.getBytes(StandardCharsets.UTF_8));
+        return Base64Util.decode(string.getBytes(StandardCharsets.UTF_8));
     }
 }

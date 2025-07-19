@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.manager.redis;
 
-import cn.chengzhiya.mhdftools.redismessagelistener.AbstractRedisMessageListener;
+import cn.chengzhiya.mhdftools.redismessagelistener.RedisMessageListener;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -26,13 +26,13 @@ public final class RedisMessageManager {
      */
     @SneakyThrows
     private void registerListener() {
-        Reflections reflections = new Reflections(AbstractRedisMessageListener.class.getPackageName());
+        Reflections reflections = new Reflections(RedisMessageListener.class.getPackageName());
 
-        for (Class<? extends AbstractRedisMessageListener> clazz : reflections.getSubTypesOf(AbstractRedisMessageListener.class)) {
+        for (Class<? extends RedisMessageListener> clazz : reflections.getSubTypesOf(RedisMessageListener.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                Constructor<? extends AbstractRedisMessageListener> constructor = clazz.getConstructor();
+                Constructor<? extends RedisMessageListener> constructor = clazz.getConstructor();
                 constructor.setAccessible(true);
-                AbstractRedisMessageListener listener = constructor.newInstance();
+                RedisMessageListener listener = constructor.newInstance();
 
                 if (listener.isEnable()) {
                     this.redisPubSubConnection.async().subscribe(this.getPrefix() + listener.getChanel());

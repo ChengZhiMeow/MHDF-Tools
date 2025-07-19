@@ -34,7 +34,7 @@ public final class ListUtil {
      * @return 总内存数(单位 MB)
      */
     public static long getTotalMemory() {
-        return getRuntime().totalMemory() / 1048576L;
+        return ListUtil.getRuntime().totalMemory() / 1048576L;
     }
 
     /**
@@ -43,7 +43,7 @@ public final class ListUtil {
      * @return 总空闲内存(单位 MB)
      */
     public static long getFreeMemory() {
-        return getRuntime().freeMemory() / 1048576L;
+        return ListUtil.getRuntime().freeMemory() / 1048576L;
     }
 
     /**
@@ -52,6 +52,6 @@ public final class ListUtil {
      * @return 总占用内存(单位 MB)
      */
     public static long getUsedMemory() {
-        return getTotalMemory() - getFreeMemory();
+        return ListUtil.getTotalMemory() - ListUtil.getFreeMemory();
     }
 }

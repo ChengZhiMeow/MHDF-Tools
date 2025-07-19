@@ -25,7 +25,7 @@ public final class BossBarUtil {
      * @return boss血条实例
      */
     public static BossBar getBossBar(String title, BossBar.Color color) {
-        return getBossBar(title, color, BossBar.Overlay.PROGRESS);
+        return BossBarUtil.getBossBar(title, color, BossBar.Overlay.PROGRESS);
     }
 
     /**
@@ -35,6 +35,6 @@ public final class BossBarUtil {
      * @return boss血条实例
      */
     public static BossBar getBossBar(String title) {
-        return getBossBar(title, BossBar.Color.YELLOW, BossBar.Overlay.PROGRESS);
+        return BossBarUtil.getBossBar(title, BossBar.Color.YELLOW, BossBar.Overlay.PROGRESS);
     }
 }

@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.util.world;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
@@ -28,8 +27,8 @@ public final class BiomeUtil {
                     ));
         }
 
-        return ReflectionUtil.invokeMethod(
-                ReflectionUtil.getMethod(Biome.class, "valueOf", true, String.class),
+        return Main.instance.getReflectionManager().invokeMethod(
+                Main.instance.getReflectionManager().getMethod(Biome.class, "valueOf", true, String.class),
                 Biome.class,
                 key
         );

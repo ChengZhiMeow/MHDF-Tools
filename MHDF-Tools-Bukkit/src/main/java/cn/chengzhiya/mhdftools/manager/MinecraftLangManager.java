@@ -29,7 +29,7 @@ public final class MinecraftLangManager {
      * @return 物品名称
      */
     public String getItemName(ItemStack item) {
-        return getLangAPI().getLangManager().getItemName(item);
+        return this.getLangAPI().getLangManager().getItemName(item);
     }
 
     /**
@@ -39,6 +39,6 @@ public final class MinecraftLangManager {
      * @return 群系名称
      */
     public String getBiomeName(Biome biome) {
-        return getLangAPI().getLangManager().getBiomeName(biome);
+        return this.getLangAPI().getLangManager().getBiomeName(biome);
     }
 }

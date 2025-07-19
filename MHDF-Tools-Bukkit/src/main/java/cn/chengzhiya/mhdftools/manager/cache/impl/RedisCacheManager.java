@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.manager.cache.impl;
 
 import cn.chengzhiya.mhdftools.entity.config.CacheConfig;
-import cn.chengzhiya.mhdftools.manager.cache.AbstractCacheManager;
+import cn.chengzhiya.mhdftools.manager.cache.CacheManager;
 import cn.chengzhiya.mhdftools.manager.redis.RedisClient;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-public final class RedisCacheManager extends AbstractCacheManager {
+public final class RedisCacheManager extends CacheManager {
     private RedisClient redisClient;
 
     public RedisCacheManager(CacheConfig cacheConfig) {

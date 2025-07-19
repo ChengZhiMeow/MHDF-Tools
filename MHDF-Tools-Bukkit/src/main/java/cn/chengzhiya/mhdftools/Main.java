@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools;
 
+import cn.chengzhiya.mhdfreflection.manager.ReflectionManager;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIImpl;
 import cn.chengzhiya.mhdftools.manager.*;
@@ -23,6 +24,7 @@ public final class Main extends JavaPlugin {
 
     private LibrariesManager librariesManager;
     private MHDFYaml yamlManager;
+    private ReflectionManager reflectionManager;
     private ConfigMainManager configManager;
     private MinecraftLangManager minecraftLangManager;
 
@@ -44,6 +46,7 @@ public final class Main extends JavaPlugin {
         instance = this;
 
         this.yamlManager = new MHDFYaml(this);
+        this.reflectionManager = new ReflectionManager();
 
         this.configManager = new ConfigMainManager();
         this.configManager.init();
@@ -67,7 +70,7 @@ public final class Main extends JavaPlugin {
         this.databaseManager.connect();
         this.databaseManager.initTable();
 
-        this.cacheManager = new MHDFCacheManager();
+        this.cacheManager = new MHDFCacheManager().getCacheManager();
         this.cacheManager.init();
 
         this.pluginHookManager = new PluginHookManager();

@@ -4,7 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class SetWarp extends AbstractCommand {
+final class SetWarp extends Command {
     public SetWarp() {
         super(
                 List.of("warpSettings.enable"),

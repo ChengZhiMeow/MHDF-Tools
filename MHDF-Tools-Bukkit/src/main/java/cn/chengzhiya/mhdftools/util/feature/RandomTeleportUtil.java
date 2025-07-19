@@ -105,21 +105,21 @@ public final class RandomTeleportUtil {
      * 无指定群系传送
      */
     public static CompletableFuture<RandomTeleportStatus> randomTeleport(Player player, World world, int times) {
-        return randomTeleport(player, world, null, times);
+        return RandomTeleportUtil.randomTeleport(player, world, null, times);
     }
 
     /**
      * 使用配置次数自动尝试
      */
     public static CompletableFuture<RandomTeleportStatus> randomTeleport(Player player, World world) {
-        return randomTeleport(player, world, Main.instance.getConfigManager().getConfigManager().getData().getInt("randomTeleportSettings.maxTryTime"));
+        return RandomTeleportUtil.randomTeleport(player, world, Main.instance.getConfigManager().getConfigManager().getData().getInt("randomTeleportSettings.maxTryTime"));
     }
 
     /**
      * 当前世界传送
      */
     public static CompletableFuture<RandomTeleportStatus> randomTeleport(Player player) {
-        return randomTeleport(player, player.getWorld());
+        return RandomTeleportUtil.randomTeleport(player, player.getWorld());
     }
 
     /**
@@ -143,7 +143,7 @@ public final class RandomTeleportUtil {
             return;
         }
 
-        randomTeleport(player, world, biome, maxTryTime).thenAccept(status -> {
+        RandomTeleportUtil.randomTeleport(player, world, biome, maxTryTime).thenAccept(status -> {
             long duration = System.currentTimeMillis() - startTime;
 
             switch (status) {

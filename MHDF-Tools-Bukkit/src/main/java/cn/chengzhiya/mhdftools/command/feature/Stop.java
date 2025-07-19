@@ -3,7 +3,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdfscheduler.runnable.MHDFRunnable;
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Getter
 @Setter
-final class Stop extends AbstractCommand {
+final class Stop extends Command {
     private boolean stop = false;
     private Integer time = null;
     private TextComponent message = null;
@@ -67,7 +67,7 @@ final class Stop extends AbstractCommand {
                         return;
                     }
 
-                    confirmStop();
+                    this.confirmStop();
                     return;
                 }
                 case "cancel" -> {
@@ -79,33 +79,33 @@ final class Stop extends AbstractCommand {
                         return;
                     }
 
-                    if (!isStop()) {
+                    if (!this.isStop()) {
                         ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.stop.subCommands.cancel.noStop"));
                         return;
                     }
 
-                    setStop(false);
+                    this.setStop(false);
                     ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.stop.subCommands.cancel.message"));
                     return;
                 }
             }
         }
 
-        if (isStop()) {
+        if (this.isStop()) {
             ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.stop.subCommands.default.inStop"));
             return;
         }
 
         try {
-            int defaultTime = Main.instance.getConfigManager().getConfigManager().getData().getInt("stopSettings.defaultCountdown");
-            setTime(args.length >= 1 ? Integer.parseInt(args[0]) : defaultTime);
+            int defaultTime = Main.instance.getConfigManager().getConfigManager().getData().getInt("stopSettings.countdown.default");
+            this.setTime(args.length >= 1 ? Integer.parseInt(args[0]) : defaultTime);
         } catch (NumberFormatException e) {
             sender.sendMessage(Main.instance.getConfigManager().getLangManager().i18n("commands.stop.timeFormatError"));
             return;
         }
 
         TextComponent defaultMessage = Main.instance.getConfigManager().getLangManager().i18n("commands.stop.defaultMessage");
-        setMessage(args.length >= 2 ? ColorUtil.color(args[1]) : defaultMessage);
+        this.setMessage(args.length >= 2 ? ColorUtil.color(args[1]) : defaultMessage);
 
         if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("stopSettings.confirm")) {
             ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.stop.subCommands.default.message")
@@ -114,7 +114,7 @@ final class Stop extends AbstractCommand {
             );
             return;
         }
-        confirmStop();
+        this.confirmStop();
     }
 
     @Override
@@ -129,11 +129,11 @@ final class Stop extends AbstractCommand {
      * 确认关服
      */
     private void confirmStop() {
-        setStop(true);
-        startStopRunnable(getTime(), getMessage());
+        this.setStop(true);
+        this.startStopRunnable(getTime(), getMessage());
 
-        setTime(null);
-        setMessage(null);
+        this.setTime(null);
+        this.setMessage(null);
     }
 
     /**
@@ -154,15 +154,17 @@ final class Stop extends AbstractCommand {
                 }
 
                 if (countdown <= 0) {
-                    setStop(false);
-                    stopServer(message);
+                    Stop.this.setStop(false);
+                    Stop.this.stopServer(message);
                     this.cancel();
                     return;
                 }
 
-                ActionUtil.broadcastMessage(Main.instance.getConfigManager().getLangManager().i18n("commands.stop.countdownMessage")
-                        .replace("{countdown}", String.valueOf(countdown))
-                );
+                if (Main.instance.getConfigManager().getConfigManager().getData().getIntegerList("stopSettings.countdown.messageTime").contains(countdown)) {
+                    ActionUtil.broadcastMessage(Main.instance.getConfigManager().getLangManager().i18n("commands.stop.countdownMessage")
+                            .replace("{countdown}", String.valueOf(countdown))
+                    );
+                }
                 countdown--;
             }
         }.runTaskTimerAsynchronously(Main.instance, 0L, 20L);

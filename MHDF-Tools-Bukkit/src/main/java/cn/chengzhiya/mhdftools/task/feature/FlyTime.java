@@ -3,7 +3,7 @@ package cn.chengzhiya.mhdftools.task.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
-import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.task.Task;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @SuppressWarnings("unused")
-final class FlyTime extends AbstractTask {
+final class FlyTime extends Task {
     public FlyTime() {
         super(
                 List.of("flySettings.enable"),

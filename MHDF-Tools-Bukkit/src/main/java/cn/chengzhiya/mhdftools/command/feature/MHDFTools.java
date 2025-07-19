@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.command.Command;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class MHDFTools extends AbstractCommand {
+final class MHDFTools extends Command {
     public MHDFTools() {
         super(
                 "梦之工具主命令",

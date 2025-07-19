@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 @Getter
-public final class MythicMobsHook extends AbstractHook {
+public final class MythicMobsHook extends Hook {
     private MythicMobsImpl api;
 
     @Override
@@ -31,8 +31,8 @@ public final class MythicMobsHook extends AbstractHook {
      * @return 物品实例
      */
     public ItemStack getItem(String id) {
-        if (isEnable()) {
-            return getApi().getItem(id);
+        if (super.isEnable()) {
+            return this.getApi().getItem(id);
         }
         return new ItemStack(Material.AIR);
     }
@@ -44,8 +44,8 @@ public final class MythicMobsHook extends AbstractHook {
      * @return 物品ID
      */
     public String getItemId(ItemStack itemStack) {
-        if (isEnable()) {
-            return getApi().getItemId(itemStack);
+        if (super.isEnable()) {
+            return this.getApi().getItemId(itemStack);
         }
         return null;
     }

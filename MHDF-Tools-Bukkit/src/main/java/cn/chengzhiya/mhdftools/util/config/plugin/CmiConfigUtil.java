@@ -39,7 +39,7 @@ public final class CmiConfigUtil {
      */
     public static YamlConfiguration getConfig() {
         if (config == null) {
-            reloadConfig();
+            CmiConfigUtil.reloadConfig();
         }
 
         return config;
@@ -52,7 +52,7 @@ public final class CmiConfigUtil {
      */
     public static YamlConfiguration getDatabaseInfoConfig() {
         if (config == null) {
-            reloadConfig();
+            CmiConfigUtil.reloadConfig();
         }
 
         return databaseInfo;
@@ -65,7 +65,7 @@ public final class CmiConfigUtil {
      */
     public static YamlConfiguration getWarpConfig() {
         if (warp == null) {
-            reloadConfig();
+            CmiConfigUtil.reloadConfig();
         }
 
         return warp;

@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 
 @Getter
 @SuppressWarnings({"UnstableApiUsage", "deprecation"})
-public final class PacketEventsHook extends AbstractHook {
+public final class PacketEventsHook extends Hook {
     private ServerVersion serverVersion;
 
     /**
@@ -41,7 +41,7 @@ public final class PacketEventsHook extends AbstractHook {
                 User user = new User(
                         channel,
                         ConnectionState.PLAY,
-                        getServerVersion().toClientVersion(),
+                        this.getServerVersion().toClientVersion(),
                         new UserProfile(player.getUniqueId(), player.getName())
                 );
                 PacketEvents.getAPI().getProtocolManager().setUser(channel, user);
@@ -68,7 +68,7 @@ public final class PacketEventsHook extends AbstractHook {
      * @param packet 发送的数据包
      */
     public void sendPacket(User user, PacketWrapper<?> packet) {
-        if (isEnable()) {
+        if (super.isEnable()) {
             user.sendPacket(packet);
         }
     }
@@ -80,7 +80,7 @@ public final class PacketEventsHook extends AbstractHook {
      * @param packet 发送的数据包
      */
     public void sendPacket(Player player, PacketWrapper<?> packet) {
-        if (isEnable()) {
+        if (super.isEnable()) {
             PacketEvents.getAPI().getPlayerManager().sendPacket(player, packet);
         }
     }

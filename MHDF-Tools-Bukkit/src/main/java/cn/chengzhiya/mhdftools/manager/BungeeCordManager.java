@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.entity.location.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.manager.cache.MHDFCacheManager;
 import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -30,8 +29,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static org.bukkit.Bukkit.getServer;
-
 @Getter
 public final class BungeeCordManager {
     private final PluginMessageListener messageListener = new PluginMessage();
@@ -44,9 +41,9 @@ public final class BungeeCordManager {
      * 初始化群组模式
      */
     public void init() {
-        if (isBungeeCordMode()) {
-            getServer().getMessenger().registerOutgoingPluginChannel(Main.instance, "BungeeCord");
-            getServer().getMessenger().registerIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
+        if (this.isBungeeCordMode()) {
+            Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(Main.instance, "BungeeCord");
+            Bukkit.getServer().getMessenger().registerIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
         }
     }
 
@@ -54,9 +51,9 @@ public final class BungeeCordManager {
      * 关闭群组模式
      */
     public void close() {
-        if (isBungeeCordMode()) {
-            getServer().getMessenger().unregisterOutgoingPluginChannel(Main.instance, "BungeeCord");
-            getServer().getMessenger().unregisterIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
+        if (this.isBungeeCordMode()) {
+            Bukkit.getServer().getMessenger().unregisterOutgoingPluginChannel(Main.instance, "BungeeCord");
+            Bukkit.getServer().getMessenger().unregisterIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
         }
     }
 
@@ -75,7 +72,7 @@ public final class BungeeCordManager {
      * @param out 消息数据实例
      */
     private void sendPluginMessage(ByteArrayDataOutput out) {
-        if (!isBungeeCordMode()) {
+        if (!this.isBungeeCordMode()) {
             LogUtil.debug("发送插件消息失败 | 原因: {}",
                     "未开启群组模式"
             );
@@ -111,7 +108,7 @@ public final class BungeeCordManager {
         out.writeUTF("mhdf_tools");
         out.writeUTF(data.toJSONString());
 
-        sendPluginMessage(out);
+        this.sendPluginMessage(out);
     }
 
     /**
@@ -126,7 +123,7 @@ public final class BungeeCordManager {
         out.writeUTF(playerName);
         out.writeUTF(serverName);
 
-        sendPluginMessage(out);
+        this.sendPluginMessage(out);
     }
 
     /**
@@ -136,7 +133,7 @@ public final class BungeeCordManager {
      * @param serverName 服务器ID
      */
     public void connectServer(OfflinePlayer player, String serverName) {
-        connectServer(player.getName(), serverName);
+        this.connectServer(player.getName(), serverName);
     }
 
     /**
@@ -163,7 +160,7 @@ public final class BungeeCordManager {
 
         data.put("params", params);
 
-        sendMhdfToolsPluginMessage(data);
+        this.sendMhdfToolsPluginMessage(data);
     }
 
     /**
@@ -173,7 +170,7 @@ public final class BungeeCordManager {
      * @param targetName 传送到的玩家ID
      */
     public void teleportPlayer(OfflinePlayer player, String targetName) {
-        teleportPlayer(player.getName(), targetName);
+        this.teleportPlayer(player.getName(), targetName);
     }
 
     /**
@@ -183,7 +180,7 @@ public final class BungeeCordManager {
      * @param target     传送到的玩家实例
      */
     public void teleportPlayer(String playerName, OfflinePlayer target) {
-        teleportPlayer(playerName, target.getName());
+        this.teleportPlayer(playerName, target.getName());
     }
 
     /**
@@ -193,7 +190,7 @@ public final class BungeeCordManager {
      * @param target 传送到的玩家实例
      */
     public void teleportPlayer(OfflinePlayer player, OfflinePlayer target) {
-        teleportPlayer(player, target.getName());
+        this.teleportPlayer(player, target.getName());
     }
 
     /**
@@ -203,7 +200,7 @@ public final class BungeeCordManager {
      * @param bungeeCordLocation 群组位置实例
      */
     public void teleportLocation(String playerName, BungeeCordLocation bungeeCordLocation) {
-        if (!isBungeeCordMode() || bungeeCordLocation.getServer().equals(getServerName())) {
+        if (!this.isBungeeCordMode() || bungeeCordLocation.getServer().equals(this.getServerName())) {
             Player player = Bukkit.getPlayer(playerName);
             if (player == null) {
                 return;
@@ -214,7 +211,7 @@ public final class BungeeCordManager {
         }
         Main.instance.getCacheManager().put("tpLocation", playerName, bungeeCordLocation.toString());
 
-        connectServer(playerName, bungeeCordLocation.getServer());
+        this.connectServer(playerName, bungeeCordLocation.getServer());
     }
 
     /**
@@ -234,12 +231,12 @@ public final class BungeeCordManager {
      * @param message    消息文本
      */
     public void sendMessage(String playerName, String message) {
-        if (!isBungeeCordMode() && playerName.equals("all")) {
+        if (!this.isBungeeCordMode() && playerName.equals("all")) {
             ActionUtil.broadcastMessage(message);
             return;
         }
 
-        if (!isBungeeCordMode() && playerName.equals("console")) {
+        if (!this.isBungeeCordMode() && playerName.equals("console")) {
             LogUtil.log(message);
             return;
         }
@@ -254,7 +251,7 @@ public final class BungeeCordManager {
         data.put("playerName", playerName);
         data.put("message", message);
 
-        ((RedisCacheManager) ((MHDFCacheManager) Main.instance.getCacheManager()).getCacheManager())
+        ((RedisCacheManager) Main.instance.getCacheManager())
                 .getRedisClient()
                 .getRedisMessageManager()
                 .sendRedisMessage("sendMessage", data.toJSONString());
@@ -267,7 +264,7 @@ public final class BungeeCordManager {
      * @param message    文本实例
      */
     public void sendMessage(String playerName, TextComponent message) {
-        sendMessage(playerName, message.toMiniMessageString());
+        this.sendMessage(playerName, message.toMiniMessageString());
     }
 
     /**
@@ -277,7 +274,7 @@ public final class BungeeCordManager {
      * @param message 消息文本
      */
     public void sendMessage(OfflinePlayer player, String message) {
-        sendMessage(player.getName(), message);
+        this.sendMessage(player.getName(), message);
     }
 
     /**
@@ -287,7 +284,7 @@ public final class BungeeCordManager {
      * @param message 文本实例
      */
     public void sendMessage(OfflinePlayer player, TextComponent message) {
-        sendMessage(player, message.toMiniMessageString());
+        this.sendMessage(player, message.toMiniMessageString());
     }
 
     /**
@@ -296,7 +293,7 @@ public final class BungeeCordManager {
      * @param message 消息文本
      */
     public void broadcastMessage(String message) {
-        sendMessage("all", message);
+        this.sendMessage("all", message);
     }
 
     /**
@@ -327,7 +324,7 @@ public final class BungeeCordManager {
      * @param gameMode 游戏模式实例
      */
     public void setGameMode(OfflinePlayer player, GameMode gameMode) {
-        setGameMode(player.getName(), gameMode);
+        this.setGameMode(player.getName(), gameMode);
     }
 
     /**
@@ -336,7 +333,7 @@ public final class BungeeCordManager {
      * @param atList 玩家列表
      */
     public void atList(Set<String> atList, String by) {
-        if (!isBungeeCordMode()) {
+        if (!this.isBungeeCordMode()) {
             AtUtil.atList(atList, by);
             return;
         }
@@ -345,7 +342,7 @@ public final class BungeeCordManager {
         data.put("atList", atList);
         data.put("by", by);
 
-        ((RedisCacheManager) ((MHDFCacheManager) Main.instance.getCacheManager()).getCacheManager())
+        ((RedisCacheManager) Main.instance.getCacheManager())
                 .getRedisClient()
                 .getRedisMessageManager()
                 .sendRedisMessage("atList", data.toJSONString());
@@ -359,7 +356,7 @@ public final class BungeeCordManager {
         out.writeUTF("PlayerList");
         out.writeUTF("ALL");
 
-        sendPluginMessage(out);
+        this.sendPluginMessage(out);
     }
 
     /**
@@ -368,8 +365,8 @@ public final class BungeeCordManager {
      * @return 在线玩家列表
      */
     public List<String> getPlayerList() {
-        if (isBungeeCordMode()) {
-            return new ArrayList<>(getBungeeCordPlayerList());
+        if (this.isBungeeCordMode()) {
+            return new ArrayList<>(this.getBungeeCordPlayerList());
         }
 
         return new ArrayList<>(getBukkitPlayerList());
@@ -394,7 +391,7 @@ public final class BungeeCordManager {
         data.put("action", "serverInfo");
         data.put("to", "me");
 
-        sendMhdfToolsPluginMessage(data);
+        this.sendMhdfToolsPluginMessage(data);
     }
 
     /**
@@ -404,7 +401,7 @@ public final class BungeeCordManager {
      * @return 结果
      */
     public boolean ifPlayerOnline(String name) {
-        return getPlayerList().contains(name);
+        return this.getPlayerList().contains(name);
     }
 
     private static final class PluginMessage implements PluginMessageListener {

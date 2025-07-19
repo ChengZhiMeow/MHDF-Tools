@@ -8,26 +8,11 @@ import com.github.retrooper.packetevents.util.Vector3f;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerExplosion;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerParticle;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerPositionAndLook;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowConfirmation;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
 
 public final class CrashUtil {
-    /**
-     * 给指定玩家实例发送确认数据包
-     *
-     * @param player 玩家实例
-     */
-    private static void sendConfirmPacket(Player player) {
-        Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                new WrapperPlayServerWindowConfirmation(
-                        Float.MAX_EXPONENT,
-                        Short.MAX_VALUE,
-                        false)
-        );
-    }
-
     /**
      * 崩溃指定玩家实例的客户端
      *
@@ -37,41 +22,29 @@ public final class CrashUtil {
      */
     public static boolean crashPlayerClient(Player player, String crashType) {
         switch (crashType) {
-            case "explosion" -> {
-                Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                        new WrapperPlayServerExplosion(
-                                new Vector3d(generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition()),
-                                generateInvalidLook(),
-                                Collections.emptyList(),
-                                new Vector3f(generateInvalidLook(), generateInvalidLook(), generateInvalidLook())
-                        )
-                );
-
-                sendConfirmPacket(player);
-            }
-            case "invalidTeleport" -> {
-                Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                        new WrapperPlayServerPlayerPositionAndLook(
-                                generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition(),
-                                generateInvalidLook(), generateInvalidLook(),
-                                generateFlags(), generateTeleportID(), false
-                        )
-                );
-
-                sendConfirmPacket(player);
-            }
-            case "invalidParticle" -> {
-                Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                        new WrapperPlayServerParticle(
-                                new Particle<>(ParticleTypes.DRAGON_BREATH), true,
-                                new Vector3d(generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition()),
-                                new Vector3f(generateInvalidLook(), generateInvalidLook(), generateInvalidLook()),
-                                generateInvalidLook(), generateTeleportID()
-                        )
-                );
-
-                sendConfirmPacket(player);
-            }
+            case "explosion" -> Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
+                    new WrapperPlayServerExplosion(
+                            new Vector3d(CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition()),
+                            CrashUtil.generateInvalidLook(),
+                            Collections.emptyList(),
+                            new Vector3f(CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook())
+                    )
+            );
+            case "invalidTeleport" -> Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
+                    new WrapperPlayServerPlayerPositionAndLook(
+                            CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(),
+                            CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(),
+                            CrashUtil.generateFlags(), CrashUtil.generateTeleportID(), false
+                    )
+            );
+            case "invalidParticle" -> Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
+                    new WrapperPlayServerParticle(
+                            new Particle<>(ParticleTypes.DRAGON_BREATH), true,
+                            new Vector3d(CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition()),
+                            new Vector3f(CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook()),
+                            CrashUtil.generateInvalidLook(), CrashUtil.generateTeleportID()
+                    )
+            );
             default -> {
                 return false;
             }

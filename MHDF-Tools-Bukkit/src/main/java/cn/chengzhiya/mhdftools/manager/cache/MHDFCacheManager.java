@@ -8,11 +8,9 @@ import cn.chengzhiya.mhdftools.manager.cache.impl.RedisCacheManager;
 import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.Set;
-
 @Getter
-public final class MHDFCacheManager implements CacheManager {
-    private AbstractCacheManager cacheManager;
+public final class MHDFCacheManager {
+    private CacheManager cacheManager;
 
     public MHDFCacheManager() {
         ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("cacheSettings");
@@ -35,40 +33,5 @@ public final class MHDFCacheManager implements CacheManager {
             case "redis" -> new RedisCacheManager(cacheConfig);
             default -> throw new RuntimeException("不兼容的缓存类型");
         };
-    }
-
-    @Override
-    public void init() {
-        this.getCacheManager().init();
-    }
-
-    @Override
-    public String getPrefix() {
-        return this.getCacheManager().getPrefix();
-    }
-
-    @Override
-    public void close() {
-        this.getCacheManager().close();
-    }
-
-    @Override
-    public void put(String table, String key, String value) {
-        this.getCacheManager().put(table, key, value);
-    }
-
-    @Override
-    public void remove(String table, String key) {
-        this.getCacheManager().remove(table, key);
-    }
-
-    @Override
-    public String get(String table, String key) {
-        return this.getCacheManager().get(table, key);
-    }
-
-    @Override
-    public Set<String> keys(String table) {
-        return this.getCacheManager().keys(table);
     }
 }

@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.menu.feature.fastuse;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.menu.Menu;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public final class ShulkerBoxMenu extends AbstractMenu {
+public final class ShulkerBoxMenu extends Menu {
     public ShulkerBoxMenu(Player player) {
         super(
                 List.of("fastUseSettings.enable"),
@@ -55,12 +55,12 @@ public final class ShulkerBoxMenu extends AbstractMenu {
             return;
         }
 
-        updateShulker(getPlayer(), event.getInventory());
+        this.updateShulker(super.getPlayer(), event.getInventory());
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        updateShulker(getPlayer(), event.getInventory());
+        this.updateShulker(super.getPlayer(), event.getInventory());
     }
 
     /**
