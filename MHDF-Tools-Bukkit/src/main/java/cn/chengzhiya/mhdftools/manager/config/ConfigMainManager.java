@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public final class ConfigMainManager {
+    private final LibraryManager libraryManager = new LibraryManager();
     private final ConfigManager configManager = new ConfigManager();
     private final LangManager langManager = new LangManager();
     private final SoundManager soundManager = new SoundManager();
@@ -24,6 +25,7 @@ public final class ConfigMainManager {
      * 保存默认配置文件
      */
     public void saveDefault() {
+        this.getLibraryManager().saveDefaultFile();
         this.getConfigManager().saveDefaultFile();
         this.getLangManager().saveDefaultFile();
         this.getSoundManager().saveDefaultFile();
@@ -36,6 +38,7 @@ public final class ConfigMainManager {
      * 更新配置文件
      */
     public void update() {
+        this.getLibraryManager().update();
         this.getConfigManager().update();
         this.getLangManager().update();
         this.getSoundManager().update();
@@ -46,6 +49,7 @@ public final class ConfigMainManager {
      * 重载配置文件
      */
     public void reload() {
+        this.getLibraryManager().reload();
         this.getConfigManager().reload();
         this.getLangManager().reload();
         this.getSoundManager().reload();

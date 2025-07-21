@@ -1,0 +1,210 @@
+# 本文件用于声明依赖项的版本配置
+# 若无特殊需求，请勿修改此文件
+# 随意修改可能导致插件功能异常
+
+# 配置文件版本号(请勿修改)
+configVersion: "${project.version}"
+
+# 更新插件自动覆盖配置
+update: true
+
+cn:
+  chengzhiya:
+    MHDF-Scheduler:
+      repo: "https://maven.chengzhimeow.cn/releases/"
+      version:
+        default:
+          value: "${env.lib.mhdf.scheduler.version}"
+      relocate:
+        enable: true
+    MHDF-LangUtil:
+      repo: "https://maven.chengzhimeow.cn/releases/"
+      version:
+        default:
+          value: "${env.lib.mhdf.langutil.version}"
+      relocate:
+        enable: true
+    MHDF-Database-API: &mhdf_database_config
+      repo: "https://maven.chengzhimeow.cn/releases/"
+      version:
+        default:
+          value: "${env.lib.mhdf.database.version}"
+      relocate:
+        enable: true
+    MHDF-Database-MySQL: *mhdf_database_config
+    MHDF-Database-H2: *mhdf_database_config
+
+com:
+  alibaba:
+    fastjson2:
+      fastjson2:
+        repo: "https://repo.huaweicloud.com/repository/maven/"
+        version:
+          default:
+            value: "${env.lib.fastjson.version}"
+        relocate:
+          enable: true
+  github:
+    retrooper:
+      packetevents-api: &packetevents_config
+        repo: "https://repo.codemc.io/repository/maven-public/"
+        version:
+          default:
+            value: "${env.lib.packetevents.version}"
+          1215:
+            type: "=="
+            value: "2.9.0"
+          1214:
+            type: "<="
+            value: "2.8.0"
+        relocate:
+          enable: true
+          relocator:
+            - "io.github.retrooper"
+      packetevents-netty-common: *packetevents_config
+      packetevents-spigot: *packetevents_config
+  j256:
+    ormlite:
+      ormlite-core: &ormlite_config
+        repo: "https://repo.huaweicloud.com/repository/maven/"
+        version:
+          default:
+            value: "6.1"
+        relocate:
+          enable: true
+      ormlite-jdbc: *ormlite_config
+  zaxxer:
+    HikariCP:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "6.1.0"
+      relocate:
+        enable: true
+  mysql:
+    mysql-connector-j:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "9.1.0"
+      relocate:
+        enable: true
+  h2database:
+    h2:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "2.3.232"
+      relocate:
+        enable: true
+        relocator:
+          - "org.h2"
+
+org:
+  reflections:
+    reflections:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "${env.lib.reflections.version}"
+      relocate:
+        enable: true
+  javassist:
+    javassist:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "3.28.0-GA"
+      relocate:
+        enable: true
+        relocator:
+          - "javassist"
+  reactivestreams:
+    reactive-streams:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "1.0.4"
+      relocate:
+        enable: true
+
+io:
+  lettuce:
+    lettuce-core:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "${env.lib.lettuce.version}"
+      relocate:
+        enable: true
+  projectreactor:
+    reactor-core:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "3.6.6"
+      relocate:
+        enable: true
+        relocator:
+          - "reactor"
+
+net:
+  objecthunter:
+    exp4j:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "${env.lib.exp4j.version}"
+      relocate:
+        enable: true
+  kyori:
+    adventure-platform-api: &adventure_platform_config
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      version:
+        default:
+          value: "${env.lib.adventure.platform.version}"
+      relocate:
+        enable: true
+        relocatableGroupId: false
+        relocator:
+          - "net.kyori.adventure.platform"
+    adventure-platform-bukkit: *adventure_platform_config
+    adventure-platform-viaversion: *adventure_platform_config
+    adventure-platform-facet: *adventure_platform_config
+    adventure-api: &adventure_config
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      adventureIgnore: true
+      version:
+        default:
+          value: "${env.lib.adventure.version}"
+    adventure-key: *adventure_config
+    adventure-nbt: *adventure_config
+    adventure-text-logger-slf4j: *adventure_config
+    adventure-text-minimessage: *adventure_config
+    adventure-text-serializer-plain: *adventure_config
+    adventure-text-serializer-ansi: *adventure_config
+    adventure-text-serializer-gson: *adventure_config
+    adventure-text-serializer-json: *adventure_config
+    adventure-text-serializer-legacy: *adventure_config
+    adventure-text-serializer-bungeecord: *adventure_config
+    adventure-text-serializer-gson-legacy-impl: *adventure_config
+    adventure-text-serializer-json-legacy-impl: *adventure_config
+    adventure-ansi:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      adventureIgnore: true
+      version:
+        default:
+          value: "1.0.3"
+    examination-api: &examination_config
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      adventureIgnore: true
+      version:
+        default:
+          value: "1.3.0"
+    examination-string: *examination_config
+    option:
+      repo: "https://repo.huaweicloud.com/repository/maven/"
+      adventureIgnore: true
+      version:
+        default:
+          value: "1.1.0"

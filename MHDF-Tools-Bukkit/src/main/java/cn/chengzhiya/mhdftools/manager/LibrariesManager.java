@@ -8,6 +8,8 @@ import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
@@ -28,351 +30,63 @@ public final class LibrariesManager {
         );
         mhdfLibrary.getHttpManager().setProxy(Main.instance.getConfigManager().getProxyManager().getProxy());
 
-        // 依赖
+        int currentVersion = Integer.parseInt(Bukkit.getMinecraftVersion().replace(".", ""));
         {
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("cn{}chengzhiya"),
-                    "MHDF-Scheduler",
-                    "1.0.1",
-                    chengzhiMeow,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("cn{}chengzhiya"),
-                    "MHDF-LangUtil",
-                    "1.3.1",
-                    chengzhiMeow,
-                    new RelocateConfig(true)
-            ));
+            YamlConfiguration config = Main.instance.getConfigManager().getLibraryManager().getData();
+            for (String key : config.getKeys(true)) {
+                ConfigurationSection section = config.getConfigurationSection(key);
+                if (section == null) continue;
 
-            // JSON处理
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}alibaba{}fastjson2"),
-                    "fastjson2",
-                    "2.0.57",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
+                String repo = section.getString("repo");
+                boolean adventureIgnore = section.getBoolean("adventureIgnore");
+                ConfigurationSection versionConfig = section.getConfigurationSection("version");
+                ConfigurationSection relocateConfig = section.getConfigurationSection("relocate");
+                if (repo == null || versionConfig == null) continue;
 
-            // 反射处理
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("org{}reflections"),
-                    "reflections",
-                    "0.10.2",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
+                int lastDot = key.lastIndexOf('.');
+                String group = key.substring(0, lastDot);
+                String artifact = key.substring(lastDot + 1);
 
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("org{}javassist"),
-                    "javassist",
-                    "3.28.0-GA",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true, true,
-                            "javassist"
-                    )
-            ));
+                String version = versionConfig.getString("default.value");
+                for (String versionKey : versionConfig.getKeys(false)) {
+                    if (versionKey.equals("default")) continue;
 
-            int version = Integer.parseInt(Bukkit.getMinecraftVersion().replace(".", ""));
-            String packeteventsVersion = "2.8.0";
-            if (version == 1215) {
-                packeteventsVersion = "2.9.0";
-            } else if (version >= 1216) {
-                packeteventsVersion = "2.9.1";
+                    ConfigurationSection versionSection = versionConfig.getConfigurationSection(versionKey);
+                    if (versionSection == null) continue;
+
+                    int targetVersion = Integer.parseInt(versionKey);
+                    String type = section.getString("type");
+                    String value = section.getString("value");
+                    if (type == null || value == null) continue;
+
+                    boolean result = switch (type) {
+                        case "<" -> targetVersion < currentVersion;
+                        case "<=" -> targetVersion <= currentVersion;
+                        case "==" -> targetVersion == currentVersion;
+                        case ">=" -> targetVersion >= currentVersion;
+                        case ">" -> targetVersion > currentVersion;
+                        default -> false;
+                    };
+
+                    if (result) {
+                        version = value;
+                        break;
+                    }
+                }
+
+                mhdfLibrary.addDependencyConfig(new DependencyConfig(
+                        group,
+                        artifact,
+                        version,
+                        new RepositoryConfig(repo),
+                        !(PluginUtil.isNativeSupportAdventureApi() && section.getBoolean("adventureIgnore")),
+                        relocateConfig != null ? new RelocateConfig(
+                                relocateConfig.getBoolean("enable", false),
+                                relocateConfig.getBoolean("relocatableGroupId", true),
+                                relocateConfig.getStringList("relocator").toArray(String[]::new)
+                        ) : new RelocateConfig(false)
+                ));
             }
-
-            // packetevents-api
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}github{}retrooper"),
-                    "packetevents-api",
-                    packeteventsVersion,
-                    codemc,
-                    new RelocateConfig(true, true,
-                            handleString("io{}github{}retrooper")
-                    )
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}github{}retrooper"),
-                    "packetevents-netty-common",
-                    packeteventsVersion,
-                    codemc,
-                    new RelocateConfig(true, true,
-                            handleString("io{}github{}retrooper")
-                    )
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}github{}retrooper"),
-                    "packetevents-spigot",
-                    packeteventsVersion,
-                    codemc,
-                    new RelocateConfig(true, true,
-                            handleString("io{}github{}retrooper")
-                    )
-            ));
-
-            // 数据库
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("cn{}chengzhiya"),
-                    "MHDF-Database-API",
-                    "1.0.2",
-                    chengzhiMeow,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("cn{}chengzhiya"),
-                    "MHDF-Database-MySQL",
-                    "1.0.2",
-                    chengzhiMeow,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("cn{}chengzhiya"),
-                    "MHDF-Database-H2",
-                    "1.0.2",
-                    chengzhiMeow,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}j256{}ormlite"),
-                    "ormlite-core",
-                    "6.1",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}j256{}ormlite"),
-                    "ormlite-jdbc",
-                    "6.1",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}zaxxer"),
-                    "HikariCP",
-                    "6.1.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}mysql"),
-                    "mysql-connector-j",
-                    "9.1.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("com{}h2database"),
-                    "h2",
-                    "2.3.232",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true, false,
-                            handleString("org{}h2")
-                    )
-            ));
-
-            // redis
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("io{}lettuce"),
-                    "lettuce-core",
-                    "6.5.5.RELEASE",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("io{}projectreactor"),
-                    "reactor-core",
-                    "3.6.6",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true, true,
-                            "reactor"
-                    )
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("org{}reactivestreams"),
-                    "reactive-streams",
-                    "1.0.4",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
-
-            // 数学表达式
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}objecthunter"),
-                    "exp4j",
-                    "0.4.8",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true)
-            ));
-
-            // adventure-api
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-platform-api",
-                    "4.4.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true, false,
-                            handleString("net{}kyori{}adventure{}platform")
-                    )
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-platform-bukkit",
-                    "4.4.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true, false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-bungeecord",
-                    "4.4.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(true, false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-platform-viaversion",
-                    "4.4.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(true, false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-platform-facet",
-                    "4.4.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    new RelocateConfig(true, false)
-            ));
-
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-api",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-key",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-nbt",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-logger-slf4j",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-minimessage",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-ansi",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-gson",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-gson-legacy-impl",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-json",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-json-legacy-impl",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-legacy",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "adventure-text-serializer-plain",
-                    "4.23.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "ansi",
-                    "1.0.3",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "examination-api",
-                    "1.3.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "examination-string",
-                    "1.3.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
-            mhdfLibrary.addDependencyConfig(new DependencyConfig(
-                    handleString("net{}kyori"),
-                    "option",
-                    "1.1.0",
-                    MHDFLibrary.mavenCenterMirror,
-                    !PluginUtil.isNativeSupportAdventureApi(),
-                    new RelocateConfig(false)
-            ));
         }
 
         mhdfLibrary.downloadDependencies();
