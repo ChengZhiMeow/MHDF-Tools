@@ -26,11 +26,11 @@
 
         <!--服务端API-->
         <env.server.bungeecord.api.version>1.21-R0.1-SNAPSHOT</env.server.bungeecord.api.version>
-        <env.server.paper.api.version>1.21.5-R0.1-SNAPSHOT</env.server.paper.api.version>
+        <env.server.paper.api.version>1.21.8-R0.1-SNAPSHOT</env.server.paper.api.version>
         <env.server.velocity.api.version>3.3.0-SNAPSHOT</env.server.velocity.api.version>
 
         <!--adventure-->
-        <env.lib.adventure.version>4.21.0</env.lib.adventure.version>
+        <env.lib.adventure.version>4.23.0</env.lib.adventure.version>
         <env.lib.adventure.platform.version>4.4.0</env.lib.adventure.platform.version>
 
         <!--log4j-->
@@ -52,7 +52,7 @@
         <env.lib.mhdf.database.version>1.0.2</env.lib.mhdf.database.version>
 
         <!--json处理-->
-        <env.lib.fastjson.version>2.0.53</env.lib.fastjson.version>
+        <env.lib.fastjson.version>2.0.57</env.lib.fastjson.version>
 
         <!--反射-->
         <env.lib.reflections.version>0.10.2</env.lib.reflections.version>
