@@ -1,12 +1,16 @@
 name: MHDF-Tools
 version: '${project.version}'
-main: cn.chengzhiya.mhdftools.Main
 api-version: '1.13'
 folia-supported: true
+main: cn.chengzhiya.mhdftools.Main
+
 load: STARTUP
+
 authoendrs: [ ChengZhiMeow ]
 contributors: [ Dg32z_, Loyisa, Sn0wo2, jhqwqmc, sdfsfsk ]
+
 softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]
+
 permissions:
   mhdftools.group.chatformat:
     description: 聊天分组权限
