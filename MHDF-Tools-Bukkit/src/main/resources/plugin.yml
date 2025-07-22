@@ -4,7 +4,8 @@ main: cn.chengzhiya.mhdftools.Main
 api-version: '1.13'
 folia-supported: true
 load: STARTUP
-authoendrs: [ BaiShenYao_Dog, Dg32z_ ]
+authoendrs: [ ChengZhiMeow ]
+contributors: [ Dg32z_, Loyisa, Sn0wo2, jhqwqmc, sdfsfsk ]
 softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]
 permissions:
   mhdftools.group.chatformat:
