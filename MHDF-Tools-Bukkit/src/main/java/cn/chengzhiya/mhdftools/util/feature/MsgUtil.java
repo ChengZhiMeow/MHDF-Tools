@@ -1,10 +1,12 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.regex.Pattern;
 
@@ -32,7 +34,7 @@ public final class MsgUtil {
 
         // 限制使用颜色符号
         if (!sender.hasPermission("mhdftools.chat.color")) {
-            message = ChatColor.stripColor(ColorUtil.legacyColor(message));
+            message = ChatColor.stripColor(ColorUtil.legacy(message));
         }
 
         // 限制使用miniMessage
@@ -56,8 +58,17 @@ public final class MsgUtil {
         Main.instance.getCacheManager().put("chatDelay", sender.getName(), String.valueOf(delay));
         Main.instance.getCacheManager().put("lastChat", sender.getName(), message);
 
+        TextComponent messageComponent = ColorUtil.color(message);
+
         // 替换词
-        message = ChatUtil.applyReplaceWord(sender, message);
+        messageComponent = ChatUtil.applyReplaceWord(sender, messageComponent, message);
+
+        // 展示物品、背包、末影箱
+        if (sender instanceof Player player) {
+            messageComponent = ChatUtil.applyShowItem(player, messageComponent);
+            messageComponent = ChatUtil.applyShowInventory(player, messageComponent);
+            messageComponent = ChatUtil.applyShowEnderChest(player, messageComponent);
+        }
 
         Main.instance.getCacheManager().put("reply", sender.getName(), target);
         Main.instance.getCacheManager().put("reply", target, sender.getName());
