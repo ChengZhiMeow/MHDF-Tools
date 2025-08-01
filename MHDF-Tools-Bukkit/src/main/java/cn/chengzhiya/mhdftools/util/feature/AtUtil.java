@@ -27,36 +27,28 @@ public final class AtUtil {
      */
     public static Set<String> getAtList(Player player, String message) {
         ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.at");
-        if (config == null) {
-            return new HashSet<>();
-        }
+        if (config == null) return new HashSet<>();
 
         Set<String> playerList = new HashSet<>();
 
         // 禁止AT隐身玩家
         List<String> onlinePlayerList = Main.instance.getBungeeCordManager().getPlayerList();
         for (VanishStatus vanishStatus : MHDFToolsAPIHelper.getInstance().getVanishStatusManager().getList()) {
-            if (!vanishStatus.isEnable()) {
-                continue;
-            }
+            if (!vanishStatus.isEnable()) continue;
 
             MHDFToolsPlayer mhdfVanishPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(vanishStatus.getPlayer());
             onlinePlayerList.remove(mhdfVanishPlayer.getName());
         }
 
         for (String playerName : onlinePlayerList) {
-            if (!message.contains(playerName)) {
-                continue;
-            }
+            if (!message.contains(playerName)) continue;
 
             playerList.add(playerName);
         }
 
         if (player.hasPermission("mhdftools.chat.at.all")) {
             for (String allMessage : config.getStringList("allMessage")) {
-                if (!message.contains(allMessage)) {
-                    continue;
-                }
+                if (!message.contains(allMessage)) continue;
 
                 playerList.add(atAll);
                 break;
@@ -73,16 +65,12 @@ public final class AtUtil {
      */
     public static void at(Player player, String by) {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (player == null) {
-            return;
-        }
+        if (player == null) return;
 
         // 屏蔽黑名单列表中的AT
         OfflinePlayer byPlayer = Bukkit.getOfflinePlayer(by);
         MHDFToolsPlayer mhdfByPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(byPlayer);
-        if (mhdfPlayer.isIgnore(mhdfByPlayer)) {
-            return;
-        }
+        if (mhdfPlayer.isIgnore(mhdfByPlayer)) return;
 
         // 发送AT提示
         String title = Main.instance.getConfigManager().getLangManager().getString("chat.at.title")

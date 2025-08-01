@@ -46,9 +46,7 @@ public final class TeleportRequestMenu extends Menu {
         Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
         ConfigurationSection items = this.getConfig().getConfigurationSection("items");
-        if (items == null) {
-            return menu;
-        }
+        if (items == null) return menu;
 
         List<String> playerList = Main.instance.getBungeeCordManager().getPlayerList();
         List<Integer> playerSlotList = MenuUtil.getSlotList(items.getConfigurationSection("玩家"));
@@ -104,27 +102,21 @@ public final class TeleportRequestMenu extends Menu {
     @Override
     public void click(InventoryClickEvent event) {
         ItemStack itemStack = MenuUtil.getClickItem(event);
-        if (itemStack == null) {
-            return;
-        }
+        if (itemStack == null) return;
 
         event.setCancelled(true);
 
         PersistentDataContainerView container = itemStack.getPersistentDataContainer();
 
         String key = container.get(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING);
-        if (key == null) {
-            return;
-        }
+        if (key == null) return;
 
         MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
 
         switch (key) {
             case "玩家" -> {
                 String target = container.get(new NamespacedKey(Main.instance, "target"), PersistentDataType.STRING);
-                if (target == null) {
-                    return;
-                }
+                if (target == null) return;
 
                 switch (getRequestType()) {
                     case TPAHERE -> TpaHereUtil.sendTpaHereRequest(super.getPlayer(), target);
@@ -152,9 +144,7 @@ public final class TeleportRequestMenu extends Menu {
      * @return 处理后的文本
      */
     private String applyTpaDataString(String message, String player, String target) {
-        if (message == null) {
-            return null;
-        }
+        if (message == null) return null;
 
         return message
                 .replace("{player}", player)

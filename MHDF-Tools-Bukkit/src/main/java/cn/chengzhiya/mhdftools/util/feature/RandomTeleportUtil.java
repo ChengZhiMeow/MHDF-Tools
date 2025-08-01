@@ -32,9 +32,7 @@ public final class RandomTeleportUtil {
      */
     public static ConfigurationSection getGroupConfigurationSection(Player player) {
         ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("randomTeleportSettings");
-        if (config == null) {
-            return null;
-        }
+        if (config == null) return null;
 
         String groupId = GroupUtil.getGroup(player, config, "mhdftools.group.randomteleport.");
         return config.getConfigurationSection(groupId);

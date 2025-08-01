@@ -41,10 +41,7 @@ public abstract class Menu implements InventoryHolder {
      * @param event 触发打开菜单事件
      */
     public void onOpen(InventoryOpenEvent event) {
-        if (!this.isEnable()) {
-            return;
-        }
-
+        if (!this.isEnable()) return;
         this.open(event);
     }
 

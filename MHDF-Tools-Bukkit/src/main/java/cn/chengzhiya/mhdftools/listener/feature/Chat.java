@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
@@ -52,7 +53,7 @@ final class Chat extends AbstractListener {
 
         // 限制使用颜色符号
         if (!player.hasPermission("mhdftools.chat.color")) {
-            message = ChatColor.stripColor(ColorUtil.legacyColor(message));
+            message = ChatColor.stripColor(ColorUtil.legacy(message));
         }
 
         // 限制使用miniMessage
@@ -73,32 +74,29 @@ final class Chat extends AbstractListener {
             }
         }
 
-        // AT玩家
-        if (config.getBoolean("at.enable")) {
-            Set<String> atList = AtUtil.getAtList(player, message);
-            message = ChatUtil.applyAt(message, atList);
-            Main.instance.getBungeeCordManager().atList(atList, player.getName());
-        }
+        TextComponent messageComponent = ColorUtil.color(message);
 
         int delay = config.getInt("delay.delay");
         Main.instance.getCacheManager().put("chatDelay", player.getName(), String.valueOf(delay));
         Main.instance.getCacheManager().put("lastChat", player.getName(), message);
 
         // 替换词
-        message = ChatUtil.applyReplaceWord(player, message);
+        messageComponent = ChatUtil.applyReplaceWord(player, messageComponent, message);
 
-        // 展示物品
-        message = ChatUtil.applyShowItem(player, message);
+        // 展示物品、背包、末影箱
+        messageComponent = ChatUtil.applyShowItem(player, messageComponent);
+        messageComponent = ChatUtil.applyShowInventory(player, messageComponent);
+        messageComponent = ChatUtil.applyShowEnderChest(player, messageComponent);
 
-        // 展示背包
-        message = ChatUtil.applyShowInventory(player, message);
-
-        // 展示末影箱
-        message = ChatUtil.applyShowEnderChest(player, message);
+        // AT玩家
+        if (config.getBoolean("at.enable")) {
+            Set<String> atList = AtUtil.getAtList(player, message);
+            messageComponent = ChatUtil.applyAt(messageComponent, message, atList);
+            Main.instance.getBungeeCordManager().atList(atList, player.getName());
+        }
 
         // 发送消息
-        String formatMessage = ChatUtil.getFormatMessage(player, message);
-
+        TextComponent formatMessage = ChatUtil.formatMessage(player, messageComponent);
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         Main.instance.getBungeeCordManager().sendMessage(
                 "console",

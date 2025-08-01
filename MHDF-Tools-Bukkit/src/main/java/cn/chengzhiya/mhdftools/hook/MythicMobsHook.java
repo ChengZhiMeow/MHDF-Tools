@@ -31,9 +31,7 @@ public final class MythicMobsHook extends Hook {
      * @return 物品实例
      */
     public ItemStack getItem(String id) {
-        if (super.isEnable()) {
-            return this.getApi().getItem(id);
-        }
+        if (super.isEnable()) return this.getApi().getItem(id);
         return new ItemStack(Material.AIR);
     }
 
@@ -44,9 +42,7 @@ public final class MythicMobsHook extends Hook {
      * @return 物品ID
      */
     public String getItemId(ItemStack itemStack) {
-        if (super.isEnable()) {
-            return this.getApi().getItemId(itemStack);
-        }
+        if (super.isEnable()) return this.getApi().getItemId(itemStack);
         return null;
     }
 }

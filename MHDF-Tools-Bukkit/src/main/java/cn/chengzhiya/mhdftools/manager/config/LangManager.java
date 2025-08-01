@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.manager.config;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
+import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import cn.chengzhiya.mhdfyaml.manager.YamlManager;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +44,9 @@ public final class LangManager extends YamlManager {
      */
     public @NotNull TextComponent i18n(String key) {
         String message = Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(null, this.getString(key));
-        return ColorUtil.color(message);
+        return ColorUtil.color(message)
+                .replace("{prefix}", this.getString("prefix"))
+                .replace("{version}", PluginUtil.getVersion());
     }
 
     /**

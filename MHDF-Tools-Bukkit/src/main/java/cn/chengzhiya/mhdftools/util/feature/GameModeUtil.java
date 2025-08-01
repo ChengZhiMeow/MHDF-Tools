@@ -17,18 +17,10 @@ public final class GameModeUtil {
             return null;
         }
 
-        if (config.getStringList("survival").contains(gameModeString)) {
-            return GameMode.SURVIVAL;
-        }
-        if (config.getStringList("creative").contains(gameModeString)) {
-            return GameMode.CREATIVE;
-        }
-        if (config.getStringList("spectator").contains(gameModeString)) {
-            return GameMode.SPECTATOR;
-        }
-        if (config.getStringList("adventure").contains(gameModeString)) {
-            return GameMode.ADVENTURE;
-        }
+        if (config.getStringList("survival").contains(gameModeString)) return GameMode.SURVIVAL;
+        if (config.getStringList("creative").contains(gameModeString)) return GameMode.CREATIVE;
+        if (config.getStringList("spectator").contains(gameModeString)) return GameMode.SPECTATOR;
+        if (config.getStringList("adventure").contains(gameModeString)) return GameMode.ADVENTURE;
 
         return null;
     }

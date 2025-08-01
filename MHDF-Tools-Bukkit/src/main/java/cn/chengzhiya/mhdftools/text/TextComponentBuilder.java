@@ -64,9 +64,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
     }
 
     public @NotNull Style style() {
-        if (this.styleBuilder != null) {
-            return this.styleBuilder.build();
-        }
+        if (this.styleBuilder != null) return this.styleBuilder.build();
         return Objects.requireNonNullElseGet(this.style, Style::empty);
     }
 
@@ -118,9 +116,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
     @Override
     public @NotNull TextComponentBuilder applyDeep(@NotNull Consumer<? super ComponentBuilder<?, ?>> action) {
         this.apply(action);
-        if (this.children == Collections.<Component>emptyList()) {
-            return this;
-        }
+        if (this.children == Collections.<Component>emptyList()) return this;
 
         ListIterator<Component> it = this.children.listIterator();
         while (it.hasNext()) {
@@ -138,9 +134,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
 
     @Override
     public @NotNull TextComponentBuilder mapChildren(@NotNull Function<BuildableComponent<?, ?>, ? extends BuildableComponent<?, ?>> function) {
-        if (this.children == Collections.<Component>emptyList()) {
-            return this;
-        }
+        if (this.children == Collections.<Component>emptyList()) return this;
 
         ListIterator<Component> it = this.children.listIterator();
         while (it.hasNext()) {
@@ -160,9 +154,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
 
     @Override
     public @NotNull TextComponentBuilder mapChildrenDeep(@NotNull Function<BuildableComponent<?, ?>, ? extends BuildableComponent<?, ?>> function) {
-        if (this.children == Collections.<Component>emptyList()) {
-            return this;
-        }
+        if (this.children == Collections.<Component>emptyList()) return this;
 
         ListIterator<Component> it = this.children.listIterator();
         while (it.hasNext()) {

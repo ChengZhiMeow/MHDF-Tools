@@ -40,9 +40,7 @@ final class TimeAction extends Task {
     @Override
     public void run() {
         ConfigurationSection actionList = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("timeActionSettings.actionList");
-        if (actionList == null) {
-            return;
-        }
+        if (actionList == null) return;
 
         for (String key : actionList.getKeys(false)) {
             ConfigurationSection action = actionList.getConfigurationSection(key);
@@ -51,14 +49,10 @@ final class TimeAction extends Task {
             }
 
             String type = action.getString("type");
-            if (type == null) {
-                return;
-            }
+            if (type == null) return;
 
             String time = action.getString("time");
-            if (time == null) {
-                return;
-            }
+            if (time == null) return;
 
             switch (type) {
                 case "定时操作" -> {

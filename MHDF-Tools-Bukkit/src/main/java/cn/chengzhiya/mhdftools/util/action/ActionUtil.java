@@ -25,9 +25,7 @@ public final class ActionUtil {
      * @param message 文本实例
      */
     public static void sendMessage(CommandSender sender, TextComponent message) {
-        if (sender == null) {
-            return;
-        }
+        if (sender == null) return;
 
         if (PluginUtil.isNativeSupportAdventureApi()) {
             sender.sendMessage(message);

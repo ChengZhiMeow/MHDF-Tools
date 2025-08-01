@@ -70,9 +70,9 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
         for (Placeholder placeholder : placeholderList) {
             String result = placeholder.onPlaceholder(player, params);
-            if (result != null) {
-                return result;
-            }
+            if (result == null) continue;
+
+            return result;
         }
         return null;
     }

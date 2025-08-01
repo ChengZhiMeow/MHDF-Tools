@@ -40,9 +40,7 @@ public final class LookItemMenu extends Menu {
         Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
         ConfigurationSection items = this.getConfig().getConfigurationSection("items");
-        if (items == null) {
-            return menu;
-        }
+        if (items == null) return menu;
 
         for (String key : items.getKeys(false)) {
             ConfigurationSection item = items.getConfigurationSection(key);
@@ -73,18 +71,15 @@ public final class LookItemMenu extends Menu {
     @Override
     public void click(InventoryClickEvent event) {
         ItemStack itemStack = MenuUtil.getClickItem(event);
-        if (itemStack == null) {
-            return;
-        }
+        if (itemStack == null) return;
+
 
         event.setCancelled(true);
 
         PersistentDataContainerView container = itemStack.getPersistentDataContainer();
 
         String key = container.get(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING);
-        if (key == null) {
-            return;
-        }
+        if (key == null) return;
 
         MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
     }

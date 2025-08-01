@@ -19,9 +19,7 @@ public final class RequirementUtil {
      * @return 不满足条件时的操作(如果为空则为全部满足)
      */
     public static List<String> checkRequirements(Player player, ConfigurationSection config) {
-        if (config == null) {
-            return new ArrayList<>();
-        }
+        if (config == null) return new ArrayList<>();
 
         List<String> keys = new ArrayList<>(config.getKeys(false));
         for (String key : keys) {

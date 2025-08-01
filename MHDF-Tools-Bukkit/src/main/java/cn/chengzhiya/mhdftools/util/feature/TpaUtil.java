@@ -41,9 +41,7 @@ public final class TpaUtil {
         );
 
         MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(targetName);
-        if (mhdfTargetPlayer.isIgnore(mhdfPlayer)) {
-            return;
-        }
+        if (mhdfTargetPlayer.isIgnore(mhdfPlayer)) return;
 
         Main.instance.getBungeeCordManager().sendMessage(targetName, Main.instance.getConfigManager().getLangManager().i18n("commands.tpa.requestMessage")
                 .replaceByMiniMessage("{player}", player.getName())

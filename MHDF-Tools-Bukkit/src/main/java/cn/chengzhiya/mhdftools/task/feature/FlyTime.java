@@ -23,20 +23,14 @@ final class FlyTime extends Task {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             // 不处理不可飞行的玩家
-            if (!player.getAllowFlight()) {
-                return;
-            }
+            if (!player.getAllowFlight()) return;
 
             // 不处理可以飞行的游戏模式
             MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-            if (mhdfPlayer.isAllowedFlyingGameMode()) {
-                return;
-            }
+            if (mhdfPlayer.isAllowedFlyingGameMode()) return;
 
             // 不处理永久飞行的玩家
-            if (player.hasPermission("mhdftools.commands.fly.infinite")) {
-                return;
-            }
+            if (player.hasPermission("mhdftools.commands.fly.infinite")) return;
 
             // 发送迫降提示
             String title = Main.instance.getConfigManager().getLangManager().getString("commands.fly.fallMessage." + mhdfPlayer.getFlyTime());

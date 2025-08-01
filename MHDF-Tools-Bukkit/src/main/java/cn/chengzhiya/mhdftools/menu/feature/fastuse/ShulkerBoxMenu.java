@@ -46,9 +46,7 @@ public final class ShulkerBoxMenu extends Menu {
     @Override
     public void click(InventoryClickEvent event) {
         ItemStack item = MenuUtil.getClickItem(event);
-        if (item == null) {
-            return;
-        }
+        if (item == null) return;
 
         if (item.getType().toString().contains("SHULKER_BOX")) {
             event.setCancelled(true);

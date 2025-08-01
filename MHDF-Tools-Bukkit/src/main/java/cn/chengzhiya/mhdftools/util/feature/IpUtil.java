@@ -18,12 +18,8 @@ public final class IpUtil {
      * @return 归属地
      */
     public static String getIpLocation(String ip) {
-        if (ip == null) {
-            return "IP不存在!";
-        }
-        if (ip.startsWith("127.0.")) {
-            return "回环地址";
-        }
+        if (ip == null) return "IP不存在!";
+        if (ip.startsWith("127.0.")) return "回环地址";
         try {
             URL url = new URL("https://opendata.baidu.com/api.php?query=" + ip + "&co=&resource_id=6006&t=1433920989928&ie=utf8&oe=utf-8&format=json");
             URLConnection conn = url.openConnection();

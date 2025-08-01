@@ -19,21 +19,15 @@ public final class EventActionUtil {
      */
     private static List<String> getActionList(Player player, String event) {
         ConfigurationSection actionList = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("eventActionSettings.actionList");
-        if (actionList == null) {
-            return new ArrayList<>();
-        }
+        if (actionList == null) return new ArrayList<>();
 
         List<String> list = new ArrayList<>();
         for (String key : actionList.getKeys(false)) {
             ConfigurationSection action = actionList.getConfigurationSection(key);
-            if (action == null) {
-                continue;
-            }
+            if (action == null) continue;
 
             String type = action.getString("event");
-            if (type == null) {
-                continue;
-            }
+            if (type == null) continue;
 
             LogUtil.debug("事件操作类型比对 | 事件名称: {} | 事件类型: {} | 目标类型: {}",
                     key,
@@ -41,9 +35,7 @@ public final class EventActionUtil {
                     event
             );
 
-            if (!type.equals(event)) {
-                continue;
-            }
+            if (!type.equals(event)) continue;
             List<String> world = action.getStringList("world");
             if (!world.isEmpty()) {
                 LogUtil.debug("世界白名单比对 | 事件名称: {} | 要求所在世界: {} | 玩家所在世界: {}",
@@ -52,20 +44,14 @@ public final class EventActionUtil {
                         player.getWorld().getName()
                 );
 
-                if (!world.contains(player.getWorld().getName())) {
-                    continue;
-                }
+                if (!world.contains(player.getWorld().getName())) continue;
             }
 
             ConfigurationSection group = action.getConfigurationSection("group");
-            if (group == null) {
-                continue;
-            }
+            if (group == null) continue;
 
             ConfigurationSection playerGroup = group.getConfigurationSection(GroupUtil.getGroup(player, group, "mhdftools.group.eventaction." + key + "."));
-            if (playerGroup == null) {
-                continue;
-            }
+            if (playerGroup == null) continue;
 
             list.addAll(playerGroup.getStringList("action"));
         }

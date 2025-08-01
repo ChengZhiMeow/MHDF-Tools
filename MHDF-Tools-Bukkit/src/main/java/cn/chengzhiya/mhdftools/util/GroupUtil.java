@@ -17,9 +17,7 @@ public final class GroupUtil {
      * @return 组名称
      */
     public static String getGroup(Player player, ConfigurationSection config, String permissionPrefix) {
-        if (config == null || permissionPrefix == null) {
-            return "default";
-        }
+        if (config == null || permissionPrefix == null) return "default";
         permissionPrefix = permissionPrefix.toLowerCase(Locale.ROOT);
 
         String finalPermissionPrefix = permissionPrefix;

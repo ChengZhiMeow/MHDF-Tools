@@ -13,21 +13,8 @@ public final class ColorUtil {
      * @param message 文本
      * @return 处理后的文本
      */
-    private static String legacy(@NotNull String message) {
+    public static String legacy(@NotNull String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
-    }
-
-    /**
-     * 处理旧版颜色符号
-     *
-     * @param message 文本
-     * @return 处理后的文本
-     */
-    public static String legacyColor(@NotNull String message) {
-        message = message
-                .replace("{prefix}", Main.instance.getConfigManager().getLangManager().getString("prefix"))
-                .replace("{version}", PluginUtil.getVersion());
-        return legacy(message);
     }
 
     /**
@@ -131,7 +118,7 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     public static String miniMessage(@NotNull String message) {
-        return ColorUtil.legacyColorToMiniMessage(ColorUtil.legacyToMiniMessage(ColorUtil.legacyColor(message)));
+        return ColorUtil.legacyColorToMiniMessage(ColorUtil.legacyToMiniMessage(ColorUtil.legacy(message)));
     }
 
     /**

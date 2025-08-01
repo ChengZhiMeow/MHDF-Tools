@@ -43,9 +43,7 @@ public final class HomeMenu extends Menu {
         Inventory menu = MenuUtil.createInventory(this, this.getConfig());
 
         ConfigurationSection items = this.getConfig().getConfigurationSection("items");
-        if (items == null) {
-            return menu;
-        }
+        if (items == null) return menu;
 
         MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
         List<HomeData> homeList = player.getHomeList();
@@ -102,27 +100,22 @@ public final class HomeMenu extends Menu {
     @Override
     public void click(InventoryClickEvent event) {
         ItemStack itemStack = MenuUtil.getClickItem(event);
-        if (itemStack == null) {
-            return;
-        }
+        if (itemStack == null) return;
 
         event.setCancelled(true);
 
         PersistentDataContainerView container = itemStack.getPersistentDataContainer();
 
         String key = container.get(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING);
-        if (key == null) {
-            return;
-        }
+        if (key == null) return;
 
         MenuUtil.runItemClickAction(super.getPlayer(), this.getConfig(), key);
 
         switch (key) {
             case "家" -> {
                 String home = container.get(new NamespacedKey(Main.instance, "home"), PersistentDataType.STRING);
-                if (home == null) {
-                    return;
-                }
+                if (home == null) return;
+
 
                 MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
                 HomeData homeData = player.getHome(home);
@@ -150,9 +143,7 @@ public final class HomeMenu extends Menu {
      * @return 处理后的文本
      */
     private String applyHomeDataString(String message, HomeData data) {
-        if (message == null) {
-            return null;
-        }
+        if (message == null) return null;
 
         return message
                 .replace("{name}", data.getHome())

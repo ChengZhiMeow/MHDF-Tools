@@ -39,9 +39,7 @@ public final class CraftEngineImpl {
      */
     public String getItemId(ItemStack itemStack) {
         Key key = this.getApi().itemManager().customItemId(itemStack);
-        if (key == null) {
-            return null;
-        }
+        if (key == null) return null;
 
         return key.namespace() + ":" + key.value();
     }

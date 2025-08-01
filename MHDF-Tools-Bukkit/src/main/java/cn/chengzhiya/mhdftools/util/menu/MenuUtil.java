@@ -35,9 +35,7 @@ public final class MenuUtil {
 
         if (event.getClick() == ClickType.NUMBER_KEY) {
             ItemStack item = player.getInventory().getItem(event.getHotbarButton());
-            if (item == null) {
-                return event.getClickedInventory().getItem(event.getRawSlot());
-            }
+            if (item == null) return event.getClickedInventory().getItem(event.getRawSlot());
             return item;
         }
 
@@ -51,9 +49,7 @@ public final class MenuUtil {
      * @return 格子列表
      */
     public static List<Integer> getSlotList(String slot) {
-        if (slot == null) {
-            return new ArrayList<>();
-        }
+        if (slot == null) return new ArrayList<>();
 
         List<Integer> slotList = new ArrayList<>();
 
@@ -94,9 +90,7 @@ public final class MenuUtil {
      * @return 格子列表
      */
     public static List<Integer> getSlotList(ConfigurationSection config) {
-        if (config == null) {
-            return new ArrayList<>();
-        }
+        if (config == null) return new ArrayList<>();
 
         List<Integer> slotList = new ArrayList<>();
         if (!config.getStringList("slots").isEmpty()) {
@@ -115,9 +109,7 @@ public final class MenuUtil {
      * @param item   物品配置实例
      */
     public static void runItemClickAction(Player player, ConfigurationSection item) {
-        if (item == null) {
-            return;
-        }
+        if (item == null) return;
 
         ConfigurationSection clickRequirementsConfig = item.getConfigurationSection("clickRequirements");
         if (clickRequirementsConfig != null) {
@@ -142,14 +134,10 @@ public final class MenuUtil {
      * @param key    物品ID
      */
     public static void runItemClickAction(Player player, ConfigurationSection menu, String key) {
-        if (menu == null) {
-            return;
-        }
+        if (menu == null) return;
 
         ConfigurationSection items = menu.getConfigurationSection("items");
-        if (items == null) {
-            return;
-        }
+        if (items == null) return;
 
         MenuUtil.runItemClickAction(player, items.getConfigurationSection(key));
     }
