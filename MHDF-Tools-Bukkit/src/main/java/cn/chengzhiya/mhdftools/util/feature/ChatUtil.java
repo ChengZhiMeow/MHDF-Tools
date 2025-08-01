@@ -37,7 +37,6 @@ public final class ChatUtil {
     public static TextComponent applyReplaceWord(CommandSender player, TextComponent messageComponent, String message) {
         ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.replaceWord");
         if (config == null) return messageComponent;
-
         if (!config.getBoolean("enable")) return messageComponent;
 
         List<YamlConfiguration> replaceList = Main.instance.getConfigManager().getConfigManager().getYamlConfigurationList("chatSettings.replaceWord.replace");
@@ -94,7 +93,6 @@ public final class ChatUtil {
     public static TextComponent applyShowItem(Player player, TextComponent messageComponent) {
         ConfigurationSection config = Main.instance.getConfigManager().getConfigManager().getData().getConfigurationSection("chatSettings.showItem");
         if (config == null) return messageComponent;
-
         if (!config.getBoolean("enable")) return messageComponent;
 
         ItemStack item = player.getInventory().getItemInMainHand();
@@ -112,6 +110,7 @@ public final class ChatUtil {
 
         String format = config.getString("format");
         if (format == null) return messageComponent;
+
         Component displayName = PluginUtil.isNativeSupportAdventureApi() && meta.hasCustomName() ? meta.customName() : ColorUtil.color(Main.instance.getMinecraftLangManager().getItemName(item));
         TextComponent formatComponent = ColorUtil.color(format)
                 .replace("{uuid}", uuid.toString())

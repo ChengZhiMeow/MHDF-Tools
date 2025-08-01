@@ -1,8 +1,6 @@
 package cn.chengzhiya.mhdftools.util.message;
 
-import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
-import cn.chengzhiya.mhdftools.util.PluginUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 

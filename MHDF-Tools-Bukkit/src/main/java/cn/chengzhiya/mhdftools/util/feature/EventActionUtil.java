@@ -34,8 +34,8 @@ public final class EventActionUtil {
                     type,
                     event
             );
-
             if (!type.equals(event)) continue;
+
             List<String> world = action.getStringList("world");
             if (!world.isEmpty()) {
                 LogUtil.debug("世界白名单比对 | 事件名称: {} | 要求所在世界: {} | 玩家所在世界: {}",
