@@ -41,7 +41,7 @@ final class FlyTime extends Task {
 
             // 播放音效
             String sound = Main.instance.getConfigManager().getSoundManager().getData().getString("flyFall." + mhdfPlayer.getFlyTime());
-            if (!sound.isEmpty()) {
+            if (sound != null && !sound.isEmpty()) {
                 String[] args = sound.split("\\|");
                 ActionUtil.playSound(player, args[0], Float.parseFloat(args[1]), Float.parseFloat(args[2]));
             }
