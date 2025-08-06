@@ -17,8 +17,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.List;
 
-final class VanishOpen extends AbstractListener {
-    public VanishOpen() {
+final class AutoChangeVanish extends AbstractListener {
+    public AutoChangeVanish() {
         super(
                 List.of("vanishSettings.enable")
         );
