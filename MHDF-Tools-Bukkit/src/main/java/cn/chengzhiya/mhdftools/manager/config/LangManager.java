@@ -44,9 +44,10 @@ public final class LangManager extends YamlManager {
      */
     public @NotNull TextComponent i18n(String key) {
         String message = Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(null, this.getString(key));
-        return ColorUtil.color(message)
+        return ColorUtil.color(message
                 .replace("{prefix}", this.getString("prefix"))
-                .replace("{version}", PluginUtil.getVersion());
+                .replace("{version}", PluginUtil.getVersion())
+        );
     }
 
     /**

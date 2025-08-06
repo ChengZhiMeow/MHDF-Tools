@@ -300,17 +300,16 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void hidePlayer() {
-        if (this.getPlayer() == null) {
-            return;
-        }
+        if (this.getPlayer() == null) return;
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)
             ) {
-                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
-                        onlinePlayer.hidePlayer(Main.instance, this.getPlayer()));
-                return;
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
+                    onlinePlayer.hidePlayer(Main.instance, this.getPlayer());
+                });
+                continue;
             }
 
             MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
@@ -329,9 +328,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void showPlayer() {
-        if (this.getPlayer() == null) {
-            return;
-        }
+        if (this.getPlayer() == null) return;
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
@@ -339,7 +336,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             ) {
                 MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
                         onlinePlayer.showPlayer(Main.instance, this.getPlayer()));
-                return;
+                continue;
             }
 
             MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
