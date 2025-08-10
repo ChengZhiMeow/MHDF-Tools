@@ -58,7 +58,7 @@ final class TimeAction extends Task {
                 case "定时操作" -> {
                     int delay = this.getDelayHashMap().getOrDefault(key, 0);
 
-                    if (delay >= getDelayTime(time)) {
+                    if (delay >= TimeAction.getDelayTime(time)) {
                         ActionUtil.runActionList(Bukkit.getConsoleSender(), action.getStringList("action"));
                         this.getDelayHashMap().remove(key);
                         return;

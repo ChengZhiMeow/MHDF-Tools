@@ -16,23 +16,23 @@ public final class PluginHookManager {
      * 初始化所有对接的API
      */
     public void hook() {
-        packetEventsHook.hook();
+        this.packetEventsHook.hook();
 
-        placeholderAPIHook.hook();
-        craftEngineHook.hook();
-        mythicMobsHook.hook();
-        vaultHook.hook();
+        this.placeholderAPIHook.hook();
+        this.craftEngineHook.hook();
+        this.mythicMobsHook.hook();
+        this.vaultHook.hook();
     }
 
     /**
      * 卸载所有对接的API
      */
     public void unhook() {
-        packetEventsHook.unhook();
+        this.packetEventsHook.unhook();
 
-        placeholderAPIHook.unhook();
-        craftEngineHook.unhook();
-        mythicMobsHook.unhook();
-        vaultHook.unhook();
+        this.placeholderAPIHook.unhook();
+        this.craftEngineHook.unhook();
+        this.mythicMobsHook.unhook();
+        this.vaultHook.unhook();
     }
 }

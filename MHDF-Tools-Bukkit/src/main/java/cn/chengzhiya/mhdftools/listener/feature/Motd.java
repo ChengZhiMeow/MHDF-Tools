@@ -45,7 +45,7 @@ final class Motd extends AbstractPacketListener {
         if (version != null && version.getBoolean("enable")) {
             JsonObject versionData = new JsonObject();
 
-            String name = applyPlaceholder(version.getString("name", ""));
+            String name = this.applyPlaceholder(version.getString("name", ""));
             versionData.addProperty("name", ColorUtil.color(name).toLegacyString());
             versionData.addProperty("protocol", 5835);
 
@@ -57,10 +57,10 @@ final class Motd extends AbstractPacketListener {
             JsonObject playersData = new JsonObject();
 
             ConfigurationSection fakePlayers = players.getConfigurationSection("fakePlayers");
-            int online = getAmount(fakePlayers, Main.instance.getBungeeCordManager().getBukkitPlayerList().size());
+            int online = this.getAmount(fakePlayers, Main.instance.getBungeeCordManager().getBukkitPlayerList().size());
 
             ConfigurationSection fakeMax = players.getConfigurationSection("fakeMax");
-            int max = getAmount(fakeMax, Bukkit.getMaxPlayers());
+            int max = this.getAmount(fakeMax, Bukkit.getMaxPlayers());
 
             JsonArray sample = new JsonArray();
 
@@ -68,7 +68,7 @@ final class Motd extends AbstractPacketListener {
             if (fakeSample != null && fakeSample.getBoolean("enable")) {
                 for (String string : fakeSample.getStringList("text")) {
                     JsonObject sampleData = new JsonObject();
-                    sampleData.addProperty("name", ColorUtil.color(applyPlaceholder(string)).toLegacyString());
+                    sampleData.addProperty("name", ColorUtil.color(this.applyPlaceholder(string)).toLegacyString());
                     sampleData.addProperty("id", String.valueOf(UUID.randomUUID()));
 
                     sample.add(sampleData);
@@ -87,7 +87,7 @@ final class Motd extends AbstractPacketListener {
             YamlConfiguration description = descriptionList.get(new Random().nextInt(descriptionList.size()));
             JsonArray descriptionData = new JsonArray();
 
-            String line1 = applyPlaceholder(description.getString("line1", ""));
+            String line1 = this.applyPlaceholder(description.getString("line1", ""));
             descriptionData.addAll(MotdUtil.getMessageJsonArray(ColorUtil.color(line1)));
 
             JsonObject nextLine = new JsonObject();
@@ -96,7 +96,7 @@ final class Motd extends AbstractPacketListener {
 
             descriptionData.add(nextLine);
 
-            String line2 = applyPlaceholder(description.getString("line2", ""));
+            String line2 = this.applyPlaceholder(description.getString("line2", ""));
             descriptionData.addAll(MotdUtil.getMessageJsonArray(ColorUtil.color(line2)));
 
             data.add("description", descriptionData);
@@ -112,7 +112,7 @@ final class Motd extends AbstractPacketListener {
         if (config != null && config.getBoolean("enable")) {
             String amount = config.getString("amount");
             if (amount != null) {
-                return (int) MathUtil.calculate(applyPlaceholder(amount));
+                return (int) MathUtil.calculate(this.applyPlaceholder(amount));
             }
         }
         return defaultAmount;

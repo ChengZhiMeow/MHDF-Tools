@@ -36,13 +36,13 @@ public final class HuskHomesPositionData {
      */
     public BungeeCordLocation toBungeeCordLocation() {
         return new BungeeCordLocation(
-                getServer(),
-                getWorldName(),
-                getX(),
-                getY(),
-                getZ(),
-                getYaw(),
-                getPitch()
+                this.getServer(),
+                this.getWorldName(),
+                this.getX(),
+                this.getY(),
+                this.getZ(),
+                this.getYaw(),
+                this.getPitch()
         );
     }
 }

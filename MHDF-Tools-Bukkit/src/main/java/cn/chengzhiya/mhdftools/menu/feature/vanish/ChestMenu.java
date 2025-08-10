@@ -30,8 +30,8 @@ public final class ChestMenu extends Menu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(this, chest.getInventory().getSize(), Main.instance.getConfigManager().getLangManager().i18n("menu.vanish.title"));
-        inventory.setContents(chest.getInventory().getContents());
+        Inventory inventory = Bukkit.createInventory(this, this.chest.getInventory().getSize(), Main.instance.getConfigManager().getLangManager().i18n("menu.vanish.title"));
+        inventory.setContents(this.chest.getInventory().getContents());
 
         return inventory;
     }

@@ -54,7 +54,7 @@ public final class LogFilter implements Filter {
     }
 
     private Result canLogger(String logger) {
-        for (String filter : filterLoggerList) {
+        for (String filter : this.filterLoggerList) {
             if (logger.contains(filter)) {
                 return Result.DENY;
             }
@@ -132,6 +132,6 @@ public final class LogFilter implements Filter {
         if (event.getMessage().getFormattedMessage().contains("[STDOUT]")) {
             return Result.NEUTRAL;
         }
-        return canLogger(event.getLoggerName());
+        return this.canLogger(event.getLoggerName());
     }
 }

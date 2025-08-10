@@ -82,7 +82,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
 
     @Override
     public @NotNull TextComponentBuilder appendNewline() {
-        append(Component.newline());
+        this.append(Component.newline());
         return this;
     }
 
@@ -96,7 +96,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
     public @NotNull TextComponentBuilder append(@NotNull ComponentLike componentLike) {
         Component component = componentLike.asComponent();
         if (component != Component.empty()) {
-            append(component);
+            this.append(component);
         }
         return this;
     }
@@ -269,7 +269,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
         if (this.isEmpty()) {
             return new TextComponent();
         }
-        return new TextComponent(this.children, style(), this.content);
+        return new TextComponent(this.children, this.style(), this.content);
     }
 
     private boolean hasStyle() {

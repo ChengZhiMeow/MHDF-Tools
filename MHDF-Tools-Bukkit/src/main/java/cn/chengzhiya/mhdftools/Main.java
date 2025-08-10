@@ -43,7 +43,7 @@ public final class Main extends JavaPlugin {
     @Override
     @SneakyThrows
     public void onLoad() {
-        instance = this;
+        Main.instance = this;
 
         this.yamlManager = new MHDFYaml(this);
         this.reflectionManager = new ReflectionManager();
@@ -137,6 +137,6 @@ public final class Main extends JavaPlugin {
         this.librariesManager = null;
         this.configManager = null;
 
-        instance = null;
+        Main.instance = null;
     }
 }

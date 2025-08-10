@@ -40,21 +40,21 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
      * @param name 匿名昵称
      */
     private void setNickDisplay(TextComponent name) {
-        if (getPlayer() == null) {
+        if (this.getPlayer() == null) {
             return;
         }
 
         if (PluginUtil.isNativeSupportAdventureApi()) {
-            getPlayer().displayName(name);
-            getPlayer().customName(name);
-            getPlayer().playerListName(name);
+            this.getPlayer().displayName(name);
+            this.getPlayer().customName(name);
+            this.getPlayer().playerListName(name);
         } else {
-            getPlayer().setDisplayName(name.toLegacyString());
-            getPlayer().setCustomName(name.toLegacyString());
-            getPlayer().setPlayerListName(name.toLegacyString());
+            this.getPlayer().setDisplayName(name.toLegacyString());
+            this.getPlayer().setCustomName(name.toLegacyString());
+            this.getPlayer().setPlayerListName(name.toLegacyString());
         }
 
-        getPlayer().setCustomNameVisible(name != null);
+        this.getPlayer().setCustomNameVisible(name != null);
     }
 
     @Override
@@ -63,12 +63,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             return this.getPlayer().getName();
         }
 
-        if (name == null) {
+        if (this.name == null) {
             PlayerData data = MHDFToolsAPIHelper.getInstance().getPlayerDataManager().get(this);
             this.name = data.getName();
         }
 
-        return name;
+        return this.name;
     }
 
     @Override
@@ -77,12 +77,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             return this.getNickData().getNick();
         }
 
-        return getName();
+        return this.getName();
     }
 
     @Override
     public Player getPlayer() {
-        return Bukkit.getPlayer(uuid);
+        return Bukkit.getPlayer(this.uuid);
     }
 
     @Override
@@ -109,17 +109,17 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void addMoney(BigDecimal money) {
-        this.setMoney(getMoney().add(money));
+        this.setMoney(this.getMoney().add(money));
     }
 
     @Override
     public void takeMoney(BigDecimal money) {
-        this.setMoney(getMoney().subtract(money));
+        this.setMoney(this.getMoney().subtract(money));
     }
 
     @Override
     public boolean isAllowedFlyingGameMode() {
-        Player player = getPlayer();
+        Player player = this.getPlayer();
         if (player == null) {
             return false;
         }
@@ -153,12 +153,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void addFlyTime(long time) {
-        setFlyTime(getFlyTime() + time);
+        this.setFlyTime(this.getFlyTime() + time);
     }
 
     @Override
     public void takeFlyTime(long time) {
-        setFlyTime(getFlyTime() - time);
+        this.setFlyTime(this.getFlyTime() - time);
     }
 
     @Override
@@ -267,7 +267,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void deleteNick() {
-        NickData data = getNickData();
+        NickData data = this.getNickData();
         MHDFToolsAPIHelper.getInstance().getNickDataManager().delete(data);
 
         this.setNickDisplay(null);

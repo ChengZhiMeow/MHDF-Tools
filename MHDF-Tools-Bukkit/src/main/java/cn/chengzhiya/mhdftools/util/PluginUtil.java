@@ -30,17 +30,17 @@ public final class PluginUtil {
      * @return 结果
      */
     public static boolean isNativeSupportAdventureApi() {
-        if (nativeSupportAdventureApi == null) {
+        if (PluginUtil.nativeSupportAdventureApi == null) {
             try {
                 Class.forName("net.kyori.adventure.text.Component");
                 Player.class.getDeclaredMethod("displayName");
-                nativeSupportAdventureApi = true;
+                PluginUtil.nativeSupportAdventureApi = true;
             } catch (NoSuchMethodError | ClassNotFoundException | NoSuchMethodException e) {
-                nativeSupportAdventureApi = false;
+                PluginUtil.nativeSupportAdventureApi = false;
             }
         }
 
-        return nativeSupportAdventureApi;
+        return PluginUtil.nativeSupportAdventureApi;
     }
 
     /**

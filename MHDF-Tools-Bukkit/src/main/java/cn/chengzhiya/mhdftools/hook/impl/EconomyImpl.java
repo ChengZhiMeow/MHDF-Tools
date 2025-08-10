@@ -116,7 +116,7 @@ public final class EconomyImpl extends AbstractEconomy {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         mhdfPlayer.takeMoney(BigDecimalUtil.toBigDecimal(amount));
 
-        return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
+        return new EconomyResponse(amount, this.getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
     @Override
@@ -148,7 +148,7 @@ public final class EconomyImpl extends AbstractEconomy {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         mhdfPlayer.addMoney(BigDecimalUtil.toBigDecimal(amount - tax));
 
-        return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
+        return new EconomyResponse(amount, this.getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
     @Override
@@ -164,7 +164,7 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public EconomyResponse depositPlayer(String name, String world, double amount) {
-        return depositPlayer(name, amount);
+        return this.depositPlayer(name, amount);
     }
 
     @Override

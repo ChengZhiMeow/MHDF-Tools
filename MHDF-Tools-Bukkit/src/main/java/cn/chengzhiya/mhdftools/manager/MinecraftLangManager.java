@@ -17,7 +17,7 @@ public final class MinecraftLangManager {
      * 初始化默认配置文件
      */
     public void init() {
-        this.langAPI = new LangAPI(Main.instance, file);
+        this.langAPI = new LangAPI(Main.instance, this.file);
         this.langAPI.getLangManager("zh_cn").downloadLang();
         this.langAPI.getLangManager("zh_cn").reloadLang();
     }

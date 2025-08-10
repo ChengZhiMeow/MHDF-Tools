@@ -26,7 +26,7 @@ public final class CmiDatabaseManager {
     @SneakyThrows
     public CmiDatabaseManager() {
         this.initConfig();
-        this.database = new MHDFDatabase(config, MySQLDatabaseServiceImpl.class, H2DatabaseServiceImpl.class);
+        this.database = new MHDFDatabase(this.config, MySQLDatabaseServiceImpl.class, H2DatabaseServiceImpl.class);
     }
 
     /**
@@ -50,7 +50,7 @@ public final class CmiDatabaseManager {
         connectConfig.setFile(new File(CmiConfigUtil.getDataFolder(), "cmi.sqlite.db"));
 
         String type = Objects.requireNonNull(this.getDatabaseConfig().getString("storage.method")).toLowerCase();
-        config.setType(switch (type) {
+        this.config.setType(switch (type) {
             case "sqllite", "h2" -> "h2";
             case "mariadb", "mysql" -> "mysql";
             default -> throw new IllegalStateException("不兼容的数据库类型: " + type);
@@ -59,7 +59,7 @@ public final class CmiDatabaseManager {
         this.prefix = !this.getConfig().getType().equals("h2") ?
                 this.getDatabaseConfig().getString("mysql.tablePrefix") : "";
 
-        config.setConnectConfig(connectConfig);
+        this.config.setConnectConfig(connectConfig);
     }
 
     /**

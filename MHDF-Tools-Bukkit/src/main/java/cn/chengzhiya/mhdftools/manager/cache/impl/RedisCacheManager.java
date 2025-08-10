@@ -20,7 +20,7 @@ public final class RedisCacheManager extends CacheManager {
 
     @Override
     public void init() {
-        this.redisClient = new RedisClient(getCacheConfig().getServerId(), getCacheConfig().getRedisConfig());
+        this.redisClient = new RedisClient(super.getCacheConfig().getServerId(), super.getCacheConfig().getRedisConfig());
         this.redisClient.connect();
     }
 

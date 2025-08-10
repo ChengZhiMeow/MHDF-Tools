@@ -80,7 +80,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .replacement(replacement)
                 .build();
 
-        return new TextComponent(replaceText(replacementConfig));
+        return new TextComponent(super.replaceText(replacementConfig));
     }
 
     /**
@@ -96,7 +96,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .replacement(replacement)
                 .build();
 
-        return new TextComponent(replaceText(replacementConfig));
+        return new TextComponent(super.replaceText(replacementConfig));
     }
 
     /**
@@ -113,7 +113,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .times(1)
                 .build();
 
-        return new TextComponent(replaceText(replacementConfig));
+        return new TextComponent(super.replaceText(replacementConfig));
     }
 
     /**
@@ -130,7 +130,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .times(1)
                 .build();
 
-        return new TextComponent(replaceText(replacementConfig));
+        return new TextComponent(super.replaceText(replacementConfig));
     }
 
     /**

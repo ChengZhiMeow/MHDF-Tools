@@ -81,7 +81,7 @@ public final class BackMenu extends Menu {
                     continue;
                 }
                 case "上一页" -> {
-                    if (page <= 1) {
+                    if (this.page <= 1) {
                         continue;
                     }
                 }

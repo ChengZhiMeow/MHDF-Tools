@@ -42,7 +42,7 @@ final class TridentDupeFix extends AbstractListener {
             return;
         }
 
-        useTridentSet.add(player.getName());
+        this.useTridentSet.add(player.getName());
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -57,14 +57,14 @@ final class TridentDupeFix extends AbstractListener {
             return;
         }
 
-        useTridentSet.remove(player.getName());
+        this.useTridentSet.remove(player.getName());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        useTridentSet.remove(player.getName());
+        this.useTridentSet.remove(player.getName());
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -75,7 +75,7 @@ final class TridentDupeFix extends AbstractListener {
             return;
         }
 
-        if (!useTridentSet.contains(player.getName())) {
+        if (!this.useTridentSet.contains(player.getName())) {
             return;
         }
 
@@ -89,6 +89,6 @@ final class TridentDupeFix extends AbstractListener {
         }
 
         event.setCancelled(true);
-        useTridentSet.remove(player.getName());
+        this.useTridentSet.remove(player.getName());
     }
 }

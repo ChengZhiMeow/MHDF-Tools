@@ -30,17 +30,17 @@ final class QuitMessage extends AbstractListener {
         }
 
         if (config.getBoolean("removeMessage")) {
-            setQuitMessage(event, null);
+            this.setQuitMessage(event, null);
             return;
         }
 
         String message = config.getString(GroupUtil.getGroup(player, config, "mhdftools.group.quitmessage.") + ".message");
         if (message == null) {
-            setQuitMessage(event, null);
+            this.setQuitMessage(event, null);
             return;
         }
 
-        setQuitMessage(event, ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
+        this.setQuitMessage(event, ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
                 .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
         );
     }

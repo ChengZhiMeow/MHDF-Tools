@@ -18,7 +18,7 @@ public final class IgnoreDataManagerImpl extends AbstractDaoManager<IgnoreData, 
     @Override
     @SneakyThrows
     public List<IgnoreData> getList(MHDFToolsPlayer player) {
-        QueryBuilder<IgnoreData, Integer> queryBuilder = getQueryBuilder();
+        QueryBuilder<IgnoreData, Integer> queryBuilder = super.getQueryBuilder();
 
         Where<IgnoreData, Integer> where = queryBuilder.where();
         where.eq("player", player.getUuid());
@@ -30,7 +30,7 @@ public final class IgnoreDataManagerImpl extends AbstractDaoManager<IgnoreData, 
 
     @SneakyThrows
     private QueryBuilder<IgnoreData, Integer> getQueryBuilder(MHDFToolsPlayer player, MHDFToolsPlayer ignore) {
-        QueryBuilder<IgnoreData, Integer> queryBuilder = getQueryBuilder();
+        QueryBuilder<IgnoreData, Integer> queryBuilder = super.getQueryBuilder();
 
         Where<IgnoreData, Integer> where = queryBuilder.where();
         where

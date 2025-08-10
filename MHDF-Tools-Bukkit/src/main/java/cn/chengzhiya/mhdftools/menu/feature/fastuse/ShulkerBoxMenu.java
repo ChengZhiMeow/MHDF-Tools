@@ -28,7 +28,7 @@ public final class ShulkerBoxMenu extends Menu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        ItemStack item = getPlayer().getInventory().getItemInMainHand();
+        ItemStack item = super.getPlayer().getInventory().getItemInMainHand();
         ItemMeta meta = item.getItemMeta();
         BlockStateMeta blockMate = (BlockStateMeta) meta;
         ShulkerBox box = (ShulkerBox) blockMate.getBlockState();

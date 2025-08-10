@@ -62,7 +62,7 @@ final class Stop extends Command {
                         return;
                     }
 
-                    if (getTime() == null || getMessage() == null) {
+                    if (this.getTime() == null || this.getMessage() == null) {
                         ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.stop.subCommands.confirm.noStop"));
                         return;
                     }
@@ -109,8 +109,8 @@ final class Stop extends Command {
 
         if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("stopSettings.confirm")) {
             ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.stop.subCommands.default.message")
-                    .replace("{time}", String.valueOf(getTime()))
-                    .replace("{message}", getMessage())
+                    .replace("{time}", String.valueOf(this.getTime()))
+                    .replace("{message}", this.getMessage())
             );
             return;
         }
@@ -130,7 +130,7 @@ final class Stop extends Command {
      */
     private void confirmStop() {
         this.setStop(true);
-        this.startStopRunnable(getTime(), getMessage());
+        this.startStopRunnable(this.getTime(), this.getMessage());
 
         this.setTime(null);
         this.setMessage(null);
@@ -148,7 +148,7 @@ final class Stop extends Command {
 
             @Override
             public void run() {
-                if (!isStop()) {
+                if (!Stop.this.isStop()) {
                     this.cancel();
                     return;
                 }

@@ -19,7 +19,7 @@ public abstract class CacheManager {
      * @return 缓存前缀
      */
     public String getPrefix() {
-        return getCacheConfig().getServerId() + "mhdf-tools-";
+        return this.getCacheConfig().getServerId() + "mhdf-tools-";
     }
 
     /**

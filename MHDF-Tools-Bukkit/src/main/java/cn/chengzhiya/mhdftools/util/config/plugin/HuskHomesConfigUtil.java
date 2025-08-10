@@ -10,14 +10,14 @@ public final class HuskHomesConfigUtil {
     @Getter
     private static final File dataFolder = new File(Main.instance.getDataFolder().getParent(), "HuskHomes");
     @Getter
-    private static final File configFile = new File(dataFolder, "config.yml");
+    private static final File configFile = new File(HuskHomesConfigUtil.dataFolder, "config.yml");
     private static YamlConfiguration config;
 
     /**
      * 重新加载配置文件
      */
     public static void reloadConfig() {
-        config = YamlConfiguration.loadConfiguration(configFile);
+        HuskHomesConfigUtil.config = YamlConfiguration.loadConfiguration(HuskHomesConfigUtil.configFile);
     }
 
     /**
@@ -26,10 +26,10 @@ public final class HuskHomesConfigUtil {
      * @return 配置文件实例
      */
     public static YamlConfiguration getConfig() {
-        if (config == null) {
+        if (HuskHomesConfigUtil.config == null) {
             HuskHomesConfigUtil.reloadConfig();
         }
 
-        return config;
+        return HuskHomesConfigUtil.config;
     }
 }

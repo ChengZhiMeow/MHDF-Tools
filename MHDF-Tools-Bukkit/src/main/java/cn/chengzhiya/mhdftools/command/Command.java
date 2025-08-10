@@ -35,7 +35,7 @@ public abstract class Command implements TabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, String @NotNull [] args) {
-        if (onlyPlayer) {
+        if (this.onlyPlayer) {
             if (sender instanceof Player player) {
                 this.execute(player, label, args);
             } else {
@@ -50,12 +50,12 @@ public abstract class Command implements TabExecutor {
     @Override
     public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, String @NotNull [] args) {
         List<String> tabComplete = new ArrayList<>();
-        if (onlyPlayer) {
+        if (this.onlyPlayer) {
             if (sender instanceof Player player) {
-                tabComplete = tabCompleter(player, label, args);
+                tabComplete = this.tabCompleter(player, label, args);
             }
         } else {
-            tabComplete = tabCompleter(sender, label, args);
+            tabComplete = this.tabCompleter(sender, label, args);
         }
 
         if (tabComplete == null) {

@@ -217,7 +217,7 @@ public final class ActionUtil {
     public static void sendTimeBossbar(Player player, BossBar bossBar, Long time) {
         ActionUtil.sendBossbar(player, bossBar);
         MHDFScheduler.getAsyncScheduler().runTaskTimer(Main.instance, () ->
-                hideBossbar(player, bossBar), 0, time
+                ActionUtil.hideBossbar(player, bossBar), 0, time
         );
     }
 
@@ -341,7 +341,7 @@ public final class ActionUtil {
             String[] args = action.split("<delay=");
             long delay = args.length > 1 ? Long.parseLong(args[1].replace(">", "")) : 0;
 
-            MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> runAction(sender, args[0].split("\\|")), delay);
+            MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> ActionUtil.runAction(sender, args[0].split("\\|")), delay);
         }
     }
 }

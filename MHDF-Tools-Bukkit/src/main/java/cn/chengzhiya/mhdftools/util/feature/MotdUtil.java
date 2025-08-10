@@ -44,7 +44,7 @@ public final class MotdUtil {
 
 
             if (!textComponent.children().isEmpty()) {
-                jsonArray.addAll(getMessageJsonArray(textComponent));
+                jsonArray.addAll(MotdUtil.getMessageJsonArray(textComponent));
             }
         }
 

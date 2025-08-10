@@ -30,7 +30,7 @@ public final class BarrelMenu extends Menu {
     @Override
     public @NotNull Inventory getInventory() {
         Inventory inventory = Bukkit.createInventory(this, InventoryType.BARREL, Main.instance.getConfigManager().getLangManager().i18n("menu.vanish.title"));
-        inventory.setContents(barrel.getInventory().getContents());
+        inventory.setContents(this.barrel.getInventory().getContents());
 
         return inventory;
     }

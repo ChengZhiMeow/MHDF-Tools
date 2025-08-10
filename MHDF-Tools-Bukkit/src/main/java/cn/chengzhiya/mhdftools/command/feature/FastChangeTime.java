@@ -39,7 +39,7 @@ final class FastChangeTime extends Command {
                 }
 
                 for (String command : time.getStringList("commands")) {
-                    getCommandConfigHashMap().put(command, time);
+                    this.getCommandConfigHashMap().put(command, time);
                 }
             }
         }
@@ -47,8 +47,8 @@ final class FastChangeTime extends Command {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        int time = getCommandConfigHashMap().get(label) != null
-                ? getCommandConfigHashMap().get(label).getInt("time") : 0;
+        int time = this.getCommandConfigHashMap().get(label) != null
+                ? this.getCommandConfigHashMap().get(label).getInt("time") : 0;
 
         for (World world : Bukkit.getWorlds()) {
             world.setTime(time);

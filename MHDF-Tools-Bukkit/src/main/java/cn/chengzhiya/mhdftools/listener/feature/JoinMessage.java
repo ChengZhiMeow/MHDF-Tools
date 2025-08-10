@@ -31,17 +31,17 @@ final class JoinMessage extends AbstractListener {
         }
 
         if (config.getBoolean("removeMessage")) {
-            setJoinMessage(event, null);
+            this.setJoinMessage(event, null);
             return;
         }
 
         String message = config.getString(GroupUtil.getGroup(player, config, "mhdftools.group.joinmessage.") + ".message");
         if (message == null) {
-            setJoinMessage(event, null);
+            this.setJoinMessage(event, null);
             return;
         }
 
-        setJoinMessage(event, ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
+        this.setJoinMessage(event, ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
                 .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
         );
     }

@@ -10,15 +10,15 @@ public final class CmiConfigUtil {
     @Getter
     private static final File dataFolder = new File(Main.instance.getDataFolder().getParent(), "CMI");
     @Getter
-    private static final File settingsFolder = new File(dataFolder, "Settings");
+    private static final File settingsFolder = new File(CmiConfigUtil.dataFolder, "Settings");
     @Getter
-    private static final File databaseInfoFile = new File(settingsFolder, "DataBaseInfo.yml");
+    private static final File databaseInfoFile = new File(CmiConfigUtil.settingsFolder, "DataBaseInfo.yml");
     @Getter
-    private static final File savesFolder = new File(dataFolder, "Saves");
+    private static final File savesFolder = new File(CmiConfigUtil.dataFolder, "Saves");
     @Getter
-    private static final File warpFile = new File(savesFolder, "Warps.yml");
+    private static final File warpFile = new File(CmiConfigUtil.savesFolder, "Warps.yml");
     @Getter
-    private static final File configFile = new File(dataFolder, "config.yml");
+    private static final File configFile = new File(CmiConfigUtil.dataFolder, "config.yml");
     private static YamlConfiguration config;
     private static YamlConfiguration databaseInfo;
     private static YamlConfiguration warp;
@@ -27,9 +27,9 @@ public final class CmiConfigUtil {
      * 重新加载配置文件
      */
     public static void reloadConfig() {
-        config = YamlConfiguration.loadConfiguration(configFile);
-        databaseInfo = YamlConfiguration.loadConfiguration(databaseInfoFile);
-        warp = YamlConfiguration.loadConfiguration(warpFile);
+        CmiConfigUtil.config = YamlConfiguration.loadConfiguration(CmiConfigUtil.configFile);
+        CmiConfigUtil.databaseInfo = YamlConfiguration.loadConfiguration(CmiConfigUtil.databaseInfoFile);
+        CmiConfigUtil.warp = YamlConfiguration.loadConfiguration(CmiConfigUtil.warpFile);
     }
 
     /**
@@ -38,11 +38,11 @@ public final class CmiConfigUtil {
      * @return 配置文件实例
      */
     public static YamlConfiguration getConfig() {
-        if (config == null) {
+        if (CmiConfigUtil.config == null) {
             CmiConfigUtil.reloadConfig();
         }
 
-        return config;
+        return CmiConfigUtil.config;
     }
 
     /**
@@ -51,11 +51,11 @@ public final class CmiConfigUtil {
      * @return 数据库配置文件实例
      */
     public static YamlConfiguration getDatabaseInfoConfig() {
-        if (config == null) {
+        if (CmiConfigUtil.config == null) {
             CmiConfigUtil.reloadConfig();
         }
 
-        return databaseInfo;
+        return CmiConfigUtil.databaseInfo;
     }
 
     /**
@@ -64,10 +64,10 @@ public final class CmiConfigUtil {
      * @return 传送点数据文件实例
      */
     public static YamlConfiguration getWarpConfig() {
-        if (warp == null) {
+        if (CmiConfigUtil.warp == null) {
             CmiConfigUtil.reloadConfig();
         }
 
-        return warp;
+        return CmiConfigUtil.warp;
     }
 }

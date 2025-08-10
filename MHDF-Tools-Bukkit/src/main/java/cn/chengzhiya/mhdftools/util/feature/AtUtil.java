@@ -50,7 +50,7 @@ public final class AtUtil {
             for (String allMessage : config.getStringList("allMessage")) {
                 if (!message.contains(allMessage)) continue;
 
-                playerList.add(atAll);
+                playerList.add(AtUtil.atAll);
                 break;
             }
         }
@@ -95,8 +95,8 @@ public final class AtUtil {
      */
     public static void atList(Set<String> atList, String by) {
         for (String at : atList) {
-            if (at.equals(atAll)) {
-                Bukkit.getOnlinePlayers().forEach(p -> at(p, by));
+            if (at.equals(AtUtil.atAll)) {
+                Bukkit.getOnlinePlayers().forEach(p -> AtUtil.at(p, by));
                 continue;
             }
             AtUtil.at(Bukkit.getPlayer(at), by);

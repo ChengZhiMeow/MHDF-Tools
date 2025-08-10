@@ -15,7 +15,7 @@ public final class LogUtil {
      * @param args    参数
      */
     public static void log(String message, String... args) {
-        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(CONSOLE_PREFIX + MessageUtil.formatString(message, args)));
+        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(LogUtil.CONSOLE_PREFIX + MessageUtil.formatString(message, args)));
     }
 
     /**
@@ -29,6 +29,6 @@ public final class LogUtil {
             return;
         }
 
-        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(DEBUG_PREFIX + MessageUtil.formatString(message, args)));
+        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(LogUtil.DEBUG_PREFIX + MessageUtil.formatString(message, args)));
     }
 }

@@ -42,7 +42,7 @@ public final class TeleportUtil {
             map.put(player.getName(), times + 1);
             int delay = Main.instance.getConfigManager().getConfigManager().getData().getInt("bungeecord.autoTry.delay");
             MHDFScheduler.getGlobalRegionScheduler().runTaskLater(Main.instance, () ->
-                    teleport(player, location, map), delay);
+                    TeleportUtil.teleport(player, location, map), delay);
         });
     }
 }

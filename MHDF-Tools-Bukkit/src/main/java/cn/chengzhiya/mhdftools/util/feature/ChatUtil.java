@@ -40,7 +40,8 @@ public final class ChatUtil {
         for (YamlConfiguration replace : Main.instance.getConfigManager().getConfigManager().getYamlConfigurationList("chatSettings.replaceWord.replace")) {
             String type = replace.getString("type");
             if (type == null) return messageComponent;
-            if (replace.getBoolean("bypass.enable") && player.hasPermission(replace.getString("bypass.permission", ""))) continue;
+            if (replace.getBoolean("bypass.enable") && player.hasPermission(replace.getString("bypass.permission", "")))
+                continue;
 
             boolean regex = replace.getBoolean("regex");
             for (String s : replace.getStringList("word")) {
@@ -48,7 +49,8 @@ public final class ChatUtil {
                 switch (type) {
                     case "line" -> {
                         List<String> lineList = replace.getStringList("lineList");
-                        if (!lineList.isEmpty()) messageComponent = ColorUtil.color(lineList.get(new Random().nextInt(lineList.size())));
+                        if (!lineList.isEmpty())
+                            messageComponent = ColorUtil.color(lineList.get(new Random().nextInt(lineList.size())));
                     }
                     case "word" -> {
                         String word = replace.getString("replaceWord");
@@ -106,7 +108,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static TextComponent applyShowInventory(Player player, TextComponent messageComponent) {
-        return applyShowableContainer(player, messageComponent, "showInventory", player.getInventory().getContents());
+        return ChatUtil.applyShowableContainer(player, messageComponent, "showInventory", player.getInventory().getContents());
     }
 
     /**
@@ -117,7 +119,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static TextComponent applyShowEnderChest(Player player, TextComponent messageComponent) {
-        return applyShowableContainer(player, messageComponent, "showEnderChest", player.getEnderChest().getContents());
+        return ChatUtil.applyShowableContainer(player, messageComponent, "showEnderChest", player.getEnderChest().getContents());
     }
 
     /**

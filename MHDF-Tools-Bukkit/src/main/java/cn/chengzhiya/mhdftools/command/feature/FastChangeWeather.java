@@ -39,7 +39,7 @@ final class FastChangeWeather extends Command {
                 }
 
                 for (String command : weather.getStringList("commands")) {
-                    getCommandConfigHashMap().put(command, weather);
+                    this.getCommandConfigHashMap().put(command, weather);
                 }
             }
         }
@@ -47,10 +47,10 @@ final class FastChangeWeather extends Command {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        boolean storm = getCommandConfigHashMap().get(label) != null &&
-                getCommandConfigHashMap().get(label).getBoolean("storm");
-        boolean thunder = getCommandConfigHashMap().get(label) != null &&
-                getCommandConfigHashMap().get(label).getBoolean("thunder");
+        boolean storm = this.getCommandConfigHashMap().get(label) != null &&
+                this.getCommandConfigHashMap().get(label).getBoolean("storm");
+        boolean thunder = this.getCommandConfigHashMap().get(label) != null &&
+                this.getCommandConfigHashMap().get(label).getBoolean("thunder");
 
         for (World world : Bukkit.getWorlds()) {
             world.setStorm(storm);

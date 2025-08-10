@@ -24,7 +24,7 @@ public final class MHDFDatabaseManager {
     @SneakyThrows
     public MHDFDatabaseManager() {
         this.initConfig();
-        this.database = new MHDFDatabase(config, MySQLDatabaseServiceImpl.class, H2DatabaseServiceImpl.class);
+        this.database = new MHDFDatabase(this.config, MySQLDatabaseServiceImpl.class, H2DatabaseServiceImpl.class);
     }
 
     /**
@@ -57,8 +57,8 @@ public final class MHDFDatabaseManager {
             }
         }
 
-        config.setType(Objects.requireNonNull(database.getString("type")));
-        config.setConnectConfig(connectConfig);
+        this.config.setType(Objects.requireNonNull(database.getString("type")));
+        this.config.setConnectConfig(connectConfig);
     }
 
     /**

@@ -43,7 +43,7 @@ public final class BungeeCordManager {
     public void init() {
         if (this.isBungeeCordMode()) {
             Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(Main.instance, "BungeeCord");
-            Bukkit.getServer().getMessenger().registerIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
+            Bukkit.getServer().getMessenger().registerIncomingPluginChannel(Main.instance, "BungeeCord", this.getMessageListener());
         }
     }
 
@@ -53,7 +53,7 @@ public final class BungeeCordManager {
     public void close() {
         if (this.isBungeeCordMode()) {
             Bukkit.getServer().getMessenger().unregisterOutgoingPluginChannel(Main.instance, "BungeeCord");
-            Bukkit.getServer().getMessenger().unregisterIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
+            Bukkit.getServer().getMessenger().unregisterIncomingPluginChannel(Main.instance, "BungeeCord", this.getMessageListener());
         }
     }
 
@@ -221,7 +221,7 @@ public final class BungeeCordManager {
      * @param bungeeCordLocation 群组位置实例
      */
     public void teleportLocation(Player player, BungeeCordLocation bungeeCordLocation) {
-        teleportLocation(player.getName(), bungeeCordLocation);
+        this.teleportLocation(player.getName(), bungeeCordLocation);
     }
 
     /**
@@ -369,7 +369,7 @@ public final class BungeeCordManager {
             return new ArrayList<>(this.getBungeeCordPlayerList());
         }
 
-        return new ArrayList<>(getBukkitPlayerList());
+        return new ArrayList<>(this.getBukkitPlayerList());
     }
 
     /**

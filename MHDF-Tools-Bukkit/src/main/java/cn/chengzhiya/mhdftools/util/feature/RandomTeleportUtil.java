@@ -55,7 +55,7 @@ public final class RandomTeleportUtil {
             return future;
         }
 
-        ConfigurationSection group = getGroupConfigurationSection(player);
+        ConfigurationSection group = RandomTeleportUtil.getGroupConfigurationSection(player);
         if (group == null) {
             future.complete(RandomTeleportStatus.NO_GROUP_CONFIG);
             return future;
@@ -87,7 +87,7 @@ public final class RandomTeleportUtil {
 
             if (type == Material.AIR || type == Material.CAVE_AIR || type == Material.VOID_AIR ||
                     blackBlock.contains(type.name())) {
-                randomTeleport(player, world, biome, times - 1).thenAccept(future::complete);
+                RandomTeleportUtil.randomTeleport(player, world, biome, times - 1).thenAccept(future::complete);
                 return;
             }
 

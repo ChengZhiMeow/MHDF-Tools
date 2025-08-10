@@ -11,11 +11,11 @@ public final class WarpDataManagerImpl extends AbstractDaoManager<WarpData, Stri
 
     @Override
     public boolean hasData(String name) {
-        return getById(name) != null;
+        return super.getById(name) != null;
     }
 
     @Override
     public WarpData get(String name) {
-        return getByIdOrDefault(name, new WarpData(name));
+        return super.getByIdOrDefault(name, new WarpData(name));
     }
 }

@@ -18,7 +18,7 @@ public final class HomeDataManagerImpl extends AbstractDaoManager<HomeData, Inte
     @Override
     @SneakyThrows
     public List<HomeData> getList(MHDFToolsPlayer player) {
-        QueryBuilder<HomeData, Integer> queryBuilder = getQueryBuilder();
+        QueryBuilder<HomeData, Integer> queryBuilder = super.getQueryBuilder();
 
         Where<HomeData, Integer> where = queryBuilder.where();
         where.eq("player", player.getUuid());
@@ -30,7 +30,7 @@ public final class HomeDataManagerImpl extends AbstractDaoManager<HomeData, Inte
 
     @SneakyThrows
     private QueryBuilder<HomeData, Integer> getQueryBuilder(MHDFToolsPlayer player, String name) {
-        QueryBuilder<HomeData, Integer> queryBuilder = getQueryBuilder();
+        QueryBuilder<HomeData, Integer> queryBuilder = super.getQueryBuilder();
 
         Where<HomeData, Integer> where = queryBuilder.where();
         where

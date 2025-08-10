@@ -77,7 +77,7 @@ public final class TeleportRequestMenu extends Menu {
                     continue;
                 }
                 case "上一页" -> {
-                    if (page <= 1) {
+                    if (this.page <= 1) {
                         continue;
                     }
                 }
@@ -118,7 +118,7 @@ public final class TeleportRequestMenu extends Menu {
                 String target = container.get(new NamespacedKey(Main.instance, "target"), PersistentDataType.STRING);
                 if (target == null) return;
 
-                switch (getRequestType()) {
+                switch (this.getRequestType()) {
                     case TPAHERE -> TpaHereUtil.sendTpaHereRequest(super.getPlayer(), target);
                     case TPA -> TpaUtil.sendTpaRequest(super.getPlayer(), target);
                 }

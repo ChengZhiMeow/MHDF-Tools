@@ -42,7 +42,7 @@ final class MHDFTools extends Command {
                     }
 
                     ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.mhdftools.subCommands.feature.message")
-                            .replace("{helpList}", getFeatureHelpMessage(page, commandList))
+                            .replace("{helpList}", this.getFeatureHelpMessage(page, commandList))
                             .replace("{page}", String.valueOf(page))
                             .replace("{maxPage}", String.valueOf(maxPage))
                             .replaceByMiniMessage("{lastPage}", String.valueOf(page - 1))

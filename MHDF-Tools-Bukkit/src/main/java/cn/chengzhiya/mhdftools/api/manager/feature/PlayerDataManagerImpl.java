@@ -31,7 +31,7 @@ public final class PlayerDataManagerImpl extends AbstractDaoManager<PlayerData, 
     @Override
     @SneakyThrows
     public PlayerData get(String name) {
-        QueryBuilder<PlayerData, UUID> queryBuilder = getQueryBuilder();
+        QueryBuilder<PlayerData, UUID> queryBuilder = super.getQueryBuilder();
         queryBuilder.setWhere(
                 queryBuilder.where()
                         .eq("name", name)

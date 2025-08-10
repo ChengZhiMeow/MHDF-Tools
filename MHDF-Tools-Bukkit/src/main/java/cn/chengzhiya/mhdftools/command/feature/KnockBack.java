@@ -60,8 +60,8 @@ final class KnockBack extends Command {
             case "random" -> {
                 Vector baseVector = new Vector(x, y, z);
                 double magnitude = baseVector.length();
-                double theta = rand.nextDouble() * 2 * Math.PI;
-                double phi = rand.nextDouble() * Math.PI;
+                double theta = this.rand.nextDouble() * 2 * Math.PI;
+                double phi = this.rand.nextDouble() * Math.PI;
                 double randX = Math.sin(phi) * Math.cos(theta);
                 double randY = Math.sin(phi) * Math.sin(theta);
                 double randZ = Math.cos(phi);

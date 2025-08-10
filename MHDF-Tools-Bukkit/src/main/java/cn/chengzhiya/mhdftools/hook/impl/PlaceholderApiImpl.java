@@ -29,7 +29,7 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
                 Placeholder placeholder = constructor.newInstance();
 
                 if (placeholder.isEnable()) {
-                    placeholderList.add(placeholder);
+                    this.placeholderList.add(placeholder);
                 }
             }
         }
@@ -68,7 +68,7 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
-        for (Placeholder placeholder : placeholderList) {
+        for (Placeholder placeholder : this.placeholderList) {
             String result = placeholder.onPlaceholder(player, params);
             if (result == null) continue;
 

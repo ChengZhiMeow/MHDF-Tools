@@ -71,7 +71,7 @@ public final class ItemStackBuilder {
             return this;
         }
 
-        meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), name)));
+        meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(this.getPlayer(), name)));
         this.item.setItemMeta(meta);
         return this;
     }
@@ -86,7 +86,7 @@ public final class ItemStackBuilder {
         }
 
         meta.lore(lore.stream()
-                .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), s))
+                .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(this.getPlayer(), s))
                 .map(ColorUtil::color)
                 .toList()
         );

@@ -96,7 +96,7 @@ public abstract class Menu implements InventoryHolder {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
             Inventory menu = this.getInventory();
 
-            MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> player.openInventory(menu));
+            MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> this.player.openInventory(menu));
         });
     }
 }
