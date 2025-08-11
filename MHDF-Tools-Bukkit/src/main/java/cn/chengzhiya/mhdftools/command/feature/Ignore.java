@@ -17,7 +17,7 @@ import java.util.List;
 final class Ignore extends Command {
     public Ignore() {
         super(
-                List.of("chatSettings.ignore.enable"),
+                List.of("ignoreSettings.enable"),
                 "屏蔽",
                 "mhdftools.commands.ignore",
                 true,
