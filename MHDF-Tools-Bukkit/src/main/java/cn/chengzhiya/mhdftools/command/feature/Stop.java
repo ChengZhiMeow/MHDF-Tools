@@ -177,7 +177,6 @@ final class Stop extends Command {
      */
     private void stopServer(TextComponent message) {
         MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
-            Bukkit.savePlayers();
 
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.kick(Main.instance.getConfigManager().getLangManager().i18n("commands.stop.kickMessage")
