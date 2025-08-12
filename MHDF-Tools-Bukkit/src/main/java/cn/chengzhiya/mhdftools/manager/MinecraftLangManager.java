@@ -1,8 +1,10 @@
 package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.langutil.LangAPI;
+import cn.chengzhiya.langutil.manager.lang.LangManager;
 import cn.chengzhiya.mhdftools.Main;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,8 +30,14 @@ public final class MinecraftLangManager {
      * @param item 物品实例
      * @return 物品名称
      */
-    public String getItemName(ItemStack item) {
-        return this.getLangAPI().getLangManager().getItemName(item);
+    public Component getItemName(ItemStack item) {
+        LangManager langManager = this.getLangAPI().getLangManager();
+        if (item.getItemMeta() != null && item.getItemMeta().hasDisplayName()) {
+            return item.getItemMeta().displayName();
+        } else {
+            if (!langManager.isLoaded()) langManager.reloadLang();
+            return Component.text(langManager.getData().getString(LangAPI.instance.getItemManager().getKey(item)));
+        }
     }
 
     /**

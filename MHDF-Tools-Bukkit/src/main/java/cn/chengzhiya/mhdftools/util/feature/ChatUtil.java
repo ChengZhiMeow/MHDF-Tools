@@ -88,7 +88,8 @@ public final class ChatUtil {
         MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> Main.instance.getCacheManager().remove("showItem", uuid.toString()), 20L * config.getInt("removeCache"));
 
         ItemMeta meta = item.getItemMeta();
-        Component displayName = PluginUtil.isNativeSupportAdventureApi() && meta.hasCustomName() ? meta.customName() : ColorUtil.color(Main.instance.getMinecraftLangManager().getItemName(item));
+        Component displayName = PluginUtil.isNativeSupportAdventureApi() && meta.hasCustomName()
+                ? meta.customName() : Main.instance.getMinecraftLangManager().getItemName(item);
         TextComponent formatComponent = ColorUtil.color(format)
                 .replace("{uuid}", uuid.toString())
                 .replace("{name}", displayName)
