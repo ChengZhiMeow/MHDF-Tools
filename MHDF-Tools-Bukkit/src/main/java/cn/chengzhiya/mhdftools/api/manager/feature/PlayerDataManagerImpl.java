@@ -24,7 +24,7 @@ public final class PlayerDataManagerImpl extends AbstractDaoManager<PlayerData, 
     public PlayerData get(MHDFToolsPlayer player) {
         return super.getByIdOrDefault(
                 player.getUuid(),
-                player.getPlayer() != null ? new PlayerData(player.getPlayer()) : new PlayerData(player)
+                player.getPlayer() != null ? new PlayerData(player.getPlayer()) : new PlayerData(player.getUuid())
         );
     }
 

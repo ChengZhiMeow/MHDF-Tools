@@ -7,6 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.UUID;
@@ -26,6 +27,8 @@ public final class PlayerData extends Dao {
 
     public PlayerData(UUID player) {
         this.player = player;
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player);
+        this.name = offlinePlayer.getName();
     }
 
     public PlayerData(UUID player, String name) {
