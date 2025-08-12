@@ -706,7 +706,7 @@ pvpSettings:
   default: true
   # 命令
   commands:
-    - "pay"
+    - "pvp"
 
 # 进服消息
 joinMessageSettings:
