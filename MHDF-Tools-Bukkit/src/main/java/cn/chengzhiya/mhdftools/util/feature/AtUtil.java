@@ -64,8 +64,8 @@ public final class AtUtil {
      * @param player 玩家实例
      */
     public static void at(Player player, String by) {
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (player == null) return;
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
 
         // 屏蔽黑名单列表中的AT
         OfflinePlayer byPlayer = Bukkit.getOfflinePlayer(by);
