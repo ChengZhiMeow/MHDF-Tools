@@ -26,15 +26,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.joinServer")) {
-            return;
-        }
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.joinServer")) return;
 
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (this.allowChange(player)) {
-            mhdfPlayer.disableFly();
-        }
+        if (!this.allowFly(player)) mhdfPlayer.disableFly();
     }
 
     /**
@@ -44,15 +40,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.changeWorld")) {
-            return;
-        }
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.changeWorld")) return;
 
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (this.allowChange(player)) {
-            mhdfPlayer.disableFly();
-        }
+        if (!this.allowFly(player)) mhdfPlayer.disableFly();
     }
 
     /**
@@ -62,15 +54,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.respawn")) {
-            return;
-        }
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.respawn")) return;
 
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (this.allowChange(player)) {
-            mhdfPlayer.disableFly();
-        }
+        if (!this.allowFly(player)) mhdfPlayer.disableFly();
     }
 
     /**
@@ -79,18 +67,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoDisable.takeHealth")) {
-            return;
-        }
-
-        if (!(event.getEntity() instanceof Player player)) {
-            return;
-        }
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoDisable.takeHealth")) return;
+        if (!(event.getEntity() instanceof Player player)) return;
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (this.allowChange(player)) {
-            mhdfPlayer.disableFly();
-        }
+        if (mhdfPlayer.isEnableFly()) mhdfPlayer.disableFly();
     }
 
     /**
@@ -98,19 +79,13 @@ final class AutoChangeFly extends AbstractListener {
      *
      * @param player 玩家实例
      */
-    private boolean allowChange(Player player) {
+    private boolean allowFly(Player player) {
+        // 禁止飞行世界
+        if (Main.instance.getConfigManager().getConfigManager().getData().getStringList("flySettings.autoDisable.worldList")
+                .contains(player.getWorld().getName())
+        ) return false;
+
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        // 目标世界在 自动关闭飞行世界列表 当中
-        if (Main.instance.getConfigManager().getConfigManager().getData().getStringList("flySettings.autoDisable.worldList").contains(player.getWorld().getName())) {
-            mhdfPlayer.disableFly();
-            return false;
-        }
-
-        // 不处理没有开启飞行的玩家
-        if (!mhdfPlayer.isEnableFly()) {
-            return false;
-        }
-
-        return !mhdfPlayer.isAllowedFlyingGameMode();
+        return mhdfPlayer.isEnableFly() || mhdfPlayer.isAllowedFlyingGameMode();
     }
 }
