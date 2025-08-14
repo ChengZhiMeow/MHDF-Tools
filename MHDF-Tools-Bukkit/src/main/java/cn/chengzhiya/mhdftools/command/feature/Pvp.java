@@ -65,6 +65,7 @@ final class Pvp extends Command {
             }
             this.sendChangePvpMessage(player, player, true);
             mhdfPlayer.enablePvp();
+            return;
         }
 
         if (sendToSender) {
