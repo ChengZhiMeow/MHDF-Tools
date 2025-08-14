@@ -18,19 +18,12 @@ public final class Pvp extends AbstractListener {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player damager) || !(event.getEntity() instanceof Player player)) {
-            return;
-        }
+        if (!(event.getDamager() instanceof Player damager) || !(event.getEntity() instanceof Player player)) return;
 
         MHDFToolsPlayer damagerPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(damager);
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        if (damagerPlayer == null || mhdfPlayer == null) {
-            return;
-        }
-
-        if (damagerPlayer.isEnablePvp() && mhdfPlayer.isEnablePvp()) {
-            return;
-        }
+        if (damagerPlayer == null || mhdfPlayer == null) return;
+        if (damagerPlayer.isEnablePvp() && mhdfPlayer.isEnablePvp()) return;
 
         event.setCancelled(true);
     }

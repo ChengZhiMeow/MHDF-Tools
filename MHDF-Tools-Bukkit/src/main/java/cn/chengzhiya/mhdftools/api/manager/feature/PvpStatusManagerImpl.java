@@ -14,8 +14,8 @@ public final class PvpStatusManagerImpl extends AbstractDaoManager<PvpStatus, UU
 
     @Override
     public boolean isEnable(MHDFToolsPlayer player) {
-        PvpStatus status = super.getById(player.getUuid());
-        return status != null && status.isEnable();
+        PvpStatus status = this.get(player);
+        return status.isEnable();
     }
 
     @Override

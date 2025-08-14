@@ -31,6 +31,7 @@ final class AutoChangeFly extends AbstractListener {
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (!this.allowFly(player)) mhdfPlayer.disableFly();
+        else mhdfPlayer.enableFly();
     }
 
     /**
@@ -45,6 +46,7 @@ final class AutoChangeFly extends AbstractListener {
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (!this.allowFly(player)) mhdfPlayer.disableFly();
+        else mhdfPlayer.enableFly();
     }
 
     /**
@@ -59,6 +61,7 @@ final class AutoChangeFly extends AbstractListener {
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (!this.allowFly(player)) mhdfPlayer.disableFly();
+        else mhdfPlayer.enableFly();
     }
 
     /**
@@ -72,6 +75,7 @@ final class AutoChangeFly extends AbstractListener {
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
         if (mhdfPlayer.isEnableFly()) mhdfPlayer.disableFly();
+        else mhdfPlayer.enableFly();
     }
 
     /**
