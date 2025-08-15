@@ -103,7 +103,7 @@ final class Chat extends AbstractListener {
                 formatMessage
         );
         for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
-            if (config.getBoolean("ignore.enable")) {
+            if (Main.instance.getConfigManager().getConfigManager().getData().getBoolean("ignoreSettings.enable")) {
                 MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target);
                 if (mhdfTargetPlayer.isIgnore(mhdfPlayer)) {
                     continue;
