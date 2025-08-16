@@ -61,7 +61,7 @@
         <env.lib.lettuce.version>6.5.5.RELEASE</env.lib.lettuce.version>
 
         <!--数据包-->
-        <env.lib.packetevents.version>2.9.1</env.lib.packetevents.version>
+        <env.lib.packetevents.version>2.9.4</env.lib.packetevents.version>
 
         <!--数学表达式-->
         <env.lib.exp4j.version>0.4.8</env.lib.exp4j.version>
