@@ -568,7 +568,7 @@ chatSettings:
           # 开关
           enable: false
         # 替换后的文本
-        replaceWord: "<click:open_url:'{value}'><hover:show_text:'<#EAE4FF>点击打开网页'>{value}</hover></click>"
+        replaceWord: "<click:open_url:'{value}'><hover:show_text:'&f网址: <#EAE4FF>{value}<br><br><#EAE4FF>点击打开该网站'>&7[<#EAE4FF>网站&7]</hover></click>"
       - # 文本
         word:
           - "傻逼"

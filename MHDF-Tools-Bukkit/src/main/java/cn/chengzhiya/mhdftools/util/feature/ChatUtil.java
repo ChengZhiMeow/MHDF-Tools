@@ -45,21 +45,28 @@ public final class ChatUtil {
 
             boolean regex = replace.getBoolean("regex");
             for (String s : replace.getStringList("word")) {
-                if (!message.contains(s)) continue;
+                String value = null;
+                if (regex) {
+                    Matcher matcher = Pattern.compile(s).matcher(message);
+                    if (matcher.find()) value = matcher.group();
+                } else {
+                    if (!message.contains(s)) value = s;
+                }
+
+                if (value == null) continue;
+
                 switch (type) {
                     case "line" -> {
                         List<String> lineList = replace.getStringList("lineList");
                         if (!lineList.isEmpty())
-                            messageComponent = ColorUtil.color(lineList.get(new Random().nextInt(lineList.size())));
+                            messageComponent = ColorUtil.color(lineList.get(new Random().nextInt(lineList.size())))
+                                    .replace("{value}", value);
                     }
                     case "word" -> {
                         String word = replace.getString("replaceWord");
-                        if (word != null) messageComponent = messageComponent.replace(s, word);
+                        if (word != null)
+                            messageComponent = messageComponent.replace(value, ColorUtil.color(word).replaceByMiniMessage("{value}", value));
                     }
-                }
-                if (regex) {
-                    Matcher matcher = Pattern.compile(s).matcher(message);
-                    if (matcher.find()) messageComponent = messageComponent.replace("{value}", matcher.group());
                 }
             }
         }
