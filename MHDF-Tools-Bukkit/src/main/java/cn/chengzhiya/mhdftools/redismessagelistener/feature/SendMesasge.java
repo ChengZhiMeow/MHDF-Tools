@@ -1,9 +1,11 @@
 package cn.chengzhiya.mhdftools.redismessagelistener.feature;
 
 import cn.chengzhiya.mhdftools.redismessagelistener.RedisMessageListener;
+import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
+import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -25,21 +27,20 @@ public final class SendMesasge extends RedisMessageListener {
                 text
         );
 
-        if (playerName.equals("all")) {
-            ActionUtil.broadcastMessage(text);
-            return;
-        }
-
         if (playerName.equals("console")) {
             LogUtil.log(text);
             return;
         }
 
-        Player player = Bukkit.getPlayer(playerName);
-        if (player == null) {
+        TextComponent textComponent = new TextComponent(JSONComponentSerializer.json().deserialize(text));
+
+        if (playerName.equals("all")) {
+            ActionUtil.broadcastMessage(textComponent);
             return;
         }
 
-        ActionUtil.sendMessage(player, text);
+        Player player = Bukkit.getPlayer(playerName);
+        if (player == null) return;
+        ActionUtil.sendMessage(player, textComponent);
     }
 }

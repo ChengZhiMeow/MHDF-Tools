@@ -255,7 +255,7 @@ public final class ActionUtil {
             case "[player]" -> ActionUtil.runCommand(sender, args[1], false);
             case "[player_op]" -> ActionUtil.runCommand(sender, args[1], true);
             case "[console]" -> ActionUtil.runCommand(Bukkit.getConsoleSender(), args[1], true);
-            case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(args[1]);
+            case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(ColorUtil.color(args[1]));
             case "[message]" -> ActionUtil.sendMessage(sender, args[1]);
             case "[actionbar]" -> {
                 if (sender instanceof Player player) {

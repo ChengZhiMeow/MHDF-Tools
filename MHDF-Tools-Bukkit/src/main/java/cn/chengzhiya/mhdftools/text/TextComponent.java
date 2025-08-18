@@ -7,6 +7,7 @@ import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.jetbrains.annotations.NotNull;
 
@@ -151,6 +152,15 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
      */
     public String toMiniMessageString() {
         return MiniMessage.miniMessage().serialize(this);
+    }
+
+    /**
+     * 转换为json字符符串
+     *
+     * @return json字符符串
+     */
+    public String toJsonString() {
+        return JSONComponentSerializer.json().serialize(this);
     }
 
     /**

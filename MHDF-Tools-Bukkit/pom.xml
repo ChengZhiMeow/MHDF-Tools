@@ -136,7 +136,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${env.plugin.jar.version}</version>
                 <configuration>
-                    <outputDirectory>${project.basedir}/../build/</outputDirectory>
+                    <outputDirectory>C:\Users\ChengZhiYa\Desktop\momi\plugins</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>

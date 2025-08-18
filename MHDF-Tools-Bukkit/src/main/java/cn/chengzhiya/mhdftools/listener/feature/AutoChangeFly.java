@@ -26,7 +26,8 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.joinServer")) return;
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.joinServer"))
+            return;
 
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
@@ -41,7 +42,8 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.changeWorld")) return;
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.changeWorld"))
+            return;
 
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
@@ -56,7 +58,8 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.respawn")) return;
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoEnable.respawn"))
+            return;
 
         Player player = event.getPlayer();
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
@@ -70,7 +73,8 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         // 不处理功能未开启的情况
-        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoDisable.takeHealth")) return;
+        if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("flySettings.autoDisable.takeHealth"))
+            return;
         if (!(event.getEntity() instanceof Player player)) return;
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);

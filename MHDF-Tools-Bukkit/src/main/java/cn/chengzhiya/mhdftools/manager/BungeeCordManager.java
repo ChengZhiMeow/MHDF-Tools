@@ -225,19 +225,19 @@ public final class BungeeCordManager {
     }
 
     /**
-     * 向指定玩家ID发送指定消息文本
+     * 向指定玩家ID发送指定文本实例
      *
      * @param playerName 玩家ID
-     * @param message    消息文本
+     * @param message    文本实例
      */
-    public void sendMessage(String playerName, String message) {
+    public void sendMessage(String playerName, TextComponent message) {
         if (!this.isBungeeCordMode() && playerName.equals("all")) {
             ActionUtil.broadcastMessage(message);
             return;
         }
 
         if (!this.isBungeeCordMode() && playerName.equals("console")) {
-            LogUtil.log(message);
+            LogUtil.log(message.toLegacyString());
             return;
         }
 
@@ -249,7 +249,7 @@ public final class BungeeCordManager {
 
         JSONObject data = new JSONObject();
         data.put("playerName", playerName);
-        data.put("message", message);
+        data.put("message", message.toJsonString());
 
         ((RedisCacheManager) Main.instance.getCacheManager())
                 .getRedisClient()
@@ -258,41 +258,21 @@ public final class BungeeCordManager {
     }
 
     /**
-     * 向指定玩家ID发送指定消息文本
-     *
-     * @param playerName 玩家ID
-     * @param message    文本实例
-     */
-    public void sendMessage(String playerName, TextComponent message) {
-        this.sendMessage(playerName, message.toMiniMessageString());
-    }
-
-    /**
      * 向指定玩家实例发送指定消息文本
-     *
-     * @param player  玩家实例
-     * @param message 消息文本
-     */
-    public void sendMessage(OfflinePlayer player, String message) {
-        this.sendMessage(player.getName(), message);
-    }
-
-    /**
-     * 向指定玩家ID发送指定消息文本
      *
      * @param player  玩家实例
      * @param message 文本实例
      */
     public void sendMessage(OfflinePlayer player, TextComponent message) {
-        this.sendMessage(player, message.toMiniMessageString());
+        this.sendMessage(player.getName(), message);
     }
 
     /**
-     * 向指定玩家ID发送指定消息文本
+     * 向指定玩家ID发送指定文本实例
      *
-     * @param message 消息文本
+     * @param message 文本实例
      */
-    public void broadcastMessage(String message) {
+    public void broadcastMessage(TextComponent message) {
         this.sendMessage("all", message);
     }
 
