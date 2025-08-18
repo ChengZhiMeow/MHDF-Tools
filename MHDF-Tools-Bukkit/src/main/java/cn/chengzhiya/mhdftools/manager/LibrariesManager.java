@@ -55,8 +55,8 @@ public final class LibrariesManager {
                     if (versionSection == null) continue;
 
                     int targetVersion = Integer.parseInt(versionKey);
-                    String type = section.getString("type");
-                    String value = section.getString("value");
+                    String type = versionSection.getString("type");
+                    String value = versionSection.getString("value");
                     if (type == null || value == null) continue;
 
                     boolean result = switch (type) {

@@ -51,10 +51,10 @@ com:
         version:
           default:
             value: "${env.lib.packetevents.version}"
-          1215:
+          "1215":
             type: "=="
             value: "2.9.0"
-          1214:
+          "1214":
             type: "<="
             value: "2.8.0"
         relocate:
