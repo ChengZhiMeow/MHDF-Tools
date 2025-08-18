@@ -201,12 +201,9 @@ public final class ChatUtil {
         JSONObject inventoryData = new JSONObject();
         for (int i = 0; i < contents.length; i++) {
             ItemStack item = contents[i];
-            if (item != null && !item.getType().isAir()) {
-                inventoryData.put(String.valueOf(i), Base64Util.encode(item.serializeAsBytes()));
-            }
+            if (item == null || item.getType().isAir()) continue;
+            inventoryData.put(String.valueOf(i), Base64Util.encode(item.serializeAsBytes()));
         }
-
-        if (inventoryData.isEmpty()) return messageComponent;
 
         UUID uuid = UUID.randomUUID();
         Main.instance.getCacheManager().put(configKey, uuid.toString(), inventoryData.toString());
