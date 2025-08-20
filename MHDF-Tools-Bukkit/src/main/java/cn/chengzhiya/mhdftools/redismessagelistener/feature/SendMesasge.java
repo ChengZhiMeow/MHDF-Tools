@@ -27,12 +27,12 @@ public final class SendMesasge extends RedisMessageListener {
                 text
         );
 
+        TextComponent textComponent = new TextComponent(JSONComponentSerializer.json().deserialize(text));
+
         if (playerName.equals("console")) {
-            LogUtil.log(text);
+            LogUtil.log(textComponent.toLegacyString());
             return;
         }
-
-        TextComponent textComponent = new TextComponent(JSONComponentSerializer.json().deserialize(text));
 
         if (playerName.equals("all")) {
             ActionUtil.broadcastMessage(textComponent);
