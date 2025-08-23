@@ -1,14 +1,11 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
-import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.BarrelMenu;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.ChestMenu;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.ShulkerBoxMenu;
-import org.bukkit.Location;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -34,20 +31,17 @@ final class VanishOpen extends AbstractListener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (event.getClickedBlock() == null) return;
         Block block = event.getClickedBlock();
-        Location location = block.getLocation();
 
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-            if (!mhdfPlayer.isEnableVanish()) return;
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        if (!mhdfPlayer.isEnableVanish()) return;
 
-            MHDFScheduler.getRegionScheduler().runTask(Main.instance, location, () -> {
-                if (block instanceof Chest chest)
-                    new ChestMenu(player, chest).openMenu();
-                else if (block instanceof ShulkerBox shulkerBox)
-                    new ShulkerBoxMenu(player, shulkerBox).openMenu();
-                else if (block instanceof Barrel barrel)
-                    new BarrelMenu(player, barrel).openMenu();
-            });
-        });
+        event.setCancelled(true);
+
+        if (block instanceof Chest chest)
+            new ChestMenu(player, chest).openMenu();
+        else if (block instanceof ShulkerBox shulkerBox)
+            new ShulkerBoxMenu(player, shulkerBox).openMenu();
+        else if (block instanceof Barrel barrel)
+            new BarrelMenu(player, barrel).openMenu();
     }
 }
