@@ -39,7 +39,7 @@ public final class ChatUtil {
 
         for (YamlConfiguration replace : Main.instance.getConfigManager().getConfigManager().getYamlConfigurationList("chatSettings.replaceWord.replace")) {
             String type = replace.getString("type");
-            if (type == null) return messageComponent;
+            if (type == null) continue;
             if (replace.getBoolean("bypass.enable") && player.hasPermission(replace.getString("bypass.permission", "")))
                 continue;
 
@@ -50,7 +50,7 @@ public final class ChatUtil {
                     Matcher matcher = Pattern.compile(s).matcher(message);
                     if (matcher.find()) value = matcher.group();
                 } else {
-                    if (!message.contains(s)) value = s;
+                    if (message.contains(s)) value = s;
                 }
 
                 if (value == null) continue;
