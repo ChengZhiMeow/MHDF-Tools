@@ -249,17 +249,20 @@ commands:
     description: "返回到指定家"
     noHome: "{prefix} <#FFB8B8>找不到名为 &f{home} <#FFB8B8>的家!"
     openMenuMessage: "{prefix} <#EAE4FF>你打开了家列表!"
+    invalidName: "{prefix} <#FFB8B8>无效的名称!"
     message: "{prefix} <#EAE4FF>你传送到了 &f{home}<#FFB8B8>!"
   sethome:
     usage: "/{command} <家名称>"
     description: "设置家"
     haveHome: "{prefix} <#FFB8B8>你已经有一个名为 &f{home} <#FFB8B8>的家了,请不要重复设置!"
     isMax: "{prefix} <#FFB8B8>你已经设置了 &f{amount}个 <#FFB8B8>家了,没有办法设置更多家了!"
+    invalidName: "{prefix} <#FFB8B8>无效的名称!"
     message: "{prefix} <#EAE4FF>你设置了一个名为 &f{home} <#EAE4FF>的家!"
   delhome:
     usage: "/{command} <家名称>"
     description: "删除家"
     noHome: "{prefix} <#FFB8B8>找不到名为 &f{home} <#FFB8B8>的家!"
+    invalidName: "{prefix} <#FFB8B8>无效的名称!"
     message: "{prefix} <#EAE4FF>你删除了一个名为 &f{home} <#EAE4FF>的家!"
   back:
     usage: "/{command}"

@@ -272,6 +272,8 @@ homeSettings:
   # 默认最大家数量
   # 可以通过 mhdftools.commands.home.max.<数量> 自定义
   defaultMax: 10
+  # 正则匹配名称
+  regex: "^[a-zA-Z0-9\u4e00-\u9fa5_-]+$"
   # 命令
   commands:
     - "home"

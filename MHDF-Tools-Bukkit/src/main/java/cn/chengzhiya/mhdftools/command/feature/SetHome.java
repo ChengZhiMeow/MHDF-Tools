@@ -42,6 +42,12 @@ final class SetHome extends Command {
             return;
         }
 
+        String regex = Main.instance.getConfigManager().getConfigManager().getData().getString("homeSettings.regex");
+        if (regex != null && !args[0].matches(regex)) {
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.home.invalidName"));
+            return;
+        }
+
         MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
         if (!Main.instance.getConfigManager().getConfigManager().getData().getBoolean("homeSettings.existReplace")) {
             if (player.hasHome(args[0])) {

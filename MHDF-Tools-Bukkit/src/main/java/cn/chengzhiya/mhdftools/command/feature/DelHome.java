@@ -39,6 +39,12 @@ final class DelHome extends Command {
             return;
         }
 
+        String regex = Main.instance.getConfigManager().getConfigManager().getData().getString("homeSettings.regex");
+        if (regex != null && !args[0].matches(regex)) {
+            ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.home.invalidName"));
+            return;
+        }
+
         MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
         if (!player.hasHome(args[0])) {
             ActionUtil.sendMessage(sender, Main.instance.getConfigManager().getLangManager().i18n("commands.delhome.noHome")
