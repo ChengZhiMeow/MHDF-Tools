@@ -1,0 +1,114 @@
+# 本文件用于声明依赖项的版本配置
+# 若无特殊需求，请勿修改此文件
+# 随意修改可能导致插件功能异常
+
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 更新插件自动覆盖配置
+update: true
+
+library:
+  - repo: "https://maven.chengzhimeow.cn/releases/"
+    dependency: "${libs.mhdf_scheduler}"
+    relocate:
+      enable: true
+  - repo: "https://maven.chengzhimeow.cn/releases/"
+    dependency: "${libs.mhdf_langutil}"
+    relocate:
+      enable: true
+
+  # 数据库
+  - repo: "https://maven.chengzhimeow.cn/releases/"
+    dependency: "${libs.mhdf_database_api}"
+    relocate:
+      enable: true
+  - repo: "https://maven.chengzhimeow.cn/releases/"
+    dependency: "${libs.mhdf_database_mysql}"
+    relocate:
+      enable: true
+  - repo: "https://maven.chengzhimeow.cn/releases/"
+    dependency: "${libs.mhdf_database_h2}"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "com.j256.ormlite:ormlite-core:6.1"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "com.j256.ormlite:ormlite-jdbc:6.1"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "com.zaxxer:HikariCP:6.1.0"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "com.mysql:mysql-connector-j:9.1.0"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "com.h2database:h2:2.3.232"
+    relocate:
+      enable: true
+      relocator:
+        - "org.h2"
+
+  # packetevents
+  - repo: "https://repo.codemc.io/repository/maven-public/"
+    dependency: "com.github.retrooper:packetevents-api"
+    version: &packetevents_version
+      - mc_version:
+          type: "=="
+          value: 1215
+        value: "2.9.0"
+      - mc_version:
+          type: "<="
+          value: 1214
+        value: "2.8.0"
+      - value: "2.9.4"
+    relocate: &packetevents_relocate
+      enable: true
+      relocator:
+        - "io.github.retrooper"
+  - repo: "https://repo.codemc.io/repository/maven-public/"
+    dependency: "com.github.retrooper:packetevents-netty-common"
+    version: *packetevents_version
+    relocate: *packetevents_relocate
+  - repo: "https://repo.codemc.io/repository/maven-public/"
+    dependency: "com.github.retrooper:packetevents-spigot"
+    version: *packetevents_version
+    relocate: *packetevents_relocate
+
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "${libs.fastjson}"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "${libs.reflections}"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "${libs.lettuce}"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "${libs.exp4j}"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "org.javassist:javassist:3.28.0-GA"
+    relocate:
+      enable: true
+      relocator:
+        - "javassist"
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "org.reactivestreams:reactive-streams:1.0.4"
+    relocate:
+      enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "io.projectreactor:reactor-core:3.6.6"
+    relocate:
+      enable: true
+      relocator:
+        - "reactor"

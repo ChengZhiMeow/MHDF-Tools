@@ -1,0 +1,36 @@
+package cn.chengzhimeow.mhdftools.bukkit.listener.misc;
+
+import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.util.teleport.TeleportUtil;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.util.concurrent.ConcurrentHashMap;
+
+final class TpLocation extends AbstractListener {
+    public TpLocation() {
+        super();
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+        String tpLocationBase64 = Main.instance.getCacheManager().get("tpLocation", player.getName());
+        if (tpLocationBase64 == null) {
+            return;
+        }
+
+        Main.instance.getCacheManager().remove("tpLocation", player.getName());
+
+        BungeeCordLocation tpLocation = new BungeeCordLocation(tpLocationBase64);
+        if (!tpLocation.getServer().equals(Main.instance.getBungeeCordManager().getServerName())) {
+            return;
+        }
+
+        TeleportUtil.teleport(player, tpLocation.toLocation(), new ConcurrentHashMap<>());
+    }
+}

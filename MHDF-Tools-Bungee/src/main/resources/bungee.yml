@@ -1,3 +1,0 @@
-name: MHDF-Tools-Bungee
-version: '${project.version}'
-main: cn.chengzhiya.mhdftools.Main

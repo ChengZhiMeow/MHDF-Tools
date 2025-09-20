@@ -1,0 +1,16 @@
+{
+  "id": "mhdf-tools-velocity",
+  "name": "MHDF-Tools-Velocity",
+  "version": "${project.version}",
+  "authors": [
+    "ChengZhiMeow"
+  ],
+  "contributors": [
+    "Dg32z_",
+    "Loyisa",
+    "Sn0wo2",
+    "jhqwqmc",
+    "sdfsfsk"
+  ],
+  "main": "cn.chengzhimeow.mhdftools.velocity.Main"
+}

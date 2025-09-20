@@ -1,0 +1,52 @@
+package cn.chengzhimeow.mhdftools.api.entity.database.data;
+
+import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhimeow.mhdftools.api.entity.database.Dao;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+
+import java.util.UUID;
+
+@Getter
+@Setter
+@ToString
+@DatabaseTable(tableName = "mhdftools_player")
+public final class PlayerData extends Dao {
+    @DatabaseField(id = true, canBeNull = false)
+    private UUID player;
+    @DatabaseField(index = true, canBeNull = false)
+    private String name;
+
+    public PlayerData() {
+    }
+
+    public PlayerData(UUID player) {
+        this.player = player;
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player);
+        this.name = offlinePlayer.getName();
+    }
+
+    public PlayerData(UUID player, String name) {
+        this(player);
+        this.name = name;
+    }
+
+    public PlayerData(OfflinePlayer player) {
+        this(
+                player.getUniqueId(),
+                player.getName()
+        );
+    }
+
+    public PlayerData(MHDFToolsPlayer player) {
+        this(
+                player.getUuid(),
+                player.getName()
+        );
+    }
+}

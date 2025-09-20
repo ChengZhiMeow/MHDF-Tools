@@ -1,0 +1,14 @@
+# 配置文件版本号(请勿修改)
+configVersion: "${project.version}"
+
+# 代理
+proxy:
+  # 开关
+  enable: false
+  # 类型
+  # HTTP SOCKS
+  type: "HTTP"
+  # 地址
+  host: "127.0.0.1"
+  # 端口
+  port: 7890
