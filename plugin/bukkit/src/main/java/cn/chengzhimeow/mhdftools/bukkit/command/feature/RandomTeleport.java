@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.command.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
@@ -7,7 +8,6 @@ import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.reflection.world.BiomeUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.RandomTeleportUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
@@ -136,7 +136,7 @@ final class RandomTeleport extends Command {
         Player finalPlayer = player;
         String finalWorldName = worldName;
         Biome finalBiome = biome;
-        MHDFScheduler.getRegionScheduler().runTask(Main.instance, player.getLocation(), () ->
+        CCScheduler.getInstance().getRegionScheduler().runTask(Main.instance, player.getLocation(), () ->
                 RandomTeleportUtil.handleRandomTeleport(sender, finalPlayer, finalWorldName, finalBiome)
         );
     }

@@ -1,8 +1,8 @@
 package cn.chengzhimeow.mhdftools.bukkit.manager;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -75,7 +75,7 @@ public final class BStatsManager {
                     enabled,
                     this::appendPlatformData,
                     this::appendServiceData,
-                    submitDataTask -> MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> submitDataTask.run()),
+                    submitDataTask -> CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () -> submitDataTask.run()),
                     plugin::isEnabled,
                     (message, error) -> this.plugin.getLogger().log(Level.WARNING, message, error),
                     (message) -> this.plugin.getLogger().log(Level.INFO, message),

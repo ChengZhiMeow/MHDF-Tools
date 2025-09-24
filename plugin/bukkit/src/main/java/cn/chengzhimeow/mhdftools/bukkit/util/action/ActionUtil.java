@@ -1,12 +1,12 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.action;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.folder.CustomMenuManager;
 import cn.chengzhimeow.mhdftools.bukkit.reflection.SoundUtil;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.CustomMenuUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;
@@ -68,7 +68,7 @@ public final class ActionUtil {
      * @param pitch  音调
      */
     public static void playSound(Player player, Sound sound, Float volume, Float pitch) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () ->
                 player.playSound(player, sound, volume, pitch)
         );
     }
@@ -82,7 +82,7 @@ public final class ActionUtil {
      * @param pitch  音调
      */
     public static void playSound(Player player, String sound, Float volume, Float pitch) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () ->
                 player.playSound(player, sound, volume, pitch)
         );
     }
@@ -98,7 +98,7 @@ public final class ActionUtil {
      * @param fadeOut  淡出时间
      */
     public static void sendTitle(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> {
             player.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
             player.sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
             player.sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
@@ -133,7 +133,7 @@ public final class ActionUtil {
      * @param message 消息实例
      */
     public static void sendActionBar(Player player, TextComponent message) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> {
             player.sendActionBar(message);
         });
     }
@@ -155,7 +155,7 @@ public final class ActionUtil {
      * @param bossBar BOSS血条实例
      */
     public static void sendBossbar(Player player, BossBar bossBar) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> player.showBossBar(bossBar));
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> player.showBossBar(bossBar));
     }
 
     /**
@@ -165,7 +165,7 @@ public final class ActionUtil {
      * @param bossBar BOSS血条实例
      */
     public static void hideBossbar(Player player, BossBar bossBar) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> player.hideBossBar(bossBar));
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> player.hideBossBar(bossBar));
     }
 
     /**
@@ -177,7 +177,7 @@ public final class ActionUtil {
      */
     public static void sendTimeBossbar(Player player, BossBar bossBar, Long time) {
         ActionUtil.sendBossbar(player, bossBar);
-        MHDFScheduler.getAsyncScheduler().runTaskTimer(Main.instance, () ->
+        CCScheduler.getInstance().getAsyncScheduler().runTaskTimer(Main.instance, () ->
                 ActionUtil.hideBossbar(player, bossBar), 0, time
         );
     }
@@ -190,11 +190,12 @@ public final class ActionUtil {
      * @param op      是否以op身份执行命令
      */
     public static void runCommand(CommandSender sender, String command, boolean op) {
-        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
+        CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () -> {
             if (op && !sender.isOp()) {
                 sender.setOp(true);
                 Bukkit.dispatchCommand(sender, command);
                 sender.setOp(false);
+                return;
             }
             Bukkit.dispatchCommand(sender, command);
         });
@@ -279,7 +280,7 @@ public final class ActionUtil {
             }
             case "[close]" -> {
                 if (sender instanceof Player player) {
-                    MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, player::closeInventory);
+                    CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () -> player.closeInventory());
                 }
             }
         }
@@ -302,7 +303,7 @@ public final class ActionUtil {
             String[] args = action.split("<delay=");
             long delay = args.length > 1 ? Long.parseLong(args[1].replace(">", "")) : 0;
 
-            MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> ActionUtil.runAction(sender, args[0].split("\\|")), delay);
+            CCScheduler.getInstance().getAsyncScheduler().runTaskLater(Main.instance, () -> ActionUtil.runAction(sender, args[0].split("\\|")), delay);
         }
     }
 }

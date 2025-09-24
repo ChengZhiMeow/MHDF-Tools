@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
+import cn.chengzhimeow.ccscheduler.runnable.CCRunnable;
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.command.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
@@ -7,8 +9,6 @@ import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
-import cn.chengzhiya.mhdfscheduler.runnable.MHDFRunnable;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -145,7 +145,7 @@ final class Stop extends Command {
      * @param message 消息
      */
     private void startStopRunnable(int time, TextComponent message) {
-        new MHDFRunnable() {
+        new CCRunnable(CCScheduler.getInstance()) {
             private int countdown = time;
 
             @Override
@@ -162,11 +162,10 @@ final class Stop extends Command {
                     return;
                 }
 
-                if (ConfigSetting.getSettingInstance().getData().getIntList("stopSettings.countdown.messageTime").contains(countdown)) {
+                if (ConfigSetting.getSettingInstance().getData().getIntList("stopSettings.countdown.messageTime").contains(countdown))
                     ActionUtil.broadcastMessage(LangSetting.getSettingInstance().i18n("commands.stop.countdownMessage")
                             .replace("{countdown}", String.valueOf(countdown))
                     );
-                }
                 countdown--;
             }
         }.runTaskTimerAsynchronously(Main.instance, 0L, 20L);
@@ -178,7 +177,7 @@ final class Stop extends Command {
      * @param message 消息
      */
     private void stopServer(TextComponent message) {
-        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
+        CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () -> {
             Bukkit.savePlayers();
 
             for (Player player : Bukkit.getOnlinePlayers()) {

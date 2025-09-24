@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.feature;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
@@ -9,7 +10,6 @@ import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.Base64Util;
 import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -92,7 +92,7 @@ public final class ChatUtil {
 
         UUID uuid = UUID.randomUUID();
         Main.instance.getCacheManager().put("showItem", uuid.toString(), Base64Util.encode(item.serializeAsBytes()));
-        MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> Main.instance.getCacheManager().remove("showItem", uuid.toString()), 20L * config.getInt("removeCache"));
+        CCScheduler.getInstance().getAsyncScheduler().runTaskLater(Main.instance, () -> Main.instance.getCacheManager().remove("showItem", uuid.toString()), 20L * config.getInt("removeCache"));
 
         TextComponent formatComponent = ColorUtil.color(format)
                 .replaceByMiniMessage("{uuid}", uuid.toString());
@@ -212,7 +212,7 @@ public final class ChatUtil {
 
         UUID uuid = UUID.randomUUID();
         Main.instance.getCacheManager().put(configKey, uuid.toString(), inventoryData.toString());
-        MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> Main.instance.getCacheManager().remove(configKey, uuid.toString()), 20L * config.getInt("removeCache"));
+        CCScheduler.getInstance().getAsyncScheduler().runTaskLater(Main.instance, () -> Main.instance.getCacheManager().remove(configKey, uuid.toString()), 20L * config.getInt("removeCache"));
 
         TextComponent formatComponent = ColorUtil.color(format
                 .replace("{uuid}", uuid.toString())

@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.entity;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
@@ -8,7 +9,6 @@ import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
 import lombok.ToString;
@@ -301,13 +301,13 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)
             ) {
-                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
+                CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () -> {
                     onlinePlayer.hidePlayer(Main.instance, this.getPlayer());
                 });
                 continue;
             }
 
-            MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
+            CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () ->
                     onlinePlayer.hidePlayer(this.getPlayer()));
         }
     }
@@ -329,12 +329,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)
             ) {
-                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
+                CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () ->
                         onlinePlayer.showPlayer(Main.instance, this.getPlayer()));
                 continue;
             }
 
-            MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
+            CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () ->
                     onlinePlayer.showPlayer(this.getPlayer()));
         }
     }

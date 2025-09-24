@@ -9,8 +9,8 @@ config_version: "${project.version}"
 update: true
 
 library:
-  - repo: "https://maven.chengzhimeow.cn/releases/"
-    dependency: "${libs.mhdf_scheduler}"
+  - repo: "https://repo.catnies.top/releases/"
+    dependency: "${libs.cc_scheduler}"
     relocate:
       enable: true
   - repo: "https://maven.chengzhimeow.cn/releases/"

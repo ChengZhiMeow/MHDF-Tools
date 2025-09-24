@@ -1,9 +1,9 @@
 package cn.chengzhimeow.mhdftools.bukkit.menu;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.config.YamlUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -94,10 +94,10 @@ public abstract class Menu implements InventoryHolder {
             return;
         }
 
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> {
             Inventory menu = this.getInventory();
 
-            MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> this.player.openInventory(menu));
+            CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () -> this.player.openInventory(menu));
         });
     }
 }

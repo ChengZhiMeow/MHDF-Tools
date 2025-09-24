@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.imports;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
@@ -12,7 +13,6 @@ import cn.chengzhimeow.mhdftools.bukkit.entity.database.data.huskhomes.HuskHomes
 import cn.chengzhimeow.mhdftools.bukkit.entity.database.data.huskhomes.HuskHomesWarpData;
 import cn.chengzhimeow.mhdftools.bukkit.manager.database.HuskHomesDatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import org.bukkit.command.CommandSender;
 
 public final class HuskHomesImportUtil {
@@ -22,7 +22,7 @@ public final class HuskHomesImportUtil {
      * @param sender 命令执行者
      */
     public static void importHuskHomesData(CommandSender sender) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> {
             ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "HuskHomes")
             );

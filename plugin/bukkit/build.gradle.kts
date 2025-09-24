@@ -8,7 +8,7 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":common"))
 
-    compileOnly("${rootProject.properties["libs.mhdf_scheduler"]}")
+    compileOnly("${rootProject.properties["libs.cc_scheduler"]}")
     compileOnly("${rootProject.properties["libs.mhdf_langutil"]}") {
         exclude("com.alibaba.fastjson2")
     }

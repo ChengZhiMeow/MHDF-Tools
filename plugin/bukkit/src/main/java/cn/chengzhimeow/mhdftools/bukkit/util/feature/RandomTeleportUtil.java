@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.feature;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
@@ -9,7 +10,6 @@ import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.math.RandomUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.teleport.TeleportUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -81,7 +81,7 @@ public final class RandomTeleportUtil {
         }
 
         Location finalCenterLocation = centerLocation;
-        MHDFScheduler.getRegionScheduler().runTask(Main.instance, finalCenterLocation, () -> {
+        CCScheduler.getInstance().getRegionScheduler().runTask(Main.instance, finalCenterLocation, () -> {
             int topY = world.getHighestBlockYAt(finalCenterLocation);
             Location checkLocation = finalCenterLocation.clone();
             checkLocation.setY(topY);

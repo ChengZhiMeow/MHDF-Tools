@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.imports;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
@@ -11,7 +12,6 @@ import cn.chengzhimeow.mhdftools.bukkit.entity.database.data.cmi.CmiUserData;
 import cn.chengzhimeow.mhdftools.bukkit.manager.database.CmiDatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.config.plugin.CmiConfigUtil;
-import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import org.bukkit.command.CommandSender;
 
 public final class CmiImportUtil {
@@ -38,7 +38,7 @@ public final class CmiImportUtil {
      * @param sender 命令执行者
      */
     public static void importCmiData(CommandSender sender) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+        CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> {
             ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "Cmi")
             );
