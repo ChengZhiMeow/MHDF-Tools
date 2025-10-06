@@ -59,6 +59,10 @@ library:
     dependency: "com.github.retrooper:packetevents-api"
     version: &packetevents_version
       - mc_version:
+          type: ">="
+          value: 1216
+        value: "2.9.5"
+      - mc_version:
           type: "=="
           value: 1215
         value: "2.9.0"
@@ -66,7 +70,7 @@ library:
           type: "<="
           value: 1214
         value: "2.8.0"
-      - value: "2.9.4"
+      - value: "2.9.5"
     relocate: &packetevents_relocate
       enable: true
       relocator:

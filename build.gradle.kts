@@ -116,7 +116,7 @@ tasks {
 
     runServer {
         dependsOn(build)
-        minecraftVersion("1.21.4")
+        minecraftVersion("1.21.8")
     }
 }
 
