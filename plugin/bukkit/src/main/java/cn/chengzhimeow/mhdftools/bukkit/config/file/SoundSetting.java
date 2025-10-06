@@ -6,15 +6,15 @@ import cn.chengzhimeow.mhdftools.config.ConfigManager;
 public final class SoundSetting extends AbstractYamlManager {
     private static SoundSetting instance;
 
-    private SoundSetting() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
-
     public static SoundSetting getSettingInstance() {
         if (SoundSetting.instance == null) {
             SoundSetting.instance = new SoundSetting();
         }
         return SoundSetting.instance;
+    }
+
+    private SoundSetting() {
+        super(ConfigManager.getInstance().getYamlManager());
     }
 
     @Override

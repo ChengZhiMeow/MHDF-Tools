@@ -57,6 +57,7 @@ public final class PacketEventsHook extends Hook {
      */
     @Override
     public void unhook() {
+        if (!super.enable) return;
         super.enable = false;
         PacketEvents.getAPI().terminate();
     }
@@ -68,9 +69,7 @@ public final class PacketEventsHook extends Hook {
      * @param packet 发送的数据包
      */
     public void sendPacket(User user, PacketWrapper<?> packet) {
-        if (super.isEnable()) {
-            user.sendPacket(packet);
-        }
+        if (super.isEnable()) user.sendPacket(packet);
     }
 
     /**
@@ -80,9 +79,7 @@ public final class PacketEventsHook extends Hook {
      * @param packet 发送的数据包
      */
     public void sendPacket(Player player, PacketWrapper<?> packet) {
-        if (super.isEnable()) {
-            PacketEvents.getAPI().getPlayerManager().sendPacket(player, packet);
-        }
+        if (super.isEnable()) PacketEvents.getAPI().getPlayerManager().sendPacket(player, packet);
     }
 
     /**

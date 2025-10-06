@@ -18,15 +18,16 @@ import java.util.List;
 
 public final class LibraryManager {
     private static LibraryManager instance;
-    @Setter
-    private LoggerManager loggerManager;
-
-    private LibraryManager() {
-    }
 
     public static LibraryManager getInstance() {
         if (LibraryManager.instance == null) LibraryManager.instance = new LibraryManager();
         return LibraryManager.instance;
+    }
+
+    @Setter
+    private LoggerManager loggerManager;
+
+    private LibraryManager() {
     }
 
     private boolean checkMcVersion(ConfigurationSection mcVersion) {

@@ -11,15 +11,15 @@ import java.util.List;
 public final class CustomMenuManager extends AbstractFolderYamlManager {
     private static CustomMenuManager instance;
 
-    private CustomMenuManager() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
-
     public static CustomMenuManager getSettingInstance() {
         if (CustomMenuManager.instance == null) {
             CustomMenuManager.instance = new CustomMenuManager();
         }
         return CustomMenuManager.instance;
+    }
+
+    private CustomMenuManager() {
+        super(ConfigManager.getInstance().getYamlManager());
     }
 
     @Override

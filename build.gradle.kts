@@ -89,6 +89,7 @@ tasks {
         relocate("org.h2", "cn.chengzhimeow.mhdftools.libs.org.h2")
         relocate("com.mysql", "cn.chengzhimeow.mhdftools.libs.com.mysql")
 
+        relocate("cn.chengzhimeow.ccscheduler", "cn.chengzhimeow.mhdftools.libs.cn.chengzhimeow.ccscheduler")
         relocate("cn.chengzhimeow.ccyaml", "cn.chengzhimeow.mhdftools.libs.cn.chengzhimeow.ccyaml")
         relocate("cn.chengzhiya", "cn.chengzhimeow.mhdftools.libs.cn.chengzhiya")
 

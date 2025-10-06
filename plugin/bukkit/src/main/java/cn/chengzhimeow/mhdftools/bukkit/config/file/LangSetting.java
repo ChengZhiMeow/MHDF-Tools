@@ -17,15 +17,15 @@ import java.util.Set;
 public final class LangSetting extends AbstractYamlManager {
     private static LangSetting instance;
 
-    private LangSetting() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
-
     public static LangSetting getSettingInstance() {
         if (LangSetting.instance == null) {
             LangSetting.instance = new LangSetting();
         }
         return LangSetting.instance;
+    }
+
+    private LangSetting() {
+        super(ConfigManager.getInstance().getYamlManager());
     }
 
     @Override

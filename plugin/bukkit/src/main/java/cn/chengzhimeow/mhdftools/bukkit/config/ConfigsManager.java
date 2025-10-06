@@ -9,14 +9,14 @@ import cn.chengzhimeow.mhdftools.bukkit.config.folder.MenuManager;
 public final class ConfigsManager {
     private static ConfigsManager instance;
 
-    private ConfigsManager() {
-    }
-
     public static ConfigsManager getInstance() {
         if (ConfigsManager.instance == null) {
             ConfigsManager.instance = new ConfigsManager();
         }
         return ConfigsManager.instance;
+    }
+
+    private ConfigsManager() {
     }
 
     public void saveDefaultFiles() {

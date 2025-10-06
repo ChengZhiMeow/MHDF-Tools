@@ -6,15 +6,15 @@ import cn.chengzhimeow.mhdftools.config.ConfigManager;
 public final class MenuManager extends AbstractFolderYamlManager {
     private static MenuManager instance;
 
-    private MenuManager() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
-
     public static MenuManager getSettingInstance() {
         if (MenuManager.instance == null) {
             MenuManager.instance = new MenuManager();
         }
         return MenuManager.instance;
+    }
+
+    private MenuManager() {
+        super(ConfigManager.getInstance().getYamlManager());
     }
 
     @Override

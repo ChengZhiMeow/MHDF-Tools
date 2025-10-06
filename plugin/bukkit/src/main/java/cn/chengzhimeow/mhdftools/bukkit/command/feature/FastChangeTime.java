@@ -49,7 +49,7 @@ final class FastChangeTime extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         int time = this.getCommandConfigHashMap().get(label) != null
-                ? this.getCommandConfigHashMap().get(label).getInt("time") : 0;
+                   ? this.getCommandConfigHashMap().get(label).getInt("time") : 0;
 
         for (World world : Bukkit.getWorlds()) {
             world.setTime(time);

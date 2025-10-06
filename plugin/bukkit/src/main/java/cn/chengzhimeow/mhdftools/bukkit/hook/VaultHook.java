@@ -2,7 +2,6 @@ package cn.chengzhimeow.mhdftools.bukkit.hook;
 
 import cn.chengzhimeow.mhdftools.bukkit.hook.impl.VaultImpl;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 
 @Getter
 public final class VaultHook extends Hook {
@@ -13,10 +12,8 @@ public final class VaultHook extends Hook {
      */
     @Override
     public void hook() {
-        if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
-            this.api = new VaultImpl();
-            super.enable = true;
-        }
+        this.api = new VaultImpl();
+        super.enable = true;
     }
 
     /**
@@ -24,10 +21,8 @@ public final class VaultHook extends Hook {
      */
     @Override
     public void unhook() {
+        if (!super.enable) return;
+        if (this.api != null) this.getApi().unhook();
         super.enable = false;
-        if (this.api != null) {
-            this.getApi().unhook();
-        }
-        this.api = null;
     }
 }

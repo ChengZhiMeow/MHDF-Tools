@@ -7,6 +7,7 @@ repositories {
 dependencies {
     implementation(project(":api"))
     implementation(project(":common"))
+    implementation(project(":plugin:bukkit:compatibility"))
 
     compileOnly("${rootProject.properties["libs.cc_scheduler"]}")
     compileOnly("${rootProject.properties["libs.mhdf_langutil"]}") {
@@ -36,11 +37,7 @@ dependencies {
         exclude("net.kyori")
         exclude("org.bstats")
     }
-    compileOnly("${rootProject.properties["plugin.mythicmobs"]}")
     compileOnly("${rootProject.properties["plugin.vault"]}") {
         exclude("org.bukkit")
     }
-
-    compileOnly("${rootProject.properties["plugin.craftengine_core"]}")
-    compileOnly("${rootProject.properties["plugin.craftengine_bukkit"]}")
 }

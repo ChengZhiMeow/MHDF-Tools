@@ -45,8 +45,8 @@ final class Crash extends Command {
         }
 
         String crashType = args.length == 1
-                ? ConfigSetting.getSettingInstance().getData().getString("crashSettings.defaultType")
-                : args[1];
+                           ? ConfigSetting.getSettingInstance().getData().getString("crashSettings.defaultType")
+                           : args[1];
 
         if (crashType != null && CrashUtil.crashPlayerClient(player, crashType)) {
             ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.crash.message")

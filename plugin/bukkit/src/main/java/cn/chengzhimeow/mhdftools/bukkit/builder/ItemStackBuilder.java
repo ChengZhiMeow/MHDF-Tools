@@ -1,6 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.builder;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.item.Compatibility;
 import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -23,20 +24,18 @@ public final class ItemStackBuilder {
     private final Player player;
     private final ItemStack item;
 
+    public ItemStackBuilder(Player player, ItemStack item) {
+        this.player = player;
+        this.item = item;
+    }
+
     public ItemStackBuilder(Player player, String type) {
         this.player = player;
 
         ItemStack item = null;
         if (type != null) {
-            if (type.startsWith("craftEngine-")) {
-                item = Main.instance.getPluginHookManager().getCraftEngineHook().getItem(
-                        type.replace("craftEngine-", "")
-                );
-            } else if (type.startsWith("mythicMobs-")) {
-                item = Main.instance.getPluginHookManager().getMythicMobsHook().getItem(
-                        type.replace("mythicMobs-", "")
-                );
-            } else if (type.startsWith("head-")) {
+            String[] args = type.split("-");
+            if (type.startsWith("head-")) {
                 item = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) item.getItemMeta();
 
@@ -46,6 +45,11 @@ public final class ItemStackBuilder {
                 item.setItemMeta(meta);
             } else if (type.equals("random_bed")) {
                 item = new ItemStack(this.getRandomBed());
+            } else if (args.length >= 2) {
+                Compatibility compatibility = Main.instance.getPluginHookManager().getItemCompatibility().get(args[0]);
+                if (compatibility != null) {
+                    item = compatibility.getItemById(args[1]);
+                }
             } else {
                 Material material = Material.matchMaterial(type);
                 if (material != null) {
@@ -55,11 +59,6 @@ public final class ItemStackBuilder {
         }
 
         this.item = Objects.requireNonNullElse(item, new ItemStack(Material.AIR));
-    }
-
-    public ItemStackBuilder(Player player, ItemStack item) {
-        this.player = player;
-        this.item = item;
     }
 
     public ItemStackBuilder name(String name) {

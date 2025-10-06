@@ -14,15 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings("unused")
 @Getter
 final class TimeAction extends Task {
-    private final ConcurrentHashMap<String, Integer> delayHashMap = new ConcurrentHashMap<>();
-
-    public TimeAction() {
-        super(
-                List.of("timeActionSettings.enable"),
-                20L
-        );
-    }
-
     /**
      * 获取指定时间文本的时间数值
      *
@@ -35,6 +26,15 @@ final class TimeAction extends Task {
         int minute = Integer.parseInt(data[1]) * 60;
         int second = Integer.parseInt(data[2]);
         return hour + minute + second;
+    }
+
+    private final ConcurrentHashMap<String, Integer> delayHashMap = new ConcurrentHashMap<>();
+
+    public TimeAction() {
+        super(
+                List.of("timeActionSettings.enable"),
+                20L
+        );
     }
 
     @Override

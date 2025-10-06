@@ -33,7 +33,7 @@ final class List extends Command {
         }
 
         java.util.List<String> playerList = ConfigSetting.getSettingInstance().getData().getBoolean("useBungeeCordList")
-                ? Main.instance.getBungeeCordManager().getPlayerList() : Main.instance.getBungeeCordManager().getBukkitPlayerList();
+                                            ? Main.instance.getBungeeCordManager().getPlayerList() : Main.instance.getBungeeCordManager().getBukkitPlayerList();
 
         ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.list.message")
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))

@@ -12,14 +12,15 @@ import java.nio.file.Files;
 @Getter
 public final class ConfigManager {
     private static ConfigManager instance;
-    @Setter
-    private File dataFolder;
-    private CCYaml yamlManager;
 
     public static ConfigManager getInstance() {
         if (ConfigManager.instance == null) ConfigManager.instance = new ConfigManager();
         return ConfigManager.instance;
     }
+
+    @Setter
+    private File dataFolder;
+    private CCYaml yamlManager;
 
     @SneakyThrows
     public void init() {

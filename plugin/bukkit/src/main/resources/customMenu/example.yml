@@ -34,8 +34,8 @@ items:
   # 自定义命名
   1:
     # 类型
-    # craftEngine-<CE物品ID>    ——使用CE的物品
-    # mythicMobs-<MM物品ID>     ——使用MM的物品
+    # craft_engine-<CE物品ID>    ——使用CE的物品
+    # mythic_mobs-<MM物品ID>     ——使用MM的物品
     # head-<玩家ID>             ——指定玩家的头颅
     # random_bed               ——随机颜色的床
     type: paper

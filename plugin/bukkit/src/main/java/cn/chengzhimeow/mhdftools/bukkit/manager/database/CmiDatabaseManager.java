@@ -57,7 +57,7 @@ public final class CmiDatabaseManager {
         });
 
         this.prefix = !this.getConfig().getType().equals("h2") ?
-                this.getDatabaseConfig().getString("mysql.tablePrefix") : "";
+                      this.getDatabaseConfig().getString("mysql.tablePrefix") : "";
 
         this.config.setConnectConfig(connectConfig);
     }

@@ -6,13 +6,13 @@ import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 public final class LibrarySetting extends AbstractYamlManager {
     private static LibrarySetting instance;
 
-    private LibrarySetting() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
-
     public static LibrarySetting getSettingInstance() {
         if (LibrarySetting.instance == null) LibrarySetting.instance = new LibrarySetting();
         return LibrarySetting.instance;
+    }
+
+    private LibrarySetting() {
+        super(ConfigManager.getInstance().getYamlManager());
     }
 
     @Override

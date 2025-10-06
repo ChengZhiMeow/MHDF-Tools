@@ -2,7 +2,6 @@ package cn.chengzhimeow.mhdftools.bukkit.hook;
 
 import cn.chengzhimeow.mhdftools.bukkit.hook.impl.PlaceholderApiImpl;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 @Getter
@@ -14,10 +13,8 @@ public final class PlaceholderApiHook extends Hook {
      */
     @Override
     public void hook() {
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            this.api = new PlaceholderApiImpl();
-            super.enable = true;
-        }
+        this.api = new PlaceholderApiImpl();
+        super.enable = true;
     }
 
     /**
@@ -25,6 +22,7 @@ public final class PlaceholderApiHook extends Hook {
      */
     @Override
     public void unhook() {
+        if (!super.enable) return;
         super.enable = false;
         this.api = null;
     }

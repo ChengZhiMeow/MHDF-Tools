@@ -6,15 +6,15 @@ import cn.chengzhimeow.mhdftools.config.ConfigManager;
 public final class ConfigSetting extends AbstractYamlManager {
     private static ConfigSetting instance;
 
-    private ConfigSetting() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
-
     public static ConfigSetting getSettingInstance() {
         if (ConfigSetting.instance == null) {
             ConfigSetting.instance = new ConfigSetting();
         }
         return ConfigSetting.instance;
+    }
+
+    private ConfigSetting() {
+        super(ConfigManager.getInstance().getYamlManager());
     }
 
     @Override

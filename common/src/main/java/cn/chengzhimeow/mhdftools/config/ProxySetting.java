@@ -11,13 +11,13 @@ import java.util.Objects;
 public final class ProxySetting extends AbstractYamlManager {
     private static ProxySetting instance;
 
-    private ProxySetting() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
-
     public static ProxySetting getSettingInstance() {
         if (ProxySetting.instance == null) ProxySetting.instance = new ProxySetting();
         return ProxySetting.instance;
+    }
+
+    private ProxySetting() {
+        super(ConfigManager.getInstance().getYamlManager());
     }
 
     @Override

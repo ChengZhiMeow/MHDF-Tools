@@ -121,34 +121,37 @@ public final class BStatsManager {
 
             private static final String REPORT_URL = "https://bStats.org/api/v2/data/%s";
 
+            /**
+             * Gzips the given string.
+             *
+             * @param str The string to gzip.
+             * @return The gzipped string.
+             */
+            private static byte[] compress(final String str) throws IOException {
+                if (str == null) {
+                    return null;
+                }
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                try (GZIPOutputStream gzip = new GZIPOutputStream(outputStream)) {
+                    gzip.write(str.getBytes(StandardCharsets.UTF_8));
+                }
+                return outputStream.toByteArray();
+            }
+
             private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1, (task) -> new Thread(task, "bStats-Metrics"));
-
             private final String platform;
-
             private final String serverUuid;
-
             private final int serviceId;
-
             private final Consumer<JsonObjectBuilder> appendPlatformDataConsumer;
-
             private final Consumer<JsonObjectBuilder> appendServiceDataConsumer;
-
             private final Consumer<Runnable> submitTaskConsumer;
-
             private final Supplier<Boolean> checkServiceEnabledSupplier;
-
             private final BiConsumer<String, Throwable> errorLogger;
-
             private final Consumer<String> infoLogger;
-
             private final boolean logErrors;
-
             private final boolean logSentData;
-
             private final boolean logResponseStatusText;
-
             private final Set<CustomChart> customCharts = new HashSet<>();
-
             private final boolean enabled;
 
             /**
@@ -204,23 +207,6 @@ public final class BStatsManager {
                     // WARNING: Removing the option to opt-out will get your plugin banned from bStats
                     startSubmitting();
                 }
-            }
-
-            /**
-             * Gzips the given string.
-             *
-             * @param str The string to gzip.
-             * @return The gzipped string.
-             */
-            private static byte[] compress(final String str) throws IOException {
-                if (str == null) {
-                    return null;
-                }
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                try (GZIPOutputStream gzip = new GZIPOutputStream(outputStream)) {
-                    gzip.write(str.getBytes(StandardCharsets.UTF_8));
-                }
-                return outputStream.toByteArray();
             }
 
             public void addCustomChart(CustomChart chart) {
@@ -617,14 +603,6 @@ public final class BStatsManager {
         }
 
         public static class JsonObjectBuilder {
-            private StringBuilder builder = new StringBuilder();
-
-            private boolean hasAtLeastOneField = false;
-
-            public JsonObjectBuilder() {
-                builder.append("{");
-            }
-
             /**
              * Escapes the given string like stated in https://www.ietf.org/rfc/rfc4627.txt.
              *
@@ -651,6 +629,13 @@ public final class BStatsManager {
                     }
                 }
                 return builder.toString();
+            }
+
+            private StringBuilder builder = new StringBuilder();
+            private boolean hasAtLeastOneField = false;
+
+            public JsonObjectBuilder() {
+                builder.append("{");
             }
 
             /**
