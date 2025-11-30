@@ -15,6 +15,7 @@ import lombok.Setter;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 public final class LibraryManager {
     private static LibraryManager instance;
@@ -33,15 +34,19 @@ public final class LibraryManager {
     private boolean checkMcVersion(ConfigurationSection mcVersion) {
         if (mcVersion == null) return true;
 
-        String type = mcVersion.getString("type");
-        int value = mcVersion.getInt("value");
+        String type = mcVersion.getString("type", "==");
+        assert type != null;
+
+        String value = mcVersion.getString("value");
+        if (value == null) return true;
+        int version = Integer.parseInt(value.replace(".", ""));
 
         return switch (type) {
-            case "<" -> PluginManager.getInstance().minecraftVersion < value;
-            case "<=" -> PluginManager.getInstance().minecraftVersion <= value;
-            case "==" -> PluginManager.getInstance().minecraftVersion == value;
-            case ">=" -> PluginManager.getInstance().minecraftVersion >= value;
-            case ">" -> PluginManager.getInstance().minecraftVersion > value;
+            case "<" -> PluginManager.getInstance().minecraftVersion < version;
+            case "<=" -> PluginManager.getInstance().minecraftVersion <= version;
+            case "==" -> PluginManager.getInstance().minecraftVersion == version;
+            case ">=" -> PluginManager.getInstance().minecraftVersion >= version;
+            case ">" -> PluginManager.getInstance().minecraftVersion > version;
             default -> true;
         };
     }
@@ -67,6 +72,7 @@ public final class LibraryManager {
                     ConfigurationSection mcVersion = section.getConfigurationSection("mc_version");
                     if (!this.checkMcVersion(mcVersion)) continue;
                     groupId = section.getString("value");
+                    break;
                 }
             }
 
@@ -78,7 +84,8 @@ public final class LibraryManager {
                 for (ConfigurationSection section : sectionList) {
                     ConfigurationSection mcVersion = section.getConfigurationSection("mc_version");
                     if (!this.checkMcVersion(mcVersion)) continue;
-                    groupId = section.getString("value");
+                    artifactId = section.getString("value");
+                    break;
                 }
             }
 
@@ -91,19 +98,22 @@ public final class LibraryManager {
                     ConfigurationSection mcVersion = section.getConfigurationSection("mc_version");
                     if (!this.checkMcVersion(mcVersion)) continue;
                     version = section.getString("value");
+                    break;
                 }
             }
 
             if (config.has("dependency")) {
-                String[] dependency = config.getString("dependency").split(":");
+                String[] dependency = Objects.requireNonNull(config.getString("dependency")).split(":");
                 groupId = dependency[0];
                 if (dependency.length >= 2) artifactId = dependency[1];
                 if (dependency.length == 3) version = dependency[2];
             }
 
+            Boolean relocateGroupId = config.getBoolean("relocate.group_id", true);
+            assert relocateGroupId != null;
             RelocateConfig relocate = new RelocateConfig(
                     config.getBoolean("relocate.enable"),
-                    config.getBoolean("relocate.group_id", true),
+                    relocateGroupId,
                     config.getStringList("relocate.relocator").toArray(String[]::new)
             );
 

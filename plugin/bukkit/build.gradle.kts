@@ -8,11 +8,9 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":common"))
     implementation(project(":plugin:bukkit:compatibility"))
+    implementation(project(":plugin:bukkit:modules"))
 
     compileOnly("${rootProject.properties["libs.cc_scheduler"]}")
-    compileOnly("${rootProject.properties["libs.mhdf_langutil"]}") {
-        exclude("com.alibaba.fastjson2")
-    }
 
     compileOnly("${rootProject.properties["libs.mhdf_database_api"]}") {
         exclude("org.slf4j")

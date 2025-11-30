@@ -99,9 +99,9 @@ public final class ChatUtil {
 
         ItemMeta meta = item.getItemMeta();
         Component displayName;
-        if (meta.hasDisplayName()) displayName = meta.displayName();
-        else if (meta.hasCustomName()) displayName = meta.customName();
-        else displayName = Main.instance.getMinecraftLangManager().getItemName(item);
+        if (meta.hasCustomName()) displayName = meta.customName();
+        else if (meta.hasItemName()) displayName = meta.itemName();
+        else displayName = Component.translatable(item.translationKey());
 
         formatComponent = formatComponent
                 .replace("{name}", displayName)

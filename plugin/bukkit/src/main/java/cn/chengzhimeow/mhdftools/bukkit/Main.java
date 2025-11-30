@@ -25,8 +25,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     public static Main instance;
 
-    private MinecraftLangManager minecraftLangManager;
-
     private MHDFDatabaseManager databaseManager;
     private CacheManager cacheManager;
     private PluginHookManager pluginHookManager;
@@ -62,9 +60,6 @@ public final class Main extends JavaPlugin {
         ConfigsManager.getInstance().saveDefaultFiles();
         ConfigsManager.getInstance().updateAll();
         ConfigsManager.getInstance().reloadAll();
-
-        this.minecraftLangManager = new MinecraftLangManager();
-        this.minecraftLangManager.init();
 
         LogFilterManager logFilterManager = new LogFilterManager();
         logFilterManager.init();

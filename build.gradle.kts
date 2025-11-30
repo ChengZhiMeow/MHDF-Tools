@@ -27,7 +27,7 @@ allprojects {
         maven("https://repo.codemc.io/repository/maven-releases")
         maven("https://repo.codemc.io/repository/maven-snapshots")
         maven("https://repo.catnies.top/releases")
-        maven("https://maven.chengzhimeow.cn/releases")
+        maven("https://repo.catnies.top/mhdf")
         maven("https://jitpack.io")
     }
 
@@ -86,29 +86,24 @@ tasks {
 
         exclude("META-INF/")
 
-        relocate("org.h2", "cn.chengzhimeow.mhdftools.libs.org.h2")
-        relocate("com.mysql", "cn.chengzhimeow.mhdftools.libs.com.mysql")
-
-        relocate("cn.chengzhimeow.ccscheduler", "cn.chengzhimeow.mhdftools.libs.cn.chengzhimeow.ccscheduler")
-        relocate("cn.chengzhimeow.ccyaml", "cn.chengzhimeow.mhdftools.libs.cn.chengzhimeow.ccyaml")
-        relocate("cn.chengzhiya", "cn.chengzhimeow.mhdftools.libs.cn.chengzhiya")
-
-        relocate("com.alibaba", "cn.chengzhimeow.mhdftools.libs.com.alibaba")
-        relocate("org.reflections", "cn.chengzhimeow.mhdftools.libs.org.reflections")
-
-        relocate("com.github.retrooper", "cn.chengzhimeow.mhdftools.libs.com.github.retrooper")
-        relocate("io.github.retrooper", "cn.chengzhimeow.mhdftools.libs.io.github.retrooper")
-
-        relocate("com.j256.ormlite", "cn.chengzhimeow.mhdftools.libs.com.j256.ormlite")
-        relocate("com.zaxxer", "cn.chengzhimeow.mhdftools.libs.com.zaxxer")
-
-        relocate("io.lettuce", "cn.chengzhimeow.mhdftools.libs.io.lettuce")
-
-        relocate("net.objecthunter", "cn.chengzhimeow.mhdftools.libs.net.objecthunter")
-
-        relocate("org.intellij", "cn.chengzhimeow.mhdftools.libs.org.intellij")
-        relocate("org.jetbrains", "cn.chengzhimeow.mhdftools.libs.org.jetbrains")
-        relocate("org.yaml", "cn.chengzhimeow.mhdftools.libs.org.yaml")
+        mutableListOf(
+            "org.h2",
+            "com.mysql",
+            "cn.chengzhimeow.ccscheduler",
+            "cn.chengzhimeow.ccyaml",
+            "cn.chengzhiya",
+            "com.alibaba",
+            "org.reflections",
+            "com.github.retrooper",
+            "io.github.retrooper",
+            "com.j256.ormlite",
+            "com.zaxxer",
+            "io.lettuce",
+            "net.objecthunter",
+            "org.intellij",
+            "org.jetbrains",
+            "org.yaml"
+        ).forEach { relocate(it, "cn.chengzhimeow.mhdftools.libs.$it") }
     }
 
     jar {

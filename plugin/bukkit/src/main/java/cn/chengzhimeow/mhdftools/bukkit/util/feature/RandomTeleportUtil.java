@@ -11,6 +11,7 @@ import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.math.RandomUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.teleport.TeleportUtil;
 import lombok.SneakyThrows;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -138,7 +139,7 @@ public final class RandomTeleportUtil {
         World world = Bukkit.getWorld(worldName);
         if (world == null) {
             ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.noWorld")
-                    .replace("{biome}", Main.instance.getMinecraftLangManager().getBiomeName(biome))
+                    .replace("{biome}", Component.translatable(biome.translationKey()))
             );
             return;
         }
@@ -152,7 +153,7 @@ public final class RandomTeleportUtil {
                                 .replace("{duration}", String.valueOf(duration)));
                 case NO_BIOME ->
                         ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.noBiome")
-                                .replace("{biome}", Main.instance.getMinecraftLangManager().getBiomeName(biome))
+                                .replace("{biome}", Component.translatable(biome.translationKey()))
                         );
                 case OUT_TRY_TIMES ->
                         ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.outTryTime")
