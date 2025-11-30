@@ -13,10 +13,6 @@ library:
     dependency: "${libs.cc_scheduler}"
     relocate:
       enable: true
-  - repo: "https://maven.chengzhimeow.cn/releases/"
-    dependency: "${libs.mhdf_langutil}"
-    relocate:
-      enable: true
 
   # 数据库
   - repo: "https://maven.chengzhimeow.cn/releases/"
