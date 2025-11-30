@@ -76,7 +76,7 @@ public final class AtUtil {
         if (mhdfPlayer.isIgnore(mhdfByPlayer)) return;
 
         // 发送AT提示
-        String title = LangSetting.getSettingInstance().getString("chat.at.title")
+        String title = LangSetting.getSettingInstance().getData().getString("chat.at.title")
                 .replace("{by}", by);
         if (!title.isEmpty()) {
             String[] args = title.split("\\|");

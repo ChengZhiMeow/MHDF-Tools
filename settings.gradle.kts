@@ -9,8 +9,12 @@ include(":plugin:bukkit:compatibility")
 include(":plugin:bukkit:compatibility:item")
 include(":plugin:bukkit:compatibility:item:craftengine")
 include(":plugin:bukkit:compatibility:item:mythicmobs")
+include(":plugin:bukkit:compatibility:placeholder")
+include(":plugin:bukkit:compatibility:placeholder:placeholderapi")
 
 include(":plugin:bukkit:modules")
+include(":plugin:bukkit:modules:impl")
+include(":plugin:bukkit:modules:impl:module_hat")
 
 include(":plugin:bungee")
 include(":plugin:velocity")

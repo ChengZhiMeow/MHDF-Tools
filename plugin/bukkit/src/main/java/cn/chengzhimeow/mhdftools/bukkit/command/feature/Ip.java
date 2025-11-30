@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -16,6 +16,7 @@ import java.util.Objects;
 final class Ip extends Command {
     public Ip() {
         super(
+                null,
                 List.of("ipSettings.enable"),
                 "查询IP信息",
                 "mhdftools.commands.ip",

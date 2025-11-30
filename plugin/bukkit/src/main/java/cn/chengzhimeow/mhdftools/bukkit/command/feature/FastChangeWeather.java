@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.FastChangeWeatherUtil;
@@ -20,6 +20,7 @@ final class FastChangeWeather extends Command {
 
     public FastChangeWeather() {
         super(
+                null,
                 List.of("fastChangeWeatherSettings.enable"),
                 "快速调节天气",
                 "mhdftools.commands.fastchangeweather",

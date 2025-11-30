@@ -10,7 +10,7 @@ import cn.chengzhimeow.mhdftools.bukkit.manager.database.MHDFDatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.feature.CommandManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.feature.ListenerManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.feature.TaskManager;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.LogUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.enums.ServerType;
 import cn.chengzhimeow.mhdftools.manager.LibraryManager;

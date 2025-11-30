@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -19,6 +19,7 @@ import java.util.List;
 final class Crash extends Command {
     public Crash() {
         super(
+                null,
                 List.of("crashSettings.enable"),
                 "崩溃玩家客户端",
                 "mhdftools.commands.crash",

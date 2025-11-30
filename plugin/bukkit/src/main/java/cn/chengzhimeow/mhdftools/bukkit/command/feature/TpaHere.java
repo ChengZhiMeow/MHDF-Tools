@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.enums.TeleportRequestType;
@@ -20,6 +20,7 @@ import java.util.List;
 final class TpaHere extends Command {
     public TpaHere() {
         super(
+                null,
                 List.of("tpahereSettings.enable"),
                 "请求指定玩家传送到当前位置",
                 "mhdftools.commands.tpahere",

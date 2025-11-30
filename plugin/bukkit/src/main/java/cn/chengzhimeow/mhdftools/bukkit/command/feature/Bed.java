@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -13,6 +13,7 @@ import java.util.List;
 final class Bed extends Command {
     public Bed() {
         super(
+                null,
                 List.of("bedSettings.enable"),
                 "回到床的位置",
                 "mhdftools.commands.bed",

@@ -7,7 +7,7 @@ import cn.chengzhimeow.mhdftools.bukkit.manager.cache.impl.RedisCacheManager;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.AtUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.LogUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.teleport.TeleportUtil;
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;

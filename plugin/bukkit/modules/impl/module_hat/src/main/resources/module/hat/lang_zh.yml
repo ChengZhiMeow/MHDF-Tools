@@ -1,0 +1,6 @@
+commands:
+  hat:
+    usage: "/{command}"
+    description: "帽子"
+    no_item: "{prefix} <#FFB8B8>手上必须要有物品!"
+    message: "{prefix} <#EAE4FF>快看看你的新帽子!"

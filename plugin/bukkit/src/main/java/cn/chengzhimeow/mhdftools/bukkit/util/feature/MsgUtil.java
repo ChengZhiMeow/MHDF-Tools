@@ -5,7 +5,7 @@ import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -16,6 +16,7 @@ import java.util.List;
 final class FakeChangeTime extends Command {
     public FakeChangeTime() {
         super(
+                null,
                 List.of("fakeChangeTimeSettings.enable"),
                 "虚假调节时间",
                 "mhdftools.commands.fakechangetime",

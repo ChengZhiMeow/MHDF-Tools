@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -14,6 +14,7 @@ import java.util.List;
 final class Spawn extends Command {
     public Spawn() {
         super(
+                null,
                 List.of("spawnSettings.enable"),
                 "返回出生点",
                 "mhdftools.commands.spawn",

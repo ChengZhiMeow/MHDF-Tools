@@ -13,3 +13,7 @@ library:
     dependency: "${libs.fastjson}"
     relocate:
       enable: true
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "${libs.reflections}"
+    relocate:
+      enable: true

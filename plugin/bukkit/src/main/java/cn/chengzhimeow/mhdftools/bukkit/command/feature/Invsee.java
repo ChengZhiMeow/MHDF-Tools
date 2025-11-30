@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -17,6 +17,7 @@ import java.util.List;
 final class Invsee extends Command {
     public Invsee() {
         super(
+                null,
                 List.of("invseeSettings.enable"),
                 "查看背包",
                 "mhdftools.commands.invsee",

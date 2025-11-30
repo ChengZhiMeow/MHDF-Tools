@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.chat.LookInventoryMenu;
@@ -15,6 +15,7 @@ import java.util.List;
 final class LookInventory extends Command {
     public LookInventory() {
         super(
+                null,
                 List.of("chatSettings.enable", "chatSettings.showInventory.enable"),
                 "展示背包",
                 "mhdftools.commands.lookinventory",

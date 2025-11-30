@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.bukkit.util.message;
+package cn.chengzhimeow.mhdftools.bukkit.message;
 
 public final class MessageUtil {
     /**
@@ -9,7 +9,7 @@ public final class MessageUtil {
      * @param append  拼接内容
      * @return 拼接后的文本
      */
-    public static String mergeString(String[] strings, int origin, String append) {
+    public static String join(String[] strings, int origin, String append) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = origin; i < strings.length; i++) {
@@ -29,8 +29,8 @@ public final class MessageUtil {
      * @param append  拼接内容
      * @return 拼接后的文本
      */
-    public static String mergeString(String[] strings, String append) {
-        return MessageUtil.mergeString(strings, 0, append);
+    public static String join(String[] strings, String append) {
+        return MessageUtil.join(strings, 0, append);
     }
 
     /**
@@ -40,8 +40,8 @@ public final class MessageUtil {
      * @param origin  数组起点
      * @return 拼接后的文本
      */
-    public static String mergeString(String[] strings, int origin) {
-        return MessageUtil.mergeString(strings, origin, " ");
+    public static String join(String[] strings, int origin) {
+        return MessageUtil.join(strings, origin, " ");
     }
 
     /**
@@ -50,8 +50,8 @@ public final class MessageUtil {
      * @param strings 文本数组
      * @return 拼接后的文本
      */
-    public static String mergeString(String[] strings) {
-        return MessageUtil.mergeString(strings, 0, " ");
+    public static String join(String[] strings) {
+        return MessageUtil.join(strings, 0, " ");
     }
 
     /**

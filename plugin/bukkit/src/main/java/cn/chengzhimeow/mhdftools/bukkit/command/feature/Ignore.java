@@ -4,7 +4,7 @@ import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.IgnoreData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -19,6 +19,7 @@ import java.util.List;
 final class Ignore extends Command {
     public Ignore() {
         super(
+                null,
                 List.of("ignoreSettings.enable"),
                 "屏蔽",
                 "mhdftools.commands.ignore",

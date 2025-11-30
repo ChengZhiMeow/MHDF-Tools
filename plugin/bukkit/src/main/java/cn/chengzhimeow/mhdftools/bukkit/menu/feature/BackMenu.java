@@ -28,6 +28,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 public final class BackMenu extends Menu {
@@ -168,7 +169,7 @@ public final class BackMenu extends Menu {
                 .replace("{hour}", String.valueOf(dateTime.getHour()))
                 .replace("{minute}", String.valueOf(dateTime.getMinute()))
                 .replace("{second}", String.valueOf(dateTime.getSecond()))
-                .replace("{type}", LangSetting.getSettingInstance().getString("commands.back.type." + data.getType()))
+                .replace("{type}", Objects.requireNonNull(LangSetting.getSettingInstance().getData().getString("commands.back.type." + data.getType())))
                 .replace("{server}", data.getServer())
                 .replace("{world}", data.getWorld())
                 .replace("{x}", String.valueOf(data.getX()))

@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.reflection.world.BiomeUtil;
@@ -21,6 +21,7 @@ import java.util.List;
 final class RandomTeleport extends Command {
     public RandomTeleport() {
         super(
+                null,
                 List.of("randomTeleportSettings.enable"),
                 "随机传送",
                 "mhdftools.commands.randomteleport",

@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.bukkit.util.message;
+package cn.chengzhimeow.mhdftools.bukkit.message;
 
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import net.kyori.adventure.text.minimessage.MiniMessage;

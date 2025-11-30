@@ -3,7 +3,5 @@ repositories {
 }
 
 dependencies {
-    compileOnly(project(":plugin:bukkit:compatibility:item"))
-
     compileOnly("${rootProject.properties["plugin.mythicmobs"]}")
 }

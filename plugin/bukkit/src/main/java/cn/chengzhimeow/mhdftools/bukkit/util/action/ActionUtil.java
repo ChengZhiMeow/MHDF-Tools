@@ -2,11 +2,13 @@ package cn.chengzhimeow.mhdftools.bukkit.util.action;
 
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.folder.CustomMenuManager;
 import cn.chengzhimeow.mhdftools.bukkit.reflection.SoundUtil;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.CustomMenuUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;
@@ -295,9 +297,9 @@ public final class ActionUtil {
     public static void runActionList(CommandSender sender, List<String> actionList) {
         for (String action : actionList) {
             if (sender instanceof Player player) {
-                action = Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, action);
+                action = PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, action);
             } else {
-                action = Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(null, action);
+                action = PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, null, action);
             }
 
             String[] args = action.split("<delay=");

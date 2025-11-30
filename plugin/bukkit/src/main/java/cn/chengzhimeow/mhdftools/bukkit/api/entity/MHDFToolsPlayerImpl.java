@@ -8,7 +8,7 @@ import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
 import lombok.ToString;

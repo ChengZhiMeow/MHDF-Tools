@@ -2,11 +2,13 @@ package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractPacketListener;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.MotdUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.math.MathUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
@@ -119,7 +121,7 @@ final class Motd extends AbstractPacketListener {
     }
 
     private String applyPlaceholder(String text) {
-        return Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(null, text)
+        return PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, null, text)
                 .replace("{online}", String.valueOf(Main.instance.getBungeeCordManager().getBukkitPlayerList().size()))
                 .replace("{max}", String.valueOf(Bukkit.getMaxPlayers()));
     }

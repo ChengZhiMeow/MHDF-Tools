@@ -2,6 +2,8 @@ package cn.chengzhimeow.mhdftools.bukkit.util.action;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.util.menu.ItemStackUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -42,7 +44,7 @@ public final class RequirementUtil {
                     }
 
                     int input_value = Integer.parseInt(
-                            Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, input)
+                            PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, input)
                     );
 
                     if (input_value > output) {
@@ -59,7 +61,7 @@ public final class RequirementUtil {
                     }
 
                     int input_value = Integer.parseInt(
-                            Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, input)
+                            PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, input)
                     );
 
                     if (input_value >= output) {
@@ -76,7 +78,7 @@ public final class RequirementUtil {
                     }
 
                     int input_value = Integer.parseInt(
-                            Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, input)
+                            PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, input)
                     );
 
                     if (input_value == output) {
@@ -93,7 +95,7 @@ public final class RequirementUtil {
                     }
 
                     int input_value = Integer.parseInt(
-                            Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, input)
+                            PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, input)
                     );
 
                     if (input_value < output) {
@@ -110,7 +112,7 @@ public final class RequirementUtil {
                     }
 
                     int input_value = Integer.parseInt(
-                            Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, input)
+                            PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, input)
                     );
 
                     if (input_value <= output) {

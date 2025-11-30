@@ -4,7 +4,7 @@ import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.builder.ItemStackBuilder;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.RequirementUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

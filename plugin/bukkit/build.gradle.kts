@@ -1,5 +1,4 @@
 repositories {
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi")
     maven("https://mvn.lumine.io/repository/maven-public")
     maven("https://repo.momirealms.net/releases")
 }
@@ -22,19 +21,12 @@ dependencies {
         exclude("org.apache.logging.log4j")
     }
     compileOnly("${rootProject.properties["libs.fastjson"]}")
-    compileOnly("${rootProject.properties["libs.reflections"]}") {
-        exclude("org.slf4j")
-    }
     compileOnly("${rootProject.properties["libs.lettuce"]}")
     compileOnly("${rootProject.properties["libs.exp4j"]}")
     compileOnly("${rootProject.properties["libs.packetevents"]}") {
         exclude("net.kyori")
     }
 
-    compileOnly("${rootProject.properties["plugin.placeholderapi"]}") {
-        exclude("net.kyori")
-        exclude("org.bstats")
-    }
     compileOnly("${rootProject.properties["plugin.vault"]}") {
         exclude("org.bukkit")
     }

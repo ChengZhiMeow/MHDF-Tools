@@ -4,12 +4,14 @@ import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.Base64Util;
 import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -182,7 +184,7 @@ public final class ChatUtil {
         String group = GroupUtil.getGroup(player, config, "mhdftools.group.chatformat.");
         String format = (config == null || !config.getBoolean("enable")) ? "<{player}> {message}" : config.getString(group + ".format");
 
-        return ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, format))
+        return ColorUtil.color(PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, format))
                 .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{message}", message);
     }

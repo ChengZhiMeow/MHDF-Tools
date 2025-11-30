@@ -3,11 +3,11 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,6 +19,7 @@ import java.util.List;
 final class Nick extends Command {
     public Nick() {
         super(
+                null,
                 List.of("nickSettings.enable"),
                 "匿名",
                 "mhdftools.commands.nick",

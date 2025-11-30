@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -18,6 +18,7 @@ import java.util.List;
 final class GameMode extends Command {
     public GameMode() {
         super(
+                null,
                 List.of("gamemodeSettings.enable"),
                 "修改玩家游戏模式",
                 "mhdftools.commands.gamemode",

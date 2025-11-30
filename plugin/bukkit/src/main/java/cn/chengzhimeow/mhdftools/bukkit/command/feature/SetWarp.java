@@ -3,7 +3,7 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -17,6 +17,7 @@ import java.util.List;
 final class SetWarp extends Command {
     public SetWarp() {
         super(
+                null,
                 List.of("warpSettings.enable"),
                 "设置传送点",
                 "mhdftools.commands.setwarp",

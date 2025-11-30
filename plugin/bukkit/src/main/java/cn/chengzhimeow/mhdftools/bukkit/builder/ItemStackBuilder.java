@@ -1,8 +1,11 @@
 package cn.chengzhimeow.mhdftools.bukkit.builder;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.compatibility.item.Compatibility;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.item.ItemCompatibility;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.item.ItemCompatibilityRegistry;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -46,10 +49,7 @@ public final class ItemStackBuilder {
             } else if (type.equals("random_bed")) {
                 item = new ItemStack(this.getRandomBed());
             } else if (args.length >= 2) {
-                Compatibility compatibility = Main.instance.getPluginHookManager().getItemCompatibility().get(args[0]);
-                if (compatibility != null) {
-                    item = compatibility.getItemById(args[1]);
-                }
+                item = ItemCompatibilityRegistry.getInstance().getItemById(args[0], args[1]);
             } else {
                 Material material = Material.matchMaterial(type);
                 if (material != null) {
@@ -70,7 +70,7 @@ public final class ItemStackBuilder {
             return this;
         }
 
-        meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(this.getPlayer(), name)));
+        meta.displayName(ColorUtil.color(PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, this.getPlayer(), name)));
         this.item.setItemMeta(meta);
         return this;
     }
@@ -85,7 +85,7 @@ public final class ItemStackBuilder {
         }
 
         meta.lore(lore.stream()
-                .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(this.getPlayer(), s))
+                .map(s -> PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, this.getPlayer(), s))
                 .map(ColorUtil::color)
                 .toList()
         );

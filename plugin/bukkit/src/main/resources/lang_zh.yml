@@ -310,11 +310,7 @@ commands:
     description: "回到床的位置"
     noSleep: "{prefix} <#FFB8B8>找不到你床的位置!"
     message: "{prefix} <#EAE4FF>你回到了床的旁边!"
-  hat:
-    usage: "/{command}"
-    description: "帽子"
-    noItem: "{prefix} <#FFB8B8>手上必须要有物品!"
-    message: "{prefix} <#EAE4FF>快看看你的新帽子!"
+
   suicide:
     usage: "/{command}"
     description: "自杀"

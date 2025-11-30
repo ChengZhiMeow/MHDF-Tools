@@ -3,12 +3,12 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 import cn.chengzhimeow.ccscheduler.runnable.CCRunnable;
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -28,6 +28,7 @@ final class Stop extends Command {
 
     public Stop() {
         super(
+                null,
                 List.of("stopSettings.enable"),
                 "更好的关服",
                 "mhdftools.commands.stop",

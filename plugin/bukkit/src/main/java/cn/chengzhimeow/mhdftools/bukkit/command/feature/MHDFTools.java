@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigsManager;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
@@ -18,6 +18,7 @@ import java.util.List;
 final class MHDFTools extends Command {
     public MHDFTools() {
         super(
+                null,
                 "梦之工具主命令",
                 "mhdftools.commands.mhdftools",
                 false,

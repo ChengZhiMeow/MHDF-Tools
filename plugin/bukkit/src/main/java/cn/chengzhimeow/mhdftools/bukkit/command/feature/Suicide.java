@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -12,6 +12,7 @@ import java.util.List;
 final class Suicide extends Command {
     public Suicide() {
         super(
+                null,
                 List.of("suicideSettings.enable"),
                 "自杀",
                 "mhdftools.commands.suicide",

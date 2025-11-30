@@ -34,8 +34,8 @@ final class FlyTime extends Task {
             if (player.hasPermission("mhdftools.commands.fly.infinite")) return;
 
             // 发送迫降提示
-            String title = LangSetting.getSettingInstance().getString("commands.fly.fallMessage." + mhdfPlayer.getFlyTime());
-            if (!title.isEmpty()) {
+            String title = LangSetting.getSettingInstance().getData().getString("commands.fly.fallMessage." + mhdfPlayer.getFlyTime());
+            if (title != null && !title.isEmpty()) {
                 String[] args = title.split("\\|");
                 ActionUtil.sendTitle(player, args[0], args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));
             }

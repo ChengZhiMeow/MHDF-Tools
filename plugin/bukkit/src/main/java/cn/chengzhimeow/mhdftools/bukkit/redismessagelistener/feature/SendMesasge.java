@@ -3,7 +3,7 @@ package cn.chengzhimeow.mhdftools.bukkit.redismessagelistener.feature;
 import cn.chengzhimeow.mhdftools.bukkit.redismessagelistener.RedisMessageListener;
 import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.LogUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.bukkit.Bukkit;

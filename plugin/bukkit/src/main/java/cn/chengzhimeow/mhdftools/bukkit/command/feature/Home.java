@@ -4,7 +4,7 @@ import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.HomeMenu;
@@ -18,6 +18,7 @@ import java.util.List;
 final class Home extends Command {
     public Home() {
         super(
+                null,
                 List.of("homeSettings.enable"),
                 "传送到指定家",
                 "mhdftools.commands.home",

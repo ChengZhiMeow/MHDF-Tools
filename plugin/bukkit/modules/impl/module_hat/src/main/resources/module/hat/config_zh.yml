@@ -1,0 +1,8 @@
+# 帽子
+# 直接在菜单中切换帽子权限: mhdftools.commands.hat.menu
+
+# 开关
+enable: true
+# 命令
+commands:
+  - "hat"

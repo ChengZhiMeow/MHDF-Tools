@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.folder.CustomMenuManager;
@@ -15,6 +15,7 @@ import java.util.List;
 final class CustomMenu extends Command {
     public CustomMenu() {
         super(
+                null,
                 List.of("customMenuSettings.enable"),
                 "自定义菜单",
                 "mhdftools.commands.custommenu",

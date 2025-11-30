@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.FastChangeTimeUtil;
@@ -20,6 +20,7 @@ final class FastChangeTime extends Command {
 
     public FastChangeTime() {
         super(
+                null,
                 List.of("fastChangeTimeSettings.enable"),
                 "快速调节时间",
                 "mhdftools.commands.fastchangetime",

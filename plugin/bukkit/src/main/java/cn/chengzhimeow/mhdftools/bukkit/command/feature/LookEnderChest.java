@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.chat.LookEnderChestMenu;
@@ -15,6 +15,7 @@ import java.util.List;
 final class LookEnderChest extends Command {
     public LookEnderChest() {
         super(
+                null,
                 List.of("chatSettings.enable", "chatSettings.showEnderChest.enable"),
                 "展示末影箱",
                 "mhdftools.commands.lookenderchest",

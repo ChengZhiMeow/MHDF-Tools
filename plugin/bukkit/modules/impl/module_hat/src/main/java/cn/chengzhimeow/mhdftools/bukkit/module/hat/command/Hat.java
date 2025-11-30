@@ -1,9 +1,7 @@
-package cn.chengzhimeow.mhdftools.bukkit.command.feature;
+package cn.chengzhimeow.mhdftools.bukkit.module.hat.command;
 
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
-import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.hat.ModuleMain;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,11 +12,12 @@ import java.util.List;
 final class Hat extends Command {
     public Hat() {
         super(
-                List.of("hatSettings.enable"),
+                ModuleMain.instance,
+                List.of("enable"),
                 "帽子",
                 "mhdftools.commands.hat",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("hatSettings.commands").toArray(new String[0])
+                ModuleMain.instance.getModuleConfigSetting().getData().getStringList("commands").toArray(new String[0])
         );
     }
 
@@ -28,13 +27,13 @@ final class Hat extends Command {
         ItemStack handItem = sender.getInventory().getItemInMainHand();
 
         if (handItem.getType() == Material.AIR) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.hat.noItem"));
+            sender.sendMessage(ModuleMain.instance.getModuleLangSetting().i18n("commands.hat.noItem"));
             return;
         }
 
         sender.getInventory().setItemInMainHand(oldHelmet);
         sender.getInventory().setHelmet(handItem);
 
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.hat.message"));
+        sender.sendMessage(ModuleMain.instance.getModuleLangSetting().i18n("commands.hat.message"));
     }
 }

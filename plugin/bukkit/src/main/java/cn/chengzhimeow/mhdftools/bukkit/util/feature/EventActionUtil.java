@@ -4,7 +4,7 @@ import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.message.LogUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

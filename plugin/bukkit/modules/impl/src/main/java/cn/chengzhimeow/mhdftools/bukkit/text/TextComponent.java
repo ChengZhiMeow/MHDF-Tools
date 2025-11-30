@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.text;
 
-import cn.chengzhimeow.mhdftools.bukkit.util.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
 import net.kyori.adventure.text.AbstractComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;

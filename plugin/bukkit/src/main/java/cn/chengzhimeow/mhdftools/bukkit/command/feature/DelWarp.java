@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
-import cn.chengzhimeow.mhdftools.bukkit.command.Command;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
@@ -15,6 +15,7 @@ import java.util.List;
 final class DelWarp extends Command {
     public DelWarp() {
         super(
+                null,
                 List.of("warpSettings.enable"),
                 "删除传送点",
                 "mhdftools.commands.delwarp",
