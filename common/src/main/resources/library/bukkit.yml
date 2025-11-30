@@ -15,15 +15,15 @@ library:
       enable: true
 
   # 数据库
-  - repo: "https://maven.chengzhimeow.cn/releases/"
+  - repo: "https://repo.catnies.top/mhdf/"
     dependency: "${libs.mhdf_database_api}"
     relocate:
       enable: true
-  - repo: "https://maven.chengzhimeow.cn/releases/"
+  - repo: "https://repo.catnies.top/mhdf/"
     dependency: "${libs.mhdf_database_mysql}"
     relocate:
       enable: true
-  - repo: "https://maven.chengzhimeow.cn/releases/"
+  - repo: "https://repo.catnies.top/mhdf/"
     dependency: "${libs.mhdf_database_h2}"
     relocate:
       enable: true
