@@ -1,0 +1,10 @@
+commands:
+  crash:
+    usage: "/{command} <玩家> [崩溃类型]"
+    description: "崩溃玩家客户端"
+    no_type: "{prefix} <#FFB8B8>目标崩端类型不存在!"
+    message: "{prefix} <#EAE4FF>开始尝试崩溃 &f{player} <#EAE4FF>的客户端!&7(类型: {type})<#FFB8B8>"
+    types:
+      explosion: "爆炸溢出"
+      invalid_teleport: "无效传送"
+      invalid_particle: "异常粒子"

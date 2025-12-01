@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -23,7 +23,7 @@ final class MoneyAdmin extends Command {
                 "经济管理",
                 "mhdftools.commands.moneyadmin",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("economySettings.moneyadminCommands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("economySettings.moneyadminCommands").toArray(new String[0])
         );
     }
 
@@ -32,12 +32,12 @@ final class MoneyAdmin extends Command {
         if (args.length == 3) {
             switch (args[0]) {
                 case "set", "add", "take" -> {
-                    MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[1]);
+                    MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[1]);
                     BigDecimal change;
                     try {
                         change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[2]));
                     } catch (NumberFormatException e) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.moneyadmin.moneyFormatError"));
+                        sender.sendMessage(LangSetting.getInstance().i18n("commands.moneyadmin.moneyFormatError"));
                         return;
                     }
 
@@ -53,7 +53,7 @@ final class MoneyAdmin extends Command {
                         mhdfPlayer.takeMoney(change);
                     }
 
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
                             .replace("{player}", args[1])
                             .replace("{change}", change.toString())
                             .replace("{amount}", mhdfPlayer.getMoney().toString())
@@ -65,8 +65,8 @@ final class MoneyAdmin extends Command {
 
         // 输出帮助信息
         {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.moneyadmin.subCommands.help.message")
-                    .replace("{helpList}", LangSetting.getSettingInstance().getHelpList("commands.moneyadmin.subCommands"))
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.moneyadmin.subCommands.help.message")
+                    .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.moneyadmin.subCommands"))
                     .replace("{command}", label)
             );
         }
@@ -75,7 +75,7 @@ final class MoneyAdmin extends Command {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(LangSetting.getSettingInstance().getKeys("commands.moneyadmin.subCommands"));
+            return new ArrayList<>(LangSetting.getInstance().getKeys("commands.moneyadmin.subCommands"));
         }
         if (args.length == 2) {
             switch (args[0]) {

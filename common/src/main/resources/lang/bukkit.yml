@@ -1,0 +1,8 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+prefix: "&8[<#CFC2FF>梦之工具&8]"
+only_player: "{prefix} <#FFB8B8>这个命令只能玩家执行!"
+no_permission: "{prefix} <#FFB8B8>你没有权限怎么做"
+usage_error: "{prefix} <#FFB8B8>用法错误,正确用法: &f{usage}"
+player_offline: "{prefix} <#FFB8B8>你指定的玩家并没有在线!"

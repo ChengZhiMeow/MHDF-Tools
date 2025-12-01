@@ -32,7 +32,7 @@ public final class LookItemMenu extends Menu {
                 List.of("chatSettings.enable", "chatSettings.showItem.enable"),
                 player
         );
-        this.config = MenuManager.getSettingInstance().getData("lookItem.yml");
+        this.config = MenuManager.getInstance().getData("lookItem.yml");
         this.data = data;
     }
 

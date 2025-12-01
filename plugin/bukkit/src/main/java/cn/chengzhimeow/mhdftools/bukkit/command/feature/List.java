@@ -18,7 +18,7 @@ final class List extends Command {
                 "查看在线列表",
                 "mhdftools.commands.list",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("listSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("listSettings.commands").toArray(new String[0])
         );
     }
 
@@ -26,17 +26,17 @@ final class List extends Command {
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.list.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.list.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        java.util.List<String> playerList = ConfigSetting.getSettingInstance().getData().getBoolean("useBungeeCordList")
+        java.util.List<String> playerList = ConfigSetting.getInstance().getData().getBoolean("useBungeeCordList")
                                             ? Main.instance.getBungeeCordManager().getPlayerList() : Main.instance.getBungeeCordManager().getBukkitPlayerList();
 
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.list.message")
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.list.message")
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))
                 .replace("{memory}", String.valueOf(ListUtil.getUsedMemory()))
                 .replace("{maxMemory}", String.valueOf(ListUtil.getTotalMemory()))

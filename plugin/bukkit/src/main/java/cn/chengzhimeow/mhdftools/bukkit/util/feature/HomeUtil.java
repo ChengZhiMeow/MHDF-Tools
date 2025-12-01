@@ -24,6 +24,6 @@ public final class HomeUtil {
                 .toList());
         amountList.sort(Comparator.reverseOrder());
 
-        return !amountList.isEmpty() ? amountList.get(0) : ConfigSetting.getSettingInstance().getData().getInt("homeSettings.defaultMax");
+        return !amountList.isEmpty() ? amountList.get(0) : ConfigSetting.getInstance().getData().getInt("homeSettings.defaultMax");
     }
 }

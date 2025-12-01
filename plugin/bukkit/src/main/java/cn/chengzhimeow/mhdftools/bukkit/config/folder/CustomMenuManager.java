@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.config.folder;
 
 import cn.chengzhimeow.ccyaml.configuration.yaml.YamlConfiguration;
 import cn.chengzhimeow.ccyaml.manager.AbstractFolderYamlManager;
-import cn.chengzhimeow.mhdftools.bukkit.message.MessageUtil;
+import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 
 import java.io.File;
@@ -11,7 +11,7 @@ import java.util.List;
 public final class CustomMenuManager extends AbstractFolderYamlManager {
     private static CustomMenuManager instance;
 
-    public static CustomMenuManager getSettingInstance() {
+    public static CustomMenuManager getInstance() {
         if (CustomMenuManager.instance == null) {
             CustomMenuManager.instance = new CustomMenuManager();
         }
@@ -51,7 +51,7 @@ public final class CustomMenuManager extends AbstractFolderYamlManager {
                 .map(File::getPath)
                 .filter(s -> s.endsWith(".yml"))
                 .map(s -> s.replace(".yml", ""))
-                .map(s -> MessageUtil.subString(s, "\\customMenu\\"))
+                .map(s -> StringUtil.subString(s, "\\customMenu\\"))
                 .toList();
     }
 

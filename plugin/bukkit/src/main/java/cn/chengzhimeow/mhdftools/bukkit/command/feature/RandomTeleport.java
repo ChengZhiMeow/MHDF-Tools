@@ -26,7 +26,7 @@ final class RandomTeleport extends Command {
                 "随机传送",
                 "mhdftools.commands.randomteleport",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("randomTeleportSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("randomTeleportSettings.commands").toArray(new String[0])
         );
     }
 
@@ -42,8 +42,8 @@ final class RandomTeleport extends Command {
             switch (args[0]) {
                 case "world" -> {
                     if (args.length < 2) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                                .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.randomteleport.subCommands.world.usage"))
+                        sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                                .replace("{usage}", LangSetting.getInstance().i18n("commands.randomteleport.subCommands.world.usage"))
                                 .replace("{command}", label)
                         );
                         return;
@@ -52,11 +52,11 @@ final class RandomTeleport extends Command {
 
                     if (args.length >= 3) {
                         if (Bukkit.getPlayer(args[2]) == null) {
-                            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+                            sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
                             return;
                         }
                         if (!sender.hasPermission("mhdftools.commands.randomteleport.other")) {
-                            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("noPermission"));
+                            sender.sendMessage(LangSetting.getInstance().i18n("noPermission"));
                             return;
                         }
                         player = Bukkit.getPlayer(args[2]);
@@ -70,8 +70,8 @@ final class RandomTeleport extends Command {
                 }
                 case "biome" -> {
                     if (args.length < 3) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                                .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.randomteleport.subCommands.biome.usage"))
+                        sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                                .replace("{usage}", LangSetting.getInstance().i18n("commands.randomteleport.subCommands.biome.usage"))
                                 .replace("{command}", label)
                         );
                         return;
@@ -80,7 +80,7 @@ final class RandomTeleport extends Command {
                     worldName = args[1];
                     biome = BiomeUtil.getBiome(args[2]);
                     if (biome == null) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("mhdftools.commands.randomteleport.noBiome")
+                        sender.sendMessage(LangSetting.getInstance().i18n("mhdftools.commands.randomteleport.noBiome")
                                 .replace("{biome}", args[2])
                         );
                         return;
@@ -88,11 +88,11 @@ final class RandomTeleport extends Command {
 
                     if (args.length >= 4) {
                         if (Bukkit.getPlayer(args[3]) == null) {
-                            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+                            sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
                             return;
                         }
                         if (!sender.hasPermission("mhdftools.commands.randomteleport.other")) {
-                            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("noPermission"));
+                            sender.sendMessage(LangSetting.getInstance().i18n("noPermission"));
                             return;
                         }
                         player = Bukkit.getPlayer(args[3]);
@@ -108,8 +108,8 @@ final class RandomTeleport extends Command {
 
             // 输出帮助信息
             {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.subCommands.help.message")
-                        .replace("{helpList}", LangSetting.getSettingInstance().getHelpList("commands.randomteleport.subCommands"))
+                sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.subCommands.help.message")
+                        .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.randomteleport.subCommands"))
                         .replace("{command}", label)
                 );
             }
@@ -118,8 +118,8 @@ final class RandomTeleport extends Command {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.randomteleport.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.randomteleport.usage"))
                     .replace("{command}", label)
             );
             return;

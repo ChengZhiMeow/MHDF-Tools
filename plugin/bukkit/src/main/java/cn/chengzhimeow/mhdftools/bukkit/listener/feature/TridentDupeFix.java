@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.util.menu.MenuUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-final class TridentDupeFix extends AbstractListener {
+final class TridentDupeFix extends Listener {
     private final Set<String> useTridentSet = new HashSet<>();
 
     public TridentDupeFix() {

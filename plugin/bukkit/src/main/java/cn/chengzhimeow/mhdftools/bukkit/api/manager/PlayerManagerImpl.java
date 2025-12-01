@@ -1,11 +1,13 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.manager;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.manager.PlayerManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.entity.MHDFToolsPlayerImpl;
 import lombok.Getter;
 import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.UUID;
@@ -16,17 +18,12 @@ public final class PlayerManagerImpl implements PlayerManager {
     private final Map<UUID, MHDFToolsPlayer> playerHashMap = new ConcurrentHashMap<>();
 
     @Override
-    public MHDFToolsPlayer getPlayer(UUID uuid) {
-        return this.getPlayerHashMap().getOrDefault(uuid, new MHDFToolsPlayerImpl(uuid));
+    public MHDFToolsPlayer getPlayer(@NotNull UUID uuid, @Nullable String name) {
+        return this.getPlayerHashMap().getOrDefault(uuid, new MHDFToolsPlayerImpl(uuid, name));
     }
 
     @Override
-    public MHDFToolsPlayer getPlayer(String name) {
-        return this.getPlayer(MHDFToolsAPIHelper.getInstance().getPlayerDataManager().get(name).getPlayer());
-    }
-
-    @Override
-    public MHDFToolsPlayer getPlayer(OfflinePlayer player) {
-        return this.getPlayer(player.getUniqueId());
+    public MHDFToolsPlayer getPlayer(@NotNull String name) {
+        return this.getPlayer(MHDFToolsAPI.getInstance().getPlayerDataManager().get(name).getPlayer());
     }
 }

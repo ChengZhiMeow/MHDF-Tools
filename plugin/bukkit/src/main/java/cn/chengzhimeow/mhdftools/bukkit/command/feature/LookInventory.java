@@ -20,15 +20,15 @@ final class LookInventory extends Command {
                 "展示背包",
                 "mhdftools.commands.lookinventory",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("chatSettings.showInventory.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("chatSettings.showInventory.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 1) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.lookinventory.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.lookinventory.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -36,11 +36,11 @@ final class LookInventory extends Command {
 
         String data = Main.instance.getCacheManager().get("showInventory", args[0]);
         if (data == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.lookinventory.noData"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.lookinventory.noData"));
             return;
         }
 
         new LookInventoryMenu(sender, JSONObject.parseObject(data)).openMenu();
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.lookinventory.message"));
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.lookinventory.message"));
     }
 }

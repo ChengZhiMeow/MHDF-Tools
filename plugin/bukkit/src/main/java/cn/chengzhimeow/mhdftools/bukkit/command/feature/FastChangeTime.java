@@ -29,7 +29,7 @@ final class FastChangeTime extends Command {
         );
 
         {
-            ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("fastChangeTimeSettings.time");
+            ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("fastChangeTimeSettings.time");
             if (config == null) {
                 return;
             }
@@ -56,7 +56,7 @@ final class FastChangeTime extends Command {
             world.setTime(time);
         }
 
-        sender.sendMessage(LangSetting.getSettingInstance().i18n("commands.fastchangetime.message")
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.fastchangetime.message")
                 .replace("{time}", String.valueOf(time))
         );
     }

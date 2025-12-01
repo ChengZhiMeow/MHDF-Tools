@@ -1,0 +1,10 @@
+# 崩溃玩家客户端
+
+# 开关
+enable: true
+# 默认崩溃模式
+# (explosion invalid_teleport invalid_particle)
+default_type: "explosion"
+# 命令
+commands:
+  - "crash"

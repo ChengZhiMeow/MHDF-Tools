@@ -40,7 +40,7 @@ public final class PluginUtil {
      * 更新检测
      */
     public static void checkUpdate() {
-        if (!ConfigSetting.getSettingInstance().getData().getBoolean("updateCheck")) {
+        if (!ConfigSetting.getInstance().getData().getBoolean("updateCheck")) {
         }
 
         // 等待 MHDF-HttpClient 库

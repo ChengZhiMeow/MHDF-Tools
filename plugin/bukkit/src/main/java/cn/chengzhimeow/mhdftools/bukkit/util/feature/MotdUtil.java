@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.kyori.adventure.text.Component;

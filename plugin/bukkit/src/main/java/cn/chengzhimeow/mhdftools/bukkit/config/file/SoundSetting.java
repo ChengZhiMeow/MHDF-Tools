@@ -6,7 +6,7 @@ import cn.chengzhimeow.mhdftools.config.ConfigManager;
 public final class SoundSetting extends AbstractYamlManager {
     private static SoundSetting instance;
 
-    public static SoundSetting getSettingInstance() {
+    public static SoundSetting getInstance() {
         if (SoundSetting.instance == null) {
             SoundSetting.instance = new SoundSetting();
         }

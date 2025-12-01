@@ -12,7 +12,7 @@ public final class GameModeUtil {
      * @return 游戏模式实例
      */
     public static GameMode getGameMode(String gameModeString) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("gamemodeSettings.gamemode");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("gamemodeSettings.gamemode");
         if (config == null) {
             return null;
         }

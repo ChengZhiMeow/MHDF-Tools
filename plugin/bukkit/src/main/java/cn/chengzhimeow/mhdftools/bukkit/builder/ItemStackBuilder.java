@@ -1,11 +1,10 @@
 package cn.chengzhimeow.mhdftools.bukkit.builder;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.compatibility.item.ItemCompatibility;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.item.ItemCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

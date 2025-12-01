@@ -14,7 +14,7 @@ public abstract class Placeholder {
     private final boolean enable;
 
     public Placeholder(List<String> enableKeyList) {
-        this.enable = YamlUtil.equalsTrue(ConfigSetting.getSettingInstance().getData(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(ConfigSetting.getInstance().getData(), enableKeyList);
     }
 
     public Placeholder() {

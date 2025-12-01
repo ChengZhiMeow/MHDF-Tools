@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-final class Hat extends AbstractListener {
+final class Hat extends Listener {
     public Hat() {
         super(
                 List.of("hatSettings.enable")

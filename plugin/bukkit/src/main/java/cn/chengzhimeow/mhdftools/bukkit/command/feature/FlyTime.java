@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -22,7 +22,7 @@ final class FlyTime extends Command {
                 "限时飞行",
                 "mhdftools.commands.flytime",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("flySettings.flytimeCommands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("flySettings.flytimeCommands").toArray(new String[0])
         );
     }
 
@@ -31,12 +31,12 @@ final class FlyTime extends Command {
         if (args.length == 3) {
             switch (args[0]) {
                 case "set", "add", "take" -> {
-                    MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[1]);
+                    MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[1]);
                     long inputTime;
                     try {
                         inputTime = Long.parseLong(args[2]);
                     } catch (NumberFormatException e) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.flytime.timeFormatError"));
+                        sender.sendMessage(LangSetting.getInstance().i18n("commands.flytime.timeFormatError"));
                         return;
                     }
 
@@ -52,7 +52,7 @@ final class FlyTime extends Command {
                         mhdfPlayer.takeFlyTime(inputTime);
                     }
 
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.flytime.subCommands." + args[0] + ".message")
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.flytime.subCommands." + args[0] + ".message")
                             .replace("{player}", args[1])
                             .replace("{change}", String.valueOf(inputTime))
                             .replace("{amount}", String.valueOf(mhdfPlayer.getFlyTime()))
@@ -63,8 +63,8 @@ final class FlyTime extends Command {
         }
 
         {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.flytime.subCommands.help.message")
-                    .replace("{helpList}", LangSetting.getSettingInstance().getHelpList("commands.flytime.subCommands"))
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.flytime.subCommands.help.message")
+                    .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.flytime.subCommands"))
                     .replace("{command}", label)
             );
         }

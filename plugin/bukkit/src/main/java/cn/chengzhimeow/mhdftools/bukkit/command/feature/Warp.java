@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -23,7 +23,7 @@ final class Warp extends Command {
                 "传送到指定传送点",
                 "mhdftools.commands.warp",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("warpSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("warpSettings.commands").toArray(new String[0])
         );
     }
 
@@ -39,11 +39,11 @@ final class Warp extends Command {
         // 传送其他玩家至传送点
         if (args.length >= 2) {
             if (Bukkit.getPlayer(args[1]) == null) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+                sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
                 return;
             }
             if (!sender.hasPermission("mhdftools.commands.warp.other")) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("noPermission"));
+                sender.sendMessage(LangSetting.getInstance().i18n("noPermission"));
                 return;
             }
             player = Bukkit.getPlayer(args[1]);
@@ -51,29 +51,29 @@ final class Warp extends Command {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.warp.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.warp.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        if (ConfigSetting.getSettingInstance().getData().getStringList("warpSettings.blackWorld").contains(player.getWorld().getName())) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("blackWorld"));
+        if (ConfigSetting.getInstance().getData().getStringList("warpSettings.blackWorld").contains(player.getWorld().getName())) {
+            sender.sendMessage(LangSetting.getInstance().i18n("blackWorld"));
             return;
         }
 
-        if (!MHDFToolsAPIHelper.getInstance().getWarpDataManager().hasData(args[0])) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.warp.noWarp")
+        if (!MHDFToolsAPI.getInstance().getWarpDataManager().hasData(args[0])) {
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.warp.noWarp")
                     .replace("{warp}", args[0])
             );
             return;
         }
 
-        WarpData data = MHDFToolsAPIHelper.getInstance().getWarpDataManager().get(args[0]);
+        WarpData data = MHDFToolsAPI.getInstance().getWarpDataManager().get(args[0]);
         Main.instance.getBungeeCordManager().teleportLocation(player, data.toBungeeCordLocation());
 
-        Main.instance.getBungeeCordManager().sendMessage(player, LangSetting.getSettingInstance().i18n("commands.warp.message")
+        Main.instance.getBungeeCordManager().sendMessage(player, LangSetting.getInstance().i18n("commands.warp.message")
                 .replace("{warp}", args[0])
         );
     }
@@ -81,7 +81,7 @@ final class Warp extends Command {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return MHDFToolsAPIHelper.getInstance().getWarpDataManager().getList().stream()
+            return MHDFToolsAPI.getInstance().getWarpDataManager().getList().stream()
                     .map(WarpData::getWarp)
                     .toList();
         }

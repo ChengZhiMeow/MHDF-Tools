@@ -1,11 +1,11 @@
 package cn.chengzhimeow.mhdftools.bukkit.config.file;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.config.ModuleLangSetting;
+import cn.chengzhimeow.mhdftools.config.AbstractLangSetting;
 
-public final class LangSetting extends ModuleLangSetting {
+public final class LangSetting extends AbstractLangSetting {
     private static LangSetting instance;
 
-    public static LangSetting getSettingInstance() {
+    public static LangSetting getInstance() {
         if (LangSetting.instance == null) {
             LangSetting.instance = new LangSetting();
         }

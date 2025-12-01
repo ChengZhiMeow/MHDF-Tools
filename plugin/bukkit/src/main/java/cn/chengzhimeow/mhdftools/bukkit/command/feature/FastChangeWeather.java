@@ -29,7 +29,7 @@ final class FastChangeWeather extends Command {
         );
 
         {
-            ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("fastChangeWeatherSettings.weather");
+            ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("fastChangeWeatherSettings.weather");
             if (config == null) {
                 return;
             }
@@ -59,9 +59,9 @@ final class FastChangeWeather extends Command {
             world.setThundering(thunder);
         }
 
-        sender.sendMessage(LangSetting.getSettingInstance().i18n("commands.fastchangeweather.message")
-                .replace("{storm}", storm ? LangSetting.getSettingInstance().i18n("enable") : LangSetting.getSettingInstance().i18n("disable"))
-                .replace("{thunder}", thunder ? LangSetting.getSettingInstance().i18n("enable") : LangSetting.getSettingInstance().i18n("disable"))
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.fastchangeweather.message")
+                .replace("{storm}", storm ? LangSetting.getInstance().i18n("enable") : LangSetting.getInstance().i18n("disable"))
+                .replace("{thunder}", thunder ? LangSetting.getInstance().i18n("enable") : LangSetting.getInstance().i18n("disable"))
         );
     }
 }

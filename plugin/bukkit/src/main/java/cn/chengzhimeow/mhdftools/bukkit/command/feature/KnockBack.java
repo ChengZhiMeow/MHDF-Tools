@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
@@ -27,21 +27,21 @@ final class KnockBack extends Command {
                 "击退玩家",
                 "mhdftools.commands.knockback",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("knockBackSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("knockBackSettings.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length < 1 || args.length > 2) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.knockback.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.knockback.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        String type = ConfigSetting.getSettingInstance().getData().getString("knockBackSettings.defaultType", "normal");
+        String type = ConfigSetting.getInstance().getData().getString("knockBackSettings.defaultType", "normal");
         String name = args[0];
 
         if (args.length == 2) {
@@ -50,13 +50,13 @@ final class KnockBack extends Command {
         }
         Player player = Bukkit.getPlayer(name);
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+            sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
             return;
         }
 
-        double x = ConfigSetting.getSettingInstance().getData().getDouble("knockBackSettings.vector.x");
-        double y = ConfigSetting.getSettingInstance().getData().getDouble("knockBackSettings.vector.y");
-        double z = ConfigSetting.getSettingInstance().getData().getDouble("knockBackSettings.vector.z");
+        double x = ConfigSetting.getInstance().getData().getDouble("knockBackSettings.vector.x");
+        double y = ConfigSetting.getInstance().getData().getDouble("knockBackSettings.vector.y");
+        double z = ConfigSetting.getInstance().getData().getDouble("knockBackSettings.vector.z");
 
         Vector vector;
         switch (type) {
@@ -72,8 +72,8 @@ final class KnockBack extends Command {
             }
             case "normal" -> vector = new Vector(x, y, z);
             default -> {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                        .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.knockback.usage"))
+                sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                        .replace("{usage}", LangSetting.getInstance().i18n("commands.knockback.usage"))
                         .replace("{command}", label)
                 );
                 return;
@@ -81,9 +81,9 @@ final class KnockBack extends Command {
         }
 
         player.setVelocity(vector);
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.knockback.message")
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.knockback.message")
                 .replace("{type}", type)
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
         );
     }
 

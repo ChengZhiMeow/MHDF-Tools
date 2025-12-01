@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -22,7 +22,7 @@ final class SetWarp extends Command {
                 "设置传送点",
                 "mhdftools.commands.setwarp",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("warpSettings.setwarpCommands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("warpSettings.setwarpCommands").toArray(new String[0])
         );
     }
 
@@ -30,8 +30,8 @@ final class SetWarp extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 1) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.setwarp.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.setwarp.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -41,9 +41,9 @@ final class SetWarp extends Command {
 
         WarpData data = new WarpData(args[0]);
         data.setLocation(new BungeeCordLocation(location));
-        MHDFToolsAPIHelper.getInstance().getWarpDataManager().update(data);
+        MHDFToolsAPI.getInstance().getWarpDataManager().update(data);
 
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.setwarp.message")
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.setwarp.message")
                 .replace("{warp}", args[0])
         );
     }
@@ -51,7 +51,7 @@ final class SetWarp extends Command {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return MHDFToolsAPIHelper.getInstance().getWarpDataManager().getList().stream()
+            return MHDFToolsAPI.getInstance().getWarpDataManager().getList().stream()
                     .map(WarpData::getWarp)
                     .toList();
         }

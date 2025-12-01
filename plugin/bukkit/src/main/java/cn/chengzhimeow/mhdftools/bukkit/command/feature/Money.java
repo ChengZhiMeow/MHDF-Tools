@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -24,7 +24,7 @@ final class Money extends Command {
                 "查询余额",
                 "mhdftools.commands.money",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("economySettings.moneyCommands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("economySettings.moneyCommands").toArray(new String[0])
         );
     }
 
@@ -40,7 +40,7 @@ final class Money extends Command {
         // 查询其他玩家的余额
         if (args.length == 1) {
             if (!sender.hasPermission("mhdftools.commands.money.other")) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("noPermission"));
+                sender.sendMessage(LangSetting.getInstance().i18n("noPermission"));
                 return;
             }
 
@@ -49,16 +49,16 @@ final class Money extends Command {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.money.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.money.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.money.message")
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.money.message")
+                .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{amount}", mhdfPlayer.getMoney().toString())
         );
     }

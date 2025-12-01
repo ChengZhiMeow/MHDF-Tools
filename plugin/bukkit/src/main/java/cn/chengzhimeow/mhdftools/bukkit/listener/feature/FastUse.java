@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.fastuse.ShulkerBoxMenu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-final class FastUse extends AbstractListener {
+final class FastUse extends Listener {
     public FastUse() {
         super(
                 List.of("fastUseSettings.enable")
@@ -31,7 +31,7 @@ final class FastUse extends AbstractListener {
         // 潜影盒
         if (item.getType().toString().endsWith("SHULKER_BOX")) {
             // 不处理功能未开启的情况
-            if (!ConfigSetting.getSettingInstance().getData().getBoolean("fastUseSettings.shulkerBox")) {
+            if (!ConfigSetting.getInstance().getData().getBoolean("fastUseSettings.shulkerBox")) {
                 return;
             }
 
@@ -47,7 +47,7 @@ final class FastUse extends AbstractListener {
         // 末影箱
         if (item.getType() == Material.ENDER_CHEST) {
             // 不处理功能未开启的情况
-            if (!ConfigSetting.getSettingInstance().getData().getBoolean("fastUseSettings.enderChest")) {
+            if (!ConfigSetting.getInstance().getData().getBoolean("fastUseSettings.enderChest")) {
                 return;
             }
 
@@ -63,7 +63,7 @@ final class FastUse extends AbstractListener {
         // 工作台
         if (item.getType() == Material.CRAFTING_TABLE) {
             // 不处理功能未开启的情况
-            if (!ConfigSetting.getSettingInstance().getData().getBoolean("fastUseSettings.craftingTable")) {
+            if (!ConfigSetting.getInstance().getData().getBoolean("fastUseSettings.craftingTable")) {
                 return;
             }
 

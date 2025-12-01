@@ -2,84 +2,90 @@ package cn.chengzhimeow.mhdftools.api;
 
 import cn.chengzhimeow.mhdftools.api.manager.PlayerManager;
 import cn.chengzhimeow.mhdftools.api.manager.feature.*;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface MHDFToolsAPI {
+public abstract class MHDFToolsAPI {
+    @Getter
+    @Setter
+    private static MHDFToolsAPI instance;
+
     /**
      * 获取玩家控制器实例
      *
      * @return 玩家控制器实例
      */
-    PlayerManager getPlayerManager();
+    public abstract PlayerManager getPlayerManager();
 
     /**
      * 获取经济数据控制器实例
      *
      * @return 经济数据控制器实例
      */
-    EconomyDataManager getEconomyDataManager();
+    public abstract EconomyDataManager getEconomyDataManager();
 
     /**
      * 获取飞行状态控制器实例
      *
      * @return 飞行状态控制器实例
      */
-    FlyStatusManager getFlyStatusManager();
+    public abstract FlyStatusManager getFlyStatusManager();
 
     /**
      * 获取家数据控制器实例
      *
      * @return 家数据控制器实例
      */
-    HomeDataManager getHomeDataManager();
+    public abstract HomeDataManager getHomeDataManager();
 
     /**
      * 获取忽略数据控制器实例
      *
      * @return 忽略数据控制器实例
      */
-    IgnoreDataManager getIgnoreDataManager();
+    public abstract IgnoreDataManager getIgnoreDataManager();
 
     /**
      * 获取匿名名称数据控制器实例
      *
      * @return 匿名名称数据控制器实例
      */
-    NickDataManager getNickDataManager();
+    public abstract NickDataManager getNickDataManager();
 
     /**
      * 获取玩家数据控制器实例
      *
      * @return 玩家数据控制器实例
      */
-    PlayerDataManager getPlayerDataManager();
+    public abstract PlayerDataManager getPlayerDataManager();
 
     /**
      * 获取隐身状态控制器实例
      *
      * @return 隐身状态控制器实例
      */
-    VanishStatusManager getVanishStatusManager();
+    public abstract VanishStatusManager getVanishStatusManager();
 
     /**
      * 获取传送点数据控制器实例
      *
      * @return 传送点数据控制器实例
      */
-    WarpDataManager getWarpDataManager();
+    public abstract WarpDataManager getWarpDataManager();
 
     /**
      * 获取位置记录数据控制器实例
      *
      * @return 位置记录数据控制器实例
      */
-    BackDataManager getBackDataManager();
+    public abstract BackDataManager getBackDataManager();
 
     /**
      * 获取PVP状态控制器实例
      *
      * @return PVP状态控制器实例
      */
-    PvpStatusManager getPvpStatusManager();
+    public abstract PvpStatusManager getPvpStatusManager();
 
 
     /**
@@ -87,5 +93,5 @@ public interface MHDFToolsAPI {
      *
      * @return 服务器名称
      */
-    String getServerName();
+    public abstract String getServerName();
 }

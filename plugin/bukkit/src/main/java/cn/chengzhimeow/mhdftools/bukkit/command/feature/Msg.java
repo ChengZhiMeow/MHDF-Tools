@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -8,7 +8,7 @@ import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.MsgUtil;
-import cn.chengzhimeow.mhdftools.bukkit.message.MessageUtil;
+import cn.chengzhimeow.mhdftools.message.StringUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +23,7 @@ final class Msg extends Command {
                 "私聊",
                 "mhdftools.commands.msg",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("chatSettings.msg.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("chatSettings.msg.commands").toArray(new String[0])
         );
     }
 
@@ -31,24 +31,24 @@ final class Msg extends Command {
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length < 2) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.msg.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.msg.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
         if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+            sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
             return;
         }
 
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(args[0]);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[0]);
         if (mhdfPlayer.isEnableVanish()) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+            sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
         }
 
-        String message = MessageUtil.join(args, 1);
+        String message = StringUtil.join(args, 1);
         MsgUtil.sendMsg(sender, args[0], message);
     }
 

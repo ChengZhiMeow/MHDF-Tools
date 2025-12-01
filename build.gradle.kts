@@ -33,7 +33,13 @@ allprojects {
 
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21")
-        compileOnly("${rootProject.properties["server.paper"]}")
+
+        compileOnly(platform("${rootProject.properties["libs.adventure_bom"]}"))
+        compileOnly("${rootProject.properties["libs.adventure_api"]}")
+        compileOnly("${rootProject.properties["libs.adventure_text_minimessage"]}")
+        compileOnly("${rootProject.properties["libs.adventure_text_serializer_gson"]}")
+        compileOnly("${rootProject.properties["libs.adventure_text_serializer_legacy"]}")
+        compileOnly("${rootProject.properties["libs.adventure_text_serializer_plain"]}")
 
         compileOnly("${rootProject.properties["libs.lombok"]}")
         annotationProcessor("${rootProject.properties["libs.lombok"]}")

@@ -33,7 +33,7 @@ public final class ShulkerBoxMenu extends Menu {
         BlockStateMeta blockMate = (BlockStateMeta) meta;
         ShulkerBox box = (ShulkerBox) blockMate.getBlockState();
 
-        Inventory inventory = Bukkit.createInventory(this, InventoryType.BARREL, LangSetting.getSettingInstance().i18n("menu.fastuse.shulkerBox.title"));
+        Inventory inventory = Bukkit.createInventory(this, InventoryType.BARREL, LangSetting.getInstance().i18n("menu.fastuse.shulkerBox.title"));
         inventory.setContents(box.getInventory().getContents());
 
         return inventory;

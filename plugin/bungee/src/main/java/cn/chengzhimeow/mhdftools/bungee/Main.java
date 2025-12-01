@@ -2,8 +2,10 @@ package cn.chengzhimeow.mhdftools.bungee;
 
 import cn.chengzhimeow.mhdftools.bungee.listener.PluginMessage;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
+import cn.chengzhimeow.mhdftools.console.LogManager;
 import cn.chengzhimeow.mhdftools.enums.ServerType;
 import cn.chengzhimeow.mhdftools.manager.LibraryManager;
+import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -22,6 +24,21 @@ public final class Main extends Plugin {
             version = Integer.parseInt(name.replace("MINECRAFT_", "").replace("_", ""));
         }
         return version;
+    }
+
+    @Override
+    public void onLoad() {
+        LogManager.instance = new LogManager() {
+            @Override
+            public void log(String message, String... args) {
+                Main.this.getLogger().info(LogManager.CONSOLE_PREFIX + StringUtil.format(message, args));
+            }
+
+            @Override
+            public void debug(String message, String... args) {
+                Main.this.getLogger().info(LogManager.DEBUG_PREFIX + StringUtil.format(message, args));
+            }
+        };
     }
 
     @Override

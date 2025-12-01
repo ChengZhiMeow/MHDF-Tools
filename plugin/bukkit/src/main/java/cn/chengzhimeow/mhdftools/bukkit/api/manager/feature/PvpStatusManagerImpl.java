@@ -27,6 +27,6 @@ public final class PvpStatusManagerImpl extends AbstractDaoManager<PvpStatus, UU
 
     @Override
     public boolean getDefaultValue() {
-        return ConfigSetting.getSettingInstance().getData().getBoolean("pvpSettings.default");
+        return ConfigSetting.getInstance().getData().getBoolean("pvpSettings.default");
     }
 }

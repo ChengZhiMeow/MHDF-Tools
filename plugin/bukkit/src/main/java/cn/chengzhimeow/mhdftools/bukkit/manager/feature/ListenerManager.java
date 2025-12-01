@@ -1,8 +1,8 @@
 package cn.chengzhimeow.mhdftools.bukkit.manager.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractPacketListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.PacketListener;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.reflections.Reflections;
@@ -17,13 +17,13 @@ public final class ListenerManager {
      */
     @SneakyThrows
     public void init() {
-        Reflections reflections = new Reflections(AbstractListener.class.getPackageName());
+        Reflections reflections = new Reflections(Listener.class.getPackageName());
 
-        for (Class<? extends AbstractPacketListener> clazz : reflections.getSubTypesOf(AbstractPacketListener.class)) {
+        for (Class<? extends PacketListener> clazz : reflections.getSubTypesOf(PacketListener.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                Constructor<? extends AbstractPacketListener> constructor = clazz.getConstructor();
+                Constructor<? extends PacketListener> constructor = clazz.getConstructor();
                 constructor.setAccessible(true);
-                AbstractPacketListener listener = constructor.newInstance();
+                PacketListener listener = constructor.newInstance();
 
                 if (listener.isEnable()) {
                     Main.instance.getPluginHookManager().getPacketEventsHook()
@@ -32,11 +32,11 @@ public final class ListenerManager {
             }
         }
 
-        for (Class<? extends AbstractListener> clazz : reflections.getSubTypesOf(AbstractListener.class)) {
+        for (Class<? extends Listener> clazz : reflections.getSubTypesOf(Listener.class)) {
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                Constructor<? extends AbstractListener> constructor = clazz.getConstructor();
+                Constructor<? extends Listener> constructor = clazz.getConstructor();
                 constructor.setAccessible(true);
-                AbstractListener listener = constructor.newInstance();
+                Listener listener = constructor.newInstance();
 
                 if (listener.isEnable()) {
                     Bukkit.getPluginManager().registerEvents(listener, Main.instance);

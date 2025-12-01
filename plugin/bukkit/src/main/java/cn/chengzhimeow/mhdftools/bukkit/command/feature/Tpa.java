@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
@@ -25,14 +25,14 @@ final class Tpa extends Command {
                 "请求传送到指定玩家位置",
                 "mhdftools.commands.tpa",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("tpaSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("tpaSettings.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
-        if (ConfigSetting.getSettingInstance().getData().getStringList("tpaSettings.blackWorld").contains(sender.getWorld().getName())) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("blackWorld"));
+        if (ConfigSetting.getInstance().getData().getStringList("tpaSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangSetting.getInstance().i18n("blackWorld"));
             return;
         }
 
@@ -47,14 +47,14 @@ final class Tpa extends Command {
         if (args.length == 2) {
             String targetPlayerName = Main.instance.getCacheManager().get("tpaPlayer", args[1]);
             if (targetPlayerName == null) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.tpa.noRequest")
+                sender.sendMessage(LangSetting.getInstance().i18n("commands.tpa.noRequest")
                         .replace("{player}", args[1])
                 );
                 return;
             }
 
             if (!targetPlayerName.equals(sender.getName())) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.tpa.noRequest")
+                sender.sendMessage(LangSetting.getInstance().i18n("commands.tpa.noRequest")
                         .replace("{player}", args[1])
                 );
                 return;
@@ -64,7 +64,7 @@ final class Tpa extends Command {
             Main.instance.getCacheManager().remove("tpaDelay", args[1]);
 
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[1])) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+                sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
                 return;
             }
 
@@ -72,22 +72,22 @@ final class Tpa extends Command {
             switch (args[0]) {
                 case "accept" -> {
                     Main.instance.getBungeeCordManager().teleportPlayer(args[1], sender);
-                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangSetting.getSettingInstance().i18n("commands.tpa.accept.accepted")
-                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
+                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangSetting.getInstance().i18n("commands.tpa.accept.accepted")
+                            .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
                     );
 
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.tpa.accept.message")
-                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.tpa.accept.message")
+                            .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
                     );
                     return;
                 }
                 case "reject" -> {
-                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangSetting.getSettingInstance().i18n("commands.tpa.reject.rejected")
-                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
+                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangSetting.getInstance().i18n("commands.tpa.reject.rejected")
+                            .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender).getDisplayName())
                     );
 
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.tpa.reject.message")
-                            .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.tpa.reject.message")
+                            .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(target).getDisplayName())
                     );
                     return;
                 }
@@ -95,8 +95,8 @@ final class Tpa extends Command {
         }
 
         {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.tpa.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.tpa.usage"))
                     .replace("{command}", label)
             );
         }

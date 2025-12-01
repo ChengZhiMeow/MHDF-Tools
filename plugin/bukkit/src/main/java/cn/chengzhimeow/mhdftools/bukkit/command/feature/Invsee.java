@@ -22,7 +22,7 @@ final class Invsee extends Command {
                 "查看背包",
                 "mhdftools.commands.invsee",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("invseeSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("invseeSettings.commands").toArray(new String[0])
         );
     }
 
@@ -30,8 +30,8 @@ final class Invsee extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 2) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.invsee.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.invsee.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -39,17 +39,17 @@ final class Invsee extends Command {
 
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+            sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
             return;
         }
 
         if (InvseeUtil.invsee(sender, target, args[1])) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.invsee.message")
-                    .replace("{type}", LangSetting.getSettingInstance().i18n("commands.invsee.types." + args[1]))
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.invsee.message")
+                    .replace("{type}", LangSetting.getInstance().i18n("commands.invsee.types." + args[1]))
                     .replace("{player}", target.getName())
             );
         } else {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.invsee.noType")
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.invsee.noType")
                     .replace("{type}", args[1])
             );
         }

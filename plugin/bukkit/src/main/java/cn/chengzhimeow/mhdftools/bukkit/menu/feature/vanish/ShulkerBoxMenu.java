@@ -29,7 +29,7 @@ public final class ShulkerBoxMenu extends Menu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(this, InventoryType.SHULKER_BOX, LangSetting.getSettingInstance().i18n("menu.vanish.title"));
+        Inventory inventory = Bukkit.createInventory(this, InventoryType.SHULKER_BOX, LangSetting.getInstance().i18n("menu.vanish.title"));
         inventory.setContents(this.shulkerBox.getInventory().getContents());
 
         return inventory;

@@ -6,9 +6,9 @@ import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -33,7 +33,7 @@ final class Stop extends Command {
                 "更好的关服",
                 "mhdftools.commands.stop",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("stopSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("stopSettings.commands").toArray(new String[0])
         );
     }
 
@@ -43,30 +43,30 @@ final class Stop extends Command {
             switch (args[0]) {
                 case "help" -> {
                     if (args.length != 1) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                                .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.stop.subCommands.help.usage"))
+                        sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                                .replace("{usage}", LangSetting.getInstance().i18n("commands.stop.subCommands.help.usage"))
                                 .replace("{command}", label)
                         );
                         return;
                     }
 
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.stop.subCommands.help.message")
-                            .replace("{helpList}", LangSetting.getSettingInstance().getHelpList("commands.stop.subCommands"))
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.subCommands.help.message")
+                            .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.stop.subCommands"))
                             .replace("{command}", label)
                     );
                     return;
                 }
                 case "confirm" -> {
                     if (args.length != 1) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                                .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.stop.subCommands.confirm.usage"))
+                        sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                                .replace("{usage}", LangSetting.getInstance().i18n("commands.stop.subCommands.confirm.usage"))
                                 .replace("{command}", label)
                         );
                         return;
                     }
 
                     if (this.getTime() == null || this.getMessage() == null) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.stop.subCommands.confirm.noStop"));
+                        sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.subCommands.confirm.noStop"));
                         return;
                     }
 
@@ -75,43 +75,43 @@ final class Stop extends Command {
                 }
                 case "cancel" -> {
                     if (args.length != 1) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                                .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.stop.subCommands.cancel.usage"))
+                        sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                                .replace("{usage}", LangSetting.getInstance().i18n("commands.stop.subCommands.cancel.usage"))
                                 .replace("{command}", label)
                         );
                         return;
                     }
 
                     if (!this.isStop()) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.stop.subCommands.cancel.noStop"));
+                        sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.subCommands.cancel.noStop"));
                         return;
                     }
 
                     this.setStop(false);
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.stop.subCommands.cancel.message"));
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.subCommands.cancel.message"));
                     return;
                 }
             }
         }
 
         if (this.isStop()) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.stop.subCommands.default.inStop"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.subCommands.default.inStop"));
             return;
         }
 
         try {
-            int defaultTime = ConfigSetting.getSettingInstance().getData().getInt("stopSettings.countdown.default");
+            int defaultTime = ConfigSetting.getInstance().getData().getInt("stopSettings.countdown.default");
             this.setTime(args.length >= 1 ? Integer.parseInt(args[0]) : defaultTime);
         } catch (NumberFormatException e) {
-            sender.sendMessage(LangSetting.getSettingInstance().i18n("commands.stop.timeFormatError"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.timeFormatError"));
             return;
         }
 
-        TextComponent defaultMessage = LangSetting.getSettingInstance().i18n("commands.stop.defaultMessage");
+        TextComponent defaultMessage = LangSetting.getInstance().i18n("commands.stop.defaultMessage");
         this.setMessage(args.length >= 2 ? ColorUtil.color(args[1]) : defaultMessage);
 
-        if (ConfigSetting.getSettingInstance().getData().getBoolean("stopSettings.confirm")) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.stop.subCommands.default.message")
+        if (ConfigSetting.getInstance().getData().getBoolean("stopSettings.confirm")) {
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.subCommands.default.message")
                     .replace("{time}", String.valueOf(this.getTime()))
                     .replace("{message}", this.getMessage())
             );
@@ -123,7 +123,7 @@ final class Stop extends Command {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(LangSetting.getSettingInstance().getKeys("commands.stop.subCommands"));
+            return new ArrayList<>(LangSetting.getInstance().getKeys("commands.stop.subCommands"));
         }
         return new ArrayList<>();
     }
@@ -163,8 +163,8 @@ final class Stop extends Command {
                     return;
                 }
 
-                if (ConfigSetting.getSettingInstance().getData().getIntList("stopSettings.countdown.messageTime").contains(countdown))
-                    ActionUtil.broadcastMessage(LangSetting.getSettingInstance().i18n("commands.stop.countdownMessage")
+                if (ConfigSetting.getInstance().getData().getIntList("stopSettings.countdown.messageTime").contains(countdown))
+                    ActionUtil.broadcastMessage(LangSetting.getInstance().i18n("commands.stop.countdownMessage")
                             .replace("{countdown}", String.valueOf(countdown))
                     );
                 countdown--;
@@ -182,7 +182,7 @@ final class Stop extends Command {
             Bukkit.savePlayers();
 
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.kick(LangSetting.getSettingInstance().i18n("commands.stop.kickMessage")
+                player.kick(LangSetting.getInstance().i18n("commands.stop.kickMessage")
                         .replace("{message}", message)
                 );
             }

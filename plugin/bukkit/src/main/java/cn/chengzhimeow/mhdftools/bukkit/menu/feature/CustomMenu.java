@@ -5,7 +5,7 @@ import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.menu.Menu;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.menu.MenuUtil;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
 import org.bukkit.Bukkit;

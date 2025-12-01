@@ -24,7 +24,7 @@ public final class TeleportUtil {
             location.setPitch(Math.max(-90f, Math.min(90f, location.getPitch())));
 
             int times = map.getOrDefault(player.getName(), 0);
-            int maxTimes = ConfigSetting.getSettingInstance().getData().getInt("bungeecord.autoTry.maxTimes");
+            int maxTimes = ConfigSetting.getInstance().getData().getInt("bungeecord.autoTry.maxTimes");
 
             if (success) {
                 if (player.getLocation().getWorld() != location.getWorld() || player.getLocation().distance(location) < 5.0) {
@@ -39,7 +39,7 @@ public final class TeleportUtil {
             }
 
             map.put(player.getName(), times + 1);
-            int delay = ConfigSetting.getSettingInstance().getData().getInt("bungeecord.autoTry.delay");
+            int delay = ConfigSetting.getInstance().getData().getInt("bungeecord.autoTry.delay");
             CCScheduler.getInstance().getGlobalRegionScheduler().runTaskLater(Main.instance, () ->
                     TeleportUtil.teleport(player, location, map), delay);
         });

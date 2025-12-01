@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsAPIImpl;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigsManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.*;
@@ -10,10 +10,12 @@ import cn.chengzhimeow.mhdftools.bukkit.manager.database.MHDFDatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.feature.CommandManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.feature.ListenerManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.feature.TaskManager;
-import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
+import cn.chengzhimeow.mhdftools.console.LogManager;
 import cn.chengzhimeow.mhdftools.enums.ServerType;
 import cn.chengzhimeow.mhdftools.manager.LibraryManager;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import lombok.Getter;
@@ -57,6 +59,18 @@ public final class Main extends JavaPlugin {
         });
         LibraryManager.getInstance().init();
 
+        LogManager.instance = new LogManager() {
+            @Override
+            public void log(String message, String... args) {
+                Bukkit.getConsoleSender().sendMessage(ColorUtil.color(LogManager.CONSOLE_PREFIX + StringUtil.format(message, args)));
+            }
+
+            @Override
+            public void debug(String message, String... args) {
+                Bukkit.getConsoleSender().sendMessage(ColorUtil.color(LogManager.DEBUG_PREFIX + StringUtil.format(message, args)));
+            }
+        };
+
         ConfigsManager.getInstance().saveDefaultFiles();
         ConfigsManager.getInstance().updateAll();
         ConfigsManager.getInstance().reloadAll();
@@ -92,11 +106,11 @@ public final class Main extends JavaPlugin {
         this.bStatsManager = new BStatsManager();
         this.bStatsManager.init();
 
-        MHDFToolsAPIHelper.setInstance(new MHDFToolsAPIImpl());
+        MHDFToolsAPI.setInstance(new MHDFToolsAPIImpl());
 
-        LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
-        LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
-        LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
+        LogManager.instance.log("&e-----------&6=&e梦之工具&6=&e-----------");
+        LogManager.instance.log("&a插件启动成功! 官方交流群: 129139830");
+        LogManager.instance.log("&e-----------&6=&e梦之工具&6=&e-----------");
     }
 
     @Override
@@ -106,8 +120,8 @@ public final class Main extends JavaPlugin {
         if (this.cacheManager != null) this.cacheManager.close();
         if (this.databaseManager != null) this.databaseManager.close();
 
-        LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
-        LogUtil.log("&a插件卸载成功! 官方交流群: 129139830");
-        LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
+        LogManager.instance.log("&e-----------&6=&e梦之工具&6=&e-----------");
+        LogManager.instance.log("&a插件卸载成功! 官方交流群: 129139830");
+        LogManager.instance.log("&e-----------&6=&e梦之工具&6=&e-----------");
     }
 }

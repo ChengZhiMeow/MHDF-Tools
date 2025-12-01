@@ -2,16 +2,16 @@ package cn.chengzhimeow.mhdftools.bukkit.util.feature;
 
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.Base64Util;
 import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -36,10 +36,10 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static TextComponent applyReplaceWord(CommandSender player, TextComponent messageComponent, String message) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("chatSettings.replaceWord");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("chatSettings.replaceWord");
         if (config == null || !config.getBoolean("enable")) return messageComponent;
 
-        for (ConfigurationSection replace : ConfigSetting.getSettingInstance().getData().getConfigurationSectionList("chatSettings.replaceWord.replace")) {
+        for (ConfigurationSection replace : ConfigSetting.getInstance().getData().getConfigurationSectionList("chatSettings.replaceWord.replace")) {
             String type = replace.getString("type");
             if (type == null) continue;
             if (replace.getBoolean("bypass.enable") && player.hasPermission(replace.getString("bypass.permission", "")))
@@ -83,7 +83,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static TextComponent applyShowItem(Player player, TextComponent messageComponent) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("chatSettings.showItem");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("chatSettings.showItem");
         if (config == null || !config.getBoolean("enable")) return messageComponent;
 
         ItemStack item = player.getInventory().getItemInMainHand();
@@ -146,13 +146,13 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static TextComponent applyAt(TextComponent messageComponent, String message, Set<String> atList) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("chatSettings.at");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("chatSettings.at");
         if (config == null) return messageComponent;
 
         String patternFormat = config.getString("patternFormat");
         if (patternFormat == null) return messageComponent;
 
-        TextComponent format = LangSetting.getSettingInstance().i18n("chat.at.format");
+        TextComponent format = LangSetting.getInstance().i18n("chat.at.format");
         for (String at : atList) {
             Matcher matcher = Pattern.compile(patternFormat.replace("{at}", at)).matcher(message);
             if (matcher.find()) {
@@ -161,7 +161,7 @@ public final class ChatUtil {
         }
 
         if (atList.contains(AtUtil.getAtAll())) {
-            TextComponent allFormat = format.replace("{name}", LangSetting.getSettingInstance().i18n("chat.at.all"));
+            TextComponent allFormat = format.replace("{name}", LangSetting.getInstance().i18n("chat.at.all"));
             for (String at : config.getStringList("allMessage")) {
                 Matcher matcher = Pattern.compile(patternFormat.replace("{at}", at)).matcher(message);
                 if (matcher.find()) {
@@ -180,12 +180,12 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static TextComponent formatMessage(Player player, TextComponent message) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("chatSettings.format");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("chatSettings.format");
         String group = GroupUtil.getGroup(player, config, "mhdftools.group.chatformat.");
         String format = (config == null || !config.getBoolean("enable")) ? "<{player}> {message}" : config.getString(group + ".format");
 
         return ColorUtil.color(PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, format))
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+                .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{message}", message);
     }
 
@@ -199,7 +199,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     private static TextComponent applyShowableContainer(Player player, TextComponent messageComponent, String configKey, ItemStack[] contents) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("chatSettings." + configKey);
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("chatSettings." + configKey);
         if (config == null || !config.getBoolean("enable")) return messageComponent;
 
         String format = config.getString("format");
@@ -218,7 +218,7 @@ public final class ChatUtil {
 
         TextComponent formatComponent = ColorUtil.color(format
                 .replace("{uuid}", uuid.toString())
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName()));
+                .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player).getDisplayName()));
 
         for (String s : config.getStringList("word")) {
             messageComponent = messageComponent.replace(s, formatComponent);

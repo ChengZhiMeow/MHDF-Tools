@@ -1,8 +1,9 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.hat;
 
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
-import cn.chengzhimeow.mhdftools.bukkit.module.config.ModuleConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.module.config.ModuleLangSetting;
+import cn.chengzhimeow.mhdftools.bukkit.module.hat.config.ConfigSetting;
+import cn.chengzhimeow.mhdftools.bukkit.module.hat.config.LangSetting;
+import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import org.jetbrains.annotations.NotNull;
 
 public final class ModuleMain extends Module {
@@ -15,16 +16,17 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onLoad() {
-        super.onLoad();
+        ConfigSetting.getInstance().saveDefaultFile();
+        ConfigSetting.getInstance().update();
+        ConfigSetting.getInstance().reload();
+
+        LangSetting.getInstance().saveDefaultFile();
+        LangSetting.getInstance().update();
+        LangSetting.getInstance().reload();
     }
 
     @Override
-    public @NotNull ModuleConfigSetting getModuleConfigSetting() {
-        return null;
-    }
-
-    @Override
-    public @NotNull ModuleLangSetting getModuleLangSetting() {
-        return null;
+    public @NotNull AbstractYamlSetting getConfig() {
+        return ConfigSetting.getInstance();
     }
 }

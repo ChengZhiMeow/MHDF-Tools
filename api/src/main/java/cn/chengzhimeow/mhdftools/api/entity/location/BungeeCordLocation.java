@@ -1,10 +1,7 @@
 package cn.chengzhimeow.mhdftools.api.entity.location;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 
 @Getter
 @Setter
@@ -29,36 +26,13 @@ public final class BungeeCordLocation {
 
     public BungeeCordLocation(String world, Double x, Double y, Double z, Float yaw, Float pitch) {
         this(
-                MHDFToolsAPIHelper.getInstance().getServerName(),
+                MHDFToolsAPI.getInstance().getServerName(),
                 world,
                 x,
                 y,
                 z,
                 yaw,
                 pitch
-        );
-    }
-
-    public BungeeCordLocation(String server, Location location) {
-        this(
-                server,
-                location.getWorld().getName(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
-        );
-    }
-
-    public BungeeCordLocation(Location location) {
-        this(
-                location.getWorld().getName(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
         );
     }
 
@@ -71,22 +45,6 @@ public final class BungeeCordLocation {
         this.z = Double.parseDouble(data[4]);
         this.yaw = Float.parseFloat(data[5]);
         this.pitch = Float.parseFloat(data[6]);
-    }
-
-    /**
-     * 转换为位置实例
-     *
-     * @return 位置实例
-     */
-    public Location toLocation() {
-        return new Location(
-                Bukkit.getWorld(this.getWorld()),
-                this.getX(),
-                this.getY(),
-                this.getZ(),
-                this.getYaw(),
-                this.getPitch()
-        );
     }
 
     /**

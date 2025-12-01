@@ -13,7 +13,7 @@ public final class SpawnUtil {
      * @param player 玩家实例
      */
     public static void teleportSpawn(Player player) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("spawnSettings.location");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("spawnSettings.location");
         if (config == null) return;
 
         BungeeCordLocation bungeeCordLocation = new BungeeCordLocation(

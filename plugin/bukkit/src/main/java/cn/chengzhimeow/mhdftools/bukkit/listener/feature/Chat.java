@@ -1,17 +1,17 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.AtUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.ChatUtil;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-final class Chat extends AbstractListener {
+final class Chat extends Listener {
     public Chat() {
         super(
                 List.of("chatSettings.enable")
@@ -34,7 +34,7 @@ final class Chat extends AbstractListener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("chatSettings");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("chatSettings");
         if (config == null) {
             return;
         }
@@ -44,7 +44,7 @@ final class Chat extends AbstractListener {
             if (!player.hasPermission("mhdftools.bypass.chat.delay")) {
                 String delayData = Main.instance.getCacheManager().get("chatDelay", player.getName());
                 if (delayData != null) {
-                    ActionUtil.sendMessage(player, LangSetting.getSettingInstance().i18n("chat.delay")
+                    player.sendMessage(LangSetting.getInstance().i18n("chat.delay")
                             .replace("{delay}", delayData)
                     );
                     event.setCancelled(true);
@@ -69,7 +69,7 @@ final class Chat extends AbstractListener {
             if (!player.hasPermission("mhdftools.bypass.chat.spam")) {
                 String spamData = Main.instance.getCacheManager().get("lastChat", player.getName());
                 if (spamData != null && spamData.equals(message)) {
-                    ActionUtil.sendMessage(player, LangSetting.getSettingInstance().i18n("chat.spam"));
+                    player.sendMessage(LangSetting.getInstance().i18n("chat.spam"));
                     event.setCancelled(true);
                     return;
                 }
@@ -99,14 +99,14 @@ final class Chat extends AbstractListener {
 
         // 发送消息
         TextComponent formatMessage = ChatUtil.formatMessage(player, messageComponent);
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         Main.instance.getBungeeCordManager().sendMessage(
                 "console",
                 formatMessage
         );
         for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
-            if (ConfigSetting.getSettingInstance().getData().getBoolean("ignoreSettings.enable")) {
-                MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(target);
+            if (ConfigSetting.getInstance().getData().getBoolean("ignoreSettings.enable")) {
+                MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(target);
                 if (mhdfTargetPlayer.isIgnore(mhdfPlayer)) {
                     continue;
                 }

@@ -37,7 +37,7 @@ public final class TeleportRequestMenu extends Menu {
                 player
         );
 
-        this.config = MenuManager.getSettingInstance().getData(requestType.name().toLowerCase(Locale.ROOT) + ".yml");
+        this.config = MenuManager.getInstance().getData(requestType.name().toLowerCase(Locale.ROOT) + ".yml");
         this.requestType = requestType;
         this.page = page;
     }

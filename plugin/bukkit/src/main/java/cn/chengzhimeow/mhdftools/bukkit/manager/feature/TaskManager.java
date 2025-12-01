@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.manager.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.task.Task;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Task;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 

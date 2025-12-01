@@ -3,8 +3,8 @@ package cn.chengzhimeow.mhdftools.manager;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.ccyaml.configuration.StringSectionData;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
-import cn.chengzhimeow.mhdftools.config.LibrarySetting;
-import cn.chengzhimeow.mhdftools.config.ProxySetting;
+import cn.chengzhimeow.mhdftools.config.impl.LibrarySetting;
+import cn.chengzhimeow.mhdftools.config.impl.ProxySetting;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import cn.chengzhiya.mhdflibrary.MHDFLibrary;
 import cn.chengzhiya.mhdflibrary.entity.DependencyConfig;
@@ -58,9 +58,9 @@ public final class LibraryManager {
                 "cn.chengzhimeow.mhdftools.libs",
                 new File(ConfigManager.getInstance().getDataFolder(), "libs")
         );
-        mhdfLibrary.getHttpManager().setProxy(ProxySetting.getSettingInstance().getProxy());
+        mhdfLibrary.getHttpManager().setProxy(ProxySetting.getInstance().getProxy());
 
-        for (ConfigurationSection config : LibrarySetting.getSettingInstance().getData().getConfigurationSectionList("library")) {
+        for (ConfigurationSection config : LibrarySetting.getInstance().getData().getConfigurationSectionList("library")) {
             RepositoryConfig repo = new RepositoryConfig(config.getString("repo"));
 
             Object groupIdValue = config.get("group_id");

@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractPacketListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.PacketListener;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
@@ -10,7 +10,7 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSe
 
 import java.util.List;
 
-final class BundleFix extends AbstractPacketListener {
+final class BundleFix extends PacketListener {
     public BundleFix() {
         super(
                 List.of("bundleFixSettings.enable"),

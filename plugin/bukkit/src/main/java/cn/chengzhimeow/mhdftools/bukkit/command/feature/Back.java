@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.BackData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
@@ -24,13 +24,13 @@ final class Back extends Command {
                 "返回位置记录",
                 "mhdftools.commands.back",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("backSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("backSettings.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
-        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+        MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender);
         List<BackData> backDataList = new ArrayList<>();
         if (args.length >= 1) {
             switch (args[0]) {
@@ -45,12 +45,12 @@ final class Back extends Command {
         }
 
         if (backDataList.isEmpty()) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.back.noLocation"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.back.noLocation"));
             return;
         }
 
         Main.instance.getBungeeCordManager().teleportLocation(sender, backDataList.get(0).toBungeeCordLocation());
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.back.message"));
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.back.message"));
     }
 
     @Override

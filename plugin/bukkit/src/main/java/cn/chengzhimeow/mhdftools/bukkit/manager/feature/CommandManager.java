@@ -64,7 +64,7 @@ public final class  CommandManager {
         command.setAliases(Arrays.asList(abstractCommand.getCommands()));
         command.setDescription(abstractCommand.getDescription());
         command.setPermission(abstractCommand.getPermission());
-        command.permissionMessage(LangSetting.getSettingInstance().i18n("noPermission"));
+        command.permissionMessage(LangSetting.getInstance().i18n("noPermission"));
 
         command.setExecutor(abstractCommand);
         command.setTabCompleter(abstractCommand);

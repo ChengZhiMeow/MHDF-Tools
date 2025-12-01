@@ -1,9 +1,9 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.List;
 
-final class AutoChangeFly extends AbstractListener {
+final class AutoChangeFly extends Listener {
     public AutoChangeFly() {
         super(
                 List.of("flySettings.enable")
@@ -26,11 +26,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigSetting.getSettingInstance().getData().getBoolean("flySettings.autoEnable.joinServer"))
+        if (!ConfigSetting.getInstance().getData().getBoolean("flySettings.autoEnable.joinServer"))
             return;
 
         Player player = event.getPlayer();
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         if (!this.allowFly(player)) mhdfPlayer.disableFly();
         else mhdfPlayer.enableFly();
     }
@@ -42,11 +42,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigSetting.getSettingInstance().getData().getBoolean("flySettings.autoEnable.changeWorld"))
+        if (!ConfigSetting.getInstance().getData().getBoolean("flySettings.autoEnable.changeWorld"))
             return;
 
         Player player = event.getPlayer();
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         if (!this.allowFly(player)) mhdfPlayer.disableFly();
         else mhdfPlayer.enableFly();
     }
@@ -58,11 +58,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigSetting.getSettingInstance().getData().getBoolean("flySettings.autoEnable.respawn"))
+        if (!ConfigSetting.getInstance().getData().getBoolean("flySettings.autoEnable.respawn"))
             return;
 
         Player player = event.getPlayer();
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         if (!this.allowFly(player)) mhdfPlayer.disableFly();
         else mhdfPlayer.enableFly();
     }
@@ -73,11 +73,11 @@ final class AutoChangeFly extends AbstractListener {
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigSetting.getSettingInstance().getData().getBoolean("flySettings.autoDisable.takeHealth"))
+        if (!ConfigSetting.getInstance().getData().getBoolean("flySettings.autoDisable.takeHealth"))
             return;
         if (!(event.getEntity() instanceof Player player)) return;
 
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         if (mhdfPlayer.isEnableFly()) mhdfPlayer.disableFly();
         else mhdfPlayer.enableFly();
     }
@@ -89,11 +89,11 @@ final class AutoChangeFly extends AbstractListener {
      */
     private boolean allowFly(Player player) {
         // 禁止飞行世界
-        if (ConfigSetting.getSettingInstance().getData().getStringList("flySettings.autoDisable.worldList")
+        if (ConfigSetting.getInstance().getData().getStringList("flySettings.autoDisable.worldList")
                 .contains(player.getWorld().getName())
         ) return false;
 
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         return mhdfPlayer.isEnableFly() || mhdfPlayer.isAllowedFlyingGameMode();
     }
 }

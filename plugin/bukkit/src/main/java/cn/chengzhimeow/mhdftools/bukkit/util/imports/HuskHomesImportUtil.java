@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.imports;
 
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
@@ -12,7 +12,6 @@ import cn.chengzhimeow.mhdftools.bukkit.entity.database.data.huskhomes.HuskHomes
 import cn.chengzhimeow.mhdftools.bukkit.entity.database.data.huskhomes.HuskHomesPositionInfoData;
 import cn.chengzhimeow.mhdftools.bukkit.entity.database.data.huskhomes.HuskHomesWarpData;
 import cn.chengzhimeow.mhdftools.bukkit.manager.database.HuskHomesDatabaseManager;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import org.bukkit.command.CommandSender;
 
 public final class HuskHomesImportUtil {
@@ -23,7 +22,7 @@ public final class HuskHomesImportUtil {
      */
     public static void importHuskHomesData(CommandSender sender) {
         CCScheduler.getInstance().getAsyncScheduler().runTask(Main.instance, () -> {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.message.start")
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "HuskHomes")
             );
             HuskHomesDatabaseManager databaseManager = new HuskHomesDatabaseManager();
@@ -32,8 +31,8 @@ public final class HuskHomesImportUtil {
 
             // 导入家数据
             {
-                if (ConfigSetting.getSettingInstance().getData().getBoolean("homeSettings.enable")) {
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.import.start")
+                if (ConfigSetting.getInstance().getData().getBoolean("homeSettings.enable")) {
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.import.start")
                             .replace("{plugin}", "HuskHomes")
                             .replace("{name}", "家系统")
                     );
@@ -43,12 +42,12 @@ public final class HuskHomesImportUtil {
                         HuskHomesPositionInfoData positionInfoData = databaseManager.getPositionInfoDataManager().getById(homeData.getPositionInfoId());
                         HuskHomesPositionData positionData = databaseManager.getPositionDataManager().getById(positionInfoData.getPositionId());
 
-                        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(homeData.getOwner());
+                        MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(homeData.getOwner());
                         player.setHome(positionInfoData.getName(), positionData.toBungeeCordLocation());
                     }
 
                     Long endTime = System.currentTimeMillis();
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.import.done")
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.import.done")
                             .replace("{plugin}", "HuskHomes")
                             .replace("{name}", "家系统")
                             .replace("{time}", String.valueOf(endTime - startTime))
@@ -58,8 +57,8 @@ public final class HuskHomesImportUtil {
 
             // 导入传送点数据
             {
-                if (ConfigSetting.getSettingInstance().getData().getBoolean("warpSettings.enable")) {
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.import.start")
+                if (ConfigSetting.getInstance().getData().getBoolean("warpSettings.enable")) {
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.import.start")
                             .replace("{plugin}", "HuskHomes")
                             .replace("{name}", "传送点系统")
                     );
@@ -71,11 +70,11 @@ public final class HuskHomesImportUtil {
 
                         WarpData data = new WarpData(positionInfoData.getName());
                         data.setLocation(positionData.toBungeeCordLocation());
-                        MHDFToolsAPIHelper.getInstance().getWarpDataManager().update(data);
+                        MHDFToolsAPI.getInstance().getWarpDataManager().update(data);
                     }
 
                     Long endTime = System.currentTimeMillis();
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.import.done")
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.import.done")
                             .replace("{plugin}", "HuskHomes")
                             .replace("{name}", "传送点系统")
                             .replace("{time}", String.valueOf(endTime - startTime))
@@ -84,7 +83,7 @@ public final class HuskHomesImportUtil {
             }
 
             databaseManager.close();
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.message.done")
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.message.done")
                     .replace("{plugin}", "HuskHomes")
             );
         });

@@ -2,7 +2,6 @@ package cn.chengzhimeow.mhdftools.api.entity;
 
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
-import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,13 +18,6 @@ public interface MHDFToolsPlayer {
      * @return 显示名称
      */
     String getDisplayName();
-
-    /**
-     * 获取玩家实例
-     *
-     * @return 玩家实例
-     */
-    Player getPlayer();
 
     /**
      * 检测是否拥有经济数据

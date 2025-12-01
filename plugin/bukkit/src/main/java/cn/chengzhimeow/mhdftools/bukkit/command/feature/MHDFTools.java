@@ -4,8 +4,8 @@ import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigsManager;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponentBuilder;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
+import cn.chengzhimeow.mhdftools.text.TextComponentBuilder;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.imports.CmiImportUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.imports.HuskHomesImportUtil;
@@ -44,7 +44,7 @@ final class MHDFTools extends Command {
                         page = maxPage;
                     }
 
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.feature.message")
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.feature.message")
                             .replace("{helpList}", this.getFeatureHelpMessage(page, commandList))
                             .replace("{page}", String.valueOf(page))
                             .replace("{maxPage}", String.valueOf(maxPage))
@@ -58,7 +58,7 @@ final class MHDFTools extends Command {
                 case "reload" -> {
                     ConfigsManager.getInstance().reloadAll();
 
-                    ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.reload.message")
+                    sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.reload.message")
                             .replace("{command}", label)
                     );
                     return;
@@ -66,8 +66,8 @@ final class MHDFTools extends Command {
                 // 导入插件数据
                 case "import" -> {
                     if (args.length != 2) {
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                                .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.usage"))
+                        sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                                .replace("{usage}", LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.usage"))
                                 .replace("{command}", label)
                         );
                         return;
@@ -77,7 +77,7 @@ final class MHDFTools extends Command {
                         case "huskhomes" -> HuskHomesImportUtil.importHuskHomesData(sender);
                         case "cmi" -> CmiImportUtil.importCmiData(sender);
                         default ->
-                                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.import.pluginNotSupport"));
+                                sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.import.pluginNotSupport"));
                     }
                     return;
                 }
@@ -86,8 +86,8 @@ final class MHDFTools extends Command {
 
         // 输出帮助信息
         {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.mhdftools.subCommands.help.message")
-                    .replace("{helpList}", LangSetting.getSettingInstance().getHelpList("commands.mhdftools.subCommands"))
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.help.message")
+                    .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.mhdftools.subCommands"))
                     .replace("{command}", label)
             );
         }
@@ -96,7 +96,7 @@ final class MHDFTools extends Command {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(LangSetting.getSettingInstance().getKeys("commands.mhdftools.subCommands"));
+            return new ArrayList<>(LangSetting.getInstance().getKeys("commands.mhdftools.subCommands"));
         }
         if (args.length == 2) {
             if (args[0].equals("import")) {
@@ -121,7 +121,7 @@ final class MHDFTools extends Command {
         for (int i = start; i < end; i++) {
             String command = commandList.get(i);
 
-            textComponentBuilder.append(LangSetting.getSettingInstance().getCommandInfo("commands." + command)
+            textComponentBuilder.append(LangSetting.getInstance().getCommandInfo("commands." + command)
                     .replace("{command}", command)
             );
             if (!command.equals(commandList.get(end - 1))) {

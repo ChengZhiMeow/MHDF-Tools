@@ -7,7 +7,6 @@ import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.enums.RandomTeleportStatus;
 import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.math.RandomUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.teleport.TeleportUtil;
 import lombok.SneakyThrows;
@@ -34,7 +33,7 @@ public final class RandomTeleportUtil {
      * @return 组配置实例
      */
     public static ConfigurationSection getGroupConfigurationSection(Player player) {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("randomTeleportSettings");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("randomTeleportSettings");
         if (config == null) return null;
 
         String groupId = GroupUtil.getGroup(player, config, "mhdftools.group.randomteleport.");
@@ -113,7 +112,7 @@ public final class RandomTeleportUtil {
      * 使用配置次数自动尝试
      */
     public static CompletableFuture<RandomTeleportStatus> randomTeleport(Player player, World world) {
-        return RandomTeleportUtil.randomTeleport(player, world, ConfigSetting.getSettingInstance().getData().getInt("randomTeleportSettings.maxTryTime"));
+        return RandomTeleportUtil.randomTeleport(player, world, ConfigSetting.getInstance().getData().getInt("randomTeleportSettings.maxTryTime"));
     }
 
     /**
@@ -134,11 +133,11 @@ public final class RandomTeleportUtil {
     @SneakyThrows
     public static void handleRandomTeleport(CommandSender sender, Player player, String worldName, Biome biome) {
         long startTime = System.currentTimeMillis();
-        int maxTryTime = ConfigSetting.getSettingInstance().getData().getInt("randomTeleportSettings.maxTryTime");
+        int maxTryTime = ConfigSetting.getInstance().getData().getInt("randomTeleportSettings.maxTryTime");
 
         World world = Bukkit.getWorld(worldName);
         if (world == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.noWorld")
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.noWorld")
                     .replace("{biome}", Component.translatable(biome.translationKey()))
             );
             return;
@@ -149,17 +148,17 @@ public final class RandomTeleportUtil {
 
             switch (status) {
                 case SUCCESS ->
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.message")
+                        sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.message")
                                 .replace("{duration}", String.valueOf(duration)));
                 case NO_BIOME ->
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.noBiome")
+                        sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.noBiome")
                                 .replace("{biome}", Component.translatable(biome.translationKey()))
                         );
                 case OUT_TRY_TIMES ->
-                        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.randomteleport.outTryTime")
+                        sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.outTryTime")
                                 .replace("{amount}", String.valueOf(maxTryTime))
                         );
-                case NO_GROUP_CONFIG -> ActionUtil.sendMessage(sender, "§c未找到传送区域配置。");
+                case NO_GROUP_CONFIG -> sender.sendMessage("§c未找到传送区域配置。");
             }
         });
     }

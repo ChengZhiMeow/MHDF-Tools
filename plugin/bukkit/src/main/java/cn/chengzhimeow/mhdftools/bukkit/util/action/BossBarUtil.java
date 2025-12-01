@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.action;
 
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import net.kyori.adventure.bossbar.BossBar;
 
 @SuppressWarnings("unused")

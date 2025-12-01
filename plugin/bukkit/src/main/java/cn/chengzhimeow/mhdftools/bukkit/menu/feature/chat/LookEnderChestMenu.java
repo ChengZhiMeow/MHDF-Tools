@@ -33,7 +33,7 @@ public final class LookEnderChestMenu extends Menu {
                 List.of("chatSettings.enable", "chatSettings.showEnderChest.enable"),
                 player
         );
-        this.config = MenuManager.getSettingInstance().getData("lookEnderChest.yml");
+        this.config = MenuManager.getInstance().getData("lookEnderChest.yml");
         this.data = data;
     }
 

@@ -18,7 +18,7 @@ public abstract class RedisMessageListener implements RedisPubSubListener<String
     private final String chanel;
 
     public RedisMessageListener(List<String> enableKeyList, @NotNull String chanel) {
-        this.enable = YamlUtil.equalsTrue(ConfigSetting.getSettingInstance().getData(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(ConfigSetting.getInstance().getData(), enableKeyList);
         this.chanel = chanel;
     }
 

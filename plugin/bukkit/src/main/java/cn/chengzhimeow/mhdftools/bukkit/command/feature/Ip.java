@@ -21,15 +21,15 @@ final class Ip extends Command {
                 "查询IP信息",
                 "mhdftools.commands.ip",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("ipSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("ipSettings.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 1) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.ip.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.ip.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -37,13 +37,13 @@ final class Ip extends Command {
 
         Player player = Bukkit.getPlayer(args[0]);
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+            sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
             return;
         }
 
         String ip = Objects.requireNonNull(player.getAddress()).getHostString();
 
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.ip.message")
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.ip.message")
                 .replace("{player}", player.getName())
                 .replace("{ip}", ip)
                 .replace("{location}", IpUtil.getIpLocation(ip))

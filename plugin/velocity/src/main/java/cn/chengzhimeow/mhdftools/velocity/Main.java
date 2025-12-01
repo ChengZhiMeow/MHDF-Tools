@@ -1,8 +1,10 @@
 package cn.chengzhimeow.mhdftools.velocity;
 
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
+import cn.chengzhimeow.mhdftools.console.LogManager;
 import cn.chengzhimeow.mhdftools.enums.ServerType;
 import cn.chengzhimeow.mhdftools.manager.LibraryManager;
+import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import cn.chengzhimeow.mhdftools.velocity.listener.PluginMessage;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
@@ -33,6 +35,20 @@ public final class Main {
     @Inject
     public Main(@DataDirectory Path dataPath) {
         this.dataFolder = dataPath.toFile();
+
+        LogManager.instance = new LogManager() {
+            @Override
+            public void log(String message, String... args) {
+                // noinspection StringConcatenationArgumentToLogCall
+                Main.this.getLogger().info(LogManager.CONSOLE_PREFIX + StringUtil.format(message, args));
+            }
+
+            @Override
+            public void debug(String message, String... args) {
+                // noinspection StringConcatenationArgumentToLogCall
+                Main.this.getLogger().info(LogManager.DEBUG_PREFIX + StringUtil.format(message, args));
+            }
+        };
     }
 
     @Subscribe

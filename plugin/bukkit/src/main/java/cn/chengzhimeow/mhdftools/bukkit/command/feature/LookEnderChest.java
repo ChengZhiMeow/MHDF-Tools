@@ -20,15 +20,15 @@ final class LookEnderChest extends Command {
                 "展示末影箱",
                 "mhdftools.commands.lookenderchest",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("chatSettings.showEnderChest.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("chatSettings.showEnderChest.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 1) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.lookenderchest.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.lookenderchest.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -36,11 +36,11 @@ final class LookEnderChest extends Command {
 
         String data = Main.instance.getCacheManager().get("showEnderChest", args[0]);
         if (data == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.lookenderchest.noData"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.lookenderchest.noData"));
             return;
         }
 
         new LookEnderChestMenu(sender, JSONObject.parseObject(data)).openMenu();
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.lookenderchest.message"));
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.lookenderchest.message"));
     }
 }

@@ -1,8 +1,8 @@
 package cn.chengzhimeow.mhdftools.bukkit.task.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
-import cn.chengzhimeow.mhdftools.bukkit.task.Task;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Task;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -20,7 +20,7 @@ final class AutoChangeVanish extends Task {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
             if (!mhdfPlayer.isEnableVanish()) {
                 continue;
             }

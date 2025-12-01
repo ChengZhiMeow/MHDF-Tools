@@ -17,7 +17,7 @@ public final class EconomyDataManagerImpl extends AbstractDaoManager<EconomyData
 
     @Override
     public String getMoneyName() {
-        return ConfigSetting.getSettingInstance().getData().getString("economySettings.name");
+        return ConfigSetting.getInstance().getData().getString("economySettings.name");
     }
 
     @Override
@@ -29,7 +29,7 @@ public final class EconomyDataManagerImpl extends AbstractDaoManager<EconomyData
     public EconomyData get(MHDFToolsPlayer player) {
         return super.getByIdOrDefault(
                 player.getUuid(),
-                new EconomyData(player, BigDecimalUtil.toBigDecimal(ConfigSetting.getSettingInstance().getData().getDouble("economySettings.default")))
+                new EconomyData(player, BigDecimalUtil.toBigDecimal(ConfigSetting.getInstance().getData().getDouble("economySettings.default")))
         );
     }
 }

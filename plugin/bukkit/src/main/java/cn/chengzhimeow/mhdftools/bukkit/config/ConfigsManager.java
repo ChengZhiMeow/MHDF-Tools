@@ -20,26 +20,26 @@ public final class ConfigsManager {
     }
 
     public void saveDefaultFiles() {
-        ConfigSetting.getSettingInstance().saveDefaultFile();
-        LangSetting.getSettingInstance().saveDefaultFile();
-        SoundSetting.getSettingInstance().saveDefaultFile();
+        ConfigSetting.getInstance().saveDefaultFile();
+        LangSetting.getInstance().saveDefaultFile();
+        SoundSetting.getInstance().saveDefaultFile();
 
-        CustomMenuManager.getSettingInstance().saveDefaultFile();
-        MenuManager.getSettingInstance().saveDefaultFile();
+        CustomMenuManager.getInstance().saveDefaultFile();
+        MenuManager.getInstance().saveDefaultFile();
     }
 
     public void updateAll() {
-        ConfigSetting.getSettingInstance().update();
-        LangSetting.getSettingInstance().update();
-        SoundSetting.getSettingInstance().update();
+        ConfigSetting.getInstance().update();
+        LangSetting.getInstance().update();
+        SoundSetting.getInstance().update();
     }
 
     public void reloadAll() {
-        ConfigSetting.getSettingInstance().reload();
-        LangSetting.getSettingInstance().reload();
-        SoundSetting.getSettingInstance().reload();
+        ConfigSetting.getInstance().reload();
+        LangSetting.getInstance().reload();
+        SoundSetting.getInstance().reload();
 
-        CustomMenuManager.getSettingInstance().reload();
-        MenuManager.getSettingInstance().reload();
+        CustomMenuManager.getInstance().reload();
+        MenuManager.getInstance().reload();
     }
 }

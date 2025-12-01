@@ -32,7 +32,7 @@ public final class ArmorMenu extends Menu {
                 player
         );
 
-        this.config = MenuManager.getSettingInstance().getData("armor.yml");
+        this.config = MenuManager.getInstance().getData("armor.yml");
         this.target = target;
     }
 

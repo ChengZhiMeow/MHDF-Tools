@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.menu.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.ccyaml.configuration.yaml.YamlConfiguration;
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
@@ -36,7 +36,7 @@ public final class HomeMenu extends Menu {
                 player
         );
 
-        this.config = MenuManager.getSettingInstance().getData("home.yml");
+        this.config = MenuManager.getInstance().getData("home.yml");
         this.page = page;
     }
 
@@ -47,7 +47,7 @@ public final class HomeMenu extends Menu {
         ConfigurationSection items = this.getConfig().getConfigurationSection("items");
         if (items == null) return menu;
 
-        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
+        MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer());
         List<HomeData> homeList = player.getHomeList();
         List<Integer> homeSlotList = MenuUtil.getSlotList(items.getConfigurationSection("家"));
 
@@ -119,11 +119,11 @@ public final class HomeMenu extends Menu {
                 if (home == null) return;
 
 
-                MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
+                MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer());
                 HomeData homeData = player.getHome(home);
 
                 Main.instance.getBungeeCordManager().teleportLocation(super.getPlayer(), homeData.toBungeeCordLocation());
-                Main.instance.getBungeeCordManager().sendMessage(super.getPlayer(), LangSetting.getSettingInstance().i18n("commands.home.teleportMessage")
+                Main.instance.getBungeeCordManager().sendMessage(super.getPlayer(), LangSetting.getInstance().i18n("commands.home.teleportMessage")
                         .replace("{home}", homeData.getHome())
                 );
             }

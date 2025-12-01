@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.task.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.task.Task;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Task;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -39,7 +39,7 @@ final class TimeAction extends Task {
 
     @Override
     public void run() {
-        ConfigurationSection actionList = ConfigSetting.getSettingInstance().getData().getConfigurationSection("timeActionSettings.actionList");
+        ConfigurationSection actionList = ConfigSetting.getInstance().getData().getConfigurationSection("timeActionSettings.actionList");
         if (actionList == null) return;
 
         for (String key : actionList.getKeys(false)) {

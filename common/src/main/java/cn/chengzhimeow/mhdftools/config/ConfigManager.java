@@ -1,6 +1,8 @@
 package cn.chengzhimeow.mhdftools.config;
 
 import cn.chengzhimeow.ccyaml.CCYaml;
+import cn.chengzhimeow.mhdftools.config.impl.LibrarySetting;
+import cn.chengzhimeow.mhdftools.config.impl.ProxySetting;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,12 +33,12 @@ public final class ConfigManager {
                 PluginManager.getInstance().version
         );
 
-        LibrarySetting.getSettingInstance().saveDefaultFile();
-        LibrarySetting.getSettingInstance().update();
-        LibrarySetting.getSettingInstance().reload();
+        LibrarySetting.getInstance().saveDefaultFile();
+        LibrarySetting.getInstance().update();
+        LibrarySetting.getInstance().reload();
 
-        ProxySetting.getSettingInstance().saveDefaultFile();
-        ProxySetting.getSettingInstance().update();
-        ProxySetting.getSettingInstance().reload();
+        ProxySetting.getInstance().saveDefaultFile();
+        ProxySetting.getInstance().update();
+        ProxySetting.getInstance().reload();
     }
 }

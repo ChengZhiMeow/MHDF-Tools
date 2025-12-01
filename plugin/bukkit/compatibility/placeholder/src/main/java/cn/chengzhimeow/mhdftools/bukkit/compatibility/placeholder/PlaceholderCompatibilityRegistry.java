@@ -34,4 +34,7 @@ public final class PlaceholderCompatibilityRegistry extends Registry<String, Pla
 
         return compatibility.parseString(player, string);
     }
+
+    private PlaceholderCompatibilityRegistry() {
+    }
 }

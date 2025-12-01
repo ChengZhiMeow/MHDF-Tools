@@ -5,10 +5,10 @@ import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractPacketListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.PacketListener;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.MotdUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.math.MathUtil;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-final class Motd extends AbstractPacketListener {
+final class Motd extends PacketListener {
     public Motd() {
         super(
                 List.of("motdSettings.enable"),
@@ -35,7 +35,7 @@ final class Motd extends AbstractPacketListener {
             return;
         }
 
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("motdSettings");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("motdSettings");
         if (config == null) {
             return;
         }
@@ -84,7 +84,7 @@ final class Motd extends AbstractPacketListener {
             data.add("players", playersData);
         }
 
-        List<ConfigurationSection> descriptionList = ConfigSetting.getSettingInstance().getData().getConfigurationSectionList("motdSettings.description");
+        List<ConfigurationSection> descriptionList = ConfigSetting.getInstance().getData().getConfigurationSectionList("motdSettings.description");
         {
             ConfigurationSection description = descriptionList.get(new Random().nextInt(descriptionList.size()));
             JsonArray descriptionData = new JsonArray();

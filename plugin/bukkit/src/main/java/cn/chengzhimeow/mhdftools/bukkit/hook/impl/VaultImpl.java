@@ -13,7 +13,7 @@ public final class VaultImpl {
     private Economy economy;
 
     public VaultImpl() {
-        this.enableEconomy = ConfigSetting.getSettingInstance().getData().getBoolean("economySettings.enable");
+        this.enableEconomy = ConfigSetting.getInstance().getData().getBoolean("economySettings.enable");
         if (this.isEnableEconomy()) {
             this.economyImpl = new EconomyImpl();
         }

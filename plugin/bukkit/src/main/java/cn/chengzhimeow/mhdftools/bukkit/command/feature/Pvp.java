@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -23,7 +23,7 @@ final class Pvp extends Command {
                 "PVP开关",
                 "mhdftools.commands.pvp",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("pvpSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("pvpSettings.commands").toArray(new String[0])
         );
     }
 
@@ -41,11 +41,11 @@ final class Pvp extends Command {
         // 切换其他玩家的PVP模式
         if (args.length == 1) {
             if (!sender.hasPermission("mhdftools.commands.pvp.other")) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("noPermission"));
+                sender.sendMessage(LangSetting.getInstance().i18n("noPermission"));
                 return;
             }
             if (Bukkit.getPlayer(args[0]) == null) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+                sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[0]);
@@ -53,15 +53,15 @@ final class Pvp extends Command {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.pvp.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.pvp.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
         // 切换PVP
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         if (!mhdfPlayer.isEnablePvp()) {
             if (sendToSender) {
                 this.sendChangePvpMessage(sender, player, true);
@@ -94,10 +94,10 @@ final class Pvp extends Command {
      * @param enable 是否开启PVP
      */
     private void sendChangePvpMessage(CommandSender sender, Player player, boolean enable) {
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.pvp.message")
-                .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.pvp.message")
+                .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                 .replace("{change}",
-                        enable ? LangSetting.getSettingInstance().i18n("enable") : LangSetting.getSettingInstance().i18n("disable")
+                        enable ? LangSetting.getInstance().i18n("enable") : LangSetting.getInstance().i18n("disable")
                 )
         );
     }

@@ -1,8 +1,8 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.vanish.BarrelMenu;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.vanish.ChestMenu;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.vanish.ShulkerBoxMenu;
@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.List;
 
-final class VanishOpen extends AbstractListener {
+final class VanishOpen extends Listener {
     public VanishOpen() {
         super(
                 List.of("vanishSettings.enable")
@@ -32,7 +32,7 @@ final class VanishOpen extends AbstractListener {
         if (event.getClickedBlock() == null) return;
         Block block = event.getClickedBlock();
 
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         if (!mhdfPlayer.isEnableVanish()) return;
 
         event.setCancelled(true);

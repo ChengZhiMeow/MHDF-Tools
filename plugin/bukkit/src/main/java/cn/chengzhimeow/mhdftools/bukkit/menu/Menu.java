@@ -21,7 +21,7 @@ public abstract class Menu implements InventoryHolder {
     private final Player player;
 
     public Menu(List<String> enableKeyList, Player player) {
-        this.enable = YamlUtil.equalsTrue(ConfigSetting.getSettingInstance().getData(), enableKeyList);
+        this.enable = YamlUtil.equalsTrue(ConfigSetting.getInstance().getData(), enableKeyList);
         this.player = player;
     }
 

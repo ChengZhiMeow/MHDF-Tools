@@ -36,18 +36,6 @@ bStats: true
 # 更新检测
 updateCheck: false
 
-# 群组
-# 群组模式下必须使用redis缓存
-bungeeCordSettings:
-  # 开关
-  enable: false
-  # 自动重试
-  autoTry:
-    # 延迟(单位: ticks)
-    delay: 10
-    # 最大重试次数
-    maxTimes: 5
-
 # 数据库
 databaseSettings:
   # 数据库类型
@@ -134,17 +122,6 @@ randomTeleportSettings:
       enable: true
       # 时间(单位: 秒)
       time: 60
-
-# 崩溃玩家客户端
-crashSettings:
-  # 开关
-  enable: true
-  # 默认崩溃模式
-  # (explosion invalidTeleport invalidParticle)
-  defaultType: "explosion"
-  # 命令
-  commands:
-    - "crash"
 
 # 击退玩家
 knockBackSettings:

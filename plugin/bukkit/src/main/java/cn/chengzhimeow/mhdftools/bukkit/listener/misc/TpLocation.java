@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.listener.misc;
 
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.util.teleport.TeleportUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-final class TpLocation extends AbstractListener {
+final class TpLocation extends Listener {
     public TpLocation() {
         super();
     }

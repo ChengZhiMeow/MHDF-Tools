@@ -1,14 +1,14 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.entity;
 
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
 import lombok.ToString;
@@ -31,8 +31,14 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         this.uuid = uuid;
     }
 
+    public MHDFToolsPlayerImpl(UUID uuid, String name) {
+        this.uuid = uuid;
+        this.name = name;
+    }
+
     public MHDFToolsPlayerImpl(OfflinePlayer player) {
         this.uuid = player.getUniqueId();
+        this.name = player.getName();
     }
 
     /**
@@ -54,12 +60,10 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public String getName() {
-        if (this.getPlayer() != null) {
-            return this.getPlayer().getName();
-        }
+        if (this.getPlayer() != null) return this.getPlayer().getName();
 
         if (this.name == null) {
-            PlayerData data = MHDFToolsAPIHelper.getInstance().getPlayerDataManager().get(this);
+            PlayerData data = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this);
             this.name = data.getName();
         }
 
@@ -68,7 +72,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public String getDisplayName() {
-        if (ConfigSetting.getSettingInstance().getData().getBoolean("nickSettings.enable") && this.hasNickData()) {
+        if (ConfigSetting.getInstance().getData().getBoolean("nickSettings.enable") && this.hasNickData()) {
             return this.getNickData().getNick();
         }
 
@@ -82,12 +86,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public boolean hasEconomyData() {
-        return MHDFToolsAPIHelper.getInstance().getEconomyDataManager().hasData(this);
+        return MHDFToolsAPI.getInstance().getEconomyDataManager().hasData(this);
     }
 
     @Override
     public EconomyData getEconomyData() {
-        return MHDFToolsAPIHelper.getInstance().getEconomyDataManager().get(this);
+        return MHDFToolsAPI.getInstance().getEconomyDataManager().get(this);
     }
 
     @Override
@@ -99,7 +103,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public void setMoney(BigDecimal money) {
         EconomyData data = this.getEconomyData();
         data.setMoney(money);
-        MHDFToolsAPIHelper.getInstance().getEconomyDataManager().update(data, false);
+        MHDFToolsAPI.getInstance().getEconomyDataManager().update(data, false);
     }
 
     @Override
@@ -125,12 +129,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public boolean isEnableFly() {
-        return MHDFToolsAPIHelper.getInstance().getFlyStatusManager().isEnable(this);
+        return MHDFToolsAPI.getInstance().getFlyStatusManager().isEnable(this);
     }
 
     @Override
     public FlyStatus getFlyStatus() {
-        return MHDFToolsAPIHelper.getInstance().getFlyStatusManager().get(this);
+        return MHDFToolsAPI.getInstance().getFlyStatusManager().get(this);
     }
 
     @Override
@@ -143,7 +147,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         FlyStatus status = this.getFlyStatus();
         status.setTime(time);
 
-        MHDFToolsAPIHelper.getInstance().getFlyStatusManager().update(status);
+        MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
     }
 
     @Override
@@ -160,7 +164,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public void enableFly() {
         FlyStatus status = this.getFlyStatus();
         status.setEnable(true);
-        MHDFToolsAPIHelper.getInstance().getFlyStatusManager().update(status);
+        MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
 
         if (this.getPlayer() != null) {
             this.getPlayer().setAllowFlight(true);
@@ -171,7 +175,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public void disableFly() {
         FlyStatus status = this.getFlyStatus();
         status.setEnable(false);
-        MHDFToolsAPIHelper.getInstance().getFlyStatusManager().update(status);
+        MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
 
         if (this.getPlayer() != null) {
             this.getPlayer().setAllowFlight(false);
@@ -180,45 +184,45 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public List<HomeData> getHomeList() {
-        return MHDFToolsAPIHelper.getInstance().getHomeDataManager().getList(this);
+        return MHDFToolsAPI.getInstance().getHomeDataManager().getList(this);
     }
 
     @Override
     public boolean hasHome(String name) {
-        return MHDFToolsAPIHelper.getInstance().getHomeDataManager().hasData(this, name);
+        return MHDFToolsAPI.getInstance().getHomeDataManager().hasData(this, name);
     }
 
     @Override
     public HomeData getHome(String name) {
-        return MHDFToolsAPIHelper.getInstance().getHomeDataManager().get(this, name);
+        return MHDFToolsAPI.getInstance().getHomeDataManager().get(this, name);
     }
 
     @Override
     public void setHome(String name, BungeeCordLocation location) {
-        HomeData data = MHDFToolsAPIHelper.getInstance().getHomeDataManager().get(this, name);
+        HomeData data = MHDFToolsAPI.getInstance().getHomeDataManager().get(this, name);
         data.setLocation(location);
-        MHDFToolsAPIHelper.getInstance().getHomeDataManager().update(data);
+        MHDFToolsAPI.getInstance().getHomeDataManager().update(data);
     }
 
     @Override
     public void deleteHome(String name) {
-        HomeData data = MHDFToolsAPIHelper.getInstance().getHomeDataManager().get(this, name);
-        MHDFToolsAPIHelper.getInstance().getHomeDataManager().delete(data);
+        HomeData data = MHDFToolsAPI.getInstance().getHomeDataManager().get(this, name);
+        MHDFToolsAPI.getInstance().getHomeDataManager().delete(data);
     }
 
     @Override
     public List<IgnoreData> getIgnoreList() {
-        return MHDFToolsAPIHelper.getInstance().getIgnoreDataManager().getList(this);
+        return MHDFToolsAPI.getInstance().getIgnoreDataManager().getList(this);
     }
 
     @Override
     public boolean isIgnore(MHDFToolsPlayer target) {
-        return MHDFToolsAPIHelper.getInstance().getIgnoreDataManager().hasData(this, target);
+        return MHDFToolsAPI.getInstance().getIgnoreDataManager().hasData(this, target);
     }
 
     @Override
     public IgnoreData getIgnoreData(MHDFToolsPlayer target) {
-        return MHDFToolsAPIHelper.getInstance().getIgnoreDataManager().get(this, target);
+        return MHDFToolsAPI.getInstance().getIgnoreDataManager().get(this, target);
     }
 
     @Override
@@ -228,7 +232,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         }
 
         IgnoreData data = new IgnoreData(this, target);
-        MHDFToolsAPIHelper.getInstance().getIgnoreDataManager().update(data);
+        MHDFToolsAPI.getInstance().getIgnoreDataManager().update(data);
     }
 
     @Override
@@ -238,24 +242,24 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         }
 
         IgnoreData data = this.getIgnoreData(target);
-        MHDFToolsAPIHelper.getInstance().getIgnoreDataManager().delete(data);
+        MHDFToolsAPI.getInstance().getIgnoreDataManager().delete(data);
     }
 
     @Override
     public boolean hasNickData() {
-        return MHDFToolsAPIHelper.getInstance().getNickDataManager().hasData(this);
+        return MHDFToolsAPI.getInstance().getNickDataManager().hasData(this);
     }
 
     @Override
     public NickData getNickData() {
-        return MHDFToolsAPIHelper.getInstance().getNickDataManager().get(this);
+        return MHDFToolsAPI.getInstance().getNickDataManager().get(this);
     }
 
     @Override
     public void setNick(String name) {
         NickData data = this.getNickData();
         data.setNick(name);
-        MHDFToolsAPIHelper.getInstance().getNickDataManager().update(data);
+        MHDFToolsAPI.getInstance().getNickDataManager().update(data);
 
         this.setNickDisplay(ColorUtil.color(name));
     }
@@ -263,7 +267,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     @Override
     public void deleteNick() {
         NickData data = this.getNickData();
-        MHDFToolsAPIHelper.getInstance().getNickDataManager().delete(data);
+        MHDFToolsAPI.getInstance().getNickDataManager().delete(data);
 
         this.setNickDisplay(null);
     }
@@ -276,19 +280,19 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public boolean isEnableVanish() {
-        return MHDFToolsAPIHelper.getInstance().getVanishStatusManager().isEnable(this);
+        return MHDFToolsAPI.getInstance().getVanishStatusManager().isEnable(this);
     }
 
     @Override
     public VanishStatus getVanishStatus() {
-        return MHDFToolsAPIHelper.getInstance().getVanishStatusManager().get(this);
+        return MHDFToolsAPI.getInstance().getVanishStatusManager().get(this);
     }
 
     @Override
     public void enableVanish() {
         VanishStatus status = this.getVanishStatus();
         status.setEnable(true);
-        MHDFToolsAPIHelper.getInstance().getVanishStatusManager().update(status);
+        MHDFToolsAPI.getInstance().getVanishStatusManager().update(status);
 
         this.hidePlayer();
     }
@@ -316,7 +320,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public void disableVanish() {
         VanishStatus status = this.getVanishStatus();
         status.setEnable(false);
-        MHDFToolsAPIHelper.getInstance().getVanishStatusManager().update(status);
+        MHDFToolsAPI.getInstance().getVanishStatusManager().update(status);
 
         this.showPlayer();
     }
@@ -341,46 +345,46 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public List<BackData> getBackDataList(int amount) {
-        return MHDFToolsAPIHelper.getInstance().getBackDataManager().getList(this, amount);
+        return MHDFToolsAPI.getInstance().getBackDataManager().getList(this, amount);
     }
 
     @Override
     public List<BackData> getBackDataList(String type, int amount) {
-        return MHDFToolsAPIHelper.getInstance().getBackDataManager().getList(this, type, amount);
+        return MHDFToolsAPI.getInstance().getBackDataManager().getList(this, type, amount);
     }
 
     @Override
     public BackData getBackData(int id) {
-        return MHDFToolsAPIHelper.getInstance().getBackDataManager().getById(id);
+        return MHDFToolsAPI.getInstance().getBackDataManager().getById(id);
     }
 
     @Override
     public void addBack(String type, BungeeCordLocation location) {
-        MHDFToolsAPIHelper.getInstance().getBackDataManager().update(new BackData(this, type, location));
+        MHDFToolsAPI.getInstance().getBackDataManager().update(new BackData(this, type, location));
     }
 
     @Override
     public boolean isEnablePvp() {
-        return MHDFToolsAPIHelper.getInstance().getPvpStatusManager().isEnable(this);
+        return MHDFToolsAPI.getInstance().getPvpStatusManager().isEnable(this);
     }
 
     @Override
     public PvpStatus getPvpStatus() {
-        return MHDFToolsAPIHelper.getInstance().getPvpStatusManager().get(this);
+        return MHDFToolsAPI.getInstance().getPvpStatusManager().get(this);
     }
 
     @Override
     public void enablePvp() {
         PvpStatus status = this.getPvpStatus();
         status.setEnable(true);
-        MHDFToolsAPIHelper.getInstance().getPvpStatusManager().update(status);
+        MHDFToolsAPI.getInstance().getPvpStatusManager().update(status);
     }
 
     @Override
     public void disablePvp() {
         PvpStatus status = this.getPvpStatus();
         status.setEnable(false);
-        MHDFToolsAPIHelper.getInstance().getPvpStatusManager().update(status);
+        MHDFToolsAPI.getInstance().getPvpStatusManager().update(status);
     }
 
     @Override

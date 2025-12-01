@@ -6,7 +6,7 @@ import cn.chengzhimeow.mhdftools.config.ConfigManager;
 public final class ConfigSetting extends AbstractYamlManager {
     private static ConfigSetting instance;
 
-    public static ConfigSetting getSettingInstance() {
+    public static ConfigSetting getInstance() {
         if (ConfigSetting.instance == null) {
             ConfigSetting.instance = new ConfigSetting();
         }

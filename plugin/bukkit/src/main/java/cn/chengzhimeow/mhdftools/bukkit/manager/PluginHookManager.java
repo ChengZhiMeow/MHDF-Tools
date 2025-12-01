@@ -1,6 +1,5 @@
 package cn.chengzhimeow.mhdftools.bukkit.manager;
 
-import cn.chengzhimeow.mhdftools.bukkit.hook.PacketEventsHook;
 import cn.chengzhimeow.mhdftools.bukkit.hook.VaultHook;
 import cn.chengzhimeow.mhdftools.bukkit.util.PluginUtil;
 import lombok.Getter;

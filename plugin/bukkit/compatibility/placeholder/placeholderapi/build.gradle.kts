@@ -3,8 +3,5 @@ repositories {
 }
 
 dependencies {
-    compileOnly("${rootProject.properties["plugin.placeholderapi"]}") {
-        exclude("net.kyori")
-        exclude("org.bstats")
-    }
+    compileOnly(project(":common"))
 }

@@ -13,7 +13,7 @@ public final class FastChangeTimeUtil {
      * @return 命令列表
      */
     public static List<String> getCommandList() {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("fastChangeTimeSettings.time");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("fastChangeTimeSettings.time");
         if (config == null) return new ArrayList<>();
 
         List<String> commandList = new ArrayList<>();

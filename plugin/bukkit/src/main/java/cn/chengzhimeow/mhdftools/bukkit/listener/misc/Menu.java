@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.misc;
 
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -8,7 +8,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
-final class Menu extends AbstractListener {
+final class Menu extends Listener {
     public Menu() {
         super();
     }

@@ -20,7 +20,7 @@ final class CustomMenu extends Command {
                 "自定义菜单",
                 "mhdftools.commands.custommenu",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("customMenuSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("customMenuSettings.commands").toArray(new String[0])
         );
     }
 
@@ -28,22 +28,22 @@ final class CustomMenu extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 1) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.custommenu.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.custommenu.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        if (!CustomMenuManager.getSettingInstance().getCustomMenuIdList().contains(args[0])) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.custommenu.noMenu")
+        if (!CustomMenuManager.getInstance().getCustomMenuIdList().contains(args[0])) {
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.custommenu.noMenu")
                     .replace("{menu}", args[0])
             );
             return;
         }
 
-        CustomMenuUtil.openCustomMenu(sender, CustomMenuManager.getSettingInstance().getCustomMenuById(args[0]));
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.custommenu.message")
+        CustomMenuUtil.openCustomMenu(sender, CustomMenuManager.getInstance().getCustomMenuById(args[0]));
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.custommenu.message")
                 .replace("{menu}", args[0])
         );
     }
@@ -51,7 +51,7 @@ final class CustomMenu extends Command {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(CustomMenuManager.getSettingInstance().getCustomMenuIdList());
+            return new ArrayList<>(CustomMenuManager.getInstance().getCustomMenuIdList());
         }
         return new ArrayList<>();
     }

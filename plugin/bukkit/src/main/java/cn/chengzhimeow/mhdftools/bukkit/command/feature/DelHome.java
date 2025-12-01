@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
@@ -21,7 +21,7 @@ final class DelHome extends Command {
                 "删除家",
                 "mhdftools.commands.delhome",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("homeSettings.delhomeCommands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("homeSettings.delhomeCommands").toArray(new String[0])
         );
     }
 
@@ -29,34 +29,34 @@ final class DelHome extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 1) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.delhome.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.delhome.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        if (ConfigSetting.getSettingInstance().getData().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("blackWorld"));
+        if (ConfigSetting.getInstance().getData().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangSetting.getInstance().i18n("blackWorld"));
             return;
         }
 
-        String regex = ConfigSetting.getSettingInstance().getData().getString("homeSettings.regex");
+        String regex = ConfigSetting.getInstance().getData().getString("homeSettings.regex");
         if (regex != null && !args[0].matches(regex)) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.home.invalidName"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.home.invalidName"));
             return;
         }
 
-        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+        MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender);
         if (!player.hasHome(args[0])) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.delhome.noHome")
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.delhome.noHome")
                     .replace("{home}", args[0])
             );
             return;
         }
 
         player.deleteHome(args[0]);
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.delhome.message")
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.delhome.message")
                 .replace("{home}", args[0])
         );
     }
@@ -64,7 +64,7 @@ final class DelHome extends Command {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+            MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender);
 
             return player.getHomeList().stream()
                     .map(HomeData::getHome)

@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.hook.impl;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
@@ -56,12 +56,12 @@ public final class EconomyImpl extends AbstractEconomy {
     }
 
     public String currencyNameSingular() {
-        return MHDFToolsAPIHelper.getInstance().getEconomyDataManager().getMoneyName();
+        return MHDFToolsAPI.getInstance().getEconomyDataManager().getMoneyName();
     }
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         return mhdfPlayer.hasEconomyData();
     }
 
@@ -83,7 +83,7 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         return mhdfPlayer.getMoney().doubleValue();
     }
 
@@ -115,7 +115,7 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         mhdfPlayer.takeMoney(BigDecimalUtil.toBigDecimal(amount));
 
         return new EconomyResponse(amount, this.getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
@@ -140,14 +140,14 @@ public final class EconomyImpl extends AbstractEconomy {
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
         double tax = 0;
-        if (ConfigSetting.getSettingInstance().getData().getBoolean("economySettings.personalIncomeTax.enable")) {
-            tax = amount * ConfigSetting.getSettingInstance().getData().getDouble("economySettings.personalIncomeTax.rate");
-            ActionUtil.sendMessage(player.getPlayer(), LangSetting.getSettingInstance().i18n("economy.tax")
+        if (ConfigSetting.getInstance().getData().getBoolean("economySettings.personalIncomeTax.enable")) {
+            tax = amount * ConfigSetting.getInstance().getData().getDouble("economySettings.personalIncomeTax.rate");
+            player.getPlayer().sendMessage(LangSetting.getInstance().i18n("economy.tax")
                     .replace("{amount}", String.valueOf(tax))
             );
         }
 
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         mhdfPlayer.addMoney(BigDecimalUtil.toBigDecimal(amount - tax));
 
         return new EconomyResponse(amount, this.getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
@@ -221,7 +221,7 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public boolean createPlayerAccount(OfflinePlayer player) {
-        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player);
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player);
         if (mhdfPlayer.hasEconomyData()) {
             return false;
         }

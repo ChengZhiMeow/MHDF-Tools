@@ -13,7 +13,7 @@ public final class FastChangeWeatherUtil {
      * @return 命令列表
      */
     public static List<String> getCommandList() {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("fastChangeWeatherSettings.weather");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("fastChangeWeatherSettings.weather");
         if (config == null) return new ArrayList<>();
 
         List<String> commandList = new ArrayList<>();

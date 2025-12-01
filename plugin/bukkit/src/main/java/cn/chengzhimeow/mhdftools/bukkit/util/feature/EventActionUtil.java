@@ -18,7 +18,7 @@ public final class EventActionUtil {
      * @return 操作列表
      */
     private static List<String> getActionList(Player player, String event) {
-        ConfigurationSection actionList = ConfigSetting.getSettingInstance().getData().getConfigurationSection("eventActionSettings.actionList");
+        ConfigurationSection actionList = ConfigSetting.getInstance().getData().getConfigurationSection("eventActionSettings.actionList");
         if (actionList == null) return new ArrayList<>();
 
         List<String> list = new ArrayList<>();

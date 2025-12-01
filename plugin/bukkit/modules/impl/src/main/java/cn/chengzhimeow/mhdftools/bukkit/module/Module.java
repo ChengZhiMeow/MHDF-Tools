@@ -1,14 +1,14 @@
 package cn.chengzhimeow.mhdftools.bukkit.module;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.config.ModuleConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.module.config.ModuleLangSetting;
+import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import lombok.Getter;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @Getter
 public abstract class Module {
     private final String id;
+    private JavaPlugin plugin;
 
     public Module(String id) {
         this.id = id;
@@ -24,7 +24,5 @@ public abstract class Module {
 
     public void onDisable() {}
 
-    public abstract @NotNull ModuleConfigSetting getModuleConfigSetting();
-
-    public abstract @NotNull ModuleLangSetting getModuleLangSetting();
+    public abstract @NotNull AbstractYamlSetting getConfig();
 }

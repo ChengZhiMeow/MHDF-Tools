@@ -18,7 +18,7 @@ final class Bed extends Command {
                 "回到床的位置",
                 "mhdftools.commands.bed",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("bedSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("bedSettings.commands").toArray(new String[0])
         );
     }
 
@@ -26,25 +26,25 @@ final class Bed extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.bed.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.bed.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        if (ConfigSetting.getSettingInstance().getData().getStringList("bedSettings.blackWorld").contains(sender.getWorld().getName())) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("blackWorld"));
+        if (ConfigSetting.getInstance().getData().getStringList("bedSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangSetting.getInstance().i18n("blackWorld"));
             return;
         }
 
         Location location = sender.getRespawnLocation();
         if (location == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.bed.noSleep"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.bed.noSleep"));
             return;
         }
 
         sender.teleport(location);
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.bed.message"));
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.bed.message"));
     }
 }

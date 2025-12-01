@@ -32,7 +32,7 @@ public final class MHDFDatabaseManager {
      * 初始化配置
      */
     private void initConfig() {
-        ConfigurationSection database = ConfigSetting.getSettingInstance().getData().getConfigurationSection("databaseSettings");
+        ConfigurationSection database = ConfigSetting.getInstance().getData().getConfigurationSection("databaseSettings");
         if (database == null) {
             return;
         }

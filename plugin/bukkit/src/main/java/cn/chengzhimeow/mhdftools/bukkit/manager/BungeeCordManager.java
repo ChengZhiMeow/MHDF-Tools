@@ -4,8 +4,7 @@ import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.manager.cache.impl.RedisCacheManager;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.AtUtil;
 import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.teleport.TeleportUtil;
@@ -32,86 +31,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Getter
 public final class BungeeCordManager {
-    private final PluginMessageListener messageListener = new PluginMessage();
-    @Setter
-    private List<String> bungeeCordPlayerList = new CopyOnWriteArrayList<>();
-    @Setter
-    private String serverName = "无";
-
-    /**
-     * 初始化群组模式
-     */
-    public void init() {
-        if (this.isBungeeCordMode()) {
-            Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(Main.instance, "BungeeCord");
-            Bukkit.getServer().getMessenger().registerIncomingPluginChannel(Main.instance, "BungeeCord", this.getMessageListener());
-        }
-    }
-
-    /**
-     * 关闭群组模式
-     */
-    public void close() {
-        if (this.isBungeeCordMode()) {
-            Bukkit.getServer().getMessenger().unregisterOutgoingPluginChannel(Main.instance, "BungeeCord");
-            Bukkit.getServer().getMessenger().unregisterIncomingPluginChannel(Main.instance, "BungeeCord", this.getMessageListener());
-        }
-    }
-
-    /**
-     * 检测是否开启群组模式
-     *
-     * @return 结果
-     */
-    public boolean isBungeeCordMode() {
-        return ConfigSetting.getSettingInstance().getData().getBoolean("bungeeCordSettings.enable");
-    }
-
-    /**
-     * 给BC插件通道发送指定消息数据实例
-     *
-     * @param out 消息数据实例
-     */
-    private void sendPluginMessage(ByteArrayDataOutput out) {
-        if (!this.isBungeeCordMode()) {
-            LogUtil.debug("发送插件消息失败 | 原因: {}",
-                    "未开启群组模式"
-            );
-            return;
-        }
-
-        List<Player> playerList = new ArrayList<>(Bukkit.getOnlinePlayers());
-        if (playerList.isEmpty()) {
-            LogUtil.debug("发送插件消息失败 | 原因: {}",
-                    "服务器没有玩家"
-            );
-            return;
-        }
-
-        playerList.get(0).sendPluginMessage(Main.instance, "BungeeCord", out.toByteArray());
-    }
-
-    /**
-     * 发送梦之工具插件消息
-     *
-     * @param data 消息数据实例
-     */
-    private void sendMhdfToolsPluginMessage(JSONObject data) {
-        if (data.getJSONObject("params") == null) {
-            data.put("params", new JSONObject());
-        }
-
-        LogUtil.debug("发送梦之工具插件消息至群组端 | 消息: {}",
-                data.toJSONString()
-        );
-
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("mhdf_tools");
-        out.writeUTF(data.toJSONString());
-
-        this.sendPluginMessage(out);
-    }
-
     /**
      * 将指定玩家ID的玩家移动到指定服务器ID的服务器
      *
@@ -244,7 +163,7 @@ public final class BungeeCordManager {
 
         Player player = Bukkit.getPlayer(playerName);
         if (player != null) {
-            ActionUtil.sendMessage(player, message);
+            player.sendMessage(message);
             return;
         }
 
@@ -327,109 +246,5 @@ public final class BungeeCordManager {
                 .getRedisClient()
                 .getRedisMessageManager()
                 .sendRedisMessage("atList", data.toJSONString());
-    }
-
-    /**
-     * 更新BC玩家列表数据
-     */
-    public void updateBungeeCordPlayerList() {
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("PlayerList");
-        out.writeUTF("ALL");
-
-        this.sendPluginMessage(out);
-    }
-
-    /**
-     * 获取在线玩家列表
-     *
-     * @return 在线玩家列表
-     */
-    public List<String> getPlayerList() {
-        if (this.isBungeeCordMode()) {
-            return new ArrayList<>(this.getBungeeCordPlayerList());
-        }
-
-        return new ArrayList<>(this.getBukkitPlayerList());
-    }
-
-    /**
-     * 获取子服在线玩家列表
-     *
-     * @return 子服在线玩家列表
-     */
-    public List<String> getBukkitPlayerList() {
-        return Bukkit.getOnlinePlayers().stream()
-                .map(Player::getName)
-                .toList();
-    }
-
-    /**
-     * 更新BC服务器名称数据
-     */
-    public void updateServerName() {
-        JSONObject data = new JSONObject();
-        data.put("action", "serverInfo");
-        data.put("to", "me");
-
-        this.sendMhdfToolsPluginMessage(data);
-    }
-
-    /**
-     * 判断指定玩家ID的玩家是否在线
-     *
-     * @param name 玩家ID
-     * @return 结果
-     */
-    public boolean ifPlayerOnline(String name) {
-        return this.getPlayerList().contains(name);
-    }
-
-    private static final class PluginMessage implements PluginMessageListener {
-        @Override
-        @SneakyThrows
-        public void onPluginMessageReceived(@NotNull String channel, @NotNull Player messagePlayer, byte[] messageData) {
-            if (!channel.equals("BungeeCord")) {
-                return;
-            }
-
-            DataInputStream in = new DataInputStream(new ByteArrayInputStream(messageData));
-
-            String subchannel = in.readUTF();
-            switch (subchannel) {
-                case "mhdf_tools" -> {
-                    JSONObject data = JSONObject.parseObject(in.readUTF());
-
-                    LogUtil.debug("收到来自群组端的梦之工具消息 | 消息: {}",
-                            data.toJSONString()
-                    );
-
-                    String action = data.getString("action");
-                    String from = data.getString("from");
-                    String to = data.getString("to");
-                    JSONObject params = data.getJSONObject("params");
-
-                    switch (action) {
-                        case "serverInfo" -> {
-                            LogUtil.debug("更新服务器名称 | 名称: {}",
-                                    from
-                            );
-                            Main.instance.getBungeeCordManager().setServerName(from);
-                        }
-                    }
-                }
-                case "PlayerList" -> {
-                    in.readUTF();
-                    String playerListString = in.readUTF();
-
-                    LogUtil.debug("更新在线玩家列表 | 在线列表: {}",
-                            playerListString
-                    );
-
-                    List<String> playerList = List.of(playerListString.split(", "));
-                    Main.instance.getBungeeCordManager().setBungeeCordPlayerList(playerList);
-                }
-            }
-        }
     }
 }

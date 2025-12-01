@@ -1,8 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,9 +14,9 @@ public final class FakeChangeTimeUtil {
      * @param time   是否开启飞行
      */
     public static void sendFakeChangeTimeMessage(CommandSender sender, Player player, long time) {
-        ActionUtil.sendMessage(sender,
-                LangSetting.getSettingInstance().i18n("commands.fakeChangeTime.message")
-                        .replace("{player}", MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
+        sender.sendMessage(
+                LangSetting.getInstance().i18n("commands.fakeChangeTime.message")
+                        .replace("{player}", MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player).getDisplayName())
                         .replace("{time}", String.valueOf(time))
         );
     }

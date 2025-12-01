@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
@@ -23,33 +23,33 @@ final class Home extends Command {
                 "传送到指定家",
                 "mhdftools.commands.home",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("homeSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("homeSettings.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
-        if (ConfigSetting.getSettingInstance().getData().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("blackWorld"));
+        if (ConfigSetting.getInstance().getData().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangSetting.getInstance().i18n("blackWorld"));
             return;
         }
 
         if (args.length == 0) {
             new HomeMenu(sender, 1).openMenu();
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.home.openMenuMessage"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.home.openMenuMessage"));
             return;
         }
 
         if (args.length == 1) {
-            String regex = ConfigSetting.getSettingInstance().getData().getString("homeSettings.regex");
+            String regex = ConfigSetting.getInstance().getData().getString("homeSettings.regex");
             if (regex != null && !args[0].matches(regex)) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.home.invalidName"));
+                sender.sendMessage(LangSetting.getInstance().i18n("commands.home.invalidName"));
                 return;
             }
 
-            MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+            MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender);
             if (!player.hasHome(args[0])) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.home.noHome")
+                sender.sendMessage(LangSetting.getInstance().i18n("commands.home.noHome")
                         .replace("{home}", args[0])
                 );
                 return;
@@ -57,7 +57,7 @@ final class Home extends Command {
 
             HomeData data = player.getHome(args[0]);
             Main.instance.getBungeeCordManager().teleportLocation(sender, data.toBungeeCordLocation());
-            Main.instance.getBungeeCordManager().sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.home.message")
+            Main.instance.getBungeeCordManager().sendMessage(sender, LangSetting.getInstance().i18n("commands.home.message")
                     .replace("{home}", args[0])
             );
             return;
@@ -65,8 +65,8 @@ final class Home extends Command {
 
         // 输出帮助信息
         {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.home.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.home.usage"))
                     .replace("{command}", label)
             );
         }
@@ -75,7 +75,7 @@ final class Home extends Command {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(sender);
+            MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender);
             return player.getHomeList().stream()
                     .map(HomeData::getHome)
                     .toList();

@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.EventActionUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -10,7 +10,7 @@ import org.bukkit.event.player.*;
 
 import java.util.List;
 
-final class EventAction extends AbstractListener {
+final class EventAction extends Listener {
     public EventAction() {
         super(
                 List.of("eventActionSettings.enable")

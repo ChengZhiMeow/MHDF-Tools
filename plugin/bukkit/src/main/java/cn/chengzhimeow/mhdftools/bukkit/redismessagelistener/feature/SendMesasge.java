@@ -1,8 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.redismessagelistener.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.redismessagelistener.RedisMessageListener;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
@@ -41,6 +40,6 @@ public final class SendMesasge extends RedisMessageListener {
 
         Player player = Bukkit.getPlayer(playerName);
         if (player == null) return;
-        ActionUtil.sendMessage(player, textComponent);
+        player.sendMessage(textComponent);
     }
 }

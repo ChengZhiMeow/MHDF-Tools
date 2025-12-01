@@ -42,4 +42,7 @@ public final class ItemCompatibilityRegistry extends Registry<String, ItemCompat
 
         return compatibility.getIdByItemStack(itemStack);
     }
+
+    private ItemCompatibilityRegistry() {
+    }
 }

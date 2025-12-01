@@ -24,6 +24,6 @@ public final class BackUtil {
                 .toList());
         amountList.sort(Comparator.reverseOrder());
 
-        return !amountList.isEmpty() ? amountList.get(0) : ConfigSetting.getSettingInstance().getData().getInt("backSettings.defaultMax");
+        return !amountList.isEmpty() ? amountList.get(0) : ConfigSetting.getInstance().getData().getInt("backSettings.defaultMax");
     }
 }

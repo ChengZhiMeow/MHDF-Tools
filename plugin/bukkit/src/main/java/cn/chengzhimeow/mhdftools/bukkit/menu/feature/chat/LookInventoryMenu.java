@@ -33,7 +33,7 @@ public final class LookInventoryMenu extends Menu {
                 List.of("chatSettings.enable", "chatSettings.showInventory.enable"),
                 player
         );
-        this.config = MenuManager.getSettingInstance().getData("lookInventory.yml");
+        this.config = MenuManager.getInstance().getData("lookInventory.yml");
         this.data = data;
     }
 

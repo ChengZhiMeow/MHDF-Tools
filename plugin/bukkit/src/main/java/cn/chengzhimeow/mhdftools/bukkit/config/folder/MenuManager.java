@@ -6,7 +6,7 @@ import cn.chengzhimeow.mhdftools.config.ConfigManager;
 public final class MenuManager extends AbstractFolderYamlManager {
     private static MenuManager instance;
 
-    public static MenuManager getSettingInstance() {
+    public static MenuManager getInstance() {
         if (MenuManager.instance == null) {
             MenuManager.instance = new MenuManager();
         }

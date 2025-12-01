@@ -21,7 +21,7 @@ final class FakeChangeTime extends Command {
                 "虚假调节时间",
                 "mhdftools.commands.fakechangetime",
                 false,
-                ConfigSetting.getSettingInstance().getData().getStringList("fakeChangeTimeSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("fakeChangeTimeSettings.commands").toArray(new String[0])
         );
     }
 
@@ -39,11 +39,11 @@ final class FakeChangeTime extends Command {
         // 修改其他玩家的的虚假时间
         if (args.length == 2) {
             if (!sender.hasPermission("mhdftools.commands.fakechangetime.other")) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("noPermission"));
+                sender.sendMessage(LangSetting.getInstance().i18n("noPermission"));
                 return;
             }
             if (Bukkit.getPlayer(args[1]) == null) {
-                ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("playerOffline"));
+                sender.sendMessage(LangSetting.getInstance().i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[1]);
@@ -51,15 +51,15 @@ final class FakeChangeTime extends Command {
 
         // 输出帮助信息
         if (player == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.fakechangetime.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.fakechangetime.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
         if (args[0].equals("reset")) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.fakechangetime.reset")
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.fakechangetime.reset")
                     .replace("{player}", player.getName())
             );
             player.resetPlayerTime();
@@ -70,7 +70,7 @@ final class FakeChangeTime extends Command {
         try {
             time = Long.parseLong(args[0]);
         } catch (NumberFormatException e) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.fakechangetime.timeFormatError"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.fakechangetime.timeFormatError"));
             return;
         }
 

@@ -19,7 +19,7 @@ final class Spawn extends Command {
                 "返回出生点",
                 "mhdftools.commands.spawn",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("spawnSettings.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("spawnSettings.commands").toArray(new String[0])
         );
     }
 
@@ -27,19 +27,19 @@ final class Spawn extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.spawn.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.spawn.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        if (ConfigSetting.getSettingInstance().getData().getStringList("spawnSettings.blackWorld").contains(sender.getWorld().getName())) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("blackWorld"));
+        if (ConfigSetting.getInstance().getData().getStringList("spawnSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangSetting.getInstance().i18n("blackWorld"));
             return;
         }
 
         SpawnUtil.teleportSpawn(sender);
-        Main.instance.getBungeeCordManager().sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.spawn.message"));
+        Main.instance.getBungeeCordManager().sendMessage(sender, LangSetting.getInstance().i18n("commands.spawn.message"));
     }
 }

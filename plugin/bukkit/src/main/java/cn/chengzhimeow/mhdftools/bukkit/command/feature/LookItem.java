@@ -20,15 +20,15 @@ final class LookItem extends Command {
                 "展示物品",
                 "mhdftools.commands.lookitem",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("chatSettings.showItem.commands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("chatSettings.showItem.commands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 1) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.lookitem.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.lookitem.usage"))
                     .replace("{command}", label)
             );
             return;
@@ -36,11 +36,11 @@ final class LookItem extends Command {
 
         String data = Main.instance.getCacheManager().get("showItem", args[0]);
         if (data == null) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.lookitem.noData"));
+            sender.sendMessage(LangSetting.getInstance().i18n("commands.lookitem.noData"));
             return;
         }
 
         new LookItemMenu(sender, Base64Util.decode(data)).openMenu();
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.lookitem.message"));
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.lookitem.message"));
     }
 }

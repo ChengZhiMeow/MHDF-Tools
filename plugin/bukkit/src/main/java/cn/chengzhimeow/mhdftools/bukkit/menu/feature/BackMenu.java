@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.menu.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.ccyaml.configuration.yaml.YamlConfiguration;
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPIHelper;
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.BackData;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
@@ -41,7 +41,7 @@ public final class BackMenu extends Menu {
                 player
         );
 
-        this.config = MenuManager.getSettingInstance().getData("back.yml");
+        this.config = MenuManager.getInstance().getData("back.yml");
         this.page = page;
     }
 
@@ -54,7 +54,7 @@ public final class BackMenu extends Menu {
             return menu;
         }
 
-        MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
+        MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer());
         List<BackData> backList = player.getBackDataList(BackUtil.getMaxBack(super.getPlayer()));
         List<Integer> backSlotList = MenuUtil.getSlotList(items.getConfigurationSection("位置"));
 
@@ -131,11 +131,11 @@ public final class BackMenu extends Menu {
                     return;
                 }
 
-                MHDFToolsPlayer player = MHDFToolsAPIHelper.getInstance().getPlayerManager().getPlayer(super.getPlayer());
+                MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer());
                 BackData backData = player.getBackData(id);
 
                 Main.instance.getBungeeCordManager().teleportLocation(super.getPlayer(), backData.toBungeeCordLocation());
-                Main.instance.getBungeeCordManager().sendMessage(super.getPlayer(), LangSetting.getSettingInstance().i18n("commands.back.message"));
+                Main.instance.getBungeeCordManager().sendMessage(super.getPlayer(), LangSetting.getInstance().i18n("commands.back.message"));
             }
             case "上一页" -> new BackMenu(super.getPlayer(), this.getPage() - 1).openMenu();
             case "下一页" -> new BackMenu(super.getPlayer(), this.getPage() + 1).openMenu();
@@ -169,7 +169,7 @@ public final class BackMenu extends Menu {
                 .replace("{hour}", String.valueOf(dateTime.getHour()))
                 .replace("{minute}", String.valueOf(dateTime.getMinute()))
                 .replace("{second}", String.valueOf(dateTime.getSecond()))
-                .replace("{type}", Objects.requireNonNull(LangSetting.getSettingInstance().getData().getString("commands.back.type." + data.getType())))
+                .replace("{type}", Objects.requireNonNull(LangSetting.getInstance().getData().getString("commands.back.type." + data.getType())))
                 .replace("{server}", data.getServer())
                 .replace("{world}", data.getWorld())
                 .replace("{x}", String.valueOf(data.getX()))

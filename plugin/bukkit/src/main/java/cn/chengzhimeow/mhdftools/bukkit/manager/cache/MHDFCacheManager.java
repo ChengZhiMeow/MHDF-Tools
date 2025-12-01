@@ -13,7 +13,7 @@ public final class MHDFCacheManager {
     private CacheManager cacheManager;
 
     public MHDFCacheManager() {
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("cacheSettings");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("cacheSettings");
         if (config == null) {
             return;
         }

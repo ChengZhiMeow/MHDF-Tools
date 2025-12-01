@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.listener.AbstractListener;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.reflection.world.BiomeUtil;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.RandomTeleportUtil;
 import org.bukkit.block.Biome;
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.List;
 
-final class RandomTeleport extends AbstractListener {
+final class RandomTeleport extends Listener {
     public RandomTeleport() {
         super(
                 List.of("randomTeleportSettings.enable")

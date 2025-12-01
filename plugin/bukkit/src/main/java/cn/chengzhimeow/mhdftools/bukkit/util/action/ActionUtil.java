@@ -6,9 +6,9 @@ import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCom
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.folder.CustomMenuManager;
 import cn.chengzhimeow.mhdftools.bukkit.reflection.SoundUtil;
-import cn.chengzhimeow.mhdftools.bukkit.text.TextComponent;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.CustomMenuUtil;
-import cn.chengzhimeow.mhdftools.bukkit.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;
@@ -22,27 +22,6 @@ import java.util.List;
 
 @SuppressWarnings({"unused"})
 public final class ActionUtil {
-    /**
-     * 发送全服消息
-     *
-     * @param message 文本实例
-     */
-    public static void sendMessage(CommandSender sender, TextComponent message) {
-        if (sender == null) return;
-
-        sender.sendMessage(message);
-    }
-
-    /**
-     * 给指定命令执行者实例发送消息
-     *
-     * @param sender  命令执行者实例
-     * @param message 消息
-     */
-    public static void sendMessage(CommandSender sender, String message) {
-        ActionUtil.sendMessage(sender, ColorUtil.color(message));
-    }
-
     /**
      * 发送全服消息
      *
@@ -220,7 +199,7 @@ public final class ActionUtil {
             case "[player_op]" -> ActionUtil.runCommand(sender, args[1], true);
             case "[console]" -> ActionUtil.runCommand(Bukkit.getConsoleSender(), args[1], true);
             case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(ColorUtil.color(args[1]));
-            case "[message]" -> ActionUtil.sendMessage(sender, args[1]);
+            case "[message]" -> sender.sendMessage(ColorUtil.color(args[1]));
             case "[actionbar]" -> {
                 if (sender instanceof Player player) {
                     ActionUtil.sendActionBar(player, args[1]);
@@ -277,7 +256,7 @@ public final class ActionUtil {
             }
             case "[menu]" -> {
                 if (sender instanceof Player player) {
-                    CustomMenuUtil.openCustomMenu(player, CustomMenuManager.getSettingInstance().getCustomMenuById(args[1]));
+                    CustomMenuUtil.openCustomMenu(player, CustomMenuManager.getInstance().getCustomMenuById(args[1]));
                 }
             }
             case "[close]" -> {

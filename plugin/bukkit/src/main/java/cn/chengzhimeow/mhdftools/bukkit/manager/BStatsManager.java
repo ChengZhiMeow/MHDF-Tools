@@ -28,7 +28,7 @@ public final class BStatsManager {
      * 初始化bstats
      */
     public void init() {
-        if (!ConfigSetting.getSettingInstance().getData().getBoolean("bStats")) {
+        if (!ConfigSetting.getInstance().getData().getBoolean("bStats")) {
             return;
         }
 

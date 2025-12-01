@@ -20,7 +20,7 @@ final class SetSpawn extends Command {
                 "设置出生点",
                 "mhdftools.commands.setspawn",
                 true,
-                ConfigSetting.getSettingInstance().getData().getStringList("spawnSettings.setspawnCommands").toArray(new String[0])
+                ConfigSetting.getInstance().getData().getStringList("spawnSettings.setspawnCommands").toArray(new String[0])
         );
     }
 
@@ -28,14 +28,14 @@ final class SetSpawn extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getSettingInstance().i18n("commands.setspawn.usage"))
+            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
+                    .replace("{usage}", LangSetting.getInstance().i18n("commands.setspawn.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        ConfigurationSection config = ConfigSetting.getSettingInstance().getData().getConfigurationSection("spawnSettings.location");
+        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("spawnSettings.location");
         if (config == null) {
             return;
         }
@@ -50,10 +50,10 @@ final class SetSpawn extends Command {
         config.set("yaw", location.getYaw());
         config.set("pitch", location.getPitch());
 
-        ConfigSetting.getSettingInstance().getData().set("spawnSettings.location", config);
-        ConfigSetting.getSettingInstance().save();
-        ConfigSetting.getSettingInstance().reload();
+        ConfigSetting.getInstance().getData().set("spawnSettings.location", config);
+        ConfigSetting.getInstance().save();
+        ConfigSetting.getInstance().reload();
 
-        ActionUtil.sendMessage(sender, LangSetting.getSettingInstance().i18n("commands.setspawn.message"));
+        sender.sendMessage(LangSetting.getInstance().i18n("commands.setspawn.message"));
     }
 }

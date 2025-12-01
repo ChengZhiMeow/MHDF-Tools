@@ -1,7 +1,9 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.config.ConfigUtil;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.config.ConfigUtil;
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
+import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -21,27 +23,24 @@ public abstract class Command implements TabExecutor {
     private final boolean onlyPlayer;
     private final String[] commands;
 
-    public Command(Module module, List<String> enableKeyList, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+    public Command( @NotNull Module module, @NotNull List<String> enableKeyList, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
         this.module = module;
-        this.enable = ConfigUtil.equalsTrue(module.getModuleConfigSetting().getData(), enableKeyList);
+        this.enable = ConfigUtil.equalsTrue(module.getConfig().getData(), enableKeyList);
         this.description = description;
         this.permission = permission;
         this.onlyPlayer = onlyPlayer;
         this.commands = commands;
     }
 
-    public Command(Module module, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+    public Command( @NotNull Module module, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
         this(module, new ArrayList<>(), description, permission, onlyPlayer, commands);
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
         if (this.onlyPlayer) {
-            if (sender instanceof Player player) {
-                this.execute(player, label, args);
-            } else {
-                sender.sendMessage(module.getModuleLangSetting().i18n("onlyPlayer"));
-            }
+            if (sender instanceof Player player) this.execute(player, label, args);
+            else sender.sendMessage(GlobalLangSetting.getInstance().i18n("only_player"));
             return false;
         }
         this.execute(sender, label, args);
@@ -52,16 +51,10 @@ public abstract class Command implements TabExecutor {
     public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
         List<String> tabComplete = new ArrayList<>();
         if (this.onlyPlayer) {
-            if (sender instanceof Player player) {
-                tabComplete = this.tabCompleter(player, label, args);
-            }
-        } else {
-            tabComplete = this.tabCompleter(sender, label, args);
-        }
+            if (sender instanceof Player player) tabComplete = this.tabCompleter(player, label, args);
+        } else tabComplete = this.tabCompleter(sender, label, args);
 
-        if (tabComplete == null) {
-            tabComplete = new ArrayList<>();
-        }
+        if (tabComplete == null) tabComplete = MHDFToolsBukkit.getInstance().getBungeeCordManager().getPlayerList();
         return tabComplete.stream()
                 .filter(s -> s.toLowerCase(Locale.ROOT).startsWith(args[args.length - 1].toLowerCase(Locale.ROOT)))
                 .toList();
