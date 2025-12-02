@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.api.entity.location;
 
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -4,4 +4,5 @@ repositories {
 
 dependencies {
     compileOnly(project(":common"))
+    compileOnly("${rootProject.properties["plugin.placeholderapi"]}")
 }

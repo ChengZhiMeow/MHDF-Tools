@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.api.entity.database.data;
 
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.Dao;
 import com.j256.ormlite.field.DatabaseField;
