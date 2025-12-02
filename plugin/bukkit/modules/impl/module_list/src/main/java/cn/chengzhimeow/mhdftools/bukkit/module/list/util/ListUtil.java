@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.bukkit.util.feature;
+package cn.chengzhimeow.mhdftools.bukkit.module.list.util;
 
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;

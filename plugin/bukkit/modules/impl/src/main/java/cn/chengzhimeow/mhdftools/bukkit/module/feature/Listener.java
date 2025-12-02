@@ -18,7 +18,7 @@ public abstract class Listener implements org.bukkit.event.Listener {
         this.enable = ConfigUtil.equalsTrue(module.getConfig().getData(), enableKeyList);
     }
 
-    public Listener( @NotNull Module module) {
+    public Listener(@NotNull Module module) {
         this(module, new ArrayList<>());
     }
 }

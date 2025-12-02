@@ -69,27 +69,6 @@ commands:
         usage: "/{command} reload"
         description: "重载插件"
         message: "{prefix} <#EAE4FF>插件重载完成!"
-  knockback:
-    usage: "/{command} <玩家> [击退类型]"
-    description: "击退玩家"
-    message: "{prefix} <#EAE4FF>成功对 &f{player} <#EAE4FF>产生击退!"
-    types:
-      normal: "正常击退"
-      random: "随机方向击退"
-  list:
-    usage: "/{command}"
-    description: "查看在线列表"
-    message: |-
-      &f
-      &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-      &f
-      &8▪ &7TPS: &f{tps}
-      &8▪ &7内存占用: &f{memory}MB &7/ &b{maxMemory}MB
-      &8▪ &7玩家人数: &f{playerCount} &7/ &f{maxPlayerCount}
-      &8▪ &7玩家列表:
-      &f{playerList}
-      &f
-      &7⌞                                         ⌟
   fly:
     usage: "/{command} [玩家]"
     description: "飞行"

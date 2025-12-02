@@ -1,6 +1,6 @@
-package cn.chengzhimeow.mhdftools.bukkit.module.hat.config;
+package cn.chengzhimeow.mhdftools.bukkit.module.list.config;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.hat.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.list.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractLangSetting;
 import lombok.Getter;
 

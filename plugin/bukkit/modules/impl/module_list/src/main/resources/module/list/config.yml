@@ -1,0 +1,12 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 查看在线列表
+#
+# 开关
+enable: true
+# 使用群组玩家列表
+get_player_list_from_bungeecord: false
+# 命令
+commands:
+  - "list"

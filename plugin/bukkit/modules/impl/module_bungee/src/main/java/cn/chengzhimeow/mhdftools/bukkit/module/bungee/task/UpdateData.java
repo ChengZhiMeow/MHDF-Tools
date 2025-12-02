@@ -6,7 +6,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.feature.Task;
 
 import java.util.List;
 
-public final class UpdateData extends Task {
+final class UpdateData extends Task {
     public UpdateData() {
         super(
                 ModuleMain.instance,

@@ -123,33 +123,6 @@ randomTeleportSettings:
       # 时间(单位: 秒)
       time: 60
 
-# 击退玩家
-knockBackSettings:
-  #开关
-  enable: true
-  # 默认击退模式
-  # (normal, random)
-  defaultType: "normal"
-  #击退的
-  vector:
-    x: 0.75
-    y: 0.5
-    z: 0.75
-  # 命令
-  commands:
-    - "kb"
-    - "knockback"
-
-# 查看在线列表
-listSettings:
-  # 开关
-  enable: true
-  # 使用群组玩家列表
-  useBungeeCordList: false
-  # 命令
-  commands:
-    - "list"
-
 # 飞行
 flySettings:
   # 开关
@@ -396,7 +369,6 @@ suicideSettings:
   # 黑名单世界
   blackWorld:
     - "pvp"
-
 
 # 传送点系统
 warpSettings:

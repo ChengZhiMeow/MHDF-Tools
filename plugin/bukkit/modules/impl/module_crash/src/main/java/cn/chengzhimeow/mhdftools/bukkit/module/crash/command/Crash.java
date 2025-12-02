@@ -1,14 +1,12 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.crash.command;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.ModuleMain;
-import cn.chengzhimeow.mhdftools.bukkit.module.crash.util.CrashUtil;
-import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.config.LangSetting;
+import cn.chengzhimeow.mhdftools.bukkit.module.crash.util.CrashUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
-import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,7 +20,7 @@ final class Crash extends Command {
     public Crash() {
         super(
                 ModuleMain.instance,
-                List.of("crashSettings.enable"),
+                List.of("enable"),
                 "崩溃玩家客户端",
                 "mhdftools.commands.crash",
                 false,
@@ -46,18 +44,18 @@ final class Crash extends Command {
             return;
         }
 
-        String crashType = args.length == 1
-                           ? ConfigSetting.getInstance().getData().getString("crashSettings.default_type")
-                           : args[1];
+        String type = args.length == 1
+                      ? ConfigSetting.getInstance().getData().getString("default_type")
+                      : args[1].toLowerCase();
 
-        if (crashType == null || !CrashUtil.crashPlayerClient(player, crashType)) {
+        if (type == null || !CrashUtil.crashPlayerClient(player, type)) {
             sender.sendMessage(LangSetting.getInstance().i18n("commands.crash.no_type"));
             return;
         }
 
         sender.sendMessage(LangSetting.getInstance().i18n("commands.crash.message")
                 .replace("{player}", MHDFToolsBukkitAdapt.adapt(player).getDisplayName())
-                .replace("{type}", LangSetting.getInstance().i18n("commands.crash.types." + crashType))
+                .replace("{type}", LangSetting.getInstance().i18n("commands.crash.types." + type))
         );
     }
 

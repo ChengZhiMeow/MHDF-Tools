@@ -1,6 +1,6 @@
-package cn.chengzhimeow.mhdftools.bukkit.module.bungee.config;
+package cn.chengzhimeow.mhdftools.bukkit.module.knockback.config;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.bungee.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.knockback.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import lombok.Getter;
 

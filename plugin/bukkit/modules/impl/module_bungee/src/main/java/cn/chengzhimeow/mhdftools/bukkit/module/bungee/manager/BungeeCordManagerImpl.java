@@ -30,6 +30,9 @@ public final class BungeeCordManagerImpl implements BungeeCordManager {
     @Setter
     private List<String> playerList = new ArrayList<>();
 
+    private BungeeCordManagerImpl() {
+    }
+
     @Override
     public boolean isBungeeCordMode() {
         return ConfigSetting.getInstance().getData().getBoolean("enable");
@@ -120,8 +123,5 @@ public final class BungeeCordManagerImpl implements BungeeCordManager {
     public void updateData() {
         this.updatePlayerList();
         this.updateServerName();
-    }
-
-    private BungeeCordManagerImpl() {
     }
 }

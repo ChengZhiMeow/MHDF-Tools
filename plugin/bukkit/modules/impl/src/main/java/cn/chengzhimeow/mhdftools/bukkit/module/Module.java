@@ -14,15 +14,18 @@ public abstract class Module {
         this.id = id;
     }
 
-    public void onLoad() {}
+    public void onLoad() {
+    }
 
     public boolean isEnable() {
         return true;
     }
 
-    public void onEnable() {}
+    public void onEnable() {
+    }
 
-    public void onDisable() {}
+    public void onDisable() {
+    }
 
     public abstract @NotNull AbstractYamlSetting getConfig();
 }
