@@ -49,7 +49,6 @@ _✨你的下一个基础插件，为何不能是梦之工具✨_
 ## 精神支柱
 
 - [Catnies](https://github.com/Catnies)
-- [Xiao-MoMi](https://github.com/Xiao-MoMi)
 
 ## Star
 
