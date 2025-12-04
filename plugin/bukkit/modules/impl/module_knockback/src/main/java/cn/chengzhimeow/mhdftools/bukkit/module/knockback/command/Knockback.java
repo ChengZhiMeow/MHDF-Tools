@@ -16,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,7 +50,7 @@ final class Knockback extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
-        if (args.length == 0 || args.length >= 3) {
+        if (args.length != 1 && args.length != 2) {
             sender.sendMessage(LangSetting.getInstance().i18n("usageError")
                     .replace("{usage}", LangSetting.getInstance().i18n("commands.knockback.usage"))
                     .replace("{command}", label)
@@ -85,11 +84,10 @@ final class Knockback extends Command {
         );
     }
 
-
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) return MHDFToolsBukkit.getInstance().getBungeeCordManager().getBukkitPlayerList();
         if (args.length == 2) return Arrays.asList("normal", "random");
-        return new ArrayList<>();
+        return super.tabCompleter(sender, label, args);
     }
 }

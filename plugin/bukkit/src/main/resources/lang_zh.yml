@@ -253,18 +253,6 @@ commands:
     usage: "/{command} <名称> [玩家]"
     description: "修改玩家匿名名称"
     message: "{prefix} &f{player} <#EAE4FF>的名称已修改为 &b{name}<#EAE4FF>!"
-  ip:
-    usage: "/{command} <玩家>"
-    description: "查询一个玩家的IP信息"
-    message: |-
-      &f
-      &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-      &f
-      &8▪ &f玩家: <#CFC2FF>{player}
-      &8▪ &7IP: &f{ip}
-      &8▪ &7归属地: &f{location}
-      &f
-      &7⌞                                         ⌟
   gamemode:
     usage: "/{command} <游戏模式> [玩家]"
     description: "修改玩家游戏模式"

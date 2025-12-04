@@ -19,6 +19,7 @@ include(":plugin:bukkit:modules:impl")
 include(":plugin:bukkit:modules:impl:module_bungee")
 include(":plugin:bukkit:modules:impl:module_crash")
 include(":plugin:bukkit:modules:impl:module_hat")
+include(":plugin:bukkit:modules:impl:module_ip")
 include(":plugin:bukkit:modules:impl:module_knockback")
 include(":plugin:bukkit:modules:impl:module_list")
 

@@ -302,15 +302,6 @@ nickSettings:
   commands:
     - "nick"
 
-# 查询IP信息
-ipSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "ip"
-    - "ipinfo"
-
 # 切换游戏模式
 gamemodeSettings:
   # 开关

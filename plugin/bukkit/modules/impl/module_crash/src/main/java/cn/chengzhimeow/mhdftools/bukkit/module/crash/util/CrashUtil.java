@@ -74,7 +74,6 @@ public final class CrashUtil {
         return baseValue * (float) (randomFactor * (Math.sqrt(randomFactor) * 564.0 % 1.0 * 0.75 - Math.pow(randomFactor, 2.0) % 1.0 * 0.5) + 0.5);
     }
 
-
     /**
      * 构建标签
      *

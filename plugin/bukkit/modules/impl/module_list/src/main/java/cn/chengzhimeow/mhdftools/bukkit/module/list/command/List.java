@@ -25,7 +25,7 @@ final class List extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
-        if (args.length >= 1) {
+        if (args.length != 0) {
             sender.sendMessage(LangSetting.getInstance().i18n("usage_error")
                     .replace("{usage}", LangSetting.getInstance().i18n("commands.list.usage"))
                     .replace("{command}", label)
