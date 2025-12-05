@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bungee;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
 import cn.chengzhimeow.mhdftools.bukkit.module.ModulePriority;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.config.ConfigSetting;
@@ -24,7 +24,7 @@ public final class ModuleMain extends Module {
         ConfigSetting.getInstance().update();
         ConfigSetting.getInstance().reload();
 
-        MHDFToolsBukkit.getInstance().setBungeeCordManager(BungeeCordManagerImpl.getInstance());
+        BungeeCordManager.setInstance(BungeeCordManagerImpl.getInstance());
     }
 
     @Override

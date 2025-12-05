@@ -1,6 +1,7 @@
-package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
+package cn.chengzhimeow.mhdftools.bukkit.module.bugfix.listener.crash;
 
-import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.packetevents.PacketEventsManager;
+import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.PacketListener;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
@@ -10,30 +11,22 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSe
 
 import java.util.List;
 
-final class BundleFix extends PacketListener {
-    public BundleFix() {
+final class BundleCrash extends PacketListener {
+    public BundleCrash() {
         super(
-                List.of("bundleFixSettings.enable"),
-                PacketListenerPriority.LOW
+                ModuleMain.instance,
+                List.of("crash.bundle.enable"),
+                PacketListenerPriority.LOWEST
         );
     }
 
     @Override
     public void onPacketReceive(PacketReceiveEvent event) {
-        if (event.getPacketType() != PacketType.Play.Client.SELECT_BUNDLE_ITEM) {
-            return;
-        }
+        if (event.getPacketType() != PacketType.Play.Client.SELECT_BUNDLE_ITEM) return;
 
-        if (Main.instance.getPluginHookManager().getPacketEventsHook()
-                .getServerVersion().isOlderThanOrEquals(ServerVersion.V_1_21)
-        ) {
-            return;
-        }
-
+        if (PacketEventsManager.getInstance().getServerVersion().isOlderThanOrEquals(ServerVersion.V_1_21)) return;
         WrapperPlayClientSelectBundleItem wrapper = new WrapperPlayClientSelectBundleItem(event);
-        if (wrapper.getSelectedItemIndex() >= -1) {
-            return;
-        }
+        if (wrapper.getSelectedItemIndex() >= -1) return;
 
         event.setCancelled(true);
     }

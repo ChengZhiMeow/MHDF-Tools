@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.crash.command;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.config.LangSetting;
@@ -61,7 +61,7 @@ final class Crash extends Command {
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) return MHDFToolsBukkit.getInstance().getBungeeCordManager().getBukkitPlayerList();
+        if (args.length == 1) return BungeeCordManager.getInstance().getBukkitPlayerList();
         if (args.length == 2) return Arrays.asList("explosion", "invalid_teleport", "invalid_particle");
         return super.tabCompleter(sender, label, args);
     }

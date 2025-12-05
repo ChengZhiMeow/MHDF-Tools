@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.feature;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
 import cn.chengzhimeow.mhdftools.config.ConfigUtil;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
@@ -54,7 +54,7 @@ public abstract class Command implements TabExecutor {
             if (sender instanceof Player player) tabComplete = this.tabCompleter(player, label, args);
         } else tabComplete = this.tabCompleter(sender, label, args);
 
-        if (tabComplete == null) tabComplete = MHDFToolsBukkit.getInstance().getBungeeCordManager().getPlayerList();
+        if (tabComplete == null) tabComplete = BungeeCordManager.getInstance().getPlayerList();
         return tabComplete.stream()
                 .filter(s -> s.toLowerCase(Locale.ROOT).startsWith(args[args.length - 1].toLowerCase(Locale.ROOT)))
                 .toList();

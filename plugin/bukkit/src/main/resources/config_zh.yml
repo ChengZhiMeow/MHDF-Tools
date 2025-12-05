@@ -389,16 +389,6 @@ fastUseSettings:
   # 工作台(权限: mhdftools.fastuse.craftingtable)
   craftingTable: true
 
-# 修复1.13+三叉戟复制漏洞
-tridentDupeFixSettings:
-  # 开关
-  enable: true
-
-# 修复1.21+收纳袋崩服漏洞
-bundleFixSettings:
-  # 开关
-  enable: true
-
 # 快速调节时间
 fastChangeTimeSettings:
   # 开关

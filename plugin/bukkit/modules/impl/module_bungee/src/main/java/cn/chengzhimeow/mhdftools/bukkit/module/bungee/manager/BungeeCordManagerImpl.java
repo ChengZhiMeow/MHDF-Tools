@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bungee.manager;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.manager.BungeeCordManager;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.listener.PluginMessage;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public final class BungeeCordManagerImpl implements BungeeCordManager {
+public final class BungeeCordManagerImpl extends BungeeCordManager {
     @Getter(lazy = true)
     private static final BungeeCordManagerImpl instance = new BungeeCordManagerImpl();
     private static final String POST_FAILED = "发送插件消息失败 | 原因: {}";

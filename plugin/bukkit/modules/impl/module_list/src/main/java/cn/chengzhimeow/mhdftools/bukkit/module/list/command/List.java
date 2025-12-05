@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.list.command;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.list.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.list.config.ConfigSetting;
@@ -35,8 +35,8 @@ final class List extends Command {
 
         boolean getPlayerListFromBungeeCord = ConfigSetting.getInstance().getData().getBoolean("get_player_list_from_bungeecord");
         java.util.List<String> playerList = getPlayerListFromBungeeCord
-                                            ? MHDFToolsBukkit.getInstance().getBungeeCordManager().getPlayerList()
-                                            : MHDFToolsBukkit.getInstance().getBungeeCordManager().getBukkitPlayerList();
+                                            ? BungeeCordManager.getInstance().getPlayerList()
+                                            : BungeeCordManager.getInstance().getBukkitPlayerList();
 
         sender.sendMessage(LangSetting.getInstance().i18n("commands.list.message")
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))

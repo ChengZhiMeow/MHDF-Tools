@@ -5,6 +5,7 @@ include(":common")
 
 include(":plugin:bukkit")
 include(":plugin:bukkit:api_bukkit")
+include(":plugin:bukkit:common_bukkit")
 
 include(":plugin:bukkit:compatibility")
 include(":plugin:bukkit:compatibility:item")
@@ -16,6 +17,7 @@ include(":plugin:bukkit:compatibility:placeholder:placeholderapi")
 
 include(":plugin:bukkit:modules")
 include(":plugin:bukkit:modules:impl")
+include(":plugin:bukkit:modules:impl:module_bugfix")
 include(":plugin:bukkit:modules:impl:module_bungee")
 include(":plugin:bukkit:modules:impl:module_crash")
 include(":plugin:bukkit:modules:impl:module_hat")

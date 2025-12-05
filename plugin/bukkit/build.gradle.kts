@@ -26,6 +26,7 @@ allprojects {
 
 dependencies {
     api(project(":plugin:bukkit:api_bukkit"))
+    api(project(":plugin:bukkit:common_bukkit"))
     api(project(":plugin:bukkit:compatibility"))
     api(project(":plugin:bukkit:modules"))
 

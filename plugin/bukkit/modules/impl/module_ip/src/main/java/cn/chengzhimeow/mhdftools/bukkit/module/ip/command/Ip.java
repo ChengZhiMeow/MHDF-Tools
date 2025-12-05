@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.ip.command;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.ip.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.ip.config.ConfigSetting;
@@ -52,7 +52,7 @@ final class Ip extends Command {
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) return MHDFToolsBukkit.getInstance().getBungeeCordManager().getBukkitPlayerList();
+        if (args.length == 1) return BungeeCordManager.getInstance().getBukkitPlayerList();
         return super.tabCompleter(sender, label, args);
     }
 }
