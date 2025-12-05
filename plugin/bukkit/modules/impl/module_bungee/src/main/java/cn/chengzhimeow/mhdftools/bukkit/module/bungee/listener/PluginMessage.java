@@ -25,9 +25,7 @@ public final class PluginMessage implements PluginMessageListener {
             case "mhdf_tools" -> {
                 JSONObject data = JSONObject.parseObject(in.readUTF());
 
-                LogManager.instance.debug("收到来自群组端的梦之工具消息 | 消息: {}",
-                        data.toJSONString()
-                );
+                LogManager.instance.debug("收到来自群组端的梦之工具消息 | 消息: {}", data.toJSONString());
 
                 String action = data.getString("action");
                 String from = data.getString("from");
@@ -36,9 +34,7 @@ public final class PluginMessage implements PluginMessageListener {
 
                 switch (action) {
                     case "server_info" -> {
-                        LogManager.instance.debug("更新服务器名称 | 名称: {}",
-                                from
-                        );
+                        LogManager.instance.debug("更新服务器名称 | 名称: {}", from);
                         BungeeCordManagerImpl.getInstance().setServerName(from);
                     }
                 }
@@ -47,9 +43,7 @@ public final class PluginMessage implements PluginMessageListener {
                 in.readUTF();
                 String playerListString = in.readUTF();
 
-                LogManager.instance.debug("更新在线玩家列表 | 在线列表: {}",
-                        playerListString
-                );
+                LogManager.instance.debug("更新在线玩家列表 | 在线列表: {}", playerListString);
 
                 List<String> playerList = List.of(playerListString.split(", "));
                 BungeeCordManagerImpl.getInstance().setPlayerList(playerList);

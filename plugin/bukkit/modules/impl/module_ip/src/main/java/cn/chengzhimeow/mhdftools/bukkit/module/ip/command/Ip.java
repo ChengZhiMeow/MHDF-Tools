@@ -6,6 +6,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.ip.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.ip.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.ip.config.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.ip.util.IpLocationUtil;
+import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,10 +30,9 @@ final class Ip extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 1) {
-            sender.sendMessage(LangSetting.getInstance().i18n("usage_error")
+            sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
                     .replace("{usage}", LangSetting.getInstance().i18n("commands.ip.usage"))
-                    .replace("{command}", label)
-            );
+                    .replace("{command}", label));
             return;
         }
 
@@ -46,8 +46,7 @@ final class Ip extends Command {
         sender.sendMessage(LangSetting.getInstance().i18n("commands.ip.message")
                 .replace("{player}", player.getName())
                 .replace("{ip}", ip)
-                .replace("{location}", IpLocationUtil.getIpLocation(ip))
-        );
+                .replace("{location}", IpLocationUtil.getIpLocation(ip)));
     }
 
     @Override

@@ -55,8 +55,7 @@ final class Crash extends Command {
 
         sender.sendMessage(LangSetting.getInstance().i18n("commands.crash.message")
                 .replace("{player}", MHDFToolsBukkitAdapt.adapt(player).getDisplayName())
-                .replace("{type}", LangSetting.getInstance().i18n("commands.crash.types." + type))
-        );
+                .replace("{type}", LangSetting.getInstance().i18n("commands.crash.types." + type)));
     }
 
     @Override

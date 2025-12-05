@@ -85,13 +85,12 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
     private void postWithMHDFTools(JSONObject data) {
         if (data.getJSONObject("params") == null) data.put("params", new JSONObject());
 
-        LogManager.instance.debug("发送梦之工具插件消息至群组端 | 消息: {}",
-                data.toJSONString()
-        );
+        String dataString = data.toJSONString();
+        LogManager.instance.debug("发送梦之工具插件消息至群组端 | 消息: {}", dataString);
 
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("mhdf_tools");
-        out.writeUTF(data.toJSONString());
+        out.writeUTF(dataString);
         this.post(out);
     }
 

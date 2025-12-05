@@ -66,7 +66,7 @@ final class MoneyAdmin extends Command {
         // 输出帮助信息
         {
             sender.sendMessage(LangSetting.getInstance().i18n("commands.moneyadmin.subCommands.help.message")
-                    .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.moneyadmin.subCommands"))
+                    .replace("{help_list}", LangSetting.getInstance().getHelpList("commands.moneyadmin.subCommands"))
                     .replace("{command}", label)
             );
         }

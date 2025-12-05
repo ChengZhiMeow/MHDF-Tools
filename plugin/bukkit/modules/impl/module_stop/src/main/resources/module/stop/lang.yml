@@ -1,0 +1,52 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+commands:
+  stop:
+    usage: "/{command} <参数>"
+    description: "更好的关服"
+    default_reason: "<#FFB8B8>服务器已关闭!"
+    time_format_error: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
+    countdown: "{prefix} <#EAE4FF>服务器还有 &f{countdown}秒 <#EAE4FF>关闭,请做好准备!"
+    kick_message: |-
+      &f
+      &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+      &f
+      {message}
+      &f
+      &7⌞                                         ⌟
+    sub_commands:
+      help:
+        usage: "/{command} help"
+        description: "命令帮助"
+        message: |-
+          &f
+          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+          &f
+          {help_list}
+          &f
+          &7⌞                                         ⌟
+      cancel:
+        usage: "/{command} cancel"
+        description: "取消关服"
+        no_stop: "{prefix} <#FFB8B8>没有可以取消的关服操作!"
+        message: "{prefix} <#EAE4FF>已取消关服操作!"
+      confirm:
+        usage: "/{command} confirm"
+        description: "确认关服"
+        no_stop: "{prefix} <#FFB8B8>没有可以确认的关服操作!"
+        message: "{prefix} <#EAE4FF>已确认关服操作!"
+      default:
+        usage: "/{command} [倒计时] [消息]"
+        description: "关服"
+        in_stop: "{prefix} <#FFB8B8>服务器已经在倒计时关闭了! <click:run_command:\"/stop cancel\"><hover:show_text:\"<#EAE4FF>点击确认取消\"><#CAFFB8>/stop cancel - [确认取消]</hover></click>"
+        message: |-
+          &f
+          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+          &f
+          <#EAE4FF>你确认要在 &f{time}秒 <#EAE4FF>后关闭服务器吗?
+          <#EAE4FF>关服原因: &f{message} 
+          &f
+          <click:run_command:"/stop confirm"><hover:show_text:"<#EAE4FF>点击确认关闭"><#CAFFB8>/stop confirm - [确认关闭]</hover></click>
+          &f
+          &7⌞                                         ⌟

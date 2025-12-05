@@ -53,8 +53,7 @@ final class Knockback extends Command {
         if (args.length != 1 && args.length != 2) {
             sender.sendMessage(LangSetting.getInstance().i18n("usageError")
                     .replace("{usage}", LangSetting.getInstance().i18n("commands.knockback.usage"))
-                    .replace("{command}", label)
-            );
+                    .replace("{command}", label));
             return;
         }
 
@@ -80,8 +79,7 @@ final class Knockback extends Command {
 
         sender.sendMessage(LangSetting.getInstance().i18n("commands.knockback.message")
                 .replace("{player}", MHDFToolsBukkitAdapt.adapt(player).getDisplayName())
-                .replace("{type}", LangSetting.getInstance().i18n("commands.knockback.types." + type))
-        );
+                .replace("{type}", LangSetting.getInstance().i18n("commands.knockback.types." + type)));
     }
 
     @Override

@@ -64,7 +64,7 @@ final class FlyTime extends Command {
 
         {
             sender.sendMessage(LangSetting.getInstance().i18n("commands.flytime.subCommands.help.message")
-                    .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.flytime.subCommands"))
+                    .replace("{help_list}", LangSetting.getInstance().getHelpList("commands.flytime.subCommands"))
                     .replace("{command}", label)
             );
         }

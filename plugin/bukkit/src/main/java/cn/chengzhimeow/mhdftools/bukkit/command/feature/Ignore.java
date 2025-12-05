@@ -109,7 +109,7 @@ final class Ignore extends Command {
         // 输出帮助信息
         {
             sender.sendMessage(LangSetting.getInstance().i18n("commands.ignore.subCommands.help.message")
-                    .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.ignore.subCommands"))
+                    .replace("{help_list}", LangSetting.getInstance().getHelpList("commands.ignore.subCommands"))
                     .replace("{command}", label)
             );
         }

@@ -41,7 +41,7 @@ commands:
           &f
           &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
           &f
-          {helpList}
+          {help_list}
           &f
           &7⌞     <click:run_command:"/{command} feature {lastPage}"><hover:show_text:"<#EAE4FF>点击返回上一页">&f[上一页]</hover></click>     <{page}/{maxPage}>     <click:run_command:"/{command} feature {nextPage}"><hover:show_text:"<#EAE4FF>点击返回下一页">&f[下一页]</hover></click>&7     ⌟
           &f
@@ -52,7 +52,7 @@ commands:
           &f
           &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
           &f
-          {helpList}
+          {help_list}
           &f
           &7⌞                                         ⌟
       import:
@@ -94,7 +94,7 @@ commands:
           &f
           &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
           &f
-          {helpList}
+          {help_list}
           &f
           &7⌞                                         ⌟
       set:
@@ -109,53 +109,7 @@ commands:
         usage: "/{command} take <玩家> <时间>"
         description: "减少玩家的飞行时间"
         message: "{prefix} &f{player} <#EAE4FF>的飞行时间已减少为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"
-  stop:
-    usage: "/{command} <参数>"
-    description: "更好的关服"
-    defaultMessage: "<#FFB8B8>服务器已关闭!"
-    timeFormatError: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
-    countdownMessage: "{prefix} <#EAE4FF>服务器还有 &f{countdown}秒 <#EAE4FF>关闭,请做好准备!"
-    kickMessage: |-
-      &f
-      &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-      &f
-      {message}
-      &f
-      &7⌞                                         ⌟
-    subCommands:
-      help:
-        usage: "/{command} help"
-        description: "命令帮助"
-        message: |-
-          &f
-          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-          &f
-          {helpList}
-          &f
-          &7⌞                                         ⌟
-      cancel:
-        usage: "/{command} cancel"
-        description: "取消关服"
-        noStop: "{prefix} <#FFB8B8>没有可以取消的关服操作!"
-        message: "{prefix} <#EAE4FF>已取消关服操作!"
-      confirm:
-        usage: "/{command} confirm"
-        description: "确认关服"
-        noStop: "{prefix} <#FFB8B8>没有可以确认的关服操作!"
-      default:
-        usage: "/{command} [倒计时] [消息]"
-        description: "关服"
-        inStop: "{prefix} <#FFB8B8>服务器已经在倒计时关闭了! <click:run_command:\"/stop cancel\"><hover:show_text:\"<#EAE4FF>点击确认取消\"><#CAFFB8>/stop cancel - [确认取消]</hover></click>"
-        message: |-
-          &f
-          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-          &f
-          <#EAE4FF>你确认要在 &f{time}秒 <#EAE4FF>后关闭服务器吗?
-          <#EAE4FF>关服原因: &f{message} 
-          &f
-          <click:run_command:"/stop confirm"><hover:show_text:"<#EAE4FF>点击确认关闭"><#CAFFB8>/stop confirm - [确认关闭]</hover></click>
-          &f
-          &7⌞                                         ⌟
+
   tpa:
     usage: "/{command} <目标玩家>"
     description: "请求传送至指定玩家"
@@ -319,7 +273,7 @@ commands:
           &f
           &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
           &f
-          {helpList}
+          {help_list}
           &f
           &7⌞                                         ⌟
       set:
@@ -351,7 +305,7 @@ commands:
           &f
           &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
           &f
-          {helpList}
+          {help_list}
           &f
           &7⌞                                         ⌟
       world:
@@ -371,7 +325,7 @@ commands:
           &f
           &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
           &f
-          {helpList}
+          {help_list}
           &f
           &7⌞                                         ⌟
       list:

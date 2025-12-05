@@ -22,7 +22,8 @@ public final class CrashUtil {
      */
     public static boolean crashPlayerClient(Player player, String crashType) {
         switch (crashType) {
-            case "explosion" -> PacketEventsManager.getInstance().sendPacket(player,
+            case "explosion" -> PacketEventsManager.getInstance().sendPacket(
+                    player,
                     new WrapperPlayServerExplosion(
                             new Vector3d(CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition()),
                             CrashUtil.generateInvalidLook(),
@@ -30,14 +31,16 @@ public final class CrashUtil {
                             new Vector3f(CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook())
                     )
             );
-            case "invalid_teleport" -> PacketEventsManager.getInstance().sendPacket(player,
+            case "invalid_teleport" -> PacketEventsManager.getInstance().sendPacket(
+                    player,
                     new WrapperPlayServerPlayerPositionAndLook(
                             CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(),
                             CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(),
                             CrashUtil.generateFlags(), CrashUtil.generateTeleportID(), false
                     )
             );
-            case "invalid_particle" -> PacketEventsManager.getInstance().sendPacket(player,
+            case "invalid_particle" -> PacketEventsManager.getInstance().sendPacket(
+                    player,
                     new WrapperPlayServerParticle(
                             new Particle<>(ParticleTypes.DRAGON_BREATH), true,
                             new Vector3d(CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition()),

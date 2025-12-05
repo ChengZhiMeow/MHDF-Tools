@@ -45,7 +45,7 @@ final class MHDFTools extends Command {
                     }
 
                     sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.feature.message")
-                            .replace("{helpList}", this.getFeatureHelpMessage(page, commandList))
+                            .replace("{help_list}", this.getFeatureHelpMessage(page, commandList))
                             .replace("{page}", String.valueOf(page))
                             .replace("{maxPage}", String.valueOf(maxPage))
                             .replaceByMiniMessage("{lastPage}", String.valueOf(page - 1))
@@ -87,7 +87,7 @@ final class MHDFTools extends Command {
         // 输出帮助信息
         {
             sender.sendMessage(LangSetting.getInstance().i18n("commands.mhdftools.subCommands.help.message")
-                    .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.mhdftools.subCommands"))
+                    .replace("{help_list}", LangSetting.getInstance().getHelpList("commands.mhdftools.subCommands"))
                     .replace("{command}", label)
             );
         }

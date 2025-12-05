@@ -109,7 +109,7 @@ final class RandomTeleport extends Command {
             // 输出帮助信息
             {
                 sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.subCommands.help.message")
-                        .replace("{helpList}", LangSetting.getInstance().getHelpList("commands.randomteleport.subCommands"))
+                        .replace("{help_list}", LangSetting.getInstance().getHelpList("commands.randomteleport.subCommands"))
                         .replace("{command}", label)
                 );
             }
