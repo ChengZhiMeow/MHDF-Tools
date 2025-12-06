@@ -109,7 +109,6 @@ commands:
         usage: "/{command} take <玩家> <时间>"
         description: "减少玩家的飞行时间"
         message: "{prefix} &f{player} <#EAE4FF>的飞行时间已减少为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"
-
   tpa:
     usage: "/{command} <目标玩家>"
     description: "请求传送至指定玩家"
@@ -212,25 +211,6 @@ commands:
     description: "修改玩家游戏模式"
     noGameMode: "{prefix} <#FFB8B8>找不到名为 &f{gamemode} #FFB8B8>的游戏模式!"
     message: "{prefix} &f{player} <#EAE4FF>的游戏模式已被更新为 &b{gamemode}<#EAE4FF>!"
-  bed:
-    usage: "/{command}"
-    description: "回到床的位置"
-    noSleep: "{prefix} <#FFB8B8>找不到你床的位置!"
-    message: "{prefix} <#EAE4FF>你回到了床的旁边!"
-
-  suicide:
-    usage: "/{command}"
-    description: "自杀"
-    confirm: |-
-      &f
-      &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-      &f
-      <#EAE4FF>你确定要自杀吗?
-      &f
-      <click:run_command:"/suicide confirm"><hover:show_text:"<#EAE4FF>点击确认自杀"><#CAFFB8>/suicide confirm - [确认自杀]</hover></click>
-      &f
-      &7⌞                                         ⌟
-    message: "{prefix} <#EAE4FF>你自杀了!"
   warp:
     usage: "/{command} <传送点> [玩家]"
     description: "传送到指定传送点"

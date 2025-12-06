@@ -321,28 +321,6 @@ gamemodeSettings:
     - "gamemode"
     - "gm"
 
-# 回到床的位置
-bedSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "bed"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-
-# 自杀
-suicideSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "suicide"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-
 # 传送点系统
 warpSettings:
   # 开关
