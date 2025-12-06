@@ -1,9 +1,9 @@
-package cn.chengzhimeow.mhdftools.bukkit.util.math;
+package cn.chengzhimeow.mhdftools.bukkit.common.math;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
-public final class MathUtil {
+public final class CalculateUtil {
     /**
      * 计算数学表达式
      *

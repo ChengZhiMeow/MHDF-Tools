@@ -25,6 +25,7 @@ include(":plugin:bukkit:modules:impl:module_hat")
 include(":plugin:bukkit:modules:impl:module_ip")
 include(":plugin:bukkit:modules:impl:module_knockback")
 include(":plugin:bukkit:modules:impl:module_list")
+include(":plugin:bukkit:modules:impl:module_motd")
 include(":plugin:bukkit:modules:impl:module_stop")
 include(":plugin:bukkit:modules:impl:module_suicide")
 

@@ -1,0 +1,44 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# MOTD
+# {online}  ——当前在线
+# {max}     ——最大在线
+#
+# 开关
+enable: true
+# 版本信息覆写
+# 可能导致无法查看服务器延迟
+version:
+  # 开关
+  enable: true
+  # 版本名称(不支持RGB)
+  name: "&e自定义版本信息"
+# 玩家数量
+players:
+  # 开关
+  enable: true
+  # 假玩家数量
+  fake_online:
+    # 开关
+    enable: true
+    # 数量(数学表达式)
+    amount: "{online}*2"
+  # 假最大数量
+  fake_max:
+    # 开关
+    enable: true
+    # 数量(数学表达式)
+    amount: "{online}*2+1"
+  # 假玩家列表
+  fake_sample:
+    # 开关
+    enable: true
+    # 文本列表(不支持RGB)
+    text:
+      - "&b我是玩家列表第一行"
+      - "&b我是玩家列表第二行"
+# 内容
+description:
+  - - "<gradient:#F18989:#EAB5B5>这是MOTD信息的第一行</gradient>"
+    - "<gradient:#F1BB89:#EADFB5>这是MOTD信息的第二行www</gradient>"
