@@ -2,8 +2,8 @@ package cn.chengzhimeow.mhdftools.bukkit.config.folder;
 
 import cn.chengzhimeow.ccyaml.configuration.yaml.YamlConfiguration;
 import cn.chengzhimeow.ccyaml.manager.AbstractFolderYamlManager;
-import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
+import cn.chengzhimeow.mhdftools.message.StringUtil;
 
 import java.io.File;
 import java.util.List;

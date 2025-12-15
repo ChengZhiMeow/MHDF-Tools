@@ -1,12 +1,13 @@
 package cn.chengzhimeow.mhdftools.bungee;
 
+import cn.chengzhimeow.ccyaml.CCYaml;
 import cn.chengzhimeow.mhdftools.bungee.listener.PluginMessage;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
-import cn.chengzhimeow.mhdftools.enums.ServerType;
-import cn.chengzhimeow.mhdftools.manager.LibraryManager;
+import cn.chengzhimeow.mhdftools.library.LibraryManager;
 import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
+import cn.chengzhimeow.mhdftools.plugin.ServerType;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.protocol.ProtocolConstants;
@@ -50,6 +51,11 @@ public final class Main extends Plugin {
         PluginManager.getInstance().serverType = ServerType.BUNGEE;
 
         ConfigManager.getInstance().setDataFolder(this.getDataFolder());
+        ConfigManager.getInstance().setYamlManager(new CCYaml(
+                ConfigManager.class.getClassLoader(),
+                this.getDataFolder(),
+                PluginManager.getInstance().version
+        ));
         ConfigManager.getInstance().init();
 
         LibraryManager.getInstance().setLoggerManager(new LoggerManager() {

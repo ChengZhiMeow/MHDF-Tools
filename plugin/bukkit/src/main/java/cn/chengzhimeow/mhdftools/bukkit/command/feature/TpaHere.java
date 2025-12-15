@@ -2,12 +2,11 @@ package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.enums.TeleportRequestType;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.TeleportRequestMenu;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.TpaHereUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

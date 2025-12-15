@@ -8,10 +8,10 @@ import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCom
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.Base64Util;
 import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;

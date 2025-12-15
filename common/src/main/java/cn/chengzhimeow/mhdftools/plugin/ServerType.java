@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.enums;
+package cn.chengzhimeow.mhdftools.plugin;
 
 public enum ServerType {
     BUKKIT,

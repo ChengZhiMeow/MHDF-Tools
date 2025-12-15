@@ -5,7 +5,6 @@ import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.manager.PlayerManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.entity.MHDFToolsPlayerImpl;
 import lombok.Getter;
-import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

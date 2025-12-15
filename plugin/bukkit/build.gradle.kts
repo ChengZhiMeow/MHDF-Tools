@@ -1,8 +1,3 @@
-repositories {
-    maven("https://mvn.lumine.io/repository/maven-public")
-    maven("https://repo.momirealms.net/releases")
-}
-
 allprojects {
     dependencies {
         compileOnly(project(":api"))

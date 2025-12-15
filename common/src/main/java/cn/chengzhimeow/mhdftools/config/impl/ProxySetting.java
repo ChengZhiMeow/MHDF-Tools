@@ -13,6 +13,9 @@ public final class ProxySetting extends AbstractYamlSetting {
     @Getter(lazy = true)
     private static final ProxySetting instance = new ProxySetting();
 
+    private ProxySetting() {
+    }
+
     @Override
     public String originFilePath() {
         return "proxy.yml";
@@ -40,8 +43,5 @@ public final class ProxySetting extends AbstractYamlSetting {
         if (type == null || host == null || port == 0) return Proxy.NO_PROXY;
 
         return new Proxy(Proxy.Type.valueOf(type.toUpperCase(Locale.ROOT)), new InetSocketAddress(Objects.requireNonNull(host), port));
-    }
-
-    private ProxySetting() {
     }
 }

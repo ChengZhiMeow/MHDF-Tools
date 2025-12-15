@@ -1,8 +1,8 @@
 package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.fastuse.ShulkerBoxMenu;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

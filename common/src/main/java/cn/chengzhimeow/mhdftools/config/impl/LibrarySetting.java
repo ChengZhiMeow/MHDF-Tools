@@ -8,6 +8,9 @@ public final class LibrarySetting extends AbstractYamlSetting {
     @Getter(lazy = true)
     private static final LibrarySetting instance = new LibrarySetting();
 
+    private LibrarySetting() {
+    }
+
     @Override
     public String originFilePath() {
         return "library/" + PluginManager.getInstance().serverType.toString().toLowerCase() + ".yml";
@@ -28,8 +31,5 @@ public final class LibrarySetting extends AbstractYamlSetting {
 
         super.getFile().delete();
         super.saveDefaultFile();
-    }
-
-    private LibrarySetting() {
     }
 }

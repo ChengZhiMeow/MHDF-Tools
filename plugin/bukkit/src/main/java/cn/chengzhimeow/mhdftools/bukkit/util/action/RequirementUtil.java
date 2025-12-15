@@ -1,7 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.util.action;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.util.menu.ItemStackUtil;

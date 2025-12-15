@@ -147,13 +147,11 @@ public final class RandomTeleportUtil {
             long duration = System.currentTimeMillis() - startTime;
 
             switch (status) {
-                case SUCCESS ->
-                        sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.message")
-                                .replace("{duration}", String.valueOf(duration)));
-                case NO_BIOME ->
-                        sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.noBiome")
-                                .replace("{biome}", Component.translatable(biome.translationKey()))
-                        );
+                case SUCCESS -> sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.message")
+                        .replace("{duration}", String.valueOf(duration)));
+                case NO_BIOME -> sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.noBiome")
+                        .replace("{biome}", Component.translatable(biome.translationKey()))
+                );
                 case OUT_TRY_TIMES ->
                         sender.sendMessage(LangSetting.getInstance().i18n("commands.randomteleport.outTryTime")
                                 .replace("{amount}", String.valueOf(maxTryTime))

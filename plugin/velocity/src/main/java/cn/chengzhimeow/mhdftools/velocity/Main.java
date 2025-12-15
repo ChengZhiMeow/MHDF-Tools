@@ -1,11 +1,12 @@
 package cn.chengzhimeow.mhdftools.velocity;
 
+import cn.chengzhimeow.ccyaml.CCYaml;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
-import cn.chengzhimeow.mhdftools.enums.ServerType;
-import cn.chengzhimeow.mhdftools.manager.LibraryManager;
+import cn.chengzhimeow.mhdftools.library.LibraryManager;
 import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
+import cn.chengzhimeow.mhdftools.plugin.ServerType;
 import cn.chengzhimeow.mhdftools.velocity.listener.PluginMessage;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import com.google.inject.Inject;
@@ -60,6 +61,11 @@ public final class Main {
         PluginManager.getInstance().serverType = ServerType.VELOCITY;
 
         ConfigManager.getInstance().setDataFolder(this.dataFolder);
+        ConfigManager.getInstance().setYamlManager(new CCYaml(
+                ConfigManager.class.getClassLoader(),
+                this.dataFolder,
+                PluginManager.getInstance().version
+        ));
         ConfigManager.getInstance().init();
 
         LibraryManager.getInstance().setLoggerManager(new LoggerManager() {

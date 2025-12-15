@@ -21,6 +21,9 @@ public final class PacketEventsManager {
     private JavaPlugin plugin;
     private ServerVersion serverVersion;
 
+    private PacketEventsManager() {
+    }
+
     /**
      * 初始化PacketEvents的API
      */
@@ -100,6 +103,4 @@ public final class PacketEventsManager {
     public void registerListener(PacketListener packetListener, PacketListenerPriority priority) {
         PacketEvents.getAPI().getEventManager().registerListener(packetListener, priority);
     }
-
-    private PacketEventsManager() {}
 }

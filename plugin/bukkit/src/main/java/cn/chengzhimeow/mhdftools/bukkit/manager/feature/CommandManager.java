@@ -1,10 +1,10 @@
 package cn.chengzhimeow.mhdftools.bukkit.manager.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.util.PluginUtil;
 import cn.chengzhimeow.mhdftools.bukkit.message.LogUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
+import cn.chengzhimeow.mhdftools.bukkit.util.PluginUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandMap;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @Getter
 @SuppressWarnings({"deprecation", "unused"})
-public final class  CommandManager {
+public final class CommandManager {
     private final List<String> registerCommandIdList = new ArrayList<>();
 
     /**

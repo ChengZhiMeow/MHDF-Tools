@@ -8,6 +8,9 @@ public final class GlobalLangSetting extends AbstractLangSetting {
     @Getter(lazy = true)
     private static final GlobalLangSetting instance = new GlobalLangSetting();
 
+    private GlobalLangSetting() {
+    }
+
     @Override
     public String originFilePath() {
         return "lang/" + PluginManager.getInstance().serverType.toString().toLowerCase() + ".yml";
@@ -16,8 +19,5 @@ public final class GlobalLangSetting extends AbstractLangSetting {
     @Override
     public String filePath() {
         return "lang.yml";
-    }
-
-    private GlobalLangSetting() {
     }
 }

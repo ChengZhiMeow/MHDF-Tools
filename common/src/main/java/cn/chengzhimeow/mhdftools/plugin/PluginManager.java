@@ -1,7 +1,5 @@
 package cn.chengzhimeow.mhdftools.plugin;
 
-import cn.chengzhimeow.mhdftools.enums.ServerType;
-
 public final class PluginManager {
     private static PluginManager instance;
 

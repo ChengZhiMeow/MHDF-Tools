@@ -2,8 +2,12 @@ package cn.chengzhimeow.mhdftools.bukkit;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsAPIImpl;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigsManager;
-import cn.chengzhimeow.mhdftools.bukkit.manager.*;
+import cn.chengzhimeow.mhdftools.bukkit.manager.BStatsManager;
+import cn.chengzhimeow.mhdftools.bukkit.manager.BungeeCordManager;
+import cn.chengzhimeow.mhdftools.bukkit.manager.LogFilterManager;
+import cn.chengzhimeow.mhdftools.bukkit.manager.PluginHookManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.cache.CacheManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.cache.MHDFCacheManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.database.MHDFDatabaseManager;
@@ -12,19 +16,18 @@ import cn.chengzhimeow.mhdftools.bukkit.manager.feature.ListenerManager;
 import cn.chengzhimeow.mhdftools.bukkit.manager.feature.TaskManager;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
-import cn.chengzhimeow.mhdftools.enums.ServerType;
-import cn.chengzhimeow.mhdftools.manager.LibraryManager;
+import cn.chengzhimeow.mhdftools.library.LibraryManager;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.message.StringUtil;
 import cn.chengzhimeow.mhdftools.plugin.PluginManager;
+import cn.chengzhimeow.mhdftools.plugin.ServerType;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
-public final class Main extends JavaPlugin {
+public final class Main extends MHDFToolsBukkit {
     public static Main instance;
 
     private MHDFDatabaseManager databaseManager;
@@ -41,7 +44,7 @@ public final class Main extends JavaPlugin {
     @Override
     @SneakyThrows
     public void onLoad() {
-        Main.instance = this;
+        MHDFToolsBukkit.setInstance(this);
 
         // noinspection deprecation
         PluginManager.getInstance().version = this.getDescription().getVersion();

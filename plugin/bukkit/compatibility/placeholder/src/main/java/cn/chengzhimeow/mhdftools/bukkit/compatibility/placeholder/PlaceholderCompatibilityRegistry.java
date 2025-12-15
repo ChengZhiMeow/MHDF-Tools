@@ -15,6 +15,9 @@ public final class PlaceholderCompatibilityRegistry extends Registry<String, Pla
     @Getter(lazy = true)
     private static final PlaceholderCompatibilityRegistry instance = new PlaceholderCompatibilityRegistry();
 
+    private PlaceholderCompatibilityRegistry() {
+    }
+
     @Override
     @SneakyThrows
     public Map<String, PlaceholderCompatibility> defaultRegistry() {
@@ -33,8 +36,5 @@ public final class PlaceholderCompatibilityRegistry extends Registry<String, Pla
         if (compatibility == null) return string;
 
         return compatibility.parseString(player, string);
-    }
-
-    private PlaceholderCompatibilityRegistry() {
     }
 }

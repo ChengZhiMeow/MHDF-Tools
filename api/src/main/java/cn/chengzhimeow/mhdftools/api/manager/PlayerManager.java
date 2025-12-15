@@ -23,7 +23,7 @@ public interface PlayerManager {
      * @return 梦之工具玩家实例
      */
     default MHDFToolsPlayer getPlayer(@NotNull UUID uuid) {
-        return getPlayer(uuid, null);
+        return this.getPlayer(uuid, null);
     }
 
     /**

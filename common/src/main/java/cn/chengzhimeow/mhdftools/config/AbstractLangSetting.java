@@ -2,9 +2,9 @@ package cn.chengzhimeow.mhdftools.config;
 
 import cn.chengzhimeow.ccyaml.manager.AbstractYamlManager;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.text.TextComponentBuilder;
-import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public abstract class AbstractLangSetting extends AbstractYamlManager {
         return ColorUtil.color(message)
                 .replace("{version}", PluginManager.getInstance().version)
                 .replace("{prefix}", super.getData().getString(key, "")
-        );
+                );
     }
 
     /**

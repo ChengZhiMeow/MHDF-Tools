@@ -2,10 +2,10 @@ package cn.chengzhimeow.mhdftools.bukkit.listener.feature;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
-import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.vanish.BarrelMenu;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.vanish.ChestMenu;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.vanish.ShulkerBoxMenu;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;

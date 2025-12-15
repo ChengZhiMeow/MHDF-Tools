@@ -6,9 +6,9 @@ import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCom
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
 import cn.chengzhimeow.mhdftools.bukkit.config.folder.CustomMenuManager;
 import cn.chengzhimeow.mhdftools.bukkit.reflection.SoundUtil;
-import cn.chengzhimeow.mhdftools.text.TextComponent;
 import cn.chengzhimeow.mhdftools.bukkit.util.feature.CustomMenuUtil;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;

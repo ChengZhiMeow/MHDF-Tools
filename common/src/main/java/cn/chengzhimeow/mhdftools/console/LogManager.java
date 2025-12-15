@@ -9,7 +9,7 @@ public abstract class LogManager {
      * 日志消息
      *
      * @param message 文本
-     * @param args 参数
+     * @param args    参数
      */
     public abstract void log(String message, String... args);
 
@@ -17,7 +17,7 @@ public abstract class LogManager {
      * 调试消息
      *
      * @param message 文本
-     * @param args 参数
+     * @param args    参数
      */
     public abstract void debug(String message, String... args);
 }

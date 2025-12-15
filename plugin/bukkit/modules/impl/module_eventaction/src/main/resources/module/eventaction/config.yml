@@ -1,0 +1,77 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 时间操作
+#
+# 开关
+enable: true
+# 操作列表
+list:
+  # 自定义命名
+  # !mhdf_tools_update_ignore!
+  player_join:
+    # 事件
+    # =========================================
+    # 玩家加入服务器
+    # 玩家退出服务器
+    # 玩家切换世界
+    # 玩家聊天
+    # 玩家死亡
+    # 玩家复活
+    # 玩家移动
+    # 玩家传送
+    # 玩家破坏方块
+    # 玩家放置方块
+    # =========================================
+    event: "玩家加入服务器"
+    # 操作
+    action:
+      - actions:
+          - # 类型(开头带*为必填参数, []内为默认值)
+            # prev_page           上一页
+            # next_page           下一页
+            # connect_server      跨服(*server)
+            # player_command      玩家身份执行命令(*command, op[false], chat[false])
+            # console_command     后台身份执行命令(*command)
+            # title               发送标题消息(title[""], subtitle[""], in[20], step[70], out[10])
+            # message             发送消息(*message)
+            # broadcast           发送全体消息(*message)
+            # action_bar          发送操作栏消息(*message)
+            # boss_bar            发送BOSS血条(*title, color[YELLOW], style[PROGRESS], current[100], *delay[100])
+            # play_sound          发送音效(*sound, volume[1.0], pitch[1.0])
+            # chat                以玩家身份发送消息(*message)
+            type: "message"
+            message: "&e欢迎加入服务器"
+      - # 条件
+        conditions:
+          - # 类型(开头带*为必填参数, []内为默认值)
+            # contains_value 列表包含值(*list、*value)
+            # < 小于(*value1、*value2)
+            # <= 小于等于(*value1、*value2)
+            # == 等于(*value1、*value2)
+            # >= 大于等于(*value1、*value2)
+            # > 大于(*value1、*value2)
+            # permission 权限(*permission）
+            # contains 字符串包含(*string、*value)
+            # equals 字符串匹配(*string、*value)
+            # && 条件与(*conditionss)
+            # || 条件或(*conditionss)
+            type: "permission"
+            permission: "mhdftools.example.admin"
+        # 操作
+        actions:
+          - # 类型(开头带*为必填参数, []内为默认值)
+            # prev_page           上一页
+            # next_page           下一页
+            # connect_server      跨服(*server)
+            # player_command      玩家身份执行命令(*command, op[false], chat[false])
+            # console_command     后台身份执行命令(*command)
+            # title               发送标题消息(title[""], subtitle[""], in[20], step[70], out[10])
+            # message             发送消息(*message)
+            # broadcast           发送全体消息(*message)
+            # action_bar          发送操作栏消息(*message)
+            # boss_bar            发送BOSS血条(*title, color[YELLOW], style[PROGRESS], current[100], *delay[100])
+            # play_sound          发送音效(*sound, volume[1.0], pitch[1.0])
+            # chat                以玩家身份发送消息(*message)
+            type: "message"
+            message: "&e管理员欢迎来到服务器"

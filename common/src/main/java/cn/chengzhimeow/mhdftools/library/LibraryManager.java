@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.manager;
+package cn.chengzhimeow.mhdftools.library;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.ccyaml.configuration.StringSectionData;

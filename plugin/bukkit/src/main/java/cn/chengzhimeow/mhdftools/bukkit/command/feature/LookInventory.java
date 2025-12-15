@@ -1,11 +1,10 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.chat.LookInventoryMenu;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import com.alibaba.fastjson2.JSONObject;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

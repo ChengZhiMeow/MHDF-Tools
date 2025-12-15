@@ -16,6 +16,9 @@ public final class ItemCompatibilityRegistry extends Registry<String, ItemCompat
     @Getter(lazy = true)
     private static final ItemCompatibilityRegistry instance = new ItemCompatibilityRegistry();
 
+    private ItemCompatibilityRegistry() {
+    }
+
     @Override
     @SneakyThrows
     public Map<String, ItemCompatibility> defaultRegistry() {
@@ -41,8 +44,5 @@ public final class ItemCompatibilityRegistry extends Registry<String, ItemCompat
         if (compatibility == null) return null;
 
         return compatibility.getIdByItemStack(itemStack);
-    }
-
-    private ItemCompatibilityRegistry() {
     }
 }

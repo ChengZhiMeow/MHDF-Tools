@@ -1,12 +1,11 @@
 package cn.chengzhimeow.mhdftools.bukkit.command.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.menu.feature.chat.LookItemMenu;
+import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.util.Base64Util;
-import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
