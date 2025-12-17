@@ -2,6 +2,7 @@
 .idea/
 
 # 移除无用文件
+.kotlin/
 .gradle/
 *.iml
 *.zip

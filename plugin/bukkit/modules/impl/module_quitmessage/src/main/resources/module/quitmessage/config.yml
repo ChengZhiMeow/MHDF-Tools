@@ -1,0 +1,39 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 退服消息
+#
+# 开关
+enable: true
+# 移除消息
+remove_message: false
+# 分组
+groups:
+  # 默认
+  default:
+    # 权重
+    weight: 0
+    # 提示消息
+    message: "&c[-] &e{player}"
+  # 自定义组
+  admin:
+    # 条件
+    conditions:
+      - # 类型(开头带*为必填参数, []内为默认值)
+        # contains_value 列表包含值(*list、*value)
+        # < 小于(*value1、*value2)
+        # <= 小于等于(*value1、*value2)
+        # == 等于(*value1、*value2)
+        # >= 大于等于(*value1、*value2)
+        # > 大于(*value1、*value2)
+        # permission 权限(*permission）
+        # contains 字符串包含(*string、*value)
+        # equals 字符串匹配(*string、*value)
+        # && 条件与(*conditionss)
+        # || 条件或(*conditionss)
+        type: "permission"
+        permission: "mhdftools.example.admin"
+    # 权重
+    weight: 1
+    # 提示消息
+    message: "&c[-] {player}"

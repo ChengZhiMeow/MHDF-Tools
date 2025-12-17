@@ -268,32 +268,6 @@ commands:
         usage: "/{command} take <玩家> <金额>"
         description: "扣除经济"
         message: "{prefix} &f{player} <#EAE4FF>的余额被扣除 &e{change}<#EAE4FF>,他现在有 &b{amount}<#EAE4FF>!"
-  randomteleport:
-    usage: "/{command} [参数]"
-    description: "随机传送"
-    delay: "{prefix} <#FFB8B8>冷却中,你还需要等待 &f{delay}秒<#FFB8B8>,才可以传送!"
-    blackWorld: "{prefix} <#FFB8B8>世界 &f{world} 不允许随机传送!"
-    noWorld: "{prefix} <#FFB8B8>找不到名为 &f{world} <#FFB8B8>的世界!"
-    noBiome: "{prefix} <#FFB8B8>找不到名为 &f{biome} <#FFB8B8>的群系!"
-    outTryTime: "{prefix} <#FFB8B8>重试次数超过 &f{amount}<#FFB8B8>,终止传送!"
-    message: "{prefix} <#EAE4FF>传送成功!&7(耗时: {duration}ms)"
-    sucCommands:
-      help:
-        usage: "/{command} help"
-        description: "命令帮助"
-        message: |-
-          &f
-          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-          &f
-          {help_list}
-          &f
-          &7⌞                                         ⌟
-      world:
-        usage: "/{command} world <世界> [玩家] [服务器]"
-        description: "在指定世界内随机传送"
-      biome:
-        usage: "/{command} biome <世界> <群系> [玩家] [服务器]"
-        description: "在指定世界内随机传送至指定群系"
   ignore:
     usage: "/{command} <参数>"
     description: "屏蔽管理"
