@@ -2,9 +2,9 @@ package cn.chengzhimeow.mhdftools.bukkit.menu.feature;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.common.menu.MenuUtil;
 import cn.chengzhimeow.mhdftools.bukkit.menu.Menu;
 import cn.chengzhimeow.mhdftools.bukkit.util.action.ActionUtil;
-import cn.chengzhimeow.mhdftools.bukkit.util.menu.MenuUtil;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;

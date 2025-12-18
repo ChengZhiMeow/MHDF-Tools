@@ -1,0 +1,15 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 快捷使用
+#
+# 开关
+enable: true
+# 物品列表
+items:
+  # 潜影盒(权限: mhdftools.fastuse.shulker_box)
+  shulker_box: true
+  # 末影箱(权限: mhdftools.fastuse.ender_chest)
+  ender_chest: true
+  # 工作台(权限: mhdftools.fastuse.crafting_table)
+  crafting_table: true

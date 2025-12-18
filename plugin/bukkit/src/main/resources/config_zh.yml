@@ -290,17 +290,6 @@ warpSettings:
   blackWorld:
     - "pvp"
 
-# 快速使用
-fastUseSettings:
-  # 开关
-  enable: true
-  # 潜影盒(权限: mhdftools.fastuse.shulkerbox)
-  shulkerBox: true
-  # 末影箱(权限: mhdftools.fastuse.enderchest)
-  enderChest: true
-  # 工作台(权限: mhdftools.fastuse.craftingtable)
-  craftingTable: true
-
 # 快速调节时间
 fastChangeTimeSettings:
   # 开关
@@ -337,14 +326,6 @@ fastChangeWeatherSettings:
       # 命令
       commands:
         - "sun"
-
-# 虚假调节时间
-fakeChangeTimeSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "fakeChangeTime"
 
 # 背包查看
 invseeSettings:

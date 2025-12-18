@@ -6,9 +6,6 @@ enable: <#CAFFB8>开启
 disable: <#FFB8B8>关闭
 
 menu:
-  fastuse:
-    shulkerBox:
-      title: "<#EAE4FF>快速使用-潜影盒"
   vanish:
     title: "<#EAE4FF>隐身-容器"
 
@@ -331,12 +328,6 @@ commands:
     usage: "/{command}"
     description: "快速调节天气"
     message: "{prefix} <#EAE4FF>雨天已设置为 &f{storm}<#EAE4FF>,打雷已设置为 &f{thunder}<#EAE4FF>!"
-  fakechangetime:
-    usage: "/{command} <时间> [玩家]"
-    description: "虚假调节时间"
-    timeFormatError: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
-    reset: "{prefix} &f{player} <#EAE4FF>的虚假时间调节已关闭!"
-    message: "{prefix} &f{player} <#EAE4FF>的虚假时间调节已设置为 &b{time}!"
   lookitem:
     usage: "/{command} <物品ID>"
     description: "查看物品"

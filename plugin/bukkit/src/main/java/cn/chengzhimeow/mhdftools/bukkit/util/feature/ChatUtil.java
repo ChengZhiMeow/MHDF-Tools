@@ -13,7 +13,6 @@ import cn.chengzhimeow.mhdftools.bukkit.util.GroupUtil;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import com.alibaba.fastjson2.JSONObject;
-import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -100,10 +99,7 @@ public final class ChatUtil {
                 .replaceByMiniMessage("{uuid}", uuid.toString());
 
         ItemMeta meta = item.getItemMeta();
-        Component displayName;
-        if (meta.hasCustomName()) displayName = meta.customName();
-        else if (meta.hasItemName()) displayName = meta.itemName();
-        else displayName = Component.translatable(item.translationKey());
+
 
         formatComponent = formatComponent
                 .replace("{name}", displayName)
