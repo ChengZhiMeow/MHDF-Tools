@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bugfix.listener.dupe;
 
+import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.config.ConfigSetting;
+
 import cn.chengzhimeow.mhdftools.bukkit.common.inventory.InventoryUtil;
 import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
@@ -29,7 +31,7 @@ final class TridentDupe extends Listener {
     public TridentDupe() {
         super(
                 ModuleMain.instance,
-                List.of("dupe.trident.enable")
+                ConfigSetting.getInstance().getConfig().dupe().trident().enable()
         );
     }
 

@@ -23,11 +23,11 @@ final class Knockback extends Command {
     public Knockback() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 "击退玩家",
                 "mhdftools.commands.knockback",
                 false,
-                ConfigSetting.getInstance().getData().getStringList("commands").toArray(new String[0])
+                ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
         );
     }
 
@@ -64,12 +64,12 @@ final class Knockback extends Command {
         }
 
         String type = args.length == 1
-                      ? ConfigSetting.getInstance().getData().getString("default_type")
+                      ? ConfigSetting.getInstance().getConfig().defaultType()
                       : args[1].toLowerCase();
 
-        double x = ConfigSetting.getInstance().getData().getDouble("vector.x");
-        double y = ConfigSetting.getInstance().getData().getDouble("vector.y");
-        double z = ConfigSetting.getInstance().getData().getDouble("vector.z");
+        double x = ConfigSetting.getInstance().getConfig().vector().x();
+        double y = ConfigSetting.getInstance().getConfig().vector().y();
+        double z = ConfigSetting.getInstance().getConfig().vector().z();
         Vector vector = new Vector(x, y, z);
 
         if (type == null || !KnockbackUtil.knockbackPlayer(player, type, vector)) {

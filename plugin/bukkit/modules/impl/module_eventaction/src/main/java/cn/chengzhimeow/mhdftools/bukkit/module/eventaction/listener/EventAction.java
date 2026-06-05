@@ -1,7 +1,5 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.eventaction.listener;
 
-import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionAction;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionActionManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.eventaction.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.eventaction.config.ConfigSetting;
@@ -12,15 +10,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.*;
-
-import java.util.List;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public final class EventAction extends Listener {
     public EventAction() {
         super(
                 ModuleMain.instance,
-                List.of("enable")
+                ConfigSetting.getInstance().getConfig().enable()
         );
     }
 
@@ -31,25 +33,18 @@ public final class EventAction extends Listener {
      * @param event  事件
      */
     public void runAction(Player player, String event) {
-        ConfigurationSection list = ConfigSetting.getInstance().getData().getConfigurationSection("list");
-        if (list == null) return;
-
-        for (String key : list.getKeys(false)) {
-            ConfigurationSection section = list.getConfigurationSection(key);
-            if (section == null) continue;
-
-            String type = section.getString("event");
+        for (ConfigSetting.Config.Action action : ConfigSetting.getInstance().getConfig().actions()) {
+            String type = action.event();
             if (type == null) continue;
 
             LogManager.instance.debug("事件操作类型比对 | 事件名称: {} | 事件类型: {} | 目标类型: {}",
-                    key,
+                    action.id(),
                     type,
                     event
             );
             if (!type.equals(event)) continue;
 
-            List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(section, "action");
-            ConditionActionManager.getInstance().check(conditionActions);
+            ConditionActionManager.getInstance().actionWithCondition(player, action.actions());
         }
     }
 

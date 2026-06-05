@@ -27,11 +27,11 @@ final class Stop extends Command {
     public Stop() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 "更好的关服",
                 "mhdftools.commands.stop",
                 false,
-                ConfigSetting.getInstance().getData().getStringList("commands").toArray(new String[0])
+                ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
         );
     }
 
@@ -95,7 +95,7 @@ final class Stop extends Command {
 
         // 修改倒计时
         try {
-            int defaultTime = ConfigSetting.getInstance().getData().getInt("countdown.default");
+            int defaultTime = ConfigSetting.getInstance().getConfig().countdown().defaultTime();
             this.time = args.length >= 1 ? Integer.parseInt(args[0]) : defaultTime;
         } catch (NumberFormatException e) {
             sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.time_format_error"));
@@ -109,7 +109,7 @@ final class Stop extends Command {
         }
 
         // 无需确认
-        if (!ConfigSetting.getInstance().getData().getBoolean("confirm")) {
+        if (!ConfigSetting.getInstance().getConfig().confirm()) {
             this.confirmStop();
             return;
         }
@@ -161,7 +161,7 @@ final class Stop extends Command {
                     return;
                 }
 
-                if (ConfigSetting.getInstance().getData().getIntList("countdown.show_message_time").contains(countdown)) {
+                if (ConfigSetting.getInstance().getConfig().countdown().showMessageTime().contains(countdown)) {
                     Bukkit.broadcast(LangSetting.getInstance().i18n("commands.stop.countdown")
                             .replace("{countdown}", String.valueOf(countdown)));
                 }

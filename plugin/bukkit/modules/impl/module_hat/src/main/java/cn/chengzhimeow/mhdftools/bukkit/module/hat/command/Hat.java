@@ -16,11 +16,11 @@ final class Hat extends Command {
     public Hat() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 "帽子",
                 "mhdftools.commands.hat",
                 true,
-                ConfigSetting.getInstance().getData().getStringList("commands").toArray(new String[0])
+                ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
         );
     }
 

@@ -20,11 +20,11 @@ final class Crash extends Command {
     public Crash() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 "崩溃玩家客户端",
                 "mhdftools.commands.crash",
                 false,
-                ConfigSetting.getInstance().getData().getStringList("commands").toArray(new String[0])
+                ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
         );
     }
 
@@ -45,7 +45,7 @@ final class Crash extends Command {
         }
 
         String type = args.length == 1
-                      ? ConfigSetting.getInstance().getData().getString("default_type")
+                      ? ConfigSetting.getInstance().getConfig().defaultType()
                       : args[1].toLowerCase();
 
         if (type == null || !CrashUtil.crashPlayerClient(player, type)) {

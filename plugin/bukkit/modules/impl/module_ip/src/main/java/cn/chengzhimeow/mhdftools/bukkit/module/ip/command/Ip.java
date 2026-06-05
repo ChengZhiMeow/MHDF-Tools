@@ -19,11 +19,11 @@ final class Ip extends Command {
     public Ip() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 "查询IP信息",
                 "mhdftools.commands.ip",
                 false,
-                ConfigSetting.getInstance().getData().getStringList("commands").toArray(new String[0])
+                ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
         );
     }
 

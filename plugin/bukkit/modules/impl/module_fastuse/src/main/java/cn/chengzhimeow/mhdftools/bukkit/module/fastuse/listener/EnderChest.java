@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fastuse.listener;
 
+import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.config.ConfigSetting;
+
 import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.Material;
@@ -16,7 +18,7 @@ final class EnderChest extends Listener {
     public EnderChest() {
         super(
                 ModuleMain.instance,
-                List.of("enable")
+                ConfigSetting.getInstance().getConfig().enable() && ConfigSetting.getInstance().getConfig().items().enderChest()
         );
     }
 

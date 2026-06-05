@@ -1,6 +1,5 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.motd.listener;
 
-import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.common.math.CalculateUtil;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
@@ -29,7 +28,7 @@ public final class Motd extends PacketListener {
     public Motd() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 PacketListenerPriority.LOWEST
         );
     }
@@ -40,41 +39,37 @@ public final class Motd extends PacketListener {
 
         WrapperStatusServerResponse packet = new WrapperStatusServerResponse(event);
         JsonObject data = packet.getComponent();
+        ConfigSetting.Config config = ConfigSetting.getInstance().getConfig();
 
-        // 版本信息
-        ConfigurationSection version = ConfigSetting.getInstance().getData().getConfigurationSection("version");
-        if (version != null && version.getBoolean("enable")) {
+        ConfigSetting.Config.Version version = config.version();
+        if (version.enable()) {
             JsonObject versionData = new JsonObject();
-            String name = this.applyPlaceholder(version.getString("name", ""));
+            String name = this.applyPlaceholder(version.name());
             versionData.addProperty("name", ColorUtil.color(name).toLegacyString());
             versionData.addProperty("protocol", 5835);
             data.add("version", versionData);
         }
 
-        // 玩家列表
-        ConfigurationSection players = ConfigSetting.getInstance().getData().getConfigurationSection("players");
-        if (players != null && players.getBoolean("enable")) {
+        ConfigSetting.Config.Players players = config.players();
+        if (players.enable()) {
             JsonObject playersData = data.getAsJsonObject("players");
 
-            // 假在线人数
-            ConfigurationSection fakeOnline = players.getConfigurationSection("fake_online");
-            if (fakeOnline != null && fakeOnline.getBoolean("enable")) {
-                int online = (int) CalculateUtil.calculate(this.applyPlaceholder(fakeOnline.getString("amount")));
+            ConfigSetting.Config.Players.FakeAmount fakeOnline = players.fakeOnline();
+            if (fakeOnline.enable()) {
+                int online = (int) CalculateUtil.calculate(this.applyPlaceholder(fakeOnline.amount()));
                 playersData.addProperty("online", online);
             }
 
-            // 假最大人数
-            ConfigurationSection fakeMax = players.getConfigurationSection("fake_max");
-            if (fakeMax != null && fakeMax.getBoolean("enable")) {
-                int max = (int) CalculateUtil.calculate(this.applyPlaceholder(fakeMax.getString("amount")));
+            ConfigSetting.Config.Players.FakeAmount fakeMax = players.fakeMax();
+            if (fakeMax.enable()) {
+                int max = (int) CalculateUtil.calculate(this.applyPlaceholder(fakeMax.amount()));
                 playersData.addProperty("max", max);
             }
 
-            // 假玩家列表
-            ConfigurationSection fakeSample = players.getConfigurationSection("fakeSample");
-            if (fakeSample != null && fakeSample.getBoolean("enable")) {
+            ConfigSetting.Config.Players.FakeSample fakeSample = players.fakeSample();
+            if (fakeSample.enable()) {
                 JsonArray sample = new JsonArray();
-                for (String string : fakeSample.getStringList("text")) {
+                for (String string : fakeSample.text()) {
                     JsonObject sampleData = new JsonObject();
                     sampleData.addProperty("name", ColorUtil.color(this.applyPlaceholder(string)).toLegacyString());
                     sampleData.addProperty("id", String.valueOf(UUID.randomUUID()));
@@ -87,9 +82,8 @@ public final class Motd extends PacketListener {
             data.add("players", playersData);
         }
 
-        // MOTD内容
         // noinspection rawtypes
-        List<List> descriptionList = ConfigSetting.getInstance().getData().getList("description", List.class);
+        List<List> descriptionList = config.description();
         {
             // noinspection unchecked
             List<String> description = (List<String>) descriptionList.get(new Random().nextInt(descriptionList.size()));
@@ -117,7 +111,6 @@ public final class Motd extends PacketListener {
         event.setLastUsedWrapper(packet);
         event.markForReEncode(true);
     }
-
     private String applyPlaceholder(String text) {
         return Objects.requireNonNull(PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, null, text))
                 .replace("{online}", String.valueOf(BungeeCordManager.getInstance().getBukkitPlayerList().size()))

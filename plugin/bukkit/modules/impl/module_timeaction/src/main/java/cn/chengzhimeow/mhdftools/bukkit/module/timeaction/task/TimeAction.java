@@ -1,7 +1,5 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.timeaction.task;
 
-import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionAction;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionActionManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Task;
 import cn.chengzhimeow.mhdftools.bukkit.module.timeaction.ModuleMain;
@@ -18,7 +16,7 @@ final class TimeAction extends Task {
     public TimeAction() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 20
         );
     }
@@ -33,31 +31,24 @@ final class TimeAction extends Task {
 
     @Override
     public void run() {
-        ConfigurationSection list = ConfigSetting.getInstance().getData().getConfigurationSection("list");
-        if (list == null) return;
-
-        for (String key : list.getKeys(false)) {
-            ConfigurationSection action = list.getConfigurationSection(key);
-            if (action == null) continue;
-
-            String type = action.getString("type");
+        for (ConfigSetting.Config.Action action : ConfigSetting.getInstance().getConfig().actions()) {
+            String type = action.type();
             if (type == null) continue;
 
-            String time = action.getString("time");
+            String time = action.time();
             if (time == null) continue;
 
             switch (type) {
                 case "定时操作" -> {
-                    int delay = this.delays.getOrDefault(key, 0);
+                    int delay = this.delays.getOrDefault(action.id(), 0);
 
                     if (delay >= this.timeStringToTime(time)) {
-                        this.delays.put(key, delay + 1);
+                        this.delays.put(action.id(), delay + 1);
                         continue;
                     }
 
-                    List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(action, "action");
-                    ConditionActionManager.getInstance().actionWithCondition(null, conditionActions);
-                    this.delays.remove(key);
+                    ConditionActionManager.getInstance().actionWithCondition(null, action.actions());
+                    this.delays.remove(action.id());
                 }
                 case "定点操作" -> {
                     LocalTime localTime = LocalTime.now();
@@ -69,8 +60,7 @@ final class TimeAction extends Task {
                     if (localTime.getMinute() != minute) continue;
                     if (localTime.getSecond() != second) continue;
 
-                    List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(action, "action");
-                    ConditionActionManager.getInstance().actionWithCondition(null, conditionActions);
+                    ConditionActionManager.getInstance().actionWithCondition(null, action.actions());
                 }
             }
         }

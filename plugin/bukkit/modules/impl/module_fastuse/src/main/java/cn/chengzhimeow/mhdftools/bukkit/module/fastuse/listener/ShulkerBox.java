@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fastuse.listener;
 
+import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.config.ConfigSetting;
+
 import cn.chengzhimeow.mhdftools.bukkit.common.menu.ItemStackUtil;
 import cn.chengzhimeow.mhdftools.bukkit.common.menu.MenuUtil;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.ModuleMain;
@@ -26,7 +28,7 @@ final class ShulkerBox extends Listener {
     public ShulkerBox() {
         super(
                 ModuleMain.instance,
-                List.of("enable")
+                ConfigSetting.getInstance().getConfig().enable() && ConfigSetting.getInstance().getConfig().items().shulkerBox()
         );
     }
 

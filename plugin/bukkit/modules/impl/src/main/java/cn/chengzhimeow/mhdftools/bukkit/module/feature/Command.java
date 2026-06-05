@@ -2,7 +2,6 @@ package cn.chengzhimeow.mhdftools.bukkit.module.feature;
 
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
-import cn.chengzhimeow.mhdftools.config.ConfigUtil;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
@@ -23,9 +22,9 @@ public abstract class Command implements TabExecutor {
     private final boolean onlyPlayer;
     private final String[] commands;
 
-    public Command(@NotNull Module module, @NotNull List<String> enableKeyList, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+    public Command(@NotNull Module module, boolean enable, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
         this.module = module;
-        this.enable = ConfigUtil.equalsTrue(module.getConfig().getData(), enableKeyList);
+        this.enable = enable;
         this.description = description;
         this.permission = permission;
         this.onlyPlayer = onlyPlayer;
@@ -33,7 +32,7 @@ public abstract class Command implements TabExecutor {
     }
 
     public Command(@NotNull Module module, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
-        this(module, new ArrayList<>(), description, permission, onlyPlayer, commands);
+        this(module, true, description, permission, onlyPlayer, commands);
     }
 
     @Override

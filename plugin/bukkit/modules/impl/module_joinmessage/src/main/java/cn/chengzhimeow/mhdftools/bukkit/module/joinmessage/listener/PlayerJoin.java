@@ -1,7 +1,5 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.joinmessage.listener;
 
-import cn.chengzhimeow.cccondition.condition.ConditionBuilder;
-import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.common.condition.ConditionManager;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
@@ -20,7 +18,7 @@ final class PlayerJoin extends Listener {
     public PlayerJoin() {
         super(
                 ModuleMain.instance,
-                List.of("enable")
+                ConfigSetting.getInstance().getConfig().enable()
         );
     }
 
@@ -28,27 +26,17 @@ final class PlayerJoin extends Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        // 移除消息
-        if (ConfigSetting.getInstance().getData().getBoolean("remove_message")) {
+        if (ConfigSetting.getInstance().getConfig().removeMessage()) {
             event.joinMessage(null);
             return;
         }
 
-        ConfigurationSection config = ConfigSetting.getInstance().getData().getConfigurationSection("groups");
-        if (config == null) return;
-
-        ConfigurationSection lastGroup = null;
+        ConfigSetting.Config.Group lastGroup = null;
         int lastWeight = -1;
-        for (String key : config.getKeys(false)) {
-            ConfigurationSection group = config.getConfigurationSection(key);
-            if (group == null) continue;
+        for (ConfigSetting.Config.Group group : ConfigSetting.getInstance().getConfig().groups().values()) {
+            if (!ConditionManager.getInstance().condition(player, group.conditions())) continue;
 
-            // 检查是否满足条件
-            List<ConditionBuilder.Builder> conditions = ConditionManager.getInstance().getConditionListFromConfig(group, "conditions");
-            if (!ConditionManager.getInstance().condition(player, conditions)) continue;
-
-            // 检查是否是更大的权重
-            int weight = group.getInt("weight");
+            int weight = group.weight();
             if (weight <= lastWeight) continue;
             lastWeight = weight;
             lastGroup = group;
@@ -61,7 +49,7 @@ final class PlayerJoin extends Listener {
 
         event.joinMessage(ColorUtil.color(
                 PlaceholderCompatibilityRegistry.getInstance().get(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API)
-                        .parseString(player, lastGroup.getString("message"))
+                        .parseString(player, lastGroup.message())
         ));
     }
 }

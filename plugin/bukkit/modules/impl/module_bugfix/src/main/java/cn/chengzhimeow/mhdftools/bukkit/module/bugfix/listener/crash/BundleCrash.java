@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bugfix.listener.crash;
 
+import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.config.ConfigSetting;
+
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.packetevents.PacketEventsManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.PacketListener;
@@ -15,7 +17,7 @@ final class BundleCrash extends PacketListener {
     public BundleCrash() {
         super(
                 ModuleMain.instance,
-                List.of("crash.bundle.enable"),
+                ConfigSetting.getInstance().getConfig().crash().bundle().enable(),
                 PacketListenerPriority.LOWEST
         );
     }

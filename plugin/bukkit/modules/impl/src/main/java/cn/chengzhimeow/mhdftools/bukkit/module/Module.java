@@ -27,5 +27,5 @@ public abstract class Module {
     public void onDisable() {
     }
 
-    public abstract @NotNull AbstractYamlSetting getConfig();
+    public abstract @NotNull AbstractYamlSetting<?> getConfig();
 }

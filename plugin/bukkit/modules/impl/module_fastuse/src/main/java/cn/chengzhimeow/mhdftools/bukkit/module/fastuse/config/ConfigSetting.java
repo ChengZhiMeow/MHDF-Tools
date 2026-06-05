@@ -1,18 +1,13 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fastuse.config;
 
-import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
-import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionAction;
-import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionActionManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import lombok.Getter;
 
-import java.util.List;
-import java.util.Objects;
-
-public final class ConfigSetting extends AbstractYamlSetting {
+public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Config> {
     @Getter(lazy = true)
     private static final ConfigSetting instance = new ConfigSetting();
+    @Getter private Config config;
 
     private ConfigSetting() {
     }
@@ -31,12 +26,25 @@ public final class ConfigSetting extends AbstractYamlSetting {
     public void reload() {
         super.reload();
 
-        // 检查条件与操作配置是否正确
-        ConfigurationSection list = this.getData().getConfigurationSection("list");
-        for (String key : Objects.requireNonNull(list).getKeys(false)) {
-            ConfigurationSection section = list.getConfigurationSection(key);
-            List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(Objects.requireNonNull(section), "action");
-            ConditionActionManager.getInstance().check(conditionActions);
+        this.config = new Config(
+                super.getData().getBoolean("enable"),
+                new Config.Items(
+                        super.getData().getBoolean("items.shulker_box"),
+                        super.getData().getBoolean("items.ender_chest"),
+                        super.getData().getBoolean("items.crafting_table")
+                )
+        );
+    }
+
+    public record Config(
+            boolean enable,
+            Items items
+    ) {
+        public record Items(
+                boolean shulkerBox,
+                boolean enderChest,
+                boolean craftingTable
+        ) {
         }
     }
 }

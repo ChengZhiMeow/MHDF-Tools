@@ -4,7 +4,6 @@ import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
 import cn.chengzhimeow.mhdftools.bukkit.module.thread.MenuThread;
-import cn.chengzhimeow.mhdftools.config.ConfigUtil;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -13,21 +12,18 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 public abstract class Menu implements InventoryHolder {
     private final boolean enable;
     private final Player player;
 
-    public Menu(Module module, List<String> enableKeyList, Player player) {
-        this.enable = ConfigUtil.equalsTrue(module.getConfig().getData(), enableKeyList);
+    public Menu(Module module, boolean enable, Player player) {
+        this.enable = enable;
         this.player = player;
     }
 
     public Menu(Module module, Player player) {
-        this(module, new ArrayList<>(), player);
+        this(module, true, player);
     }
 
     /**

@@ -14,24 +14,24 @@ final class Suicide extends Command {
     public Suicide() {
         super(
                 ModuleMain.instance,
-                List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 "自杀",
                 "mhdftools.commands.suicide",
                 true,
-                ConfigSetting.getInstance().getData().getStringList("commands").toArray(new String[0])
+                ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 世界黑名单
-        if (ConfigSetting.getInstance().getData().getStringList("black_world").contains(sender.getWorld().getName())) {
+        if (ConfigSetting.getInstance().getConfig().blackWorld().contains(sender.getWorld().getName())) {
             sender.sendMessage(GlobalLangSetting.getInstance().i18n("black_world"));
             return;
         }
 
         // 无需确认
-        if (!ConfigSetting.getInstance().getData().getBoolean("confirm")) {
+        if (!ConfigSetting.getInstance().getConfig().confirm()) {
             this.suicide(sender);
             return;
         }

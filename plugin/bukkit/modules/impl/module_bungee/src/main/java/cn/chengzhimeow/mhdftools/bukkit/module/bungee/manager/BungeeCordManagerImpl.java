@@ -35,7 +35,7 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
 
     @Override
     public boolean isBungeeCordMode() {
-        return ConfigSetting.getInstance().getData().getBoolean("enable");
+        return ConfigSetting.getInstance().getConfig().enable();
     }
 
     @Override

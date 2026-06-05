@@ -9,9 +9,10 @@ import java.net.Proxy;
 import java.util.Locale;
 import java.util.Objects;
 
-public final class ProxySetting extends AbstractYamlSetting {
+public final class ProxySetting extends AbstractYamlSetting<ProxySetting.Config> {
     @Getter(lazy = true)
     private static final ProxySetting instance = new ProxySetting();
+    @Getter private Config config;
 
     private ProxySetting() {
     }
@@ -26,22 +27,36 @@ public final class ProxySetting extends AbstractYamlSetting {
         return "proxy.yml";
     }
 
+    @Override
+    public void reload() {
+        super.reload();
+
+        ConfigurationSection proxy = super.getData().getConfigurationSection("proxy");
+        if (proxy == null || !proxy.getBoolean("enable")) {
+            this.config = new Config(Proxy.NO_PROXY);
+            return;
+        }
+
+        String type = proxy.getString("type");
+        String host = proxy.getString("host");
+        int port = proxy.getInt("port");
+        if (type == null || host == null || port == 0) {
+            this.config = new Config(Proxy.NO_PROXY);
+            return;
+        }
+
+        this.config = new Config(new Proxy(Proxy.Type.valueOf(type.toUpperCase(Locale.ROOT)), new InetSocketAddress(Objects.requireNonNull(host), port)));
+    }
+
     /**
-     * 获取代理实例
-     *
-     * @return 代理实例
-     */
+     * 閼惧嘲褰囨禒锝囨倞鐎圭偘绶?     *
+     * @return 娴狅絿鎮婄€圭偘绶?     */
     public Proxy getProxy() {
-        ConfigurationSection config = super.getData().getConfigurationSection("proxy");
+        return this.config.proxy();
+    }
 
-        if (config == null) return Proxy.NO_PROXY;
-        if (!config.getBoolean("enable")) return Proxy.NO_PROXY;
-
-        String type = config.getString("type");
-        String host = config.getString("host");
-        int port = config.getInt("port");
-        if (type == null || host == null || port == 0) return Proxy.NO_PROXY;
-
-        return new Proxy(Proxy.Type.valueOf(type.toUpperCase(Locale.ROOT)), new InetSocketAddress(Objects.requireNonNull(host), port));
+    public record Config(
+            Proxy proxy
+    ) {
     }
 }

@@ -21,7 +21,7 @@ public final class ModuleMain extends Module {
     }
 
     @Override
-    public @NotNull AbstractYamlSetting getConfig() {
+    public @NotNull AbstractYamlSetting<ConfigSetting.Config> getConfig() {
         return ConfigSetting.getInstance();
     }
 }

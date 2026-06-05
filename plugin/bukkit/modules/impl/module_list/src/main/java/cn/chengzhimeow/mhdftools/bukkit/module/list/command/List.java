@@ -15,11 +15,11 @@ final class List extends Command {
     public List() {
         super(
                 ModuleMain.instance,
-                java.util.List.of("enable"),
+                ConfigSetting.getInstance().getConfig().enable(),
                 "查看在线列表",
                 "mhdftools.commands.list",
                 false,
-                ConfigSetting.getInstance().getData().getStringList("commands").toArray(new String[0])
+                ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
         );
     }
 
@@ -33,7 +33,7 @@ final class List extends Command {
             return;
         }
 
-        boolean getPlayerListFromBungeeCord = ConfigSetting.getInstance().getData().getBoolean("get_player_list_from_bungeecord");
+        boolean getPlayerListFromBungeeCord = ConfigSetting.getInstance().getConfig().getPlayerListFromBungeecord();
         java.util.List<String> playerList = getPlayerListFromBungeeCord
                                             ? BungeeCordManager.getInstance().getPlayerList()
                                             : BungeeCordManager.getInstance().getBukkitPlayerList();

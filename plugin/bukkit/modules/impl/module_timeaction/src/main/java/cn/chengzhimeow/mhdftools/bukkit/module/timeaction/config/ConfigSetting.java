@@ -7,11 +7,13 @@ import cn.chengzhimeow.mhdftools.bukkit.module.timeaction.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public final class ConfigSetting extends AbstractYamlSetting {
+public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Config> {
     @Getter(lazy = true)
     private static final ConfigSetting instance = new ConfigSetting();
+    @Getter private Config config;
 
     private ConfigSetting() {
     }
@@ -30,16 +32,41 @@ public final class ConfigSetting extends AbstractYamlSetting {
     public void reload() {
         super.reload();
 
-        // 检查条件与操作配置是否正确
-        ConfigurationSection list = this.getData().getConfigurationSection("list");
-        if (list == null) return;
+        List<Config.Action> actions = new ArrayList<>();
+        ConfigurationSection list = super.getData().getConfigurationSection("list");
+        if (list != null) {
+            for (String key : list.getKeys(false)) {
+                ConfigurationSection section = list.getConfigurationSection(key);
+                if (section == null) continue;
 
-        for (String key : list.getKeys(false)) {
-            ConfigurationSection section = list.getConfigurationSection(key);
-            if (section == null) continue;
+                List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(section, "action");
+                ConditionActionManager.getInstance().check(conditionActions);
 
-            List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(section, "action");
-            ConditionActionManager.getInstance().check(conditionActions);
+                actions.add(new Config.Action(
+                        key,
+                        section.getString("type"),
+                        section.getString("time"),
+                        conditionActions
+                ));
+            }
+        }
+
+        this.config = new Config(
+                super.getData().getBoolean("enable"),
+                actions
+        );
+    }
+
+    public record Config(
+            boolean enable,
+            List<Action> actions
+    ) {
+        public record Action(
+                String id,
+                String type,
+                String time,
+                List<ConditionAction> actions
+        ) {
         }
     }
 }
