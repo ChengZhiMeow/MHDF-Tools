@@ -8,6 +8,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.knockback.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.knockback.config.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.knockback.util.KnockbackUtil;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -37,29 +38,29 @@ final class Knockback extends Command {
         ItemStack handItem = sender.getInventory().getItemInMainHand();
 
         if (handItem.getType() == Material.AIR) {
-            sender.sendMessage(LangSetting.getInstance().i18n("commands.hat.no_item"));
+            sender.sendMessage(LangSetting.getInstance().getConfig().commands().knockback().noType());
             return;
         }
 
         sender.getInventory().setItemInMainHand(oldHelmet);
         sender.getInventory().setHelmet(handItem);
 
-        sender.sendMessage(LangSetting.getInstance().i18n("commands.hat.message"));
+        sender.sendMessage(LangSetting.getInstance().getConfig().commands().knockback().message());
     }
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 1 && args.length != 2) {
-            sender.sendMessage(LangSetting.getInstance().i18n("usageError")
-                    .replace("{usage}", LangSetting.getInstance().i18n("commands.knockback.usage"))
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                    .replace("{usage}", LangSetting.getInstance().getConfig().commands().knockback().usage())
                     .replace("{command}", label));
             return;
         }
 
         Player player = Bukkit.getPlayer(args[0]);
         if (player == null) {
-            sender.sendMessage(GlobalLangSetting.getInstance().i18n("player_offline"));
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
             return;
         }
 
@@ -73,13 +74,19 @@ final class Knockback extends Command {
         Vector vector = new Vector(x, y, z);
 
         if (type == null || !KnockbackUtil.knockbackPlayer(player, type, vector)) {
-            sender.sendMessage(LangSetting.getInstance().i18n("commands.knockback.no_type"));
+            sender.sendMessage(LangSetting.getInstance().getConfig().commands().knockback().noType());
             return;
         }
 
-        sender.sendMessage(LangSetting.getInstance().i18n("commands.knockback.message")
+        TextComponent typeText = switch (type) {
+            case "normal" -> LangSetting.getInstance().getConfig().commands().knockback().types().normal();
+            case "random" -> LangSetting.getInstance().getConfig().commands().knockback().types().random();
+            default -> new TextComponent();
+        };
+
+        sender.sendMessage(LangSetting.getInstance().getConfig().commands().knockback().message()
                 .replace("{player}", MHDFToolsBukkitAdapt.adapt(player).getDisplayName())
-                .replace("{type}", LangSetting.getInstance().i18n("commands.knockback.types." + type)));
+                .replace("{type}", typeText));
     }
 
     @Override

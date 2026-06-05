@@ -1,6 +1,7 @@
 package cn.chengzhimeow.mhdftools.config;
 
 import cn.chengzhimeow.ccyaml.CCYaml;
+import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.LibrarySetting;
 import cn.chengzhimeow.mhdftools.config.impl.ProxySetting;
 import lombok.Getter;
@@ -34,5 +35,9 @@ public final class ConfigManager {
         ProxySetting.getInstance().saveDefaultFile();
         ProxySetting.getInstance().update();
         ProxySetting.getInstance().reload();
+
+        GlobalLangSetting.getInstance().saveDefaultFile();
+        GlobalLangSetting.getInstance().update();
+        GlobalLangSetting.getInstance().reload();
     }
 }

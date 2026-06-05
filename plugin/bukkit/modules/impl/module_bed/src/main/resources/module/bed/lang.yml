@@ -2,7 +2,7 @@
 config_version: "${project.version}"
 
 commands:
-  suicide:
+  bed:
     usage: "/{command}"
     description: "回到床的位置"
     no_bed: "{prefix} <#FFB8B8>找不到你床的位置!"

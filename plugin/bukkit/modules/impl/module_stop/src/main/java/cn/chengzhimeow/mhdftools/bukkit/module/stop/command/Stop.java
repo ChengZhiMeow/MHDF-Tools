@@ -41,27 +41,27 @@ final class Stop extends Command {
             switch (args[0]) {
                 case "help" -> {
                     if (args.length != 1) {
-                        sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
-                                .replace("{usage}", LangSetting.getInstance().i18n("commands.stop.sub_commands.help.usage"))
+                        sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                                .replace("{usage}", LangSetting.getInstance().getConfig().commands().stop().subCommands().help().usage())
                                 .replace("{command}", label));
                         return;
                     }
 
-                    sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.sub_commands.help.message")
-                            .replace("{help_list}", LangSetting.getInstance().getHelpList("commands.stop.sub_commands"))
+                    sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().subCommands().help().message()
+                            .replace("{help_list}", LangSetting.getInstance().getConfig().commands().stop().helpList())
                             .replace("{command}", label));
                     return;
                 }
                 case "confirm" -> {
                     if (args.length != 1) {
-                        sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
-                                .replace("{usage}", LangSetting.getInstance().i18n("commands.stop.sub_commands.confirm.usage"))
+                        sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                                .replace("{usage}", LangSetting.getInstance().getConfig().commands().stop().subCommands().confirm().usage())
                                 .replace("{command}", label));
                         return;
                     }
 
                     if (this.time == null || this.message == null) {
-                        sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.sub_commands.confirm.no_stop"));
+                        sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().subCommands().confirm().noStop());
                         return;
                     }
 
@@ -70,26 +70,26 @@ final class Stop extends Command {
                 }
                 case "cancel" -> {
                     if (args.length != 1) {
-                        sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
-                                .replace("{usage}", LangSetting.getInstance().i18n("commands.stop.sub_commands.cancel.usage"))
+                        sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                                .replace("{usage}", LangSetting.getInstance().getConfig().commands().stop().subCommands().cancel().usage())
                                 .replace("{command}", label));
                         return;
                     }
 
                     if (!this.stop) {
-                        sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.sub_commands.cancel.no_stop"));
+                        sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().subCommands().cancel().noStop());
                         return;
                     }
 
                     this.stop = false;
-                    sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.sub_commands.cancel.message"));
+                    sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().subCommands().cancel().message());
                     return;
                 }
             }
         }
 
         if (this.stop) {
-            sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.sub_commands.default.in_stop"));
+            sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().subCommands().defaultCommand().inStop());
             return;
         }
 
@@ -98,13 +98,13 @@ final class Stop extends Command {
             int defaultTime = ConfigSetting.getInstance().getConfig().countdown().defaultTime();
             this.time = args.length >= 1 ? Integer.parseInt(args[0]) : defaultTime;
         } catch (NumberFormatException e) {
-            sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.time_format_error"));
+            sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().timeFormatError());
             return;
         }
 
         // 修改关服提示
         {
-            TextComponent defaultMessage = LangSetting.getInstance().i18n("commands.stop.default_message");
+            TextComponent defaultMessage = LangSetting.getInstance().getConfig().commands().stop().defaultReason();
             this.message = args.length >= 2 ? ColorUtil.color(args[1]) : defaultMessage;
         }
 
@@ -114,14 +114,14 @@ final class Stop extends Command {
             return;
         }
 
-        sender.sendMessage(LangSetting.getInstance().i18n("commands.stop.sub_commands.default.message")
+        sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().subCommands().defaultCommand().message()
                 .replace("{time}", String.valueOf(this.time))
                 .replace("{message}", this.message));
     }
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) return new ArrayList<>(LangSetting.getInstance().getKeys("commands.stop.sub_commands"));
+        if (args.length == 1) return new ArrayList<>(LangSetting.getInstance().getConfig().commands().stop().subCommandNames());
         return new ArrayList<>();
     }
 
@@ -150,7 +150,7 @@ final class Stop extends Command {
                     CCScheduler.getInstance().getGlobalRegionScheduler().runTask(plugin, () -> {
                         Bukkit.savePlayers();
 
-                        Component kickMessage = LangSetting.getInstance().i18n("commands.stop.kick_message")
+                        Component kickMessage = LangSetting.getInstance().getConfig().commands().stop().kickMessage()
                                 .replace("{message}", message);
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             player.kick(kickMessage);
@@ -162,7 +162,7 @@ final class Stop extends Command {
                 }
 
                 if (ConfigSetting.getInstance().getConfig().countdown().showMessageTime().contains(countdown)) {
-                    Bukkit.broadcast(LangSetting.getInstance().i18n("commands.stop.countdown")
+                    Bukkit.broadcast(LangSetting.getInstance().getConfig().commands().stop().countdown()
                             .replace("{countdown}", String.valueOf(countdown)));
                 }
                 countdown--;

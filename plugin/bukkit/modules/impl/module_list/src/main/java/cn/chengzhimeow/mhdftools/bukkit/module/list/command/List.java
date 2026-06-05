@@ -27,8 +27,8 @@ final class List extends Command {
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
-                    .replace("{usage}", LangSetting.getInstance().i18n("commands.list.usage"))
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                    .replace("{usage}", LangSetting.getInstance().getConfig().commands().list().usage())
                     .replace("{command}", label));
             return;
         }
@@ -38,7 +38,7 @@ final class List extends Command {
                                             ? BungeeCordManager.getInstance().getPlayerList()
                                             : BungeeCordManager.getInstance().getBukkitPlayerList();
 
-        sender.sendMessage(LangSetting.getInstance().i18n("commands.list.message")
+        sender.sendMessage(LangSetting.getInstance().getConfig().commands().list().message()
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))
                 .replace("{memory}", String.valueOf(ListUtil.getUsedMemory()))
                 .replace("{max_memory}", String.valueOf(ListUtil.getTotalMemory()))

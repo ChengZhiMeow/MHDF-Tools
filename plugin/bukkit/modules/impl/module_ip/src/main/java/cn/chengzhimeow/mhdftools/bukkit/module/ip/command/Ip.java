@@ -30,20 +30,20 @@ final class Ip extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 1) {
-            sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
-                    .replace("{usage}", LangSetting.getInstance().i18n("commands.ip.usage"))
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                    .replace("{usage}", LangSetting.getInstance().getConfig().commands().ip().usage())
                     .replace("{command}", label));
             return;
         }
 
         Player player = Bukkit.getPlayer(args[0]);
         if (player == null) {
-            sender.sendMessage(LangSetting.getInstance().i18n("player_offline"));
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
             return;
         }
 
         String ip = Objects.requireNonNull(player.getAddress()).getHostString();
-        sender.sendMessage(LangSetting.getInstance().i18n("commands.ip.message")
+        sender.sendMessage(LangSetting.getInstance().getConfig().commands().ip().message()
                 .replace("{player}", player.getName())
                 .replace("{ip}", ip)
                 .replace("{location}", IpLocationUtil.getIpLocation(ip)));

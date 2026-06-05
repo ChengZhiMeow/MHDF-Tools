@@ -26,7 +26,7 @@ final class Suicide extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 世界黑名单
         if (ConfigSetting.getInstance().getConfig().blackWorld().contains(sender.getWorld().getName())) {
-            sender.sendMessage(GlobalLangSetting.getInstance().i18n("black_world"));
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().blackWorld());
             return;
         }
 
@@ -37,7 +37,7 @@ final class Suicide extends Command {
         }
 
         if (args.length == 0) {
-            sender.sendMessage(LangSetting.getInstance().i18n("commands.suicide.confirm"));
+            sender.sendMessage(LangSetting.getInstance().getConfig().commands().suicide().confirm());
             return;
         } else if (args.length == 1 && args[0].equals("confirm")) {
             this.suicide(sender);
@@ -45,13 +45,13 @@ final class Suicide extends Command {
         }
 
         // 输出帮助信息
-        sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
-                .replace("{usage}", LangSetting.getInstance().i18n("commands.suicide.usage"))
+        sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                .replace("{usage}", LangSetting.getInstance().getConfig().commands().suicide().usage())
                 .replace("{command}", label));
     }
 
     private void suicide(Player player) {
         player.setHealth(0.0);
-        player.sendMessage(LangSetting.getInstance().i18n("commands.suicide.message"));
+        player.sendMessage(LangSetting.getInstance().getConfig().commands().suicide().message());
     }
 }

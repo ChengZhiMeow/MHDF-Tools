@@ -28,8 +28,8 @@ final class Hat extends Command {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            sender.sendMessage(GlobalLangSetting.getInstance().i18n("usage_error")
-                    .replace("{usage}", LangSetting.getInstance().i18n("commands.hat.usage"))
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
+                    .replace("{usage}", LangSetting.getInstance().getConfig().commands().hat().usage())
                     .replace("{command}", label));
             return;
         }
@@ -38,13 +38,13 @@ final class Hat extends Command {
         ItemStack handItem = sender.getInventory().getItemInMainHand();
 
         if (handItem.getType() == Material.AIR) {
-            sender.sendMessage(LangSetting.getInstance().i18n("commands.hat.no_item"));
+            sender.sendMessage(LangSetting.getInstance().getConfig().commands().hat().noItem());
             return;
         }
 
         sender.getInventory().setItemInMainHand(oldHelmet);
         sender.getInventory().setHelmet(handItem);
 
-        sender.sendMessage(LangSetting.getInstance().i18n("commands.hat.message"));
+        sender.sendMessage(LangSetting.getInstance().getConfig().commands().hat().message());
     }
 }

@@ -39,7 +39,7 @@ public abstract class Command implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
         if (this.onlyPlayer) {
             if (sender instanceof Player player) this.execute(player, label, args);
-            else sender.sendMessage(GlobalLangSetting.getInstance().i18n("only_player"));
+            else sender.sendMessage(GlobalLangSetting.getInstance().getConfig().onlyPlayer());
             return false;
         }
         this.execute(sender, label, args);
