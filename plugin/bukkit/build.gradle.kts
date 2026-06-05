@@ -19,6 +19,13 @@ allprojects {
     }
 }
 
+sourceSets {
+    main {
+        java.setSrcDirs(emptyList<String>())
+        resources.setSrcDirs(emptyList<String>())
+    }
+}
+
 dependencies {
     api(project(":plugin:bukkit:api_bukkit"))
     api(project(":plugin:bukkit:common_bukkit"))

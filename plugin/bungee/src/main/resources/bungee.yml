@@ -1,5 +1,0 @@
-name: MHDF-Tools-Bungee
-version: '${project.version}'
-main: cn.chengzhimeow.mhdftools.bungee.Main
-authoendrs: [ ChengZhiMeow ]
-contributors: [ Dg32z_, Loyisa, Sn0wo2, jhqwqmc, sdfsfsk ]

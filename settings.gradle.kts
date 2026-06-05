@@ -34,9 +34,6 @@ include(":plugin:bukkit:modules:impl:module_stop")
 include(":plugin:bukkit:modules:impl:module_suicide")
 include(":plugin:bukkit:modules:impl:module_timeaction")
 
-include(":plugin:bungee")
-include(":plugin:velocity")
-
 pluginManagement {
     repositories {
         gradlePluginPortal()

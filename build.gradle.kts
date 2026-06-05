@@ -27,7 +27,6 @@ allprojects {
         maven("https://repo.codemc.io/repository/maven-releases")
         maven("https://repo.codemc.io/repository/maven-snapshots")
         maven("https://repo.catnies.top/releases")
-        maven("https://repo.catnies.top/mhdf")
         maven("https://jitpack.io")
     }
 
@@ -48,23 +47,17 @@ allprojects {
     tasks {
         processResources {
             filesMatching("**/*.yml") {
-                val expansionProps = mutableMapOf<String, Any?>()
-
-                project.properties.forEach { (k, v) ->
-                    if (k.contains(".")) {
-                        val args = k.split(".")
-
-                        var currentMap = expansionProps
-                        args.dropLast(1).forEach {
-                            currentMap = currentMap
-                                .getOrPut(it) { mutableMapOf<String, Any>() } as MutableMap<String, Any?>
-                        }
-
-                        currentMap[args.last()] = v
-                    } else expansionProps[k] = v
+                val props = mutableMapOf<String, Any?>()
+                project.properties.forEach { (key, value) ->
+                    key.split(".").let { keys ->
+                        keys.dropLast(1).fold(props) { map, k ->
+                            map.getOrPut(k) { mutableMapOf<String, Any?>() } as MutableMap<String, Any?>
+                        }[keys.last()] = value
+                    }
                 }
 
-                expand(expansionProps)
+                filter { it.replace(Regex("""\$(?!\{)"""), """\$""") }
+                expand(props)
             }
         }
     }
@@ -75,8 +68,6 @@ dependencies {
     implementation(project(":common"))
 
     implementation(project(":plugin:bukkit"))
-    implementation(project(":plugin:bungee"))
-    implementation(project(":plugin:velocity"))
 }
 
 // 任务配置
@@ -97,6 +88,8 @@ tasks {
             "com.mysql",
             "cn.chengzhimeow.ccscheduler",
             "cn.chengzhimeow.ccyaml",
+            "cn.chengzhimeow.ccaction",
+            "cn.chengzhimeow.cccondition",
             "cn.chengzhiya",
             "com.alibaba",
             "org.reflections",
@@ -132,4 +125,3 @@ tasks.withType(xyz.jpenilla.runtask.task.AbstractRun::class) {
     jvmArgs("-Xlog:redefine+class*=info")
     jvmArgs("-XX:+AllowEnhancedClassRedefinition")
 }
-

@@ -11,7 +11,7 @@ publishing {
     repositories {
         maven {
             name = "nachorealms-repository-releases"
-            url = uri("https://repo-eo.catnies.top/releases")
+            url = uri("https://repo.catnies.top/releases")
             credentials(PasswordCredentials::class)
             authentication { create<BasicAuthentication>("basic") }
         }
