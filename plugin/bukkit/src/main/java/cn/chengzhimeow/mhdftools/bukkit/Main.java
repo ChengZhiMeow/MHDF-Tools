@@ -4,10 +4,14 @@ import cn.chengzhimeow.ccyaml.CCYaml;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsAPIImpl;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheManager;
+import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheManagerImpl;
+import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheSettings;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManagerImpl;
-import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
+import cn.chengzhimeow.mhdftools.bukkit.api.redis.RedisManagerImpl;
+import cn.chengzhimeow.mhdftools.bukkit.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.menu.listener.MenuListener;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
@@ -26,12 +30,9 @@ public final class Main extends MHDFToolsBukkit {
     public static Main instance;
 
     private DatabaseManager databaseManager;
-    private final ItemManager itemManager = new ItemManagerImpl();
-
-    @Override
-    public ItemManager getItemManager() {
-        return this.itemManager;
-    }
+    private CacheManagerImpl cacheManager;
+    private RedisManagerImpl redisManager;
+    private ItemManager itemManager;
 
     @Override
     @SneakyThrows
@@ -44,7 +45,7 @@ public final class Main extends MHDFToolsBukkit {
         PluginManager.getInstance().serverType = ServerType.BUKKIT;
 
         ConfigManager.getInstance().setDataFolder(this.getDataFolder());
-        ConfigManager.getInstance().setYamlManager(new CCYaml(this.getClassLoader(), this.getDataFolder(), this.getDescription().getVersion()));
+        ConfigManager.getInstance().setYamlManager(new CCYaml(this.getClassLoader(), this.getDataFolder(), PluginManager.getInstance().version));
         ConfigManager.getInstance().init();
 
         LibraryManager.getInstance().setLoggerManager(new LoggerManager() {
@@ -73,11 +74,25 @@ public final class Main extends MHDFToolsBukkit {
     }
 
     @Override
+    public CacheManager getCacheManager() {
+        return this.cacheManager;
+    }
+
+    @Override
     public void onEnable() {
+        CacheSettings cacheSettings = new CacheSettings(ConfigSetting.getInstance().getData().getConfigurationSection("cacheSettings"));
+        this.cacheManager = new CacheManagerImpl(cacheSettings);
+
         this.databaseManager = new DatabaseManager(this, ConfigSetting.getInstance().getData());
         this.databaseManager.connect();
         this.databaseManager.initTable();
-        MenuListener.register(this);
+
+        this.redisManager = new RedisManagerImpl();
+        this.redisManager.configure(cacheSettings);
+
+        this.itemManager = new ItemManagerImpl();
+
+        Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
 
         MHDFToolsAPI.setInstance(new MHDFToolsAPIImpl(this.databaseManager));
         LogManager.instance.log("&aMHDF-Tools enabled.");
@@ -85,9 +100,10 @@ public final class Main extends MHDFToolsBukkit {
 
     @Override
     public void onDisable() {
-        if (this.databaseManager != null) {
-            this.databaseManager.close();
-        }
+        if (this.databaseManager != null) this.databaseManager.close();
+        if (this.redisManager != null) this.redisManager.close();
+        if (this.cacheManager != null) this.cacheManager.close();
+
         MHDFToolsAPI.setInstance(null);
         LogManager.instance.log("&aMHDF-Tools disabled.");
     }

@@ -2,6 +2,11 @@ plugins {
     id("maven-publish")
 }
 
+dependencies {
+    compileOnly("${rootProject.properties["libs.nyana_cache"]}")
+    compileOnly("${rootProject.properties["libs.nyana_message"]}")
+}
+
 publishing {
     repositories {
         maven {

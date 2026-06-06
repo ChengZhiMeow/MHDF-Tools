@@ -5,7 +5,6 @@ import cn.chengzhimeow.mhdftools.bukkit.module.bungee.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.listener.PluginMessage;
 import cn.chengzhimeow.mhdftools.console.LogManager;
-import com.alibaba.fastjson2.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import lombok.Getter;
@@ -13,9 +12,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public final class BungeeCordManagerImpl extends BungeeCordManager {
     @Getter(lazy = true)
@@ -28,7 +25,7 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
     @Setter
     private String serverName = "无";
     @Setter
-    private List<String> playerList = new ArrayList<>();
+    private Set<String> playerList = new HashSet<>();
 
     private BungeeCordManagerImpl() {
     }
@@ -78,23 +75,6 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
     }
 
     /**
-     * 发送梦之工具插件消息
-     *
-     * @param data 消息数据实例
-     */
-    private void postWithMHDFTools(JSONObject data) {
-        if (data.getJSONObject("params") == null) data.put("params", new JSONObject());
-
-        String dataString = data.toJSONString();
-        LogManager.instance.debug("发送梦之工具插件消息至群组端 | 消息: {}", dataString);
-
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("mhdf_tools");
-        out.writeUTF(dataString);
-        this.post(out);
-    }
-
-    /**
      * 更新BC玩家列表数据
      */
     private void updatePlayerList() {
@@ -109,11 +89,10 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
      * 更新BC服务器名称数据
      */
     private void updateServerName() {
-        JSONObject data = new JSONObject();
-        data.put("action", "server_info");
-        data.put("to", "me");
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("GetServer");
 
-        this.postWithMHDFTools(data);
+        this.post(out);
     }
 
     /**

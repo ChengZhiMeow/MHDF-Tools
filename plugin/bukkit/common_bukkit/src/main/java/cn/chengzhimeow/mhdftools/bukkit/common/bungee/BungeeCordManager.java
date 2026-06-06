@@ -18,6 +18,13 @@ public abstract class BungeeCordManager {
     public abstract boolean isBungeeCordMode();
 
     /**
+     * 获取服务器群组名称
+     *
+     * @return 群组名称
+     */
+    public abstract String getServerName();
+
+    /**
      * 获取子服在线玩家列表
      *
      * @return 子服在线玩家列表

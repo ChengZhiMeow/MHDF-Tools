@@ -34,6 +34,9 @@ dependencies {
     compileOnly("${rootProject.properties["libs.nyana_cache"]}")
     compileOnly("${rootProject.properties["libs.nyana_cache_hashmap"]}")
     compileOnly("${rootProject.properties["libs.nyana_cache_redis"]}")
+    compileOnly("${rootProject.properties["libs.nyana_message"]}")
+    compileOnly("${rootProject.properties["libs.nyana_nbt_tag"]}")
+    compileOnly("${rootProject.properties["libs.nyana_nbt_codec"]}")
 
     compileOnly("${rootProject.properties["plugin.vault"]}") {
         exclude("org.bukkit")

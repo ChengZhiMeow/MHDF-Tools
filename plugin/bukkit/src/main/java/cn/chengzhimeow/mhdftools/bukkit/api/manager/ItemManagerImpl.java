@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public final class ItemManagerImpl extends ItemManager {
+public final class ItemManagerImpl implements ItemManager {
     @Override
     public @NotNull ItemStack buildItemStack(@NotNull BuilderItem item) {
         return this.buildItemStack(item, null);

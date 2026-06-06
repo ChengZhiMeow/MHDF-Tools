@@ -1,0 +1,41 @@
+chat:
+  delay: "{prefix} <#FFB8B8>请等待 &f{delay}秒 <#FFB8B8>后再次发送消息!"
+  spam: "{prefix} <#FFB8B8>请不要发送重复消息!"
+  at:
+    all: "全体成员"
+    format: "<hover:show_text:'&f{target}'><#FFB8B8>@{target}</hover>"
+    title:
+      title: "&f{by}"
+      subtitle: ""
+      in: 20
+      step: 60
+      out: 20
+
+commands:
+  msg:
+    usage: "/{command} <玩家> <消息>"
+    description: "发送私聊消息"
+    receive: "{prefix} &7{player}悄悄向你说: {message}"
+    send: "{prefix} &7你向{target}悄悄说: {message}"
+  reply:
+    usage: "/{command} <消息>"
+    description: "回复私聊消息"
+    no_target: "{prefix} <#FFB8B8>找不到回复目标!"
+  lookitem:
+    usage: "/{command} <物品ID>"
+    description: "查看物品"
+    title: "展示物品"
+    no_data: "{prefix} <#FFB8B8>找不到物品数据,可能数据已过期!"
+    message: "{prefix} <#EAE4FF>你打开了一个展示物品!"
+  lookinventory:
+    usage: "/{command} <背包ID>"
+    description: "查看背包"
+    title: "展示背包"
+    no_data: "{prefix} <#FFB8B8>找不到背包数据,可能数据已过期!"
+    message: "{prefix} <#EAE4FF>你打开了一个展示背包!"
+  lookenderchest:
+    usage: "/{command} <末影箱ID>"
+    description: "查看末影箱"
+    title: "展示末影箱"
+    no_data: "{prefix} <#FFB8B8>找不到末影箱数据,可能数据已过期!"
+    message: "{prefix} <#EAE4FF>你打开了一个展示末影箱!"

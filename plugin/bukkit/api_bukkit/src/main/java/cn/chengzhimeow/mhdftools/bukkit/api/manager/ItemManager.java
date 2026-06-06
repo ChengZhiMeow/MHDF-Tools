@@ -6,8 +6,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class ItemManager {
-    public abstract @NotNull ItemStack buildItemStack(@NotNull BuilderItem item);
+public interface ItemManager {
+    @NotNull ItemStack buildItemStack(@NotNull BuilderItem item);
 
-    public abstract @NotNull ItemStack buildItemStack(@NotNull BuilderItem item, @Nullable Player player);
+    @NotNull ItemStack buildItemStack(@NotNull BuilderItem item, @Nullable Player player);
 }

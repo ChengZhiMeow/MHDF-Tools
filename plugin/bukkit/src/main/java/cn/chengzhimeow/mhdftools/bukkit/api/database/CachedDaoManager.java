@@ -26,9 +26,7 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
                 keyByString,
                 valueKey,
                 super::getById,
-                super::getList,
-                super::update,
-                super::delete
+                super::getList
         );
     }
 
@@ -50,7 +48,8 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
 
     @Override
     public void update(V value) {
-        this.cache.update(value);
+        super.update(value);
+        this.cache.put(value);
     }
 
     @Override
@@ -60,13 +59,13 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
             return;
         }
 
-        super.update(value, true);
-        this.cache.put(value);
+        this.getInstance().getDatabaseThread().execute(() -> this.update(value));
     }
 
     @Override
     public void delete(V value) {
-        this.cache.remove(value);
+        super.delete(value);
+        this.cache.removeCacheOnly(value);
     }
 
     @Override
@@ -76,8 +75,7 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
             return;
         }
 
-        super.delete(value, true);
-        this.cache.removeCacheOnly(value);
+        this.getInstance().getDatabaseThread().execute(() -> this.delete(value));
     }
 
     protected List<V> cacheList() {

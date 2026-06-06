@@ -2,6 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.api.database;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
+import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheSettings;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.feature.*;
 import cn.chengzhiya.mhdfdatabase.MHDFDatabase;
 import cn.chengzhiya.mhdfdatabase.entity.DatabaseConfig;
@@ -13,6 +14,7 @@ import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Objects;
 
 @Getter
 public final class DatabaseManager implements AutoCloseable {
@@ -39,11 +41,11 @@ public final class DatabaseManager implements AutoCloseable {
     public DatabaseManager(JavaPlugin plugin, ConfigurationSection root) {
         this.config = this.databaseConfig(plugin, root == null ? null : root.getConfigurationSection("databaseSettings"));
         this.cacheSettings = new CacheSettings(root == null ? null : root.getConfigurationSection("cacheSettings"));
-        this.cache = new DatabaseCache(this.cacheSettings);
+        this.cache = new DatabaseCache(this.cacheSettings.getServerId());
         this.database = new MHDFDatabase(this.config, MySQLDatabaseServiceImpl.class, H2DatabaseServiceImpl.class);
         this.moneyName = root == null ? "金币" : root.getString("economySettings.name", "金币");
-        this.defaultMoney = root == null ? 0D : root.getDouble("economySettings.default", 0D);
-        this.defaultPvp = root != null && root.getBoolean("pvpSettings.default", false);
+        this.defaultMoney = root == null ? 0D : root.getDouble("economySettings.default");
+        this.defaultPvp = root != null && root.getBoolean("pvpSettings.default");
 
         this.addTables();
         this.playerDataManager = new PlayerDataManagerImpl(this);
@@ -64,7 +66,7 @@ public final class DatabaseManager implements AutoCloseable {
         connectConfig.setDatabase(section == null ? "mhdf_tools" : section.getString("mysql.database", "mhdf_tools"));
         connectConfig.setUser(section == null ? "root" : section.getString("mysql.user", "root"));
         connectConfig.setPassword(section == null ? "root" : section.getString("mysql.password", "root"));
-        connectConfig.setFile(new File(plugin.getDataFolder(), section == null ? "database.db" : section.getString("h2.file", "database.db")));
+        connectConfig.setFile(new File(plugin.getDataFolder(), section == null ? "database.db" : Objects.requireNonNull(section.getString("h2.file", "database.db"))));
 
         ConfigurationSection prams = section == null ? null : section.getConfigurationSection("prams");
         if (prams != null) {
@@ -77,7 +79,7 @@ public final class DatabaseManager implements AutoCloseable {
         }
 
         DatabaseConfig config = new DatabaseConfig();
-        config.setType(section == null ? "h2" : section.getString("type", "h2"));
+        config.setType(section == null ? "h2" : Objects.requireNonNull(section.getString("type", "h2")));
         config.setConnectConfig(connectConfig);
         return config;
     }
@@ -105,7 +107,6 @@ public final class DatabaseManager implements AutoCloseable {
 
     @Override
     public void close() {
-        this.cache.close();
         this.database.getDatabaseService().close();
     }
 }
