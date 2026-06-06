@@ -1,0 +1,23 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 快速调节时间
+#
+# 开关
+enable: true
+# 时间
+time:
+  # 自定义命名
+  早上:
+    # 时间
+    time: 1000
+    # 命令
+    commands:
+      - "day"
+  # 自定义命名
+  晚上:
+    # 时间
+    time: 13000
+    # 命令
+    commands:
+      - "night"

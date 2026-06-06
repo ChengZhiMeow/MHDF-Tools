@@ -241,27 +241,6 @@ warpSettings:
   blackWorld:
     - "pvp"
 
-# 快速调节时间
-fastChangeTimeSettings:
-  # 开关
-  enable: true
-  # 时间
-  time:
-    # 自定义命名
-    早上:
-      # 时间
-      time: 1000
-      # 命令
-      commands:
-        - "day"
-    # 自定义命名
-    晚上:
-      # 时间
-      time: 13000
-      # 命令
-      commands:
-        - "night"
-
 # 快速调节天气
 fastChangeWeatherSettings:
   # 开关
