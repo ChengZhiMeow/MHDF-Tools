@@ -1,8 +1,0 @@
-title: "<#EAE4FF>展示背包"
-size: 36
-commands: [ ]
-openActions: [ ]
-closeActions: [ ]
-items:
-  物品:
-    slot: "0-35"

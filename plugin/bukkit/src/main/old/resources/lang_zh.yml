@@ -9,14 +9,6 @@ menu:
   vanish:
     title: "<#EAE4FF>隐身-容器"
 
-chat:
-  delay: "{prefix} <#FFB8B8>冷却中,你还需要等待&f{delay}<#FFB8B8>秒,才可以聊天!"
-  spam: "{prefix} <#FFB8B8>消息不能和上一条完全相同!"
-  at:
-    format: " &a@{name} "
-    all: "所有人"
-    title: "&e醒醒!|<#EAE4FF>你被 &f{by} <#EAE4FF>AT了!|20|70|10"
-
 gamemode:
   SURVIVAL: "生存模式"
   ADVENTURE: "冒险模式"
@@ -302,15 +294,6 @@ commands:
         description: "移除屏蔽玩家"
         noIgnore: "{prefix} &f{player} <#FFB8B8>没有被你屏蔽!"
         message: "{prefix} <#EAE4FF>你取消屏蔽了 &f{player}!"
-  msg:
-    usage: "/{command} <玩家> <消息>"
-    description: "发送私聊消息"
-    receive: "{prefix} &7{player}悄悄向你说: {message}"
-    send: "{prefix} &7你向{target}悄悄说: {message}"
-  reply:
-    usage: "/{command} <消息>"
-    description: "回复私聊消息"
-    noTarget: "{prefix} <#FFB8B8>找不到回复目标!"
   invsee:
     usage: "/{command} <玩家> <背包类型>"
     description: "查看背包"
@@ -328,18 +311,3 @@ commands:
     usage: "/{command}"
     description: "快速调节天气"
     message: "{prefix} <#EAE4FF>雨天已设置为 &f{storm}<#EAE4FF>,打雷已设置为 &f{thunder}<#EAE4FF>!"
-  lookitem:
-    usage: "/{command} <物品ID>"
-    description: "查看物品"
-    noData: "{prefix} <#FFB8B8>找不到物品数据,可能数据已过期!"
-    message: "{prefix} <#EAE4FF>你打开了一个展示物品!"
-  lookinventory:
-    usage: "/{command} <背包ID>"
-    description: "查看背包"
-    noData: "{prefix} <#FFB8B8>找不到背包数据,可能数据已过期!"
-    message: "{prefix} <#EAE4FF>你打开了一个展示背包!"
-  lookenderchest:
-    usage: "/{command} <末影箱ID>"
-    description: "查看末影箱"
-    noData: "{prefix} <#FFB8B8>找不到末影箱数据,可能数据已过期!"
-    message: "{prefix} <#EAE4FF>你打开了一个展示末影箱!"

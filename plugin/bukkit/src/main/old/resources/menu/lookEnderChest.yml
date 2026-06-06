@@ -1,8 +1,0 @@
-title: "<#EAE4FF>展示末影箱"
-size: 27
-commands: [ ]
-openActions: [ ]
-closeActions: [ ]
-items:
-  物品:
-    slot: "0-26"

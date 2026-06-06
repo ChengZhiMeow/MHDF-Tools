@@ -25,12 +25,18 @@ public final class DisplayCache {
         }
     }
 
+    public static ItemStack readItem(CacheEntry entry) {
+        if (entry.type() != Type.ITEM) return null;
+
+        try {
+            return ItemStack.deserializeBytes(entry.data());
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
     public static Map<Integer, ItemStack> readSlottedItems(CacheEntry entry) {
         Map<Integer, ItemStack> items = new LinkedHashMap<>();
-        if (entry.type() == Type.ITEM) {
-            items.put(4, ItemStack.deserializeBytes(entry.data()));
-            return items;
-        }
 
         try {
             CompoundTag root = NBT.fromBytes(entry.data());
