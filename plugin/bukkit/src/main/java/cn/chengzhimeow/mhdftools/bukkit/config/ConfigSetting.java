@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.bukkit.config.file;
+package cn.chengzhimeow.mhdftools.bukkit.config;
 
 import cn.chengzhimeow.ccyaml.manager.AbstractYamlManager;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
