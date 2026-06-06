@@ -34,6 +34,7 @@ include(":plugin:bukkit:modules:impl:module_quitmessage")
 include(":plugin:bukkit:modules:impl:module_stop")
 include(":plugin:bukkit:modules:impl:module_suicide")
 include(":plugin:bukkit:modules:impl:module_timeaction")
+include(":plugin:bukkit:modules:impl:module_vanish")
 
 pluginManagement {
     repositories {

@@ -1,0 +1,28 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 隐身
+#
+# 开关
+enable: true
+# 命令
+commands:
+  - "vanish"
+
+# BossBar设置
+bossbar:
+  vanish:
+    # 开关
+    enable: true
+    # 颜色
+    # (PINK BLUE RED GREEN YELLOW PURPLE WHITE)
+    color: "WHITE"
+
+# 阻止怪物锁定隐身玩家
+cancel_entity_target: true
+
+# 从命令补全中隐藏隐身玩家
+hide_tab_complete: true
+
+# 隐身时无动画打开容器
+open_container_without_animation: true

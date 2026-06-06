@@ -1,6 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.redis;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheSettings;
+import cn.chengzhimeow.mhdftools.bukkit.common.config.CacheSetting;
 import net.nyana.message.Logger;
 import net.nyana.message.MessageBroker;
 import net.nyana.message.connection.DefaultRedisConnection;
@@ -20,15 +20,16 @@ public final class RedisManagerImpl extends RedisManager {
     private MessageBroker broker;
     private String serverId = "local";
 
-    public synchronized void configure(CacheSettings settings) {
-        this.serverId = serverId == null || serverId.isBlank() ? "local" : serverId;
+    public synchronized void configure() {
+        CacheSetting.Config settings = CacheSetting.getInstance().getConfig();
+        this.serverId = settings.server() == null || settings.server().isBlank() ? "local" : settings.server();
         if (!settings.isRedis() || this.broker != null) return;
 
         this.broker = MessageBroker.builder()
                 .appId("mhdftools:" + this.serverId)
                 .brokerId(UUID.randomUUID().toString())
                 .logger(new BukkitRedisLogger())
-                .connection(new DefaultRedisConnection(settings.getRedis().getUri(), 1_000_000))
+                .connection(new DefaultRedisConnection(settings.redis().uri(), 1_000_000))
                 .build();
         for (Registration<?> registration : this.registrations) {
             registration.register(this.broker);

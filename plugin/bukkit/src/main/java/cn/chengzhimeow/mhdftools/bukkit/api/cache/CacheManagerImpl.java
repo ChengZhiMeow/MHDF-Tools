@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.cache;
 
+import cn.chengzhimeow.mhdftools.bukkit.common.config.CacheSetting;
 import net.nyana.cache.NyanaCache;
 import net.nyana.cache.hashmap.HashMapCacheService;
 import net.nyana.cache.redis.RedisHashMapCacheService;
@@ -13,13 +14,11 @@ import java.util.List;
 
 public final class CacheManagerImpl implements CacheManager, AutoCloseable {
     private final NyanaCache cache = new NyanaCache();
-    private final CacheSettings settings;
     private final RedisClient redisClient;
     private final List<AutoCloseable> closeables = new ArrayList<>();
 
-    public CacheManagerImpl(CacheSettings settings) {
-        this.settings = settings;
-        this.redisClient = settings.isRedis() ? new RedisClient(this.redisConfig(settings)) : null;
+    public CacheManagerImpl() {
+        this.redisClient = CacheSetting.getInstance().getConfig().isRedis() ? new RedisClient(this.redisConfig()) : null;
     }
 
     @Override
@@ -36,7 +35,7 @@ public final class CacheManagerImpl implements CacheManager, AutoCloseable {
     public <V> CacheService<String, V> createCache(String namespace, Class<V> type) {
         CacheService<String, V> service = this.redisClient == null
                                           ? new HashMapCacheService<>(this.cache)
-                                          : new RedisHashMapCacheService<>(this.cache, this.redisClient, "mhdftools:" + this.settings.getServerId() + ":" + namespace, type);
+                                          : new RedisHashMapCacheService<>(this.cache, this.redisClient, "mhdftools:" + CacheSetting.getInstance().getConfig().server() + ":" + namespace, type);
         service.init();
         if (service instanceof AutoCloseable closeable) {
             this.closeables.add(closeable);
@@ -44,9 +43,9 @@ public final class CacheManagerImpl implements CacheManager, AutoCloseable {
         return service;
     }
 
-    private RedisConfig redisConfig(CacheSettings settings) {
-        CacheSettings.RedisSettings redis = settings.getRedis();
-        String host = redis.getHost();
+    private RedisConfig redisConfig() {
+        CacheSetting.Config.Redis redis = CacheSetting.getInstance().getConfig().redis();
+        String host = redis.host();
         String hostName = host.contains(":") ? host.substring(0, host.lastIndexOf(":")) : host;
         String port = host.contains(":") ? host.substring(host.lastIndexOf(":") + 1) : "";
         RedisConfig.Builder builder = RedisConfig.builder(hostName);
@@ -57,12 +56,12 @@ public final class CacheManagerImpl implements CacheManager, AutoCloseable {
         } catch (NumberFormatException ignored) {
         }
 
-        if (redis.getUser() != null && redis.getPassword() != null) {
-            builder.auth(redis.getUser(), redis.getPassword());
-        } else if (redis.getUser() != null) {
-            builder.username(redis.getUser());
-        } else if (redis.getPassword() != null) {
-            builder.password(redis.getPassword());
+        if (redis.user() != null && redis.password() != null) {
+            builder.auth(redis.user(), redis.password());
+        } else if (redis.user() != null) {
+            builder.username(redis.user());
+        } else if (redis.password() != null) {
+            builder.password(redis.password());
         }
         return builder.build();
     }

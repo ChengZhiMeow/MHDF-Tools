@@ -36,45 +36,6 @@ bStats: true
 # 更新检测
 updateCheck: false
 
-# 数据库
-databaseSettings:
-  # 数据库类型
-  # (mysql h2)
-  type: "h2"
-  # MySQL数据库
-  mysql:
-    # 地址
-    host: "127.0.0.1:3306"
-    # 数据库
-    database: "mhdf_tools"
-    # 用户
-    user: "root"
-    # 密码
-    password: "root"
-  # H2数据库
-  h2:
-    # 数据库文件
-    file: "database.db"
-  # 自定义连接参数
-  prams:
-
-# 缓存
-cacheSettings:
-  # 存储类型
-  # (map redis)
-  type: "map"
-  # 服务池ID
-  # 只有相同 服务池ID 服务器才会互相同步缓存
-  server: ""
-  # Redis数据库
-  redis:
-    # 地址
-    host: "localhost:6379"
-    # 用户
-    user: ""
-    # 密码
-    password: ""
-
 # 飞行
 flySettings:
   # 开关
@@ -102,16 +63,6 @@ flySettings:
   # 限时飞行命令
   flytimeCommands:
     - "flytime"
-
-# 隐身
-vanishSettings:
-  # 开关
-  enable: true
-  # 从补全中移除
-  tabRemove: true
-  # 命令
-  commands:
-    - "vanish"
 
 # 传送到玩家
 tpaSettings:

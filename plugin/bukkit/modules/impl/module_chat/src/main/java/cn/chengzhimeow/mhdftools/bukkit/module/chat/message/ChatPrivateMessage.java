@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.chat.message;
 
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.ModuleMain;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import net.nyana.message.MessageBroker;
@@ -52,7 +53,7 @@ public final class ChatPrivateMessage implements RedisMessage {
 
     @Override
     public void handle(MessageBroker broker) {
-        if (broker.brokerId().equals(this.sourceServer)) return;
+        if (BungeeCordManager.getInstance().getServerName().equals(this.sourceServer)) return;
 
         Player player = Bukkit.getPlayerExact(this.target);
         if (player == null) return;

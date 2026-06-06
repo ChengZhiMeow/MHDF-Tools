@@ -6,11 +6,12 @@ import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsAPIImpl;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheManagerImpl;
-import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheSettings;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.api.redis.RedisManagerImpl;
+import cn.chengzhimeow.mhdftools.bukkit.common.config.CacheSetting;
+import cn.chengzhimeow.mhdftools.bukkit.common.config.DatabaseSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.menu.listener.MenuListener;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
@@ -71,6 +72,14 @@ public final class Main extends MHDFToolsBukkit {
         ConfigSetting.getInstance().saveDefaultFile();
         ConfigSetting.getInstance().update();
         ConfigSetting.getInstance().reload();
+
+        CacheSetting.getInstance().saveDefaultFile();
+        CacheSetting.getInstance().update();
+        CacheSetting.getInstance().reload();
+
+        DatabaseSetting.getInstance().saveDefaultFile();
+        DatabaseSetting.getInstance().update();
+        DatabaseSetting.getInstance().reload();
     }
 
     @Override
@@ -80,15 +89,14 @@ public final class Main extends MHDFToolsBukkit {
 
     @Override
     public void onEnable() {
-        CacheSettings cacheSettings = new CacheSettings(ConfigSetting.getInstance().getData().getConfigurationSection("cacheSettings"));
-        this.cacheManager = new CacheManagerImpl(cacheSettings);
+        this.cacheManager = new CacheManagerImpl();
 
         this.databaseManager = new DatabaseManager(this, ConfigSetting.getInstance().getData());
         this.databaseManager.connect();
         this.databaseManager.initTable();
 
         this.redisManager = new RedisManagerImpl();
-        this.redisManager.configure(cacheSettings);
+        this.redisManager.configure();
 
         this.itemManager = new ItemManagerImpl();
 

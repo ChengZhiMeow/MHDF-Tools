@@ -2,8 +2,6 @@ configVersion: "${project.version}"
 
 blackWorld: "{prefix} <#FFB8B8>当前世界无法使用这个功能!"
 commandInfoFormat: "  &f{usage}  \n &8 - &7{description}"
-enable: <#CAFFB8>开启
-disable: <#FFB8B8>关闭
 
 menu:
   vanish:
