@@ -94,6 +94,12 @@ public final class ActionManager {
      * @param data 配置实例
      * @return 操作构造实例
      */
+    public void action(Player player, List<ActionBuilder.Builder> actions, Map<String, Object> params) {
+        for (ActionBuilder.Builder action : actions) {
+            this.action(player, action, params);
+        }
+    }
+
     public ActionBuilder.Builder getActionFromConfig(ConfigurationSection data) {
         String type = data.getString("type");
 

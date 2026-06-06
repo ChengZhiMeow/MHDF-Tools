@@ -18,7 +18,7 @@ public final class PlayerManagerImpl implements PlayerManager {
 
     @Override
     public MHDFToolsPlayer getPlayer(@NotNull UUID uuid, @Nullable String name) {
-        return this.playerHashMap.computeIfAbsent(uuid, ignored -> new MHDFToolsPlayerImpl(uuid, name));
+        return this.getPlayerHashMap().getOrDefault(uuid, new MHDFToolsPlayerImpl(uuid, name));
     }
 
     @Override

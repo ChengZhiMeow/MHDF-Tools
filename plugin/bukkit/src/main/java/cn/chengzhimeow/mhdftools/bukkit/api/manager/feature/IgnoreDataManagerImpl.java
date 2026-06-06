@@ -1,55 +1,35 @@
-package cn.chengzhimeow.mhdftools.bukkit.api.manager.feature;
+﻿package cn.chengzhimeow.mhdftools.bukkit.api.manager.feature;
 
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.IgnoreData;
 import cn.chengzhimeow.mhdftools.api.manager.feature.IgnoreDataManager;
-import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.Where;
-import lombok.SneakyThrows;
+import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
+import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
 
 import java.util.List;
 
-public final class IgnoreDataManagerImpl extends AbstractDaoManager<IgnoreData, Integer> implements IgnoreDataManager {
-    public IgnoreDataManagerImpl() {
-        super(Main.instance.getDatabaseManager().getDatabase());
+public final class IgnoreDataManagerImpl extends CachedDaoManager<IgnoreData, Integer> implements IgnoreDataManager {
+    public IgnoreDataManagerImpl(DatabaseManager databaseManager) {
+        super(databaseManager, "ignore", IgnoreData.class, String::valueOf, Integer::valueOf, data -> String.valueOf(data.getId()));
     }
 
     @Override
-    @SneakyThrows
     public List<IgnoreData> getList(MHDFToolsPlayer player) {
-        QueryBuilder<IgnoreData, Integer> queryBuilder = super.getQueryBuilder();
-
-        Where<IgnoreData, Integer> where = queryBuilder.where();
-        where.eq("player", player.getUuid());
-        queryBuilder.setWhere(where);
-
-
-        return super.queryForList(queryBuilder);
-    }
-
-    @SneakyThrows
-    private QueryBuilder<IgnoreData, Integer> getQueryBuilder(MHDFToolsPlayer player, MHDFToolsPlayer ignore) {
-        QueryBuilder<IgnoreData, Integer> queryBuilder = super.getQueryBuilder();
-
-        Where<IgnoreData, Integer> where = queryBuilder.where();
-        where
-                .eq("player", player.getUuid())
-                .and()
-                .eq("ignore", ignore.getUuid());
-        queryBuilder.setWhere(where);
-
-        return queryBuilder;
+        return this.cacheList().stream()
+                .filter(data -> data.getPlayer().equals(player.getUuid()))
+                .toList();
     }
 
     @Override
     public boolean hasData(MHDFToolsPlayer player, MHDFToolsPlayer ignore) {
-        return super.queryFirst(this.getQueryBuilder(player, ignore)) != null;
+        return this.getList(player).stream().anyMatch(data -> data.getIgnore().equals(ignore.getUuid()));
     }
 
     @Override
     public IgnoreData get(MHDFToolsPlayer player, MHDFToolsPlayer ignore) {
-        return super.queryFirstOrDefault(this.getQueryBuilder(player, ignore), new IgnoreData(player, ignore));
+        return this.getList(player).stream()
+                .filter(data -> data.getIgnore().equals(ignore.getUuid()))
+                .findFirst()
+                .orElseGet(() -> new IgnoreData(player, ignore));
     }
 }

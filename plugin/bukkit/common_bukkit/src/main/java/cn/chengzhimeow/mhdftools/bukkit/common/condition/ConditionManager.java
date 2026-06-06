@@ -105,6 +105,14 @@ public final class ConditionManager {
      * @param data 配置实例
      * @return 条件构造实例
      */
+    public boolean condition(Player player, ConditionBuilder.Builder condition) {
+        return this.condition(player, condition, new HashMap<>());
+    }
+
+    public boolean condition(Player player, List<ConditionBuilder.Builder> conditions) {
+        return this.condition(player, conditions, new HashMap<>());
+    }
+
     public ConditionBuilder.Builder getConditionFromConfig(ConfigurationSection data) {
         String type = data.getString("type");
 

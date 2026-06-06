@@ -1,50 +1,40 @@
-package cn.chengzhimeow.mhdftools.bukkit.api.manager.feature;
+﻿package cn.chengzhimeow.mhdftools.bukkit.api.manager.feature;
 
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.BackData;
 import cn.chengzhimeow.mhdftools.api.manager.feature.BackDataManager;
-import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
-import com.j256.ormlite.stmt.QueryBuilder;
-import lombok.SneakyThrows;
+import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
+import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public final class BackDataManagerImpl extends AbstractDaoManager<BackData, Integer> implements BackDataManager {
-    public BackDataManagerImpl() {
-        super(Main.instance.getDatabaseManager().getDatabase());
+public final class BackDataManagerImpl extends CachedDaoManager<BackData, Integer> implements BackDataManager {
+    public BackDataManagerImpl(DatabaseManager databaseManager) {
+        super(databaseManager, "back", BackData.class, String::valueOf, Integer::valueOf, data -> String.valueOf(data.getId()));
     }
 
     @Override
-    @SneakyThrows
     public List<BackData> getList(MHDFToolsPlayer player, int amount) {
-        QueryBuilder<BackData, Integer> queryBuilder = super.getQueryBuilder();
-        queryBuilder.setWhere(queryBuilder.where()
-                .eq("player", player.getUuid())
-        );
-        queryBuilder.orderBy("id", false);
-        if (amount > 0) {
-            queryBuilder.limit((long) amount);
-        }
-
-        return super.queryForList(queryBuilder, new ArrayList<>());
+        return this.limit(this.cacheList().stream()
+                .filter(data -> data.getPlayer().equals(player.getUuid()))
+                .sorted(Comparator.comparingInt(BackData::getId).reversed())
+                .toList(), amount);
     }
 
     @Override
-    @SneakyThrows
     public List<BackData> getList(MHDFToolsPlayer player, String type, int amount) {
-        QueryBuilder<BackData, Integer> queryBuilder = super.getQueryBuilder();
-        queryBuilder.setWhere(queryBuilder.where()
-                .eq("player", player.getUuid())
-                .and()
-                .eq("type", type)
-        );
-        queryBuilder.orderBy("id", false);
-        if (amount > 0) {
-            queryBuilder.limit((long) amount);
-        }
+        return this.limit(this.cacheList().stream()
+                .filter(data -> data.getPlayer().equals(player.getUuid()))
+                .filter(data -> data.getType().equals(type))
+                .sorted(Comparator.comparingInt(BackData::getId).reversed())
+                .toList(), amount);
+    }
 
-        return super.queryForList(queryBuilder, new ArrayList<>());
+    private List<BackData> limit(List<BackData> data, int amount) {
+        if (amount <= 0 || data.size() <= amount) {
+            return data;
+        }
+        return data.subList(0, amount);
     }
 }

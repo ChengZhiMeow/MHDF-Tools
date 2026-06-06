@@ -96,6 +96,18 @@ library:
     dependency: "${libs.lettuce}"
     relocate:
       enable: true
+  - repo: "https://repo.catnies.top/releases/"
+    dependency: "${libs.nyana_cache}"
+    relocate:
+      enable: true
+  - repo: "https://repo.catnies.top/releases/"
+    dependency: "${libs.nyana_cache_hashmap}"
+    relocate:
+      enable: true
+  - repo: "https://repo.catnies.top/releases/"
+    dependency: "${libs.nyana_cache_redis}"
+    relocate:
+      enable: true
   - repo: "https://repo.huaweicloud.com/repository/maven/"
     dependency: "${libs.exp4j}"
     relocate:

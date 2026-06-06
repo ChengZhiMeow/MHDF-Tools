@@ -2,7 +2,6 @@ plugins {
     id("maven-publish")
 }
 
-// 发布到 Maven 仓库
 publishing {
     repositories {
         maven {

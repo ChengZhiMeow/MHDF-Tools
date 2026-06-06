@@ -19,13 +19,6 @@ allprojects {
     }
 }
 
-sourceSets {
-    main {
-        java.setSrcDirs(emptyList<String>())
-        resources.setSrcDirs(emptyList<String>())
-    }
-}
-
 dependencies {
     api(project(":plugin:bukkit:api_bukkit"))
     api(project(":plugin:bukkit:common_bukkit"))
@@ -37,6 +30,10 @@ dependencies {
     }
     compileOnly("${rootProject.properties["libs.mhdf_database_mysql"]}")
     compileOnly("${rootProject.properties["libs.mhdf_database_h2"]}")
+    compileOnly("${rootProject.properties["libs.cc_yaml"]}")
+    compileOnly("${rootProject.properties["libs.nyana_cache"]}")
+    compileOnly("${rootProject.properties["libs.nyana_cache_hashmap"]}")
+    compileOnly("${rootProject.properties["libs.nyana_cache_redis"]}")
 
     compileOnly("${rootProject.properties["plugin.vault"]}") {
         exclude("org.bukkit")

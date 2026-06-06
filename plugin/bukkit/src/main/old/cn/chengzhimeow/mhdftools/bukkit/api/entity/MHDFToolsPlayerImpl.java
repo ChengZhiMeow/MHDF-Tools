@@ -1,12 +1,15 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.entity;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
 import lombok.ToString;
 import org.bukkit.Bukkit;
@@ -38,40 +41,45 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         this.name = player.getName();
     }
 
+    /**
+     * 设置指定玩家实例的匿名昵称显示
+     *
+     * @param name 匿名昵称
+     */
     private void setNickDisplay(TextComponent name) {
-        Player player = this.getPlayer();
-        if (player == null) {
+        if (this.getPlayer() == null) {
             return;
         }
 
-        player.displayName(name);
-        player.customName(name);
-        player.playerListName(name);
-        player.setCustomNameVisible(name != null);
+        this.getPlayer().displayName(name);
+        this.getPlayer().customName(name);
+        this.getPlayer().playerListName(name);
+
+        this.getPlayer().setCustomNameVisible(name != null);
     }
 
     @Override
     public String getName() {
-        Player player = this.getPlayer();
-        if (player != null) {
-            return player.getName();
-        }
+        if (this.getPlayer() != null) return this.getPlayer().getName();
 
         if (this.name == null) {
-            this.name = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this).getName();
+            PlayerData data = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this);
+            this.name = data.getName();
         }
+
         return this.name;
     }
 
     @Override
     public String getDisplayName() {
-        NickData nickData = this.getNickData();
-        if (nickData.getNick() != null) {
-            return nickData.getNick();
+        if (ConfigSetting.getInstance().getData().getBoolean("nickSettings.enable") && this.hasNickData()) {
+            return this.getNickData().getNick();
         }
+
         return this.getName();
     }
 
+    @Override
     public Player getPlayer() {
         return Bukkit.getPlayer(this.uuid);
     }
@@ -111,7 +119,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     @Override
     public boolean isAllowedFlyingGameMode() {
         Player player = this.getPlayer();
-        return player != null && (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR);
+        if (player == null) {
+            return false;
+        }
+
+        return player.getGameMode() == GameMode.CREATIVE ||
+                player.getGameMode() == GameMode.SPECTATOR;
     }
 
     @Override
@@ -133,6 +146,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public void setFlyTime(long time) {
         FlyStatus status = this.getFlyStatus();
         status.setTime(time);
+
         MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
     }
 
@@ -152,9 +166,8 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         status.setEnable(true);
         MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
 
-        Player player = this.getPlayer();
-        if (player != null) {
-            player.setAllowFlight(true);
+        if (this.getPlayer() != null) {
+            this.getPlayer().setAllowFlight(true);
         }
     }
 
@@ -164,10 +177,8 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         status.setEnable(false);
         MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
 
-        Player player = this.getPlayer();
-        if (player != null) {
-            player.setFlying(false);
-            player.setAllowFlight(false);
+        if (this.getPlayer() != null) {
+            this.getPlayer().setAllowFlight(false);
         }
     }
 
@@ -188,14 +199,15 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void setHome(String name, BungeeCordLocation location) {
-        HomeData data = this.getHome(name);
+        HomeData data = MHDFToolsAPI.getInstance().getHomeDataManager().get(this, name);
         data.setLocation(location);
         MHDFToolsAPI.getInstance().getHomeDataManager().update(data);
     }
 
     @Override
     public void deleteHome(String name) {
-        MHDFToolsAPI.getInstance().getHomeDataManager().delete(this.getHome(name));
+        HomeData data = MHDFToolsAPI.getInstance().getHomeDataManager().get(this, name);
+        MHDFToolsAPI.getInstance().getHomeDataManager().delete(data);
     }
 
     @Override
@@ -215,16 +227,22 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void ignore(MHDFToolsPlayer target) {
-        if (!this.isIgnore(target)) {
-            MHDFToolsAPI.getInstance().getIgnoreDataManager().update(new IgnoreData(this, target));
+        if (this.isIgnore(target)) {
+            return;
         }
+
+        IgnoreData data = new IgnoreData(this, target);
+        MHDFToolsAPI.getInstance().getIgnoreDataManager().update(data);
     }
 
     @Override
     public void deleteIgnore(MHDFToolsPlayer target) {
-        if (this.isIgnore(target)) {
-            MHDFToolsAPI.getInstance().getIgnoreDataManager().delete(this.getIgnoreData(target));
+        if (!this.isIgnore(target)) {
+            return;
         }
+
+        IgnoreData data = this.getIgnoreData(target);
+        MHDFToolsAPI.getInstance().getIgnoreDataManager().delete(data);
     }
 
     @Override
@@ -242,21 +260,22 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         NickData data = this.getNickData();
         data.setNick(name);
         MHDFToolsAPI.getInstance().getNickDataManager().update(data);
+
         this.setNickDisplay(ColorUtil.color(name));
     }
 
     @Override
     public void deleteNick() {
-        MHDFToolsAPI.getInstance().getNickDataManager().delete(this.getNickData());
+        NickData data = this.getNickData();
+        MHDFToolsAPI.getInstance().getNickDataManager().delete(data);
+
         this.setNickDisplay(null);
     }
 
     @Override
     public void showNickDisplay() {
         NickData data = this.getNickData();
-        if (data.getNick() != null) {
-            this.setNickDisplay(ColorUtil.color(data.getNick()));
-        }
+        this.setNickDisplay(ColorUtil.color(data.getNick()));
     }
 
     @Override
@@ -274,18 +293,26 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         VanishStatus status = this.getVanishStatus();
         status.setEnable(true);
         MHDFToolsAPI.getInstance().getVanishStatusManager().update(status);
+
         this.hidePlayer();
     }
 
     @Override
     public void hidePlayer() {
-        Player player = this.getPlayer();
-        if (player == null) {
-            return;
-        }
+        if (this.getPlayer() == null) return;
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            onlinePlayer.hidePlayer(Main.instance, player);
+            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
+                    .isNewerThanOrEquals(ServerVersion.V_1_12_2)
+            ) {
+                CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () -> {
+                    onlinePlayer.hidePlayer(Main.instance, this.getPlayer());
+                });
+                continue;
+            }
+
+            CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () ->
+                    onlinePlayer.hidePlayer(this.getPlayer()));
         }
     }
 
@@ -294,18 +321,25 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         VanishStatus status = this.getVanishStatus();
         status.setEnable(false);
         MHDFToolsAPI.getInstance().getVanishStatusManager().update(status);
+
         this.showPlayer();
     }
 
     @Override
     public void showPlayer() {
-        Player player = this.getPlayer();
-        if (player == null) {
-            return;
-        }
+        if (this.getPlayer() == null) return;
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            onlinePlayer.showPlayer(Main.instance, player);
+            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
+                    .isNewerThanOrEquals(ServerVersion.V_1_12_2)
+            ) {
+                CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () ->
+                        onlinePlayer.showPlayer(Main.instance, this.getPlayer()));
+                continue;
+            }
+
+            CCScheduler.getInstance().getGlobalRegionScheduler().runTask(Main.instance, () ->
+                    onlinePlayer.showPlayer(this.getPlayer()));
         }
     }
 
@@ -355,6 +389,6 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public boolean equals(MHDFToolsPlayer target) {
-        return this.uuid.equals(target.getUuid());
+        return this.getUuid().equals(target.getUuid());
     }
 }

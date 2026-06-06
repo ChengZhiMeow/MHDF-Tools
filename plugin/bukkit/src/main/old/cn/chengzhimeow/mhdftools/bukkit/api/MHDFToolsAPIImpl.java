@@ -3,14 +3,15 @@ package cn.chengzhimeow.mhdftools.bukkit.api;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.manager.PlayerManager;
 import cn.chengzhimeow.mhdftools.api.manager.feature.*;
-import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
+import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.PlayerManagerImpl;
+import cn.chengzhimeow.mhdftools.bukkit.api.manager.feature.*;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 
 @Getter
-public final class MHDFToolsAPIImpl extends MHDFToolsAPI {
+public final class MHDFToolsAPIImpl implements MHDFToolsAPI {
     private final PlayerManager playerManager;
+
     private final EconomyDataManager economyDataManager;
     private final FlyStatusManager flyStatusManager;
     private final HomeDataManager homeDataManager;
@@ -22,22 +23,23 @@ public final class MHDFToolsAPIImpl extends MHDFToolsAPI {
     private final BackDataManager backDataManager;
     private final PvpStatusManager pvpStatusManager;
 
-    public MHDFToolsAPIImpl(DatabaseManager databaseManager) {
+    public MHDFToolsAPIImpl() {
         this.playerManager = new PlayerManagerImpl();
-        this.economyDataManager = databaseManager.getEconomyDataManager();
-        this.flyStatusManager = databaseManager.getFlyStatusManager();
-        this.homeDataManager = databaseManager.getHomeDataManager();
-        this.ignoreDataManager = databaseManager.getIgnoreDataManager();
-        this.nickDataManager = databaseManager.getNickDataManager();
-        this.playerDataManager = databaseManager.getPlayerDataManager();
-        this.vanishStatusManager = databaseManager.getVanishStatusManager();
-        this.warpDataManager = databaseManager.getWarpDataManager();
-        this.backDataManager = databaseManager.getBackDataManager();
-        this.pvpStatusManager = databaseManager.getPvpStatusManager();
+
+        this.economyDataManager = new EconomyDataManagerImpl();
+        this.flyStatusManager = new FlyStatusManagerImpl();
+        this.homeDataManager = new HomeDataManagerImpl();
+        this.ignoreDataManager = new IgnoreDataManagerImpl();
+        this.nickDataManager = new NickDataManagerImpl();
+        this.playerDataManager = new PlayerDataManagerImpl();
+        this.vanishStatusManager = new VanishStatusManagerImpl();
+        this.warpDataManager = new WarpDataManagerImpl();
+        this.backDataManager = new BackDataManagerImpl();
+        this.pvpStatusManager = new PvpStatusManagerImpl();
     }
 
     @Override
     public String getServerName() {
-        return Bukkit.getServer().getName();
+        return Main.instance.getBungeeCordManager().getServerName();
     }
 }
