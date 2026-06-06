@@ -1,0 +1,8 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+commands:
+  fastchangeweather:
+    usage: "/{command}"
+    description: "快速调节天气"
+    message: "{prefix} <#EAE4FF>雨天已设置为 &f{storm}<#EAE4FF>,打雷已设置为 &f{thunder}<#EAE4FF>!"

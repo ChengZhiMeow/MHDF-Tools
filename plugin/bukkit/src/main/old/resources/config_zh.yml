@@ -241,22 +241,6 @@ warpSettings:
   blackWorld:
     - "pvp"
 
-# 快速调节天气
-fastChangeWeatherSettings:
-  # 开关
-  enable: true
-  # 时间
-  weather:
-    # 自定义命名
-    晴天:
-      # 下雨
-      storm: false
-      # 打雷
-      thunder: false
-      # 命令
-      commands:
-        - "sun"
-
 # 背包查看
 invseeSettings:
   # 开关

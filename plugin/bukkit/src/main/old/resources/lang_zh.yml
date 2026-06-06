@@ -297,7 +297,3 @@ commands:
       enderchest: "末影箱"
     noType: "{prefix} <#FFB8B8>找不到名为 &f{type} <#FFB8B8>的背包类型!"
     message: "{prefix} <#EAE4FF>你打开了 &f{player} 的 &b{type}!"
-  fastchangeweather:
-    usage: "/{command}"
-    description: "快速调节天气"
-    message: "{prefix} <#EAE4FF>雨天已设置为 &f{storm}<#EAE4FF>,打雷已设置为 &f{thunder}<#EAE4FF>!"

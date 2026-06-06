@@ -72,12 +72,6 @@ permissions:
   mhdftools.commands.fakechangetime:
     description: 虚假调节时间
     default: op
-  mhdftools.commands.fastchangeweather:
-    description: 快速调节天气
-    default: op
-  mhdftools.commands.fastchangeweather.other:
-    description: 快速他人调节天气
-    default: op
   mhdftools.commands.fly:
     description: 飞行
     default: op
