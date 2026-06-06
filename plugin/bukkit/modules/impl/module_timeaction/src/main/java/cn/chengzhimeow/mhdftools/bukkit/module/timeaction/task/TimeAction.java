@@ -1,12 +1,13 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.timeaction.task;
 
+import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionAction;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionActionManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Task;
 import cn.chengzhimeow.mhdftools.bukkit.module.timeaction.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.timeaction.config.ConfigSetting;
 
 import java.time.LocalTime;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,7 +48,9 @@ final class TimeAction extends Task {
                         continue;
                     }
 
-                    ConditionActionManager.getInstance().actionWithCondition(null, action.actions());
+                    for (ConditionAction conditionAction : action.actions()) {
+                        ConditionActionManager.getInstance().actionWithCondition(null, conditionAction, new HashMap<>());
+                    }
                     this.delays.remove(action.id());
                 }
                 case "定点操作" -> {
@@ -60,7 +63,9 @@ final class TimeAction extends Task {
                     if (localTime.getMinute() != minute) continue;
                     if (localTime.getSecond() != second) continue;
 
-                    ConditionActionManager.getInstance().actionWithCondition(null, action.actions());
+                    for (ConditionAction conditionAction : action.actions()) {
+                        ConditionActionManager.getInstance().actionWithCondition(null, conditionAction, new HashMap<>());
+                    }
                 }
             }
         }

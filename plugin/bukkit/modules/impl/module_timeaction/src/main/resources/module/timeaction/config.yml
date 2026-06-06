@@ -19,7 +19,7 @@ list:
     # 时间(时:分:秒)
     time: "0:0:60"
     # 操作
-    action:
+    actions:
       - actions:
           - # 类型(开头带*为必填参数, []内为默认值)
             # prev_page           上一页
@@ -48,7 +48,7 @@ list:
     # 时间(时:分:秒)
     time: "12:0:0"
     # 操作
-    action:
+    actions:
       - actions:
           - # 类型(开头带*为必填参数, []内为默认值)
             # prev_page           上一页

@@ -111,6 +111,7 @@ public final class Motd extends PacketListener {
         event.setLastUsedWrapper(packet);
         event.markForReEncode(true);
     }
+
     private String applyPlaceholder(String text) {
         return Objects.requireNonNull(PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, null, text))
                 .replace("{online}", String.valueOf(BungeeCordManager.getInstance().getBukkitPlayerList().size()))

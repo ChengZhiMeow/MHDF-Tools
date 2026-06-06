@@ -56,8 +56,10 @@ final class Crash extends Command {
 
         TextComponent typeText = switch (type) {
             case "explosion" -> LangSetting.getInstance().getConfig().commands().crash().types().explosion();
-            case "invalid_teleport" -> LangSetting.getInstance().getConfig().commands().crash().types().invalidTeleport();
-            case "invalid_particle" -> LangSetting.getInstance().getConfig().commands().crash().types().invalidParticle();
+            case "invalid_teleport" ->
+                    LangSetting.getInstance().getConfig().commands().crash().types().invalidTeleport();
+            case "invalid_particle" ->
+                    LangSetting.getInstance().getConfig().commands().crash().types().invalidParticle();
             default -> new TextComponent();
         };
 

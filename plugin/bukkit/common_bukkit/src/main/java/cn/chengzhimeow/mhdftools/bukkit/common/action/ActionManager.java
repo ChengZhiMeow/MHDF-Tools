@@ -72,27 +72,20 @@ public final class ActionManager {
      *
      * @param player 玩家实例
      * @param action 操作构造实例
+     * @param params 参数
      */
-    public void action(Player player, ActionBuilder.Builder action) {
+    public void action(Player player, ActionBuilder.Builder action, Map<String, Object> params) {
         ActionBuilder.Builder builder = action.clone();
-        builder.getParams().put("player", player);
-        builder.getParams().put("placeholder_owner", player);
+        builder.getParams().putAll(params);
+        if (player != null) {
+            builder.getParams().put("user", player);
+            builder.getParams().put("player", player);
+            builder.getParams().put("placeholder_owner", player);
+        }
 
         AbstractAction buildAction = builder.build();
         buildAction.init();
         buildAction.action();
-    }
-
-    /**
-     * 执行操作
-     *
-     * @param player  玩家实例
-     * @param actions 操作构造实例列表
-     */
-    public void action(Player player, List<ActionBuilder.Builder> actions) {
-        for (ActionBuilder.Builder action : actions) {
-            this.action(player, action);
-        }
     }
 
     /**

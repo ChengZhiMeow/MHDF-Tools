@@ -1,8 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fastuse.listener;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.config.ConfigSetting;
-
 import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,8 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.List;
 
 final class EnderChest extends Listener {
     public EnderChest() {

@@ -1,9 +1,8 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bugfix.listener.dupe;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.config.ConfigSetting;
-
 import cn.chengzhimeow.mhdftools.bukkit.common.inventory.InventoryUtil;
 import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,7 +20,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 

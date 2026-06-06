@@ -39,7 +39,7 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
                 ConfigurationSection section = list.getConfigurationSection(key);
                 if (section == null) continue;
 
-                List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(section, "action");
+                List<ConditionAction> conditionActions = ConditionActionManager.getInstance().getConditionActionListFromConfig(section, "actions");
                 ConditionActionManager.getInstance().check(conditionActions);
 
                 actions.add(new Config.Action(

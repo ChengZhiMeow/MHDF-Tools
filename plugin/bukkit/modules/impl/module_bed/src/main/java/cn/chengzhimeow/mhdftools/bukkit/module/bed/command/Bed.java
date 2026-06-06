@@ -9,8 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 final class Bed extends Command {
     public Bed() {
         super(

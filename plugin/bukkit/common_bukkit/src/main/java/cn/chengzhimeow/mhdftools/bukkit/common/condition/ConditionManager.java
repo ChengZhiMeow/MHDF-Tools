@@ -69,12 +69,16 @@ public final class ConditionManager {
      *
      * @param player    玩家实例
      * @param condition 条件构造实例
+     * @param params    参数
      */
-    public boolean condition(Player player, ConditionBuilder.Builder condition) {
+    public boolean condition(Player player, ConditionBuilder.Builder condition, Map<String, Object> params) {
         ConditionBuilder.Builder builder = condition.clone();
-        builder.getParams().put("user", player);
-        builder.getParams().put("player", player);
-        builder.getParams().put("placeholder_owner", player);
+        builder.getParams().putAll(params);
+        if (player != null) {
+            builder.getParams().put("user", player);
+            builder.getParams().put("player", player);
+            builder.getParams().put("placeholder_owner", player);
+        }
 
         AbstractCondition buildAction = builder.build();
         buildAction.init();
@@ -86,10 +90,11 @@ public final class ConditionManager {
      *
      * @param player     玩家实例
      * @param conditions 条件构造实例列表
+     * @param params     参数
      */
-    public boolean condition(Player player, List<ConditionBuilder.Builder> conditions) {
+    public boolean condition(Player player, List<ConditionBuilder.Builder> conditions, Map<String, Object> params) {
         for (ConditionBuilder.Builder condition : conditions) {
-            if (!this.condition(player, condition)) return false;
+            if (!this.condition(player, condition, params)) return false;
         }
         return true;
     }

@@ -50,7 +50,9 @@ public final class ProxySetting extends AbstractYamlSetting<ProxySetting.Config>
 
     /**
      * 閼惧嘲褰囨禒锝囨倞鐎圭偘绶?     *
-     * @return 娴狅絿鎮婄€圭偘绶?     */
+     *
+     * @return 娴狅絿鎮婄€圭偘绶?
+     */
     public Proxy getProxy() {
         return this.config.proxy();
     }

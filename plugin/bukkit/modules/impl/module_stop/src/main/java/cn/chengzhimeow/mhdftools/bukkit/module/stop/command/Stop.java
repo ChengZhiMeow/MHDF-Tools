@@ -121,7 +121,8 @@ final class Stop extends Command {
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) return new ArrayList<>(LangSetting.getInstance().getConfig().commands().stop().subCommandNames());
+        if (args.length == 1)
+            return new ArrayList<>(LangSetting.getInstance().getConfig().commands().stop().subCommandNames());
         return new ArrayList<>();
     }
 

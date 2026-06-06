@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class ConditionActionManager {
     @Getter(lazy = true)
@@ -47,22 +48,11 @@ public final class ConditionActionManager {
      *
      * @param player          玩家实例
      * @param conditionAction 条件操作实例
+     * @param params          参数
      */
-    public void actionWithCondition(Player player, ConditionAction conditionAction) {
-        if (!ConditionManager.getInstance().condition(player, conditionAction.conditions())) return;
-        ActionManager.getInstance().action(player, conditionAction.actions());
-    }
-
-    /**
-     * 检查条件并执行操作
-     *
-     * @param player           玩家实例
-     * @param conditionActions 条件操作实例列表
-     */
-    public void actionWithCondition(Player player, List<ConditionAction> conditionActions) {
-        for (ConditionAction conditionAction : conditionActions) {
-            this.actionWithCondition(player, conditionAction);
-        }
+    public void actionWithCondition(Player player, ConditionAction conditionAction, Map<String, Object> params) {
+        if (!ConditionManager.getInstance().condition(player, conditionAction.conditions(), params)) return;
+        ActionManager.getInstance().action(player, conditionAction.actions(), params);
     }
 
     /**

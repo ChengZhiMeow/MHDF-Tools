@@ -8,8 +8,6 @@ import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 final class Suicide extends Command {
     public Suicide() {
         super(

@@ -1,10 +1,9 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fastuse.listener;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.config.ConfigSetting;
-
 import cn.chengzhimeow.mhdftools.bukkit.common.menu.ItemStackUtil;
 import cn.chengzhimeow.mhdftools.bukkit.common.menu.MenuUtil;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.fastuse.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Menu;
 import net.kyori.adventure.text.Component;
@@ -21,8 +20,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 final class ShulkerBox extends Listener {
     public ShulkerBox() {

@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.eventaction.listener;
 
+import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionAction;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionActionManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.eventaction.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.eventaction.config.ConfigSetting;
@@ -10,13 +11,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
+
+import java.util.HashMap;
 
 public final class EventAction extends Listener {
     public EventAction() {
@@ -44,7 +41,9 @@ public final class EventAction extends Listener {
             );
             if (!type.equals(event)) continue;
 
-            ConditionActionManager.getInstance().actionWithCondition(player, action.actions());
+            for (ConditionAction conditionAction : action.actions()) {
+                ConditionActionManager.getInstance().actionWithCondition(player, conditionAction, new HashMap<>());
+            }
         }
     }
 

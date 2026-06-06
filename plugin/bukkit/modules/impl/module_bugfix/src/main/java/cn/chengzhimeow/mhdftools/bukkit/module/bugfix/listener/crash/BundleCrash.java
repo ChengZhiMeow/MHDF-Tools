@@ -1,17 +1,14 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bugfix.listener.crash;
 
-import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.config.ConfigSetting;
-
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.packetevents.PacketEventsManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.bugfix.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.PacketListener;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSelectBundleItem;
-
-import java.util.List;
 
 final class BundleCrash extends PacketListener {
     public BundleCrash() {
