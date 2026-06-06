@@ -324,12 +324,3 @@ economySettings:
   payCommands:
     - "pay"
 
-# PVP开关
-pvpSettings:
-  # 开关
-  enable: true
-  # 默认
-  default: true
-  # 命令
-  commands:
-    - "pvp"

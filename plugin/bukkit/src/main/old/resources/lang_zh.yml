@@ -224,10 +224,6 @@ commands:
     noMoney: "{prefix} <#FFB8B8>你没有那么多的钱!"
     message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>转了 &b{amount}<#EAE4FF>!"
     receivedMessage: "{prefix} &f{player} <#EAE4FF>向你转了 &b{amount}<#EAE4FF>!"
-  pvp:
-    usage: "/{command} [玩家]"
-    description: "PVP开关"
-    message: "{prefix} <#EAE4FF>已设置玩家 &f{player} <#EAE4FF>的PVP模式为 '{change}'"
   moneyadmin:
     usage: "/{command} <参数>"
     description: "经济管理"

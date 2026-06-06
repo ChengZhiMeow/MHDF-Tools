@@ -5,15 +5,13 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.PvpStatus;
 import cn.chengzhimeow.mhdftools.api.manager.feature.PvpStatusManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
+import cn.chengzhimeow.mhdftools.bukkit.module.pvp.config.ConfigSetting;
 
 import java.util.UUID;
 
 public final class PvpStatusManagerImpl extends CachedDaoManager<PvpStatus, UUID> implements PvpStatusManager {
-    private final DatabaseManager databaseManager;
-
     public PvpStatusManagerImpl(DatabaseManager databaseManager) {
         super(databaseManager, "pvp", PvpStatus.class, UUID::toString, UUID::fromString, data -> data.getPlayer().toString());
-        this.databaseManager = databaseManager;
     }
 
     @Override
@@ -28,6 +26,12 @@ public final class PvpStatusManagerImpl extends CachedDaoManager<PvpStatus, UUID
 
     @Override
     public boolean getDefaultValue() {
-        return this.databaseManager.isDefaultPvp();
+        ConfigSetting setting = ConfigSetting.getInstance();
+        if (setting.getConfig() == null) {
+            setting.saveDefaultFile();
+            setting.update();
+            setting.reload();
+        }
+        return setting.getConfig().defaultValue();
     }
 }

@@ -156,12 +156,6 @@ permissions:
   mhdftools.commands.pay:
     description: 转账
     default: true
-  mhdftools.commands.pvp:
-    description: PVP开关
-    default: true
-  mhdftools.commands.pvp.other:
-    description: 切换他人PVP开关
-    default: op
   mhdftools.commands.randomteleport:
     description: 随机传送
     default: true

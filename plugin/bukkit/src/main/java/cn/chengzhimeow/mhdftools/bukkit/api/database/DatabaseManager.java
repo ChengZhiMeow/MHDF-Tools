@@ -22,7 +22,6 @@ public final class DatabaseManager implements AutoCloseable {
     private final MHDFDatabase database;
     private final String moneyName;
     private final double defaultMoney;
-    private final boolean defaultPvp;
 
     private final PlayerDataManagerImpl playerDataManager;
     private final EconomyDataManagerImpl economyDataManager;
@@ -42,7 +41,6 @@ public final class DatabaseManager implements AutoCloseable {
         this.database = new MHDFDatabase(this.config, MySQLDatabaseServiceImpl.class, H2DatabaseServiceImpl.class);
         this.moneyName = root == null ? "金币" : root.getString("economySettings.name", "金币");
         this.defaultMoney = root == null ? 0D : root.getDouble("economySettings.default");
-        this.defaultPvp = root != null && root.getBoolean("pvpSettings.default");
 
         this.addTables();
         this.playerDataManager = new PlayerDataManagerImpl(this);
