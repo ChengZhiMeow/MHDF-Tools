@@ -8,6 +8,8 @@ import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.array.ArrayUtil;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.ChatActionImpl;
+import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.NextPageActionImpl;
+import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.PrevPageActionImpl;
 import cn.chengzhimeow.mhdftools.exception.StackTraceUtil;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -26,6 +28,8 @@ public final class ActionManager {
         this.ccAction = new CCAction(MHDFToolsBukkit.getInstance());
 
         this.ccAction.getActionRegistry().register("chat", ChatActionImpl.class);
+        this.ccAction.getActionRegistry().register("prev_page", PrevPageActionImpl.class);
+        this.ccAction.getActionRegistry().register("next_page", NextPageActionImpl.class);
     }
 
     /**
@@ -86,18 +90,6 @@ public final class ActionManager {
         AbstractAction buildAction = builder.build();
         buildAction.init();
         buildAction.action();
-    }
-
-    /**
-     * 获取操作构造实例
-     *
-     * @param data 配置实例
-     * @return 操作构造实例
-     */
-    public void action(Player player, List<ActionBuilder.Builder> actions, Map<String, Object> params) {
-        for (ActionBuilder.Builder action : actions) {
-            this.action(player, action, params);
-        }
     }
 
     public ActionBuilder.Builder getActionFromConfig(ConfigurationSection data) {

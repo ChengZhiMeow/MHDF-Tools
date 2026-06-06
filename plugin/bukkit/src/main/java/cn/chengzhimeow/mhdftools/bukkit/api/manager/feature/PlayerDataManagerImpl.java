@@ -1,4 +1,4 @@
-﻿package cn.chengzhimeow.mhdftools.bukkit.api.manager.feature;
+package cn.chengzhimeow.mhdftools.bukkit.api.manager.feature;
 
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.PlayerData;

@@ -1,11 +1,13 @@
 package cn.chengzhimeow.mhdftools.bukkit.common.action;
 
+import cn.chengzhimeow.ccaction.action.ActionBuilder;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.common.condition.ConditionManager;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +54,9 @@ public final class ConditionActionManager {
      */
     public void actionWithCondition(Player player, ConditionAction conditionAction, Map<String, Object> params) {
         if (!ConditionManager.getInstance().condition(player, conditionAction.conditions(), params)) return;
-        ActionManager.getInstance().action(player, conditionAction.actions(), params);
+        for (ActionBuilder.Builder action : conditionAction.actions()) {
+            ActionManager.getInstance().action(player, action, new HashMap<>());
+        }
     }
 
     /**

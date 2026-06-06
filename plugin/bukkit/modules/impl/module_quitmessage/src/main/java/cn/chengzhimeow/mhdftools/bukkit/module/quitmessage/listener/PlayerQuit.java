@@ -12,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.HashMap;
+
 final class PlayerQuit extends Listener {
     public PlayerQuit() {
         super(
@@ -32,7 +34,7 @@ final class PlayerQuit extends Listener {
         ConfigSetting.Config.Group lastGroup = null;
         int lastWeight = -1;
         for (ConfigSetting.Config.Group group : ConfigSetting.getInstance().getConfig().groups().values()) {
-            if (!ConditionManager.getInstance().condition(player, group.conditions())) continue;
+            if (!ConditionManager.getInstance().condition(player, group.conditions(), new HashMap<>())) continue;
 
             int weight = group.weight();
             if (weight <= lastWeight) continue;

@@ -5,7 +5,10 @@ import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsAPIImpl;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
+import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManager;
+import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.config.file.ConfigSetting;
+import cn.chengzhimeow.mhdftools.bukkit.menu.listener.MenuListener;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
 import cn.chengzhimeow.mhdftools.library.LibraryManager;
@@ -23,6 +26,12 @@ public final class Main extends MHDFToolsBukkit {
     public static Main instance;
 
     private DatabaseManager databaseManager;
+    private final ItemManager itemManager = new ItemManagerImpl();
+
+    @Override
+    public ItemManager getItemManager() {
+        return this.itemManager;
+    }
 
     @Override
     @SneakyThrows
@@ -68,6 +77,7 @@ public final class Main extends MHDFToolsBukkit {
         this.databaseManager = new DatabaseManager(this, ConfigSetting.getInstance().getData());
         this.databaseManager.connect();
         this.databaseManager.initTable();
+        MenuListener.register(this);
 
         MHDFToolsAPI.setInstance(new MHDFToolsAPIImpl(this.databaseManager));
         LogManager.instance.log("&aMHDF-Tools enabled.");
