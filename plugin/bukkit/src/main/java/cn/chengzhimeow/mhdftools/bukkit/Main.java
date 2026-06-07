@@ -92,7 +92,7 @@ public final class Main extends MHDFToolsBukkit {
     public void onEnable() {
         this.cacheManager = new CacheManagerImpl();
 
-        this.databaseManager = new DatabaseManager(this, ConfigSetting.getInstance().getData());
+        this.databaseManager = new DatabaseManager(this);
         this.databaseManager.connect();
         this.databaseManager.initTable();
 

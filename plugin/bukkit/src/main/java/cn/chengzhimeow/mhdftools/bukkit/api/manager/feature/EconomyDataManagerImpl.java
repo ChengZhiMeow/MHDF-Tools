@@ -5,21 +5,18 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.EconomyData;
 import cn.chengzhimeow.mhdftools.api.manager.feature.EconomyDataManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
+import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.ConfigSetting;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 public final class EconomyDataManagerImpl extends CachedDaoManager<EconomyData, UUID> implements EconomyDataManager {
-    private final DatabaseManager databaseManager;
-
     public EconomyDataManagerImpl(DatabaseManager databaseManager) {
         super(databaseManager, "economy", EconomyData.class, UUID::toString, UUID::fromString, data -> data.getPlayer().toString());
-        this.databaseManager = databaseManager;
     }
 
     @Override
     public String getMoneyName() {
-        return this.databaseManager.getMoneyName();
+        return ConfigSetting.getInstance().getConfig().moneyName();
     }
 
     @Override
@@ -36,7 +33,7 @@ public final class EconomyDataManagerImpl extends CachedDaoManager<EconomyData, 
 
         data = new EconomyData();
         data.setPlayer(player.getUuid());
-        data.setMoney(BigDecimal.valueOf(this.databaseManager.getDefaultMoney()));
+        data.setMoney(ConfigSetting.getInstance().getConfig().defaultMoney());
         return data;
     }
 }

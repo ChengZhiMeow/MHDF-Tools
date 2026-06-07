@@ -1,6 +1,5 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.database;
 
-import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.feature.*;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.DatabaseSetting;
@@ -20,8 +19,6 @@ public final class DatabaseManager implements AutoCloseable {
     private final DatabaseConfig config;
     private final DatabaseCache cache;
     private final MHDFDatabase database;
-    private final String moneyName;
-    private final double defaultMoney;
 
     private final PlayerDataManagerImpl playerDataManager;
     private final EconomyDataManagerImpl economyDataManager;
@@ -35,12 +32,10 @@ public final class DatabaseManager implements AutoCloseable {
     private final BackDataManagerImpl backDataManager;
 
     @SneakyThrows
-    public DatabaseManager(JavaPlugin plugin, ConfigurationSection root) {
+    public DatabaseManager(JavaPlugin plugin) {
         this.config = this.databaseConfig(plugin);
         this.cache = new DatabaseCache();
         this.database = new MHDFDatabase(this.config, MySQLDatabaseServiceImpl.class, H2DatabaseServiceImpl.class);
-        this.moneyName = root == null ? "金币" : root.getString("economySettings.name", "金币");
-        this.defaultMoney = root == null ? 0D : root.getDouble("economySettings.default");
 
         this.addTables();
         this.playerDataManager = new PlayerDataManagerImpl(this);
