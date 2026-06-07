@@ -65,10 +65,6 @@ commands:
       2: "{prefix} <#EAE4FF>飞行时长还有&b2秒|&f即将关闭飞行!|10|70|20"
       1: "{prefix} <#EAE4FF>飞行时长还有&b1秒|&f即将关闭飞行!|10|70|20"
       0: "{prefix} <#EAE4FF>飞行已关闭|&f迫降中!|10|70|20"
-  vanish:
-    usage: "/{command} [玩家]"
-    description: "隐身"
-    message: "{prefix} <#EAE4FF>已设置玩家 &f{player} <#EAE4FF>的隐身模式为 '{change}'"
   flytime:
     usage: "/{command} <参数>"
     description: "限时飞行"
@@ -146,11 +142,6 @@ commands:
       <click:run_command:"/tpahere accept {player}"><hover:show_text:"<#EAE4FF>点击接受{player}的传送请求"><#CAFFB8>[接受]</hover></click>   <click:run_command:"/tpahere reject {player}"><hover:show_text:"<#EAE4FF>点击拒绝{player}的传送请求"><#FFB8B8>[拒绝]</hover></click>
       &f
       &7⌞                                         ⌟
-  custommenu:
-    usage: "/{command} <菜单>"
-    description: "打开指定菜单"
-    noMenu: "{prefix} <#FFB8B8>找不到名为 &f{menu} 的菜单!"
-    message: "{prefix} <#EAE4FF>你打开了 &f{menu}<#FFB8B8>!"
   home:
     usage: "/{command} [家名称]"
     description: "返回到指定家"

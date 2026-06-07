@@ -33,6 +33,16 @@ public final class ActionManager {
     }
 
     /**
+     * 注册操作实现类
+     *
+     * @param id          操作ID
+     * @param actionClass 操作实现类
+     */
+    public void register(String id, Class<? extends AbstractAction> actionClass) {
+        this.ccAction.getActionRegistry().register(id, actionClass);
+    }
+
+    /**
      * 检查操作构造实例的参数合法性
      *
      * @param action 操作构造实例

@@ -5,6 +5,3 @@ flyFall:
   2: "minecraft:entity.experience_orb.pickup|0.25|0.8"
   1: "minecraft:entity.experience_orb.pickup|0.25|0.9"
   0: "minecraft:entity.generic.explode|0.25|2.0"
-
-chat:
-  at: "minecraft:block.note_block.bell|0.5|1.2"

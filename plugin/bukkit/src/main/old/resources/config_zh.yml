@@ -90,14 +90,6 @@ tpahereSettings:
   blackWorld:
     - "pvp"
 
-# 自定义菜单
-customMenuSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "menu"
-
 # 家系统
 homeSettings:
   # 开关
