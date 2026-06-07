@@ -5,10 +5,12 @@ import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.api.message.PlayerMessager;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import lombok.Getter;
 import lombok.ToString;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
@@ -70,6 +72,11 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             return nickData.getNick();
         }
         return this.getName();
+    }
+
+    @Override
+    public void sendMessage(Component message) {
+        PlayerMessager.send(this, message);
     }
 
     public Player getPlayer() {

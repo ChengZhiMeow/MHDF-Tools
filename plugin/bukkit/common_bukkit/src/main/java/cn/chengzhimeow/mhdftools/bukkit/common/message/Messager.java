@@ -9,7 +9,7 @@ public final class Messager {
 
     public static void send(RedisMessage message, Runnable local) {
         local.run();
-        MHDFToolsBukkit.getInstance().getRedisManager().publish(message);
+        Messager.publish(message);
     }
 
     public static void publish(RedisMessage message) {

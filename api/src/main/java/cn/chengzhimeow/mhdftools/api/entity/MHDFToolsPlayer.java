@@ -2,6 +2,7 @@ package cn.chengzhimeow.mhdftools.api.entity;
 
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import net.kyori.adventure.text.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,6 +19,13 @@ public interface MHDFToolsPlayer {
      * @return 显示名称
      */
     String getDisplayName();
+
+    /**
+     * 发送消息给玩家
+     *
+     * @param message 消息
+     */
+    void sendMessage(Component message);
 
     /**
      * 检测是否拥有经济数据

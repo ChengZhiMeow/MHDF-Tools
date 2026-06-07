@@ -7,12 +7,6 @@ menu:
   vanish:
     title: "<#EAE4FF>隐身-容器"
 
-gamemode:
-  SURVIVAL: "生存模式"
-  ADVENTURE: "冒险模式"
-  CREATIVE: "创造模式"
-  SPECTATOR: "旁观模式"
-
 economy:
   tax: "{prefix} <#EAE4FF>你向服务器上交了 &f{amount} <#EAE4FF>的个人所得税!"
 
@@ -180,11 +174,6 @@ commands:
     usage: "/{command}"
     description: "设置出生点"
     message: "{prefix} <#EAE4FF>你成功将此处设置为出生点!"
-  gamemode:
-    usage: "/{command} <游戏模式> [玩家]"
-    description: "修改玩家游戏模式"
-    noGameMode: "{prefix} <#FFB8B8>找不到名为 &f{gamemode} #FFB8B8>的游戏模式!"
-    message: "{prefix} &f{player} <#EAE4FF>的游戏模式已被更新为 &b{gamemode}<#EAE4FF>!"
   warp:
     usage: "/{command} <传送点> [玩家]"
     description: "传送到指定传送点"
