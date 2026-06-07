@@ -189,10 +189,6 @@ commands:
     usage: "/{command}"
     description: "设置出生点"
     message: "{prefix} <#EAE4FF>你成功将此处设置为出生点!"
-  nick:
-    usage: "/{command} <名称> [玩家]"
-    description: "修改玩家匿名名称"
-    message: "{prefix} &f{player} <#EAE4FF>的名称已修改为 &b{name}<#EAE4FF>!"
   gamemode:
     usage: "/{command} <游戏模式> [玩家]"
     description: "修改玩家游戏模式"

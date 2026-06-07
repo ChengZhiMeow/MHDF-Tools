@@ -138,12 +138,6 @@ permissions:
   mhdftools.commands.msg:
     description: 私聊
     default: true
-  mhdftools.commands.nick:
-    description: 修改匿名
-    default: op
-  mhdftools.commands.nick.give:
-    description: 修改他人匿名
-    default: op
   mhdftools.commands.pay:
     description: 转账
     default: true
