@@ -1,0 +1,47 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 标题
+title: "<#EAE4FF>查看装备 &8| &f{player}"
+
+# 格子
+slots:
+  - "XXXXXXXXX"
+  - "XHXCXLXBX"
+  - "XXXXXXXXX"
+
+# 打开菜单时的操作
+open_actions: [ ]
+
+# 关闭菜单时的操作
+close_actions: [ ]
+
+# 装备槽对应的格子字符
+equipment_slots:
+  helmet: "H"
+  chestplate: "C"
+  leggings: "L"
+  boots: "B"
+
+# 物品
+items:
+  X:
+    by: "Vanilla"
+    type: "gray_stained_glass_pane"
+    name: "&f "
+  H:
+    by: "Vanilla"
+    type: "barrier"
+    name: "<#FFB8B8>空头盔槽"
+  C:
+    by: "Vanilla"
+    type: "barrier"
+    name: "<#FFB8B8>空胸甲槽"
+  L:
+    by: "Vanilla"
+    type: "barrier"
+    name: "<#FFB8B8>空护腿槽"
+  B:
+    by: "Vanilla"
+    type: "barrier"
+    name: "<#FFB8B8>空靴子槽"
