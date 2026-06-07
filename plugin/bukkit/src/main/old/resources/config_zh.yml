@@ -233,15 +233,6 @@ warpSettings:
   blackWorld:
     - "pvp"
 
-# 背包查看
-invseeSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "inv"
-    - "invsee"
-
 # 屏蔽
 ignoreSettings:
   # 开关

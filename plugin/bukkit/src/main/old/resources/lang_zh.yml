@@ -284,12 +284,3 @@ commands:
         description: "移除屏蔽玩家"
         noIgnore: "{prefix} &f{player} <#FFB8B8>没有被你屏蔽!"
         message: "{prefix} <#EAE4FF>你取消屏蔽了 &f{player}!"
-  invsee:
-    usage: "/{command} <玩家> <背包类型>"
-    description: "查看背包"
-    types:
-      armor: "装备栏"
-      inventory: "背包"
-      enderchest: "末影箱"
-    noType: "{prefix} <#FFB8B8>找不到名为 &f{type} <#FFB8B8>的背包类型!"
-    message: "{prefix} <#EAE4FF>你打开了 &f{player} 的 &b{type}!"
