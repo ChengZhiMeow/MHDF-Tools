@@ -28,6 +28,20 @@ public interface MHDFToolsPlayer {
     void sendMessage(Component message);
 
     /**
+     * 传送到指定梦之工具玩家实例
+     *
+     * @param target 梦之工具玩家实例
+     */
+    void teleport(MHDFToolsPlayer target);
+
+    /**
+     * 传送到指定群组位置实例
+     *
+     * @param location 群组位置实例
+     */
+    void teleport(BungeeCordLocation location);
+
+    /**
      * 检测是否拥有经济数据
      *
      * @return 结果

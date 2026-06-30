@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.common.bungee;
 
+import cn.chengzhimeow.ccscheduler.task.CallBack;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,4 +46,8 @@ public abstract class BungeeCordManager {
      * @return 结果
      */
     public abstract boolean ifPlayerOnline(String name);
+
+    public abstract void connectServer(String playerName, String serverName);
+
+    public abstract CallBack<String> getPlayerServer(String name);
 }

@@ -35,7 +35,8 @@ public final class GlobalLangSetting extends AbstractLangSetting<GlobalLangSetti
                 super.component("player_offline", prefix),
                 super.component("enable", prefix),
                 super.component("disable", prefix),
-                super.component("black_world", prefix)
+                super.component("black_world", prefix),
+                super.component("server_teleport_failed", prefix)
         );
     }
 
@@ -47,7 +48,8 @@ public final class GlobalLangSetting extends AbstractLangSetting<GlobalLangSetti
             TextComponent playerOffline,
             TextComponent enable,
             TextComponent disable,
-            TextComponent blackWorld
+            TextComponent blackWorld,
+            TextComponent serverTeleportFailed
     ) {
     }
 }

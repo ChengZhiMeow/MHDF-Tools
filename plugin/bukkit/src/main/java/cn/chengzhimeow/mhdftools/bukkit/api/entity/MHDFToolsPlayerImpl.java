@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.entity;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
+import cn.chengzhimeow.ccscheduler.task.CallBack;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
@@ -7,16 +9,24 @@ import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.api.manager.feature.*;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.api.message.PlayerMessager;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
+import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import lombok.Getter;
 import lombok.ToString;
+import net.nyana.cache.service.CacheService;
+import net.nyana.nbt.NBT;
+import net.nyana.nbt.tag.CompoundTag;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -74,6 +84,98 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     @Override
     public void sendMessage(Component message) {
         PlayerMessager.send(this, message);
+    }
+
+    @Override
+    public void teleport(MHDFToolsPlayer target) {
+        Player player = this.getPlayer();
+        if (player == null) return;
+
+        Player targetPlayer = Bukkit.getPlayer(target.getUuid());
+        if (targetPlayer == null) targetPlayer = Bukkit.getPlayerExact(target.getName());
+        if (targetPlayer != null && targetPlayer.isOnline()) {
+            player.teleportAsync(targetPlayer.getLocation());
+            return;
+        }
+
+        BungeeCordManager bungeeCordManager = BungeeCordManager.getInstance();
+        if (!bungeeCordManager.isBungeeCordMode() || !bungeeCordManager.getPlayerList().contains(target.getName())) {
+            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+            return;
+        }
+
+        try {
+            CompoundTag root = NBT.createCompound();
+            CompoundTag info = NBT.createCompound();
+            root.putByte("mode", (byte) 0);
+            info.putString("player", target.getName());
+            root.put("info", info);
+            CacheService<String, byte[]> cache = Main.instance.getCacheManager().createCache("server_teleport", byte[].class);
+            cache.put(this.getName(), NBT.toBytes(root), 60L);
+        } catch (IOException ignored) {
+            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+            return;
+        }
+
+        CallBack<String> callBack = bungeeCordManager.getPlayerServer(target.getName());
+        CCScheduler.getInstance().getGlobalRegionScheduler().runTaskTimer(Main.instance, task -> {
+            String server = callBack.getCallBack();
+            if (server == null) return;
+
+            task.cancel();
+            bungeeCordManager.connectServer(this.getName(), server);
+        }, 1L, 1L);
+    }
+
+    @Override
+    public void teleport(BungeeCordLocation location) {
+        Player player = this.getPlayer();
+        if (player == null) return;
+
+        BungeeCordManager bungeeCordManager = BungeeCordManager.getInstance();
+        if (!bungeeCordManager.isBungeeCordMode()) {
+            if (!location.getServer().equalsIgnoreCase(Bukkit.getServer().getName())) {
+                player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+                return;
+            }
+        } else if (!location.getServer().equalsIgnoreCase(bungeeCordManager.getServerName())) {
+            try {
+                CompoundTag root = NBT.createCompound();
+                CompoundTag info = NBT.createCompound();
+                root.putByte("mode", (byte) 1);
+                info.putString("server_id", location.getServer());
+                info.putString("world", location.getWorld());
+                info.putDouble("x", location.getX());
+                info.putDouble("y", location.getY());
+                info.putDouble("z", location.getZ());
+                info.putFloat("yaw", location.getYaw());
+                info.putFloat("pitch", location.getPitch());
+                root.put("info", info);
+                CacheService<String, byte[]> cache = Main.instance.getCacheManager().createCache("server_teleport", byte[].class);
+                cache.put(this.getName(), NBT.toBytes(root), 60L);
+            } catch (IOException ignored) {
+                player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+                return;
+            }
+
+            bungeeCordManager.connectServer(this.getName(), location.getServer());
+            return;
+        }
+
+        World world = Bukkit.getWorld(location.getWorld());
+        if (world == null) {
+            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+            return;
+        }
+
+        player.teleportAsync(new Location(
+                world,
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw(),
+                location.getPitch()
+        ));
     }
 
     public Player getPlayer() {
