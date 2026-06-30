@@ -67,7 +67,7 @@ public abstract class AbstractMenu extends Menu implements InventoryHolder {
     }
 
     public void openInventory(@NotNull Player player) {
-        ThreadPool.getMenu().execute(() -> {
+        Menu.getMenuThread().execute(() -> {
             Inventory inventory = this.getInventory();
             CCScheduler.getInstance().getGlobalRegionScheduler().runTask(
                     MHDFToolsBukkit.getInstance(),

@@ -9,9 +9,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public final class ThreadPool {
-    @Getter(lazy = true)
-    private static final ThreadPool menu = new ThreadPool(1, "MHDF-Tools Menu Thread");
-
     @Getter
     private final String id;
     private final ScheduledExecutorService executor;

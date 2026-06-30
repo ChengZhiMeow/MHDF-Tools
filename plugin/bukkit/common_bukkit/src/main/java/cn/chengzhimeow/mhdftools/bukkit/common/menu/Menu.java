@@ -1,11 +1,16 @@
 package cn.chengzhimeow.mhdftools.bukkit.common.menu;
 
+import cn.chengzhimeow.mhdftools.thread.ThreadPool;
+import lombok.Getter;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class Menu {
+    @Getter(lazy = true)
+    private static final ThreadPool menuThread = new ThreadPool(1, "MHDF-Tools Menu Thread");
+
     public abstract void onClick(@NotNull InventoryClickEvent event);
 
     public abstract void onOpen(@NotNull InventoryOpenEvent event);
