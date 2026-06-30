@@ -9,6 +9,7 @@ import java.util.function.Function;
 public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
     private final DatabaseWithCache<V, K> cache;
     private final Function<K, String> keyToString;
+    private final Function<V, String> valueKey;
 
     public CachedDaoManager(
             DatabaseManager databaseManager,
@@ -20,14 +21,25 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
     ) {
         super(databaseManager.getDatabase());
         this.keyToString = keyToString;
+        this.valueKey = valueKey;
         this.cache = databaseManager.getCache().create(
                 name,
                 type,
                 keyByString,
                 valueKey,
                 super::getById,
-                super::getList
+                super::getList,
+                super::update,
+                super::delete
         );
+    }
+
+    public void initCache() {
+        this.cache.init();
+    }
+
+    public void closeCache() throws Exception {
+        this.cache.close();
     }
 
     @Override
@@ -48,8 +60,7 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
 
     @Override
     public void update(V value) {
-        super.update(value);
-        this.cache.put(value);
+        this.cache.put(this.valueKey.apply(value), value);
     }
 
     @Override
@@ -64,8 +75,7 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
 
     @Override
     public void delete(V value) {
-        super.delete(value);
-        this.cache.removeCacheOnly(value);
+        this.cache.remove(this.valueKey.apply(value));
     }
 
     @Override

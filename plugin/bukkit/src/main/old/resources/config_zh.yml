@@ -200,28 +200,3 @@ ignoreSettings:
   commands:
     - "ignore"
 
-# 经济系统
-economySettings:
-  # 开关
-  enable: true
-  # 默认货币数量
-  default: 1000.0
-  # 货币名称
-  name: "金币"
-  # 个人所得税(获得金币时支付)
-  personalIncomeTax:
-    # 开关
-    enable: true
-    # 税率(单位: 百分比)
-    rate: 0.05
-  # 经济管理命令
-  moneyadminCommands:
-    - "moneyadmin"
-    - "eco"
-  # 查询余额命令
-  moneyCommands:
-    - "money"
-  # 转账命令
-  payCommands:
-    - "pay"
-

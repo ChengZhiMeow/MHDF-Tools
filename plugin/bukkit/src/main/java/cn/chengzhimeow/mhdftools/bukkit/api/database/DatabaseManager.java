@@ -85,10 +85,42 @@ public final class DatabaseManager implements AutoCloseable {
 
     public void initTable() {
         this.database.createAllTable();
+
+        this.playerDataManager.initCache();
+        this.economyDataManager.initCache();
+        this.flyStatusManager.initCache();
+        this.pvpStatusManager.initCache();
+        this.vanishStatusManager.initCache();
+        this.nickDataManager.initCache();
+        this.homeDataManager.initCache();
+        this.ignoreDataManager.initCache();
+        this.warpDataManager.initCache();
+        this.backDataManager.initCache();
     }
 
     @Override
     public void close() {
+        this.closeCache();
         this.database.getDatabaseService().close();
+    }
+
+    private void closeCache() {
+        this.closeCache(this.playerDataManager);
+        this.closeCache(this.economyDataManager);
+        this.closeCache(this.flyStatusManager);
+        this.closeCache(this.pvpStatusManager);
+        this.closeCache(this.vanishStatusManager);
+        this.closeCache(this.nickDataManager);
+        this.closeCache(this.homeDataManager);
+        this.closeCache(this.ignoreDataManager);
+        this.closeCache(this.warpDataManager);
+        this.closeCache(this.backDataManager);
+    }
+
+    private void closeCache(CachedDaoManager<?, ?> manager) {
+        try {
+            manager.closeCache();
+        } catch (Exception ignored) {
+        }
     }
 }

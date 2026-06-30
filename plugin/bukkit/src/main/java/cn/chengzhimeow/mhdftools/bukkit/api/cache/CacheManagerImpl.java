@@ -35,11 +35,10 @@ public final class CacheManagerImpl implements CacheManager, AutoCloseable {
     public <V> CacheService<String, V> createCache(String namespace, Class<V> type) {
         CacheService<String, V> service = this.redisClient == null
                                           ? new HashMapCacheService<>(this.cache)
-                                          : new RedisHashMapCacheService<>(this.cache, this.redisClient, "mhdftools:" + CacheSetting.getInstance().getConfig().server() + ":" + namespace, type);
-        service.init();
-        if (service instanceof AutoCloseable closeable) {
+                                          : new RedisHashMapCacheService<>(this.cache, this.redisClient, "mhdftools:" + CacheSetting.getInstance().getConfig().server() + ":" + namespace, true);
+        if (namespace.startsWith("database:")) return service;
+        if (service instanceof AutoCloseable closeable)
             this.closeables.add(closeable);
-        }
         return service;
     }
 
@@ -71,7 +70,7 @@ public final class CacheManagerImpl implements CacheManager, AutoCloseable {
         for (AutoCloseable closeable : this.closeables) {
             try {
                 closeable.close();
-            } catch (Exception ignored) {
+            } catch (Throwable ignored) {
             }
         }
         this.closeables.clear();

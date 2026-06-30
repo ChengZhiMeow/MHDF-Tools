@@ -188,45 +188,6 @@ commands:
     description: "删除传送点"
     noWarp: "{prefix} <#FFB8B8>找不到名为 &f{warp} <#FFB8B8>的传送点!"
     message: "{prefix} <#EAE4FF>你删除了一个名为 &f{warp} <#EAE4FF>的传送点!"
-  money:
-    usage: "/{command} [玩家]"
-    description: "查询余额"
-    message: "{prefix} &f{player} <#EAE4FF>的余额为 &b{amount}<#FFB8B8>!"
-  pay:
-    usage: "/{command} <玩家> <金额>"
-    description: "转账"
-    paySelf: "{prefix} <#FFB8B8>你不可以给自己转账!"
-    moneyFormatError: "{prefix} <#FFB8B8>金额不能是非数字的内容!"
-    noMoney: "{prefix} <#FFB8B8>你没有那么多的钱!"
-    message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>转了 &b{amount}<#EAE4FF>!"
-    receivedMessage: "{prefix} &f{player} <#EAE4FF>向你转了 &b{amount}<#EAE4FF>!"
-  moneyadmin:
-    usage: "/{command} <参数>"
-    description: "经济管理"
-    moneyFormatError: "{prefix} <#FFB8B8>金额不能是非数字的内容!"
-    subCommands:
-      help:
-        usage: "/{command} help"
-        description: "命令帮助"
-        message: |-
-          &f
-          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-          &f
-          {help_list}
-          &f
-          &7⌞                                         ⌟
-      set:
-        usage: "/{command} set <玩家> <金额>"
-        description: "设置经济"
-        message: "{prefix} &f{player} <#EAE4FF>的余额被设置为 &b{amount}<#EAE4FF>!"
-      add:
-        usage: "/{command} add <玩家> <金额>"
-        description: "增加经济"
-        message: "{prefix} &f{player} <#EAE4FF>的余额被增加 &e{change}<#EAE4FF>,他现在有 &b{amount}<#EAE4FF>!"
-      take:
-        usage: "/{command} take <玩家> <金额>"
-        description: "扣除经济"
-        message: "{prefix} &f{player} <#EAE4FF>的余额被扣除 &e{change}<#EAE4FF>,他现在有 &b{amount}<#EAE4FF>!"
   ignore:
     usage: "/{command} <参数>"
     description: "屏蔽管理"

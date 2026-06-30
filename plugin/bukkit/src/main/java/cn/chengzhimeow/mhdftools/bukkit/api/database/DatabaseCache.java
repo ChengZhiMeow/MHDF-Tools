@@ -5,6 +5,7 @@ import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.serializer.*;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -19,14 +20,18 @@ public final class DatabaseCache {
             Function<String, K> keyByString,
             Function<V, String> valueKey,
             Function<K, V> databaseGet,
-            Supplier<List<V>> databaseList
+            Supplier<List<V>> databaseList,
+            Consumer<V> databaseUpdate,
+            Consumer<V> databaseDelete
     ) {
         return new DatabaseWithCache<>(
                 MHDFToolsBukkit.getInstance().getCacheManager().createCache("database:" + name, type),
                 keyByString,
                 valueKey,
                 databaseGet,
-                databaseList
+                databaseList,
+                databaseUpdate,
+                databaseDelete
         );
     }
 
