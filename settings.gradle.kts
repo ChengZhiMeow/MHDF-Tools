@@ -17,6 +17,7 @@ include(":plugin:bukkit:compatibility:placeholder:placeholderapi")
 
 include(":plugin:bukkit:modules")
 include(":plugin:bukkit:modules:impl")
+include(":plugin:bukkit:modules:impl:module_back")
 include(":plugin:bukkit:modules:impl:module_bed")
 include(":plugin:bukkit:modules:impl:module_bugfix")
 include(":plugin:bukkit:modules:impl:module_bungee")
