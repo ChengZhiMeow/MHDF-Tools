@@ -1,0 +1,54 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 飞行
+#
+# 开关
+enable: true
+
+# 自动开启
+auto_enable:
+  # 加入服务器
+  join_server: true
+  # 切换世界
+  change_world: true
+  # 重生
+  respawn: true
+
+# 自动关闭
+auto_disable:
+  # 掉血
+  take_health: false
+  # 世界列表
+  world_list:
+    - "awa"
+
+# 飞行强制关闭坠落倒计时
+fall_time: 5
+
+# 飞行强制关闭坠落音效
+fall_sounds:
+  3:
+    sound: "minecraft:entity.experience_orb.pickup"
+    volume: 0.25
+    pitch: 0.7
+  2:
+    sound: "minecraft:entity.experience_orb.pickup"
+    volume: 0.25
+    pitch: 0.8
+  1:
+    sound: "minecraft:entity.experience_orb.pickup"
+    volume: 0.25
+    pitch: 0.9
+  0:
+    sound: "minecraft:entity.generic.explode"
+    volume: 0.25
+    pitch: 2.0
+
+# 命令
+fly_commands:
+  - "fly"
+
+# 限时飞行命令
+flytime_commands:
+  - "flytime"

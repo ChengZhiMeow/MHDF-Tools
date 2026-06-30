@@ -1,0 +1,60 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+commands:
+  fly:
+    usage: "/{command} [玩家]"
+    description: "飞行"
+    message: "{prefix} <#EAE4FF>已设置玩家 &f{player} <#EAE4FF>的飞行模式为 '{change}'"
+    fall_messages:
+      3:
+        title: "{prefix} <#EAE4FF>飞行时长还有&b3秒"
+        subtitle: "&f即将关闭飞行!"
+        in: 10
+        step: 70
+        out: 20
+      2:
+        title: "{prefix} <#EAE4FF>飞行时长还有&b2秒"
+        subtitle: "&f即将关闭飞行!"
+        in: 10
+        step: 70
+        out: 20
+      1:
+        title: "{prefix} <#EAE4FF>飞行时长还有&b1秒"
+        subtitle: "&f即将关闭飞行!"
+        in: 10
+        step: 70
+        out: 20
+      0:
+        title: "{prefix} <#EAE4FF>飞行已关闭"
+        subtitle: "&f迫降中!"
+        in: 10
+        step: 70
+        out: 20
+  flytime:
+    usage: "/{command} <参数>"
+    description: "限时飞行"
+    time_format_error: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
+    sub_commands:
+      help:
+        usage: "/{command} help"
+        description: "命令帮助"
+        message: |-
+          &f
+          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+          &f
+          {help_list}
+          &f
+          &7⌞                                         ⌟
+      set:
+        usage: "/{command} set <玩家> <时间>"
+        description: "设置玩家的飞行时间"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已修改为 &b{change}秒<#EAE4FF>!"
+      add:
+        usage: "/{command} add <玩家> <时间>"
+        description: "增加玩家的飞行时间"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已增加为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"
+      take:
+        usage: "/{command} take <玩家> <时间>"
+        description: "减少玩家的飞行时间"
+        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已减少为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"

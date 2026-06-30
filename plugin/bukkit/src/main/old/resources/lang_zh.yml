@@ -50,42 +50,6 @@ commands:
         usage: "/{command} reload"
         description: "重载插件"
         message: "{prefix} <#EAE4FF>插件重载完成!"
-  fly:
-    usage: "/{command} [玩家]"
-    description: "飞行"
-    message: "{prefix} <#EAE4FF>已设置玩家 &f{player} <#EAE4FF>的飞行模式为 '{change}'"
-    fallMessage:
-      3: "{prefix} <#EAE4FF>飞行时长还有&b3秒|&f即将关闭飞行!|10|70|20"
-      2: "{prefix} <#EAE4FF>飞行时长还有&b2秒|&f即将关闭飞行!|10|70|20"
-      1: "{prefix} <#EAE4FF>飞行时长还有&b1秒|&f即将关闭飞行!|10|70|20"
-      0: "{prefix} <#EAE4FF>飞行已关闭|&f迫降中!|10|70|20"
-  flytime:
-    usage: "/{command} <参数>"
-    description: "限时飞行"
-    timeFormatError: "{prefix} <#FFB8B8>时间不能是非数字的内容!"
-    subCommands:
-      help:
-        usage: "/{command} help"
-        description: "命令帮助"
-        message: |-
-          &f
-          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-          &f
-          {help_list}
-          &f
-          &7⌞                                         ⌟
-      set:
-        usage: "/{command} set <玩家> <时间>"
-        description: "设置玩家的飞行时间"
-        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已修改为 &b{change}秒<#EAE4FF>!"
-      add:
-        usage: "/{command} add <玩家> <时间>"
-        description: "增加玩家的飞行时间"
-        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已增加为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"
-      take:
-        usage: "/{command} take <玩家> <时间>"
-        description: "减少玩家的飞行时间"
-        message: "{prefix} &f{player} <#EAE4FF>的飞行时间已减少为 &e{change}秒<#EAE4FF>,现在他可以飞行 &b{amount}秒<#EAE4FF>!"
   tpa:
     usage: "/{command} <目标玩家>"
     description: "请求传送至指定玩家"
