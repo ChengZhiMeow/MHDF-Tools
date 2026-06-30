@@ -90,30 +90,6 @@ tpahereSettings:
   blackWorld:
     - "pvp"
 
-# 家系统
-homeSettings:
-  # 开关
-  enable: true
-  # 存在则替换家
-  existReplace: true
-  # 默认最大家数量
-  # 可以通过 mhdftools.commands.home.max.<数量> 自定义
-  defaultMax: 10
-  # 正则匹配名称
-  regex: '^[a-zA-Z0-9\u4e00-\u9fa5_-]+\$'
-  # 命令
-  commands:
-    - "home"
-  # 家命令
-  sethomeCommands:
-    - "sethome"
-  # 删除家命令
-  delhomeCommands:
-    - "delhome"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-
 # 返回上次位置
 backSettings:
   # 开关
@@ -167,23 +143,6 @@ spawnSettings:
     - "spawn"
   setspawnCommands:
     - "setspawn"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-
-# 传送点系统
-warpSettings:
-  # 开关
-  enable: true
-  # 命令
-  commands:
-    - "warp"
-  # 传送点命令
-  setwarpCommands:
-    - "setwarp"
-  # 删除传送点命令
-  delwarpCommands:
-    - "delwarp"
   # 黑名单世界
   blackWorld:
     - "pvp"

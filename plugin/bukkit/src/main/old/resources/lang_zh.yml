@@ -136,26 +136,6 @@ commands:
       <click:run_command:"/tpahere accept {player}"><hover:show_text:"<#EAE4FF>点击接受{player}的传送请求"><#CAFFB8>[接受]</hover></click>   <click:run_command:"/tpahere reject {player}"><hover:show_text:"<#EAE4FF>点击拒绝{player}的传送请求"><#FFB8B8>[拒绝]</hover></click>
       &f
       &7⌞                                         ⌟
-  home:
-    usage: "/{command} [家名称]"
-    description: "返回到指定家"
-    noHome: "{prefix} <#FFB8B8>找不到名为 &f{home} <#FFB8B8>的家!"
-    openMenuMessage: "{prefix} <#EAE4FF>你打开了家列表!"
-    invalidName: "{prefix} <#FFB8B8>无效的名称!"
-    message: "{prefix} <#EAE4FF>你传送到了 &f{home}<#FFB8B8>!"
-  sethome:
-    usage: "/{command} <家名称>"
-    description: "设置家"
-    haveHome: "{prefix} <#FFB8B8>你已经有一个名为 &f{home} <#FFB8B8>的家了,请不要重复设置!"
-    isMax: "{prefix} <#FFB8B8>你已经设置了 &f{amount}个 <#FFB8B8>家了,没有办法设置更多家了!"
-    invalidName: "{prefix} <#FFB8B8>无效的名称!"
-    message: "{prefix} <#EAE4FF>你设置了一个名为 &f{home} <#EAE4FF>的家!"
-  delhome:
-    usage: "/{command} <家名称>"
-    description: "删除家"
-    noHome: "{prefix} <#FFB8B8>找不到名为 &f{home} <#FFB8B8>的家!"
-    invalidName: "{prefix} <#FFB8B8>无效的名称!"
-    message: "{prefix} <#EAE4FF>你删除了一个名为 &f{home} <#EAE4FF>的家!"
   back:
     usage: "/{command}"
     description: "返回位置记录"
@@ -174,20 +154,6 @@ commands:
     usage: "/{command}"
     description: "设置出生点"
     message: "{prefix} <#EAE4FF>你成功将此处设置为出生点!"
-  warp:
-    usage: "/{command} <传送点> [玩家]"
-    description: "传送到指定传送点"
-    noWarp: "{prefix} <#FFB8B8>找不到名为 &f{warp} <#FFB8B8>的传送点!"
-    message: "{prefix} <#EAE4FF>你传送到了 &f{warp}<#FFB8B8>!"
-  setwarp:
-    usage: "/{command} <传送点>"
-    description: "设置传送点"
-    message: "{prefix} <#EAE4FF>你设置了一个名为 &f{warp} <#EAE4FF>的传送点!"
-  delwarp:
-    usage: "/{command} <传送点>"
-    description: "删除传送点"
-    noWarp: "{prefix} <#FFB8B8>找不到名为 &f{warp} <#FFB8B8>的传送点!"
-    message: "{prefix} <#EAE4FF>你删除了一个名为 &f{warp} <#EAE4FF>的传送点!"
   ignore:
     usage: "/{command} <参数>"
     description: "屏蔽管理"
