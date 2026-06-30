@@ -5,12 +5,21 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.VanishStatus;
 import cn.chengzhimeow.mhdftools.api.manager.feature.VanishStatusManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
+import lombok.Setter;
 
 import java.util.UUID;
 
+@Setter
 public final class VanishStatusManagerImpl extends CachedDaoManager<VanishStatus, UUID> implements VanishStatusManager {
+    private boolean enable;
+
     public VanishStatusManagerImpl(DatabaseManager databaseManager) {
         super(databaseManager, "vanish", VanishStatus.class, UUID::toString, UUID::fromString, data -> data.getPlayer().toString());
+    }
+
+    @Override
+    public boolean isEnable() {
+        return this.enable;
     }
 
     @Override

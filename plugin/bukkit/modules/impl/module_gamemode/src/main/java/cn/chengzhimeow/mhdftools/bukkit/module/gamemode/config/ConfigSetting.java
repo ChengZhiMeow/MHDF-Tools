@@ -6,12 +6,7 @@ import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import lombok.Getter;
 import org.bukkit.GameMode;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Config> {
     @Getter(lazy = true)

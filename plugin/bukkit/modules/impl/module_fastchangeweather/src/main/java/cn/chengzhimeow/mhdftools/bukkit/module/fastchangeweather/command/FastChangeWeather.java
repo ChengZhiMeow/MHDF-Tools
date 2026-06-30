@@ -35,10 +35,10 @@ final class FastChangeWeather extends Command {
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().fastChangeWeather().message()
                 .replace("{storm}", storm
-                        ? GlobalLangSetting.getInstance().getConfig().enable()
-                        : GlobalLangSetting.getInstance().getConfig().disable())
+                                    ? GlobalLangSetting.getInstance().getConfig().enable()
+                                    : GlobalLangSetting.getInstance().getConfig().disable())
                 .replace("{thunder}", thunder
-                        ? GlobalLangSetting.getInstance().getConfig().enable()
-                        : GlobalLangSetting.getInstance().getConfig().disable()));
+                                      ? GlobalLangSetting.getInstance().getConfig().enable()
+                                      : GlobalLangSetting.getInstance().getConfig().disable()));
     }
 }

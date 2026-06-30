@@ -5,12 +5,21 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.IgnoreData;
 import cn.chengzhimeow.mhdftools.api.manager.feature.IgnoreDataManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
 public final class IgnoreDataManagerImpl extends CachedDaoManager<IgnoreData, Integer> implements IgnoreDataManager {
+    private boolean enable;
+
     public IgnoreDataManagerImpl(DatabaseManager databaseManager) {
         super(databaseManager, "ignore", IgnoreData.class, String::valueOf, Integer::valueOf, data -> String.valueOf(data.getId()));
+    }
+
+    @Override
+    public boolean isEnable() {
+        return this.enable;
     }
 
     @Override

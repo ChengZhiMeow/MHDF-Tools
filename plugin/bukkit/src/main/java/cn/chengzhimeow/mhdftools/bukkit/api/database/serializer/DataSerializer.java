@@ -1,6 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.database.serializer;
 
 import net.nyana.cache.serialization.CacheSerializer;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 abstract class DataSerializer<T> implements CacheSerializer<T> {
     @Override
-    public final byte[] toBytes(T value) {
+    public final byte @NotNull [] toBytes(@NotNull T value) {
         try {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(bytes);
@@ -20,7 +21,7 @@ abstract class DataSerializer<T> implements CacheSerializer<T> {
     }
 
     @Override
-    public final T byBytes(byte[] bytes) {
+    public final @NotNull T byBytes(byte @NotNull [] bytes) {
         try {
             return this.read(new DataInputStream(new ByteArrayInputStream(bytes)));
         } catch (IOException exception) {

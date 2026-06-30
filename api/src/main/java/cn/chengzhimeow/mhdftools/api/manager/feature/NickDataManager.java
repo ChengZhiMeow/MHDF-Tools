@@ -5,6 +5,20 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.NickData;
 
 public interface NickDataManager {
     /**
+     * 检测匿名功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置匿名功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 检测指定梦之工具玩家实例是否拥有匿名数据
      *
      * @param player 梦之工具玩家实例

@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +18,7 @@ public class BuilderItem {
     private Component name;
     private List<Component> lore;
     private Integer customModelData;
-    private int amount;
+    @Getter @Setter private int amount;
     private Map<String, String> pdc;
 
     public BuilderItem(
@@ -94,14 +96,6 @@ public class BuilderItem {
 
     public void setCustomModelData(@Nullable Integer customModelData) {
         this.customModelData = customModelData;
-    }
-
-    public int getAmount() {
-        return this.amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public @NotNull Map<String, String> getPdc() {

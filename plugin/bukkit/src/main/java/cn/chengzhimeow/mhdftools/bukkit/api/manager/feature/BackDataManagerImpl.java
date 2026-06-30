@@ -5,13 +5,22 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.BackData;
 import cn.chengzhimeow.mhdftools.api.manager.feature.BackDataManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
+import lombok.Setter;
 
 import java.util.Comparator;
 import java.util.List;
 
+@Setter
 public final class BackDataManagerImpl extends CachedDaoManager<BackData, Integer> implements BackDataManager {
+    private boolean enable;
+
     public BackDataManagerImpl(DatabaseManager databaseManager) {
         super(databaseManager, "back", BackData.class, String::valueOf, Integer::valueOf, data -> String.valueOf(data.getId()));
+    }
+
+    @Override
+    public boolean isEnable() {
+        return this.enable;
     }
 
     @Override

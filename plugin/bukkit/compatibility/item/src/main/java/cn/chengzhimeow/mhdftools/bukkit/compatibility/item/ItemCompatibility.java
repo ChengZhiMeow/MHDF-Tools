@@ -14,7 +14,7 @@ public interface ItemCompatibility {
     @Nullable String getIdByItemStack(@NotNull ItemStack itemStack);
 
     class ItemCompatibilityIds {
-        public static String CRAFT_ENGINE = "craftengine";
-        public static String MYTHIC_MOBS = "mythicmobs";
+        public static final String CRAFT_ENGINE = "craftengine";
+        public static final String MYTHIC_MOBS = "mythicmobs";
     }
 }

@@ -2,6 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.vanish.listener;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.VanishStatus;
+import cn.chengzhimeow.mhdftools.api.manager.feature.VanishStatusManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.config.BossBarSetting;
@@ -51,7 +52,10 @@ final class PlayerJoin extends Listener {
     }
 
     private Set<UUID> getHiddenPlayerIds() {
-        return MHDFToolsAPI.getInstance().getVanishStatusManager().getList().stream()
+        VanishStatusManager manager = MHDFToolsAPI.getInstance().getVanishStatusManager();
+        if (!manager.isEnable()) return Set.of();
+
+        return manager.getList().stream()
                 .filter(VanishStatus::isEnable)
                 .map(VanishStatus::getPlayer)
                 .collect(Collectors.toSet());

@@ -7,6 +7,20 @@ import java.util.List;
 
 public interface HomeDataManager {
     /**
+     * 检测家功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置家功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 获取指定梦之工具玩家实例的家数据实例列表
      *
      * @return 家数据实例列表

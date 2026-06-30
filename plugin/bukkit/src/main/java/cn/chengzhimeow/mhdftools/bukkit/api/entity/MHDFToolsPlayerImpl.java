@@ -4,6 +4,7 @@ import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import cn.chengzhimeow.mhdftools.api.manager.feature.*;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
 import cn.chengzhimeow.mhdftools.bukkit.api.message.PlayerMessager;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
@@ -42,9 +43,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     private void setNickDisplay(TextComponent name) {
         Player player = this.getPlayer();
-        if (player == null) {
-            return;
-        }
+        if (player == null) return;
 
         player.displayName(name);
         player.customName(name);
@@ -55,23 +54,21 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     @Override
     public String getName() {
         Player player = this.getPlayer();
-        if (player != null) {
-            return player.getName();
-        }
+        if (player != null) return player.getName();
 
-        if (this.name == null) {
+        if (this.name == null)
             this.name = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this).getName();
-        }
         return this.name;
     }
 
     @Override
     public String getDisplayName() {
-        NickData nickData = this.getNickData();
-        if (nickData.getNick() != null) {
-            return nickData.getNick();
-        }
-        return this.getName();
+        NickDataManager manager = MHDFToolsAPI.getInstance().getNickDataManager();
+        if (!manager.isEnable()) return this.getName();
+
+        NickData nickData = manager.get(this);
+        if (nickData.getNick() == null) return this.getName();
+        return nickData.getNick();
     }
 
     @Override
@@ -85,12 +82,16 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public boolean hasEconomyData() {
-        return MHDFToolsAPI.getInstance().getEconomyDataManager().hasData(this);
+        EconomyDataManager manager = MHDFToolsAPI.getInstance().getEconomyDataManager();
+        if (!manager.isEnable()) return false;
+        return manager.hasData(this);
     }
 
     @Override
     public EconomyData getEconomyData() {
-        return MHDFToolsAPI.getInstance().getEconomyDataManager().get(this);
+        EconomyDataManager manager = MHDFToolsAPI.getInstance().getEconomyDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("经济功能未开启");
+        return manager.get(this);
     }
 
     @Override
@@ -100,9 +101,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void setMoney(BigDecimal money) {
+        EconomyDataManager manager = MHDFToolsAPI.getInstance().getEconomyDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("经济功能未开启");
+
         EconomyData data = this.getEconomyData();
         data.setMoney(money);
-        MHDFToolsAPI.getInstance().getEconomyDataManager().update(data, false);
+        manager.update(data, false);
     }
 
     @Override
@@ -123,12 +127,15 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public boolean isEnableFly() {
-        return MHDFToolsAPI.getInstance().getFlyStatusManager().isEnable(this);
+        FlyStatusManager manager = MHDFToolsAPI.getInstance().getFlyStatusManager();
+        return manager.isEnable() && manager.isEnable(this);
     }
 
     @Override
     public FlyStatus getFlyStatus() {
-        return MHDFToolsAPI.getInstance().getFlyStatusManager().get(this);
+        FlyStatusManager manager = MHDFToolsAPI.getInstance().getFlyStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("飞行功能未开启");
+        return manager.get(this);
     }
 
     @Override
@@ -138,9 +145,12 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void setFlyTime(long time) {
+        FlyStatusManager manager = MHDFToolsAPI.getInstance().getFlyStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("飞行功能未开启");
+
         FlyStatus status = this.getFlyStatus();
         status.setTime(time);
-        MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
+        manager.update(status);
     }
 
     @Override
@@ -155,141 +165,182 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void enableFly() {
+        FlyStatusManager manager = MHDFToolsAPI.getInstance().getFlyStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("飞行功能未开启");
+
         FlyStatus status = this.getFlyStatus();
         status.setEnable(true);
-        MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
+        manager.update(status);
 
         Player player = this.getPlayer();
-        if (player != null) {
-            player.setAllowFlight(true);
-        }
+        if (player == null) return;
+        player.setAllowFlight(true);
     }
 
     @Override
     public void disableFly() {
+        FlyStatusManager manager = MHDFToolsAPI.getInstance().getFlyStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("飞行功能未开启");
+
         FlyStatus status = this.getFlyStatus();
         status.setEnable(false);
-        MHDFToolsAPI.getInstance().getFlyStatusManager().update(status);
+        manager.update(status);
 
         Player player = this.getPlayer();
-        if (player != null) {
-            player.setFlying(false);
-            player.setAllowFlight(false);
-        }
+        if (player == null) return;
+        player.setFlying(false);
+        player.setAllowFlight(false);
     }
 
     @Override
     public List<HomeData> getHomeList() {
-        return MHDFToolsAPI.getInstance().getHomeDataManager().getList(this);
+        HomeDataManager manager = MHDFToolsAPI.getInstance().getHomeDataManager();
+        if (!manager.isEnable()) return List.of();
+        return manager.getList(this);
     }
 
     @Override
     public boolean hasHome(String name) {
-        return MHDFToolsAPI.getInstance().getHomeDataManager().hasData(this, name);
+        HomeDataManager manager = MHDFToolsAPI.getInstance().getHomeDataManager();
+        return manager.isEnable() && manager.hasData(this, name);
     }
 
     @Override
     public HomeData getHome(String name) {
-        return MHDFToolsAPI.getInstance().getHomeDataManager().get(this, name);
+        HomeDataManager manager = MHDFToolsAPI.getInstance().getHomeDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("家功能未开启");
+        return manager.get(this, name);
     }
 
     @Override
     public void setHome(String name, BungeeCordLocation location) {
+        HomeDataManager manager = MHDFToolsAPI.getInstance().getHomeDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("家功能未开启");
+
         HomeData data = this.getHome(name);
         data.setLocation(location);
-        MHDFToolsAPI.getInstance().getHomeDataManager().update(data);
+        manager.update(data);
     }
 
     @Override
     public void deleteHome(String name) {
-        MHDFToolsAPI.getInstance().getHomeDataManager().delete(this.getHome(name));
+        HomeDataManager manager = MHDFToolsAPI.getInstance().getHomeDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("家功能未开启");
+        manager.delete(this.getHome(name));
     }
 
     @Override
     public List<IgnoreData> getIgnoreList() {
-        return MHDFToolsAPI.getInstance().getIgnoreDataManager().getList(this);
+        IgnoreDataManager manager = MHDFToolsAPI.getInstance().getIgnoreDataManager();
+        if (!manager.isEnable()) return List.of();
+        return manager.getList(this);
     }
 
     @Override
     public boolean isIgnore(MHDFToolsPlayer target) {
-        return MHDFToolsAPI.getInstance().getIgnoreDataManager().hasData(this, target);
+        IgnoreDataManager manager = MHDFToolsAPI.getInstance().getIgnoreDataManager();
+        return manager.isEnable() && manager.hasData(this, target);
     }
 
     @Override
     public IgnoreData getIgnoreData(MHDFToolsPlayer target) {
-        return MHDFToolsAPI.getInstance().getIgnoreDataManager().get(this, target);
+        IgnoreDataManager manager = MHDFToolsAPI.getInstance().getIgnoreDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("屏蔽功能未开启");
+        return manager.get(this, target);
     }
 
     @Override
     public void ignore(MHDFToolsPlayer target) {
-        if (!this.isIgnore(target)) {
-            MHDFToolsAPI.getInstance().getIgnoreDataManager().update(new IgnoreData(this, target));
-        }
+        IgnoreDataManager manager = MHDFToolsAPI.getInstance().getIgnoreDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("屏蔽功能未开启");
+
+        if (this.isIgnore(target)) return;
+        manager.update(new IgnoreData(this, target));
     }
 
     @Override
     public void deleteIgnore(MHDFToolsPlayer target) {
+        IgnoreDataManager manager = MHDFToolsAPI.getInstance().getIgnoreDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("屏蔽功能未开启");
+
         if (this.isIgnore(target)) {
-            MHDFToolsAPI.getInstance().getIgnoreDataManager().delete(this.getIgnoreData(target));
+            manager.delete(this.getIgnoreData(target));
         }
     }
 
     @Override
     public boolean hasNickData() {
-        return MHDFToolsAPI.getInstance().getNickDataManager().hasData(this);
+        NickDataManager manager = MHDFToolsAPI.getInstance().getNickDataManager();
+        return manager.isEnable() && manager.hasData(this);
     }
 
     @Override
     public NickData getNickData() {
-        return MHDFToolsAPI.getInstance().getNickDataManager().get(this);
+        NickDataManager manager = MHDFToolsAPI.getInstance().getNickDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("匿名功能未开启");
+        return manager.get(this);
     }
 
     @Override
     public void setNick(String name) {
+        NickDataManager manager = MHDFToolsAPI.getInstance().getNickDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("匿名功能未开启");
+
         NickData data = this.getNickData();
         data.setNick(name);
-        MHDFToolsAPI.getInstance().getNickDataManager().update(data);
+        manager.update(data);
         this.setNickDisplay(ColorUtil.color(name));
     }
 
     @Override
     public void deleteNick() {
-        MHDFToolsAPI.getInstance().getNickDataManager().delete(this.getNickData());
+        NickDataManager manager = MHDFToolsAPI.getInstance().getNickDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("匿名功能未开启");
+        manager.delete(this.getNickData());
         this.setNickDisplay(null);
     }
 
     @Override
     public void showNickDisplay() {
-        NickData data = this.getNickData();
-        if (data.getNick() != null) {
-            this.setNickDisplay(ColorUtil.color(data.getNick()));
-        }
+        NickDataManager manager = MHDFToolsAPI.getInstance().getNickDataManager();
+        if (!manager.isEnable()) return;
+
+        NickData data = manager.get(this);
+        if (data.getNick() == null) return;
+        this.setNickDisplay(ColorUtil.color(data.getNick()));
     }
 
     @Override
     public boolean isEnableVanish() {
-        return MHDFToolsAPI.getInstance().getVanishStatusManager().isEnable(this);
+        VanishStatusManager manager = MHDFToolsAPI.getInstance().getVanishStatusManager();
+        return manager.isEnable() && manager.isEnable(this);
     }
 
     @Override
     public VanishStatus getVanishStatus() {
-        return MHDFToolsAPI.getInstance().getVanishStatusManager().get(this);
+        VanishStatusManager manager = MHDFToolsAPI.getInstance().getVanishStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("隐身功能未开启");
+        return manager.get(this);
     }
 
     @Override
     public void enableVanish() {
+        VanishStatusManager manager = MHDFToolsAPI.getInstance().getVanishStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("隐身功能未开启");
+
         VanishStatus status = this.getVanishStatus();
         status.setEnable(true);
-        MHDFToolsAPI.getInstance().getVanishStatusManager().update(status);
+        manager.update(status);
         this.hidePlayer();
     }
 
     @Override
     public void hidePlayer() {
+        if (!MHDFToolsAPI.getInstance().getVanishStatusManager().isEnable())
+            throw new IllegalStateException("隐身功能未开启");
+
         Player player = this.getPlayer();
-        if (player == null) {
-            return;
-        }
+        if (player == null) return;
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             onlinePlayer.hidePlayer(Main.instance, player);
@@ -298,18 +349,22 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void disableVanish() {
+        VanishStatusManager manager = MHDFToolsAPI.getInstance().getVanishStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("隐身功能未开启");
+
         VanishStatus status = this.getVanishStatus();
         status.setEnable(false);
-        MHDFToolsAPI.getInstance().getVanishStatusManager().update(status);
+        manager.update(status);
         this.showPlayer();
     }
 
     @Override
     public void showPlayer() {
+        if (!MHDFToolsAPI.getInstance().getVanishStatusManager().isEnable())
+            throw new IllegalStateException("隐身功能未开启");
+
         Player player = this.getPlayer();
-        if (player == null) {
-            return;
-        }
+        if (player == null) return;
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             onlinePlayer.showPlayer(Main.instance, player);
@@ -318,46 +373,64 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public List<BackData> getBackDataList(int amount) {
-        return MHDFToolsAPI.getInstance().getBackDataManager().getList(this, amount);
+        BackDataManager manager = MHDFToolsAPI.getInstance().getBackDataManager();
+        if (!manager.isEnable()) return List.of();
+        return manager.getList(this, amount);
     }
 
     @Override
     public List<BackData> getBackDataList(String type, int amount) {
-        return MHDFToolsAPI.getInstance().getBackDataManager().getList(this, type, amount);
+        BackDataManager manager = MHDFToolsAPI.getInstance().getBackDataManager();
+        if (!manager.isEnable()) return List.of();
+        return manager.getList(this, type, amount);
     }
 
     @Override
     public BackData getBackData(int id) {
-        return MHDFToolsAPI.getInstance().getBackDataManager().getById(id);
+        BackDataManager manager = MHDFToolsAPI.getInstance().getBackDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("位置记录功能未开启");
+        return manager.getById(id);
     }
 
     @Override
     public void addBack(String type, BungeeCordLocation location) {
-        MHDFToolsAPI.getInstance().getBackDataManager().update(new BackData(this, type, location));
+        BackDataManager manager = MHDFToolsAPI.getInstance().getBackDataManager();
+        if (!manager.isEnable()) throw new IllegalStateException("位置记录功能未开启");
+        manager.update(new BackData(this, type, location));
     }
 
     @Override
     public boolean isEnablePvp() {
-        return MHDFToolsAPI.getInstance().getPvpStatusManager().isEnable(this);
+        PvpStatusManager manager = MHDFToolsAPI.getInstance().getPvpStatusManager();
+        if (!manager.isEnable()) return manager.getDefaultValue();
+        return manager.isEnable(this);
     }
 
     @Override
     public PvpStatus getPvpStatus() {
-        return MHDFToolsAPI.getInstance().getPvpStatusManager().get(this);
+        PvpStatusManager manager = MHDFToolsAPI.getInstance().getPvpStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("PVP功能未开启");
+        return manager.get(this);
     }
 
     @Override
     public void enablePvp() {
+        PvpStatusManager manager = MHDFToolsAPI.getInstance().getPvpStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("PVP功能未开启");
+
         PvpStatus status = this.getPvpStatus();
         status.setEnable(true);
-        MHDFToolsAPI.getInstance().getPvpStatusManager().update(status);
+        manager.update(status);
     }
 
     @Override
     public void disablePvp() {
+        PvpStatusManager manager = MHDFToolsAPI.getInstance().getPvpStatusManager();
+        if (!manager.isEnable()) throw new IllegalStateException("PVP功能未开启");
+
         PvpStatus status = this.getPvpStatus();
         status.setEnable(false);
-        MHDFToolsAPI.getInstance().getPvpStatusManager().update(status);
+        manager.update(status);
     }
 
     @Override

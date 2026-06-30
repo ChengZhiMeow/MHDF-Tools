@@ -7,6 +7,20 @@ import java.util.List;
 
 public interface BackDataManager {
     /**
+     * 检测位置记录功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置位置记录功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 获取位置记录数据实例列表
      *
      * @return 位置记录数据实例列表

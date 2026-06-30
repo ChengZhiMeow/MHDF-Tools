@@ -2,6 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.economy.vault;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhimeow.mhdftools.api.manager.feature.EconomyDataManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.LangSetting;
@@ -60,7 +61,9 @@ public final class VaultEconomyProvider extends AbstractEconomy {
 
     @Override
     public String currencyNameSingular() {
-        return MHDFToolsAPI.getInstance().getEconomyDataManager().getMoneyName();
+        EconomyDataManager manager = MHDFToolsAPI.getInstance().getEconomyDataManager();
+        if (!manager.isEnable()) return "金币";
+        return manager.getMoneyName();
     }
 
     @Override

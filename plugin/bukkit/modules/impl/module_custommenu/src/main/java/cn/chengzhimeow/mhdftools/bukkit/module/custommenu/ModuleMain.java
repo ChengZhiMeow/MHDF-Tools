@@ -35,6 +35,11 @@ public final class ModuleMain extends Module {
     }
 
     @Override
+    public boolean isEnable() {
+        return ConfigSetting.getInstance().getConfig().enable();
+    }
+
+    @Override
     public @NotNull AbstractYamlSetting<ConfigSetting.Config> getConfig() {
         return ConfigSetting.getInstance();
     }

@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.message;
 
-import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.nyana.message.MessageBroker;
 import net.nyana.message.executors.MessageExecutors;

@@ -6,6 +6,19 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.IgnoreData;
 import java.util.List;
 
 public interface IgnoreDataManager {
+    /**
+     * 检测屏蔽功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置屏蔽功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
 
     /**
      * 获取指定梦之工具玩家实例的屏蔽数据实例列表

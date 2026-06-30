@@ -7,6 +7,20 @@ import java.util.List;
 
 public interface FlyStatusManager {
     /**
+     * 检测飞行功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置飞行功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 获取飞行状态实例列表
      *
      * @return 飞行状态实例列表

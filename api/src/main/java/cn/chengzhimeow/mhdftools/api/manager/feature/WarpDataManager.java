@@ -6,6 +6,20 @@ import java.util.List;
 
 public interface WarpDataManager {
     /**
+     * 检测传送点功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置传送点功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 获取传送点数据实例列表
      *
      * @return 传送点数据实例列表

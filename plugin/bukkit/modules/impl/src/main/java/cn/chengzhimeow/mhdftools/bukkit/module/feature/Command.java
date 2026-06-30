@@ -36,7 +36,7 @@ public abstract class Command implements TabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String @NotNull [] args) {
         if (this.onlyPlayer) {
             if (sender instanceof Player player) this.execute(player, label, args);
             else sender.sendMessage(GlobalLangSetting.getInstance().getConfig().onlyPlayer());
@@ -47,7 +47,7 @@ public abstract class Command implements TabExecutor {
     }
 
     @Override
-    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
+    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String @NotNull [] args) {
         List<String> tabComplete = new ArrayList<>();
         if (this.onlyPlayer) {
             if (sender instanceof Player player) tabComplete = this.tabCompleter(player, label, args);

@@ -55,10 +55,6 @@ public final class ModuleMain extends Module {
     }
 
     @Override
-    public void onDisable() {
-    }
-
-    @Override
     public @NotNull AbstractYamlSetting<ConfigSetting.Config> getConfig() {
         return ConfigSetting.getInstance();
     }

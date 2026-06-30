@@ -3,6 +3,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.chat.service;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.VanishStatus;
+import cn.chengzhimeow.mhdftools.api.manager.feature.VanishStatusManager;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.LangSetting;
@@ -26,10 +27,13 @@ public final class AtService {
         if (!config.enable()) return playerList;
 
         List<String> onlinePlayerList = new ArrayList<>(BungeeCordManager.getInstance().getPlayerList());
-        for (VanishStatus vanishStatus : MHDFToolsAPI.getInstance().getVanishStatusManager().getList()) {
-            if (!vanishStatus.isEnable()) continue;
-            MHDFToolsPlayer vanishPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(vanishStatus.getPlayer());
-            onlinePlayerList.remove(vanishPlayer.getName());
+        VanishStatusManager vanishStatusManager = MHDFToolsAPI.getInstance().getVanishStatusManager();
+        if (vanishStatusManager.isEnable()) {
+            for (VanishStatus vanishStatus : vanishStatusManager.getList()) {
+                if (!vanishStatus.isEnable()) continue;
+                MHDFToolsPlayer vanishPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(vanishStatus.getPlayer());
+                onlinePlayerList.remove(vanishPlayer.getName());
+            }
         }
 
         for (String playerName : onlinePlayerList) {

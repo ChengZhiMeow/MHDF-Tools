@@ -69,7 +69,6 @@ final class Vanish extends Command {
                     .replace("{change}", GlobalLangSetting.getInstance().getConfig().disable());
             if (sendToSender && !sender.equals(target)) target.sendMessage(message);
             sender.sendMessage(message);
-            return;
         } else {
             mhdfPlayer.enableVanish();
             if (ConfigSetting.getInstance().getConfig().bossbar().vanish().enable()) {

@@ -14,7 +14,7 @@ import java.util.Set;
 public final class PluginMessage implements PluginMessageListener {
     @Override
     @SneakyThrows
-    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player messagePlayer, byte[] messageData) {
+    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player messagePlayer, byte @NotNull [] messageData) {
         if (!channel.equals("BungeeCord")) return;
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(messageData));

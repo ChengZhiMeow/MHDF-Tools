@@ -30,13 +30,13 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
         super.reload();
 
         this.config = new Config(
-                        super.getData().getBoolean("enable"),
-                        BigDecimal.valueOf(super.getData().getDouble("default")),
-                        super.getData().getString("name", "金币"),
-                        new Config.PersonalIncomeTax(
-                                super.getData().getBoolean("personalIncomeTax.enable"),
-                                BigDecimal.valueOf(super.getData().getDouble("personalIncomeTax.rate"))
-                        ),
+                super.getData().getBoolean("enable"),
+                BigDecimal.valueOf(super.getData().getDouble("default")),
+                super.getData().getString("name", "金币"),
+                new Config.PersonalIncomeTax(
+                        super.getData().getBoolean("personalIncomeTax.enable"),
+                        BigDecimal.valueOf(super.getData().getDouble("personalIncomeTax.rate"))
+                ),
                 super.getData().getStringList("moneyadminCommands"),
                 super.getData().getStringList("moneyCommands"),
                 super.getData().getStringList("payCommands")

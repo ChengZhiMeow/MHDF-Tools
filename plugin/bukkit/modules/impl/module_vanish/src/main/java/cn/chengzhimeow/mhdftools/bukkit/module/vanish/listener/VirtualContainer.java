@@ -4,6 +4,7 @@ import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.config.ConfigSetting;
+import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.block.*;
@@ -17,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -150,7 +152,7 @@ final class VirtualContainer extends Listener {
 
     private static final class VirtualContainerHolder implements InventoryHolder {
         private final VirtualContainerTarget target;
-        private Inventory inventory;
+        @Setter private Inventory inventory;
 
         private VirtualContainerHolder(VirtualContainerTarget target) {
             this.target = target;
@@ -161,12 +163,9 @@ final class VirtualContainer extends Listener {
         }
 
         @Override
-        public Inventory getInventory() {
+        public @NotNull Inventory getInventory() {
             return this.inventory;
         }
 
-        public void setInventory(Inventory inventory) {
-            this.inventory = inventory;
-        }
     }
 }

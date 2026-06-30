@@ -61,6 +61,7 @@ public final class DisplayCache {
     private static int decodeRemoveCache(byte[] data) throws IOException {
         return NBT.fromBytes(data).getInt("remove_cache", 60);
     }
+
     private CacheService<String, byte[]> cache;
 
     public void init() {

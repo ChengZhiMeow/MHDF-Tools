@@ -21,6 +21,13 @@ public final class ModuleMain extends Module {
     }
 
     @Override
+    public boolean isEnable() {
+        ConfigSetting.Config config = ConfigSetting.getInstance().getConfig();
+        return config.dupe().trident().enable()
+                || config.crash().bundle().enable();
+    }
+
+    @Override
     public @NotNull AbstractYamlSetting<ConfigSetting.Config> getConfig() {
         return ConfigSetting.getInstance();
     }

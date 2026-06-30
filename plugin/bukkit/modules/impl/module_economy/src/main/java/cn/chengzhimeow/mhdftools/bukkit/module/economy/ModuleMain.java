@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.economy;
 
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.LangSetting;
@@ -35,6 +36,8 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onEnable() {
+        MHDFToolsAPI.getInstance().getEconomyDataManager().setEnable(this.isEnable());
+
         if (Bukkit.getPluginManager().getPlugin("Vault") == null) return;
 
         this.vaultEconomyProvider = new VaultEconomyProvider(this);
@@ -42,6 +45,8 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onDisable() {
+        MHDFToolsAPI.getInstance().getEconomyDataManager().setEnable(false);
+
         if (this.vaultEconomyProvider == null) return;
 
         this.vaultEconomyProvider.unregister();

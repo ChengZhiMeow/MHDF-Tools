@@ -7,6 +7,20 @@ import java.util.List;
 
 public interface VanishStatusManager {
     /**
+     * 检测隐身功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置隐身功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 获取隐身状态实例列表
      *
      * @return 隐身状态实例列表

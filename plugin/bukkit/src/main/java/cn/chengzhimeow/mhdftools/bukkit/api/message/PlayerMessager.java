@@ -9,9 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public final class PlayerMessager {
-    private PlayerMessager() {
-    }
-
     public static void send(MHDFToolsPlayer target, Component message) {
         Player player = Bukkit.getPlayer(target.getUuid());
         if (player != null) {
@@ -24,5 +21,8 @@ public final class PlayerMessager {
                 target.getName(),
                 MiniMessage.miniMessage().serialize(message)
         ));
+    }
+
+    private PlayerMessager() {
     }
 }

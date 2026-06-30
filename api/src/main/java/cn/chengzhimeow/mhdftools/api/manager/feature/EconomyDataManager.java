@@ -5,6 +5,20 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.EconomyData;
 
 public interface EconomyDataManager {
     /**
+     * 检测经济功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置经济功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 获取货币名称
      *
      * @return 货币名称

@@ -7,6 +7,20 @@ import java.util.List;
 
 public interface PvpStatusManager {
     /**
+     * 检测pvp功能是否开启
+     *
+     * @return 结果
+     */
+    boolean isEnable();
+
+    /**
+     * 设置pvp功能开启状态
+     *
+     * @param enable 开启状态
+     */
+    void setEnable(boolean enable);
+
+    /**
      * 获取pvp状态实例列表
      *
      * @return pvp状态实例列表

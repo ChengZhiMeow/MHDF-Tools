@@ -62,9 +62,12 @@ public final class ArmorMenu extends Menu {
                 if (config.equipmentSlots().contains(key)) {
                     this.equipmentSlotMap.put(key, slot);
                     this.slotEquipmentMap.put(slot, key);
-                    if (config.equipmentSlots().helmet().equals(key)) itemStack = this.target.getInventory().getHelmet();
-                    if (config.equipmentSlots().chestplate().equals(key)) itemStack = this.target.getInventory().getChestplate();
-                    if (config.equipmentSlots().leggings().equals(key)) itemStack = this.target.getInventory().getLeggings();
+                    if (config.equipmentSlots().helmet().equals(key))
+                        itemStack = this.target.getInventory().getHelmet();
+                    if (config.equipmentSlots().chestplate().equals(key))
+                        itemStack = this.target.getInventory().getChestplate();
+                    if (config.equipmentSlots().leggings().equals(key))
+                        itemStack = this.target.getInventory().getLeggings();
                     if (config.equipmentSlots().boots().equals(key)) itemStack = this.target.getInventory().getBoots();
                     if (itemStack != null) {
                         itemStack = itemStack.clone();
@@ -201,7 +204,8 @@ public final class ArmorMenu extends Menu {
             if (item == null) continue;
 
             ItemMeta meta = item.getItemMeta();
-            if (meta == null || !Objects.equals(meta.getPersistentDataContainer().get(armorSlotKey, PersistentDataType.STRING), "true")) continue;
+            if (meta == null || !Objects.equals(meta.getPersistentDataContainer().get(armorSlotKey, PersistentDataType.STRING), "true"))
+                continue;
 
             item = item.clone();
             meta = item.getItemMeta();

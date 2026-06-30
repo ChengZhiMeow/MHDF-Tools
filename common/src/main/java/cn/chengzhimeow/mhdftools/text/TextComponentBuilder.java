@@ -87,7 +87,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
     }
 
     @Override
-    public @NotNull TextComponentBuilder append(@NotNull Component... components) {
+    public @NotNull TextComponentBuilder append(@NotNull Component @NotNull ... components) {
         Arrays.stream(components).forEach(this::append);
         return this;
     }
@@ -102,7 +102,7 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
     }
 
     @Override
-    public @NotNull TextComponentBuilder append(@NotNull ComponentLike... components) {
+    public @NotNull TextComponentBuilder append(@NotNull ComponentLike @NotNull ... components) {
         Arrays.stream(components).forEach(this::append);
         return this;
     }
@@ -222,13 +222,13 @@ public final class TextComponentBuilder implements net.kyori.adventure.text.Text
     }
 
     @Override
-    public @NotNull TextComponentBuilder decoration(@NotNull TextDecoration decoration, TextDecoration.State state) {
+    public @NotNull TextComponentBuilder decoration(@NotNull TextDecoration decoration, TextDecoration.@NotNull State state) {
         this.styleBuilder().decoration(decoration, state);
         return this;
     }
 
     @Override
-    public @NotNull TextComponentBuilder decorationIfAbsent(@NotNull TextDecoration decoration, TextDecoration.State state) {
+    public @NotNull TextComponentBuilder decorationIfAbsent(@NotNull TextDecoration decoration, TextDecoration.@NotNull State state) {
         this.styleBuilder().decorationIfAbsent(decoration, state);
         return this;
     }

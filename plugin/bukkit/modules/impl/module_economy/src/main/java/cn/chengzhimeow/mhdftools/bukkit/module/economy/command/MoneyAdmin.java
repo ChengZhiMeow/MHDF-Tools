@@ -7,7 +7,6 @@ import cn.chengzhimeow.mhdftools.bukkit.module.economy.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
-import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;

@@ -68,7 +68,6 @@ final class Nick extends Command {
                     .replace("{name}", ColorUtil.color(args[0]));
             if (sendToSender && !sender.equals(target)) target.sendMessage(message);
             sender.sendMessage(message);
-            return;
         } else {
             mhdfPlayer.setNick(args[0]);
 

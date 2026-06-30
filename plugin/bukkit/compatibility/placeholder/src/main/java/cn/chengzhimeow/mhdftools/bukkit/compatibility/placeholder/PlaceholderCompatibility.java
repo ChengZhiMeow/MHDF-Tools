@@ -12,6 +12,6 @@ public interface PlaceholderCompatibility {
     @Nullable String parseString(@Nullable OfflinePlayer player, @Nullable String string);
 
     class PlaceholderCompatibilityIds {
-        public static String PLACEHOLDER_API = "placeholder_api";
+        public static final String PLACEHOLDER_API = "placeholder_api";
     }
 }
