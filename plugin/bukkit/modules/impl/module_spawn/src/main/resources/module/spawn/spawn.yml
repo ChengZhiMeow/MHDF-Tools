@@ -1,0 +1,23 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 服务器
+server: "无"
+
+# 世界
+world: "world"
+
+# x轴坐标
+x: 0.0
+
+# y轴坐标
+y: 60.0
+
+# z轴坐标
+z: 0.0
+
+# yaw角度
+yaw: 0.0
+
+# pitch角度
+pitch: 0.0

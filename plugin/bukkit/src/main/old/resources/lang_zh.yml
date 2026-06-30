@@ -100,14 +100,6 @@ commands:
       <click:run_command:"/tpahere accept {player}"><hover:show_text:"<#EAE4FF>点击接受{player}的传送请求"><#CAFFB8>[接受]</hover></click>   <click:run_command:"/tpahere reject {player}"><hover:show_text:"<#EAE4FF>点击拒绝{player}的传送请求"><#FFB8B8>[拒绝]</hover></click>
       &f
       &7⌞                                         ⌟
-  spawn:
-    usage: "/{command}"
-    description: "返回出生点"
-    message: "{prefix} <#EAE4FF>你回到了出生点!"
-  setspawn:
-    usage: "/{command}"
-    description: "设置出生点"
-    message: "{prefix} <#EAE4FF>你成功将此处设置为出生点!"
   ignore:
     usage: "/{command} <参数>"
     description: "屏蔽管理"

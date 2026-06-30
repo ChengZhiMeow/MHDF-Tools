@@ -62,41 +62,6 @@ tpahereSettings:
   blackWorld:
     - "pvp"
 
-# 出生点
-spawnSettings:
-  # 开关
-  enable: true
-  # 自动传送
-  autoTeleport:
-    # 复活
-    respawn: false
-    # 加入服务器
-    join: false
-  # 位置
-  location:
-    # 服务器
-    server: "无"
-    # 世界
-    world: "world"
-    # x轴坐标
-    x: 0.0
-    # y轴坐标
-    y: 60.0
-    # z轴坐标
-    z: 0.0
-    # yaw角度
-    yaw: 0.0
-    # pitch角度
-    pitch: 0.0
-  # 命令
-  commands:
-    - "spawn"
-  setspawnCommands:
-    - "setspawn"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-
 # 屏蔽
 ignoreSettings:
   # 开关
