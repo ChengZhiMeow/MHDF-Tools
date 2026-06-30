@@ -47,6 +47,8 @@ include(":plugin:bukkit:modules:impl:module_spawn")
 include(":plugin:bukkit:modules:impl:module_stop")
 include(":plugin:bukkit:modules:impl:module_suicide")
 include(":plugin:bukkit:modules:impl:module_timeaction")
+include(":plugin:bukkit:modules:impl:module_tpa")
+include(":plugin:bukkit:modules:impl:module_tpahere")
 include(":plugin:bukkit:modules:impl:module_vanish")
 include(":plugin:bukkit:modules:impl:module_warp")
 

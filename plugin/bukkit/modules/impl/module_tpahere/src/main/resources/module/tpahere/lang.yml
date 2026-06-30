@@ -1,0 +1,23 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+commands:
+  tpahere:
+    usage: "/{command} <目标玩家>"
+    description: "请求指定玩家传送至你"
+    message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>发送了传送请求!"
+    request_message: |-
+      {prefix} &f{player} <#EAE4FF>想让你去他那看看
+      <click:run_command:/tpahere accept {player}><#97FFB1>✔同意</click> <click:run_command:/tpahere reject {player}><#FFB8B8>✘拒绝</click>
+    in_delay: "{prefix} <#EAE4FF>传送冷却中,你还要 &f{delay}秒 <#EAE4FF>后才能发送传送请求!"
+    no_request: "{prefix} &f{player} <#FFB8B8>没有向你发送传送请求!"
+    send_self: "{prefix} <#FFB8B8>你不可以给自己发送传送请求!"
+    accept:
+      message: "{prefix} <#EAE4FF>你接受了 &f{player} <#EAE4FF>的传送请求!"
+      accepted: "{prefix} &f{player} <#EAE4FF>接受了你的传送请求!"
+    reject:
+      message: "{prefix} <#EAE4FF>你拒绝了 &f{player} <#EAE4FF>的传送请求!"
+      rejected: "{prefix} &f{player} <#EAE4FF>拒绝了你的传送请求!"
+    delay:
+      message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>发送的传送请求超时了!"
+      time_out: "{prefix} &f{player} <#EAE4FF>向你发送的传送请求超时了!"

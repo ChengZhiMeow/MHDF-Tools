@@ -36,29 +36,3 @@ bStats: true
 # 更新检测
 updateCheck: false
 
-# 传送到玩家
-tpaSettings:
-  # 开关
-  enable: true
-  # 延迟
-  delay: 60
-  # 命令
-  commands:
-    - "tpa"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-
-# 传送玩家过来
-tpahereSettings:
-  # 开关
-  enable: true
-  # 延迟
-  delay: 60
-  # 命令
-  commands:
-    - "tpahere"
-  # 黑名单世界
-  blackWorld:
-    - "pvp"
-

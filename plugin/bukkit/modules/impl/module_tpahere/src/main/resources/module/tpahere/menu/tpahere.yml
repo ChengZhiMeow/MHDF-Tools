@@ -1,0 +1,42 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 标题
+title: "<#EAE4FF>传送到这里"
+
+# 格子
+slots:
+  - "TTTTTTTTT"
+  - "TTTTTTTTT"
+  - "TTTTTTTTT"
+  - "TTTTTTTTT"
+  - "TTTTTTTTT"
+  - "PXXXXXXXN"
+
+# 格子字符
+keys:
+  player: "T"
+  previous_page: "P"
+  next_page: "N"
+
+# 物品
+items:
+  player:
+    by: "Vanilla"
+    type: "paper"
+    name: "<#EAE4FF>{target}"
+    lore:
+      - ""
+      - "&e点击发送传送请求"
+  X:
+    by: "Vanilla"
+    type: "gray_stained_glass_pane"
+    name: "&f "
+  previous_page:
+    by: "Vanilla"
+    type: "red_stained_glass_pane"
+    name: "<#EAE4FF>上一页"
+  next_page:
+    by: "Vanilla"
+    type: "lime_stained_glass_pane"
+    name: "<#EAE4FF>下一页"
