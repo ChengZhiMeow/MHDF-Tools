@@ -1,0 +1,16 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+# 屏蔽
+#
+# 开关
+enable: true
+
+# 禁止屏蔽列表
+# 绕过权限: mhdftools.bypass.ignore.blacklist
+blacklist:
+  - "BaiShenYao_Dog"
+
+# 命令
+commands:
+  - "ignore"

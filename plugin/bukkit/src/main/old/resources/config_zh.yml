@@ -62,14 +62,3 @@ tpahereSettings:
   blackWorld:
     - "pvp"
 
-# 屏蔽
-ignoreSettings:
-  # 开关
-  enable: true
-  # 禁止屏蔽列表
-  # 绕过权限: mhdftools.bypass.ignore.blacklist
-  blacklist:
-    - "BaiShenYao_Dog"
-  # 命令
-  commands:
-    - "ignore"

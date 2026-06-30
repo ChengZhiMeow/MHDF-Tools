@@ -1,0 +1,41 @@
+# 配置文件版本号(请勿修改)
+config_version: "${project.version}"
+
+commands:
+  ignore:
+    usage: "/{command} <参数>"
+    description: "屏蔽管理"
+    sub_commands:
+      help:
+        usage: "/{command} help"
+        description: "命令帮助"
+        message: |-
+          &f
+          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+          &f
+          {help_list}
+          &f
+          &7⌞                                         ⌟
+      list:
+        usage: "/{command} list"
+        description: "屏蔽玩家列表"
+        message: |-
+          &f
+          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+          &f
+          &8▪ &7屏蔽列表:
+          &f{list}
+          &f
+          &7⌞                                         ⌟
+      add:
+        usage: "/{command} add <玩家>"
+        description: "增加屏蔽玩家"
+        have_ignore: "{prefix} <#FFB8B8>你已经屏蔽了 &f{player}<#FFB8B8>,无法重复忽略!"
+        blacklist: "{prefix} <#FFB8B8>你不能屏蔽 &f{player}!"
+        ignore_self: "{prefix} <#FFB8B8>您不能屏蔽自己的消息!"
+        message: "{prefix} <#EAE4FF>你屏蔽了 &f{player}!"
+      remove:
+        usage: "/{command} remove <玩家>"
+        description: "移除屏蔽玩家"
+        no_ignore: "{prefix} &f{player} <#FFB8B8>没有被你屏蔽!"
+        message: "{prefix} <#EAE4FF>你取消屏蔽了 &f{player}!"
