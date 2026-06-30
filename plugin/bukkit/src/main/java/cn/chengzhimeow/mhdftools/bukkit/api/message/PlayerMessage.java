@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.api.message;
 
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.nyana.message.MessageBroker;
 import net.nyana.message.executors.MessageExecutors;
 import net.nyana.message.libs.codec.Codec;
@@ -21,24 +21,24 @@ public final class PlayerMessage implements RedisMessage {
 
     private final String sourceServer;
     private final String target;
-    private final String miniMessage;
+    private final String messageJson;
 
-    public PlayerMessage(String sourceServer, String target, String miniMessage) {
+    public PlayerMessage(String sourceServer, String target, String messageJson) {
         this.sourceServer = sourceServer;
         this.target = target;
-        this.miniMessage = miniMessage;
+        this.messageJson = messageJson;
     }
 
     private PlayerMessage(FriendlyByteBuf buf) {
         this.sourceServer = buf.readUtf8();
         this.target = buf.readUtf8();
-        this.miniMessage = buf.readUtf8();
+        this.messageJson = buf.readUtf8();
     }
 
     private void write(FriendlyByteBuf buf) {
         buf.writeUtf8(this.sourceServer);
         buf.writeUtf8(this.target);
-        buf.writeUtf8(this.miniMessage);
+        buf.writeUtf8(this.messageJson);
     }
 
     @Override
@@ -48,12 +48,15 @@ public final class PlayerMessage implements RedisMessage {
 
     @Override
     public void handle(MessageBroker broker) {
-        if (BungeeCordManager.getInstance().getServerName().equals(this.sourceServer)) return;
+        BungeeCordManager bungeeCordManager = BungeeCordManager.getInstance();
+        if (bungeeCordManager != null && bungeeCordManager.getServerName().equals(sourceServer)) return;
 
-        Player player = Bukkit.getPlayerExact(this.target);
-        if (player == null) return;
+        Bukkit.getScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> {
+            Player player = Bukkit.getPlayerExact(target);
+            if (player == null) return;
 
-        Bukkit.getScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> player.sendMessage(MiniMessage.miniMessage().deserialize(this.miniMessage)));
+            player.sendMessage(GsonComponentSerializer.gson().deserialize(messageJson));
+        });
     }
 
     @Override

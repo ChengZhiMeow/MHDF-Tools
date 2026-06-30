@@ -8,17 +8,19 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.api.manager.feature.*;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.api.message.PlayerMessager;
+import cn.chengzhimeow.mhdftools.bukkit.api.message.PlayerMessage;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
+import cn.chengzhimeow.mhdftools.bukkit.common.message.Messager;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import lombok.Getter;
 import lombok.ToString;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.nyana.cache.service.CacheService;
 import net.nyana.nbt.NBT;
 import net.nyana.nbt.tag.CompoundTag;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -83,7 +85,23 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public void sendMessage(Component message) {
-        PlayerMessager.send(this, message);
+        Player player = this.getPlayer();
+        if (player == null) player = Bukkit.getPlayerExact(this.getName());
+        if (player != null) {
+            player.sendMessage(message);
+            return;
+        }
+
+        BungeeCordManager bungeeCordManager = BungeeCordManager.getInstance();
+        if (bungeeCordManager == null || !bungeeCordManager.isBungeeCordMode()) return;
+        if (!bungeeCordManager.ifPlayerOnline(this.getName())) return;
+        if (!Main.instance.getRedisManager().isOpen()) return;
+
+        Messager.publish(new PlayerMessage(
+                bungeeCordManager.getServerName(),
+                this.getName(),
+                GsonComponentSerializer.gson().serialize(message)
+        ));
     }
 
     @Override
