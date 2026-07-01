@@ -1,14 +1,11 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.tpahere.menu;
 
-import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
-import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.common.menu.AbstractPageMenu;
-import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config.TpaHereMenuSetting;
+import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.service.TpaHereService;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -99,7 +96,7 @@ public final class TpaHereMenu extends AbstractPageMenu {
 
         String target = container.get(playerKey, PersistentDataType.STRING);
         if (target != null) {
-            this.sendRequest(target);
+            TpaHereService.sendRequest(super.getPlayer(), target);
             return;
         }
 
@@ -141,36 +138,5 @@ public final class TpaHereMenu extends AbstractPageMenu {
                 TpaHereMenuSetting.getInstance().getConfig().items().get(id).toBuilderItem(Map.of(), pdc),
                 super.getPlayer()
         );
-    }
-
-    private void sendRequest(String targetName) {
-        MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer().getUniqueId(), super.getPlayer().getName());
-        if (!BungeeCordManager.getInstance().ifPlayerOnline(targetName)) {
-            super.getPlayer().sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
-            return;
-        }
-
-        if (targetName.equals(super.getPlayer().getName())) {
-            super.getPlayer().sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().sendSelf());
-            return;
-        }
-
-        String delay = ModuleMain.instance.getDelayCache().get(super.getPlayer().getName());
-        if (delay != null) {
-            super.getPlayer().sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().inDelay()
-                    .replace("{delay}", delay));
-            return;
-        }
-
-        ModuleMain.instance.getRequestCache().put(super.getPlayer().getName(), targetName);
-        ModuleMain.instance.getDelayCache().put(super.getPlayer().getName(), String.valueOf(ConfigSetting.getInstance().getConfig().delay()));
-        super.getPlayer().sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().message()
-                .replace("{player}", targetName));
-
-        MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(targetName);
-        if (target.isIgnore(player)) return;
-
-        target.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().requestMessage()
-                .replaceByMiniMessage("{player}", super.getPlayer().getName()));
     }
 }

@@ -31,6 +31,7 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
         this.config = new Config(
                 super.getData().getBoolean("enable"),
                 super.getData().getInt("delay"),
+                Math.max(super.getData().getInt("time"), 1),
                 super.getData().getStringList("commands"),
                 super.getData().getStringList("black_world")
         );
@@ -39,6 +40,7 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
     public record Config(
             boolean enable,
             int delay,
+            int time,
             List<String> commands,
             List<String> blackWorld
     ) {

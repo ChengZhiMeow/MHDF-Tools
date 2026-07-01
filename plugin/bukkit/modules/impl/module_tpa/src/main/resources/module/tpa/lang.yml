@@ -7,8 +7,14 @@ commands:
     description: "请求传送至指定玩家"
     message: "{prefix} <#EAE4FF>你向 &f{player} <#EAE4FF>发送了传送请求!"
     request_message: |-
-      {prefix} &f{player} <#EAE4FF>想来你这里看看
-      <click:run_command:/tpa accept {player}><#97FFB1>✔同意</click> <click:run_command:/tpa reject {player}><#FFB8B8>✘拒绝</click>
+      &f
+      &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+      &f
+      &f{player} <#EAE4FF>想来你这里看看!
+      &f
+      <click:run_command:"/tpa accept {player}"><hover:show_text:"<#EAE4FF>点击接受{player}的传送请求"><#CAFFB8>[接受]</hover></click>   <click:run_command:"/tpa reject {player}"><hover:show_text:"<#EAE4FF>点击拒绝{player}的传送请求"><#FFB8B8>[拒绝]</hover></click>
+      &f
+      &7⌞                                         ⌟
     in_delay: "{prefix} <#EAE4FF>传送冷却中,你还要 &f{delay}秒 <#EAE4FF>后才能发送传送请求!"
     no_request: "{prefix} &f{player} <#FFB8B8>没有向你发送传送请求!"
     send_self: "{prefix} <#FFB8B8>你不可以给自己发送传送请求!"

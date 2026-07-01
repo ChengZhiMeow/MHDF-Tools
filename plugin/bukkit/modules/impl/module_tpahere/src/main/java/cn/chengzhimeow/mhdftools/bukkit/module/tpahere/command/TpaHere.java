@@ -8,6 +8,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.menu.TpaHereMenu;
+import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.service.TpaHereService;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ final class TpaHere extends Command {
         }
 
         if (args.length == 1) {
-            this.sendRequest(sender, args[0]);
+            TpaHereService.sendRequest(sender, args[0]);
             return;
         }
 
@@ -65,37 +66,6 @@ final class TpaHere extends Command {
         return new ArrayList<>();
     }
 
-    private void sendRequest(Player sender, String targetName) {
-        MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
-        if (!BungeeCordManager.getInstance().ifPlayerOnline(targetName)) {
-            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
-            return;
-        }
-
-        if (targetName.equals(sender.getName())) {
-            sender.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().sendSelf());
-            return;
-        }
-
-        String delay = ModuleMain.instance.getDelayCache().get(sender.getName());
-        if (delay != null) {
-            sender.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().inDelay()
-                    .replace("{delay}", delay));
-            return;
-        }
-
-        ModuleMain.instance.getRequestCache().put(sender.getName(), targetName);
-        ModuleMain.instance.getDelayCache().put(sender.getName(), String.valueOf(ConfigSetting.getInstance().getConfig().delay()));
-        sender.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().message()
-                .replace("{player}", targetName));
-
-        MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(targetName);
-        if (target.isIgnore(player)) return;
-
-        target.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().requestMessage()
-                .replaceByMiniMessage("{player}", sender.getName()));
-    }
-
     private void accept(Player sender, String playerName) {
         String targetName = ModuleMain.instance.getRequestCache().get(playerName);
         if (targetName == null || !targetName.equals(sender.getName())) {
@@ -105,7 +75,6 @@ final class TpaHere extends Command {
         }
 
         ModuleMain.instance.getRequestCache().remove(playerName);
-        ModuleMain.instance.getDelayCache().remove(playerName);
 
         if (!BungeeCordManager.getInstance().ifPlayerOnline(playerName)) {
             sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
@@ -130,7 +99,6 @@ final class TpaHere extends Command {
         }
 
         ModuleMain.instance.getRequestCache().remove(playerName);
-        ModuleMain.instance.getDelayCache().remove(playerName);
 
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(playerName);
         MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());

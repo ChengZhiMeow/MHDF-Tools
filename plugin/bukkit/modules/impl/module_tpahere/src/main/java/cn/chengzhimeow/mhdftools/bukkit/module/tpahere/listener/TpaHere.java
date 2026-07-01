@@ -14,6 +14,5 @@ public final class TpaHere extends Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         ModuleMain.instance.getRequestCache().remove(event.getPlayer().getName());
-        ModuleMain.instance.getDelayCache().remove(event.getPlayer().getName());
     }
 }
