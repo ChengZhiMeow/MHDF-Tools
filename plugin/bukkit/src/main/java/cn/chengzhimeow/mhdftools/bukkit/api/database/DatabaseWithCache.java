@@ -4,6 +4,7 @@ import net.nyana.cache.service.CacheService;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -41,7 +42,10 @@ public final class DatabaseWithCache<V, K> implements AutoCloseable {
 
     public void put(String key, V value) {
         this.databaseUpdate.accept(value);
-        this.cache.put(key, value);
+        String updatedKey = this.valueKey.apply(value);
+        V databaseValue = this.databaseGet.apply(this.keyByString.apply(updatedKey));
+        if (!Objects.equals(key, updatedKey)) this.cache.remove(key);
+        this.cache.put(updatedKey, databaseValue == null ? value : databaseValue);
     }
 
     public V get(String key) {
@@ -62,7 +66,11 @@ public final class DatabaseWithCache<V, K> implements AutoCloseable {
         for (V value : this.databaseList.get()) {
             entries.put(this.valueKey.apply(value), value);
         }
-        entries.putAll(this.cache.entries());
+        this.cache.entries().forEach((key, value) -> {
+            String updatedKey = this.valueKey.apply(value);
+            if (!Objects.equals(key, updatedKey)) this.cache.remove(key);
+            entries.put(updatedKey, value);
+        });
         entries.forEach((key, value) -> {
             if (!this.cache.containsKey(key)) this.cache.put(key, value);
         });
