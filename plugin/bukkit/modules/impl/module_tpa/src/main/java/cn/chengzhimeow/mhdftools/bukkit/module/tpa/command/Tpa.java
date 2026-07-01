@@ -92,9 +92,9 @@ final class Tpa extends Command {
             Messager.publish(new TpaTeleportMessage(BungeeCordManager.getInstance().getServerName(), playerName, sender.getName()));
 
         player.sendMessage(LangSetting.getInstance().getConfig().commands().tpa().accept().accepted()
-                .replace("{player}", target.getDisplayName()));
+                .replace("{player}", target.getName()));
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().tpa().accept().message()
-                .replace("{player}", player.getDisplayName()));
+                .replace("{player}", player.getName()));
     }
 
     private void reject(Player sender, String playerName) {
@@ -110,8 +110,8 @@ final class Tpa extends Command {
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(playerName);
         MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
         player.sendMessage(LangSetting.getInstance().getConfig().commands().tpa().reject().rejected()
-                .replace("{player}", target.getDisplayName()));
+                .replace("{player}", target.getName()));
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().tpa().reject().message()
-                .replace("{player}", player.getDisplayName()));
+                .replace("{player}", player.getName()));
     }
 }
