@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.joinmessage.listener;
 
+import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
+import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.common.condition.ConditionManager;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibility;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.placeholder.PlaceholderCompatibilityRegistry;
@@ -47,9 +49,12 @@ final class PlayerJoin extends Listener {
             return;
         }
 
-        event.joinMessage(ColorUtil.color(
-                PlaceholderCompatibilityRegistry.getInstance().get(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API)
-                        .parseString(player, lastGroup.message())
-        ));
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId());
+        event.joinMessage(
+                ColorUtil.color(
+                        PlaceholderCompatibilityRegistry.getInstance().get(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API)
+                                .parseString(player, lastGroup.message())
+                ).replace("{player}", mhdfPlayer.getDisplayName())
+        );
     }
 }

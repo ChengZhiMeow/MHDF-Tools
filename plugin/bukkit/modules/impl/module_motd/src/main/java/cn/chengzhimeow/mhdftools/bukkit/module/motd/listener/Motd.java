@@ -82,11 +82,9 @@ public final class Motd extends PacketListener {
             data.add("players", playersData);
         }
 
-        // noinspection rawtypes
-        List<List> descriptionList = config.description();
+        List<List<String>> descriptionList = config.description();
         {
-            // noinspection unchecked
-            List<String> description = (List<String>) descriptionList.get(new Random().nextInt(descriptionList.size()));
+            List<String> description = descriptionList.get(new Random().nextInt(descriptionList.size()));
             JsonArray descriptionData = new JsonArray();
 
             JsonObject nextLine = new JsonObject();

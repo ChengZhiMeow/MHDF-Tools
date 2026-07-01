@@ -15,7 +15,12 @@ public final class ModuleMain extends Module {
     }
 
     @Override
-    public void onLoad() {
+    public boolean isEnable() {
+        return ConfigSetting.getInstance().getConfig().enable();
+    }
+
+    @Override
+    public void reloadConfig() {
         ConfigSetting.getInstance().saveDefaultFile();
         ConfigSetting.getInstance().update();
         ConfigSetting.getInstance().reload();
@@ -23,11 +28,6 @@ public final class ModuleMain extends Module {
         LangSetting.getInstance().saveDefaultFile();
         LangSetting.getInstance().update();
         LangSetting.getInstance().reload();
-    }
-
-    @Override
-    public boolean isEnable() {
-        return ConfigSetting.getInstance().getConfig().enable();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.gamemode.message;
 
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
-import cn.chengzhimeow.mhdftools.bukkit.module.gamemode.ModuleMain;
 import net.nyana.message.MessageBroker;
 import net.nyana.message.executors.MessageExecutors;
 import net.nyana.message.libs.codec.Codec;
@@ -54,7 +54,7 @@ public final class GameModeMessage implements RedisMessage {
         if (player == null) return;
 
         GameMode gameMode = GameMode.valueOf(this.gameMode);
-        Bukkit.getScheduler().runTask(ModuleMain.instance.getPlugin(), () -> player.setGameMode(gameMode));
+        Bukkit.getScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> player.setGameMode(gameMode));
     }
 
     @Override

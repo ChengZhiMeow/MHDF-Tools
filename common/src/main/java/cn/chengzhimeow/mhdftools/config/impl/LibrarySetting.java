@@ -97,13 +97,16 @@ public final class LibrarySetting extends AbstractYamlSetting<LibrarySetting.Con
                 if (dependency.length == 3) dependencyVersion = dependency[2];
             }
 
-            Boolean relocateGroupId = config.getBoolean("relocate.group_id", true);
-            assert relocateGroupId != null;
-            RelocateConfig relocate = new RelocateConfig(
-                    config.getBoolean("relocate.enable"),
-                    relocateGroupId,
-                    config.getStringList("relocate.relocator").toArray(String[]::new)
-            );
+            RelocateConfig relocate;
+            ConfigurationSection relocateSection = config.getConfigurationSection("relocate");
+            if (relocateSection != null) {
+                boolean relocateGroupId = Boolean.TRUE.equals(relocateSection.getBoolean("group_id", true));
+                relocate = new RelocateConfig(
+                        relocateSection.getBoolean("enable"),
+                        relocateGroupId,
+                        relocateSection.getStringList("relocator").toArray(String[]::new)
+                );
+            } else relocate = new RelocateConfig(false, false);
 
             libraries.add(new DependencyConfig(
                     groupId,
@@ -125,16 +128,46 @@ public final class LibrarySetting extends AbstractYamlSetting<LibrarySetting.Con
 
         String value = mcVersion.getString("value");
         if (value == null) return true;
-        int version = Integer.parseInt(value.replace(".", ""));
+
+        int compare = this.compareMcVersion(PluginManager.getInstance().minecraftVersion, value);
 
         return switch (type) {
-            case "<" -> PluginManager.getInstance().minecraftVersion < version;
-            case "<=" -> PluginManager.getInstance().minecraftVersion <= version;
-            case "==" -> PluginManager.getInstance().minecraftVersion == version;
-            case ">=" -> PluginManager.getInstance().minecraftVersion >= version;
-            case ">" -> PluginManager.getInstance().minecraftVersion > version;
+            case "<" -> compare < 0;
+            case "<=" -> compare <= 0;
+            case "==" -> compare == 0;
+            case ">=" -> compare >= 0;
+            case ">" -> compare > 0;
             default -> true;
         };
+    }
+
+    private int compareMcVersion(String currentVersion, String requiredVersion) {
+        List<Integer> current = this.parseMcVersion(currentVersion);
+        List<Integer> required = this.parseMcVersion(requiredVersion);
+        int size = Math.max(current.size(), required.size());
+
+        for (int i = 0; i < size; i++) {
+            int currentPart = i < current.size() ? current.get(i) : 0;
+            int requiredPart = i < required.size() ? required.get(i) : 0;
+            int compare = Integer.compare(currentPart, requiredPart);
+            if (compare != 0) return compare;
+        }
+
+        return 0;
+    }
+
+    private List<Integer> parseMcVersion(String version) {
+        List<Integer> result = new ArrayList<>();
+        if (version == null || version.isBlank()) return result;
+
+        String[] parts = version.split("\\.");
+        int start = parts.length > 1 && "1".equals(parts[0]) ? 1 : 0;
+
+        for (int i = start; i < parts.length; i++) {
+            result.add(Integer.parseInt(parts[i]));
+        }
+
+        return result;
     }
 
     public record Config(

@@ -1,6 +1,7 @@
 # 模块迁移经验总结
 
-本文记录 `MHDF-Tools` 旧功能迁移到新模块架构时需要遵守的经验和检查点。后续迁移功能时，优先参考现有新模块，尤其是 `Vanish` 的实现风格。
+本文记录 `MHDF-Tools` 旧功能迁移到新模块架构时需要遵守的经验和检查点。后续迁移功能时，优先参考现有新模块，尤其是 `Vanish`
+的实现风格。
 
 ## 迁移目标
 
@@ -59,21 +60,26 @@ time:
       - "day"
 ```
 
-配置读取应由模块自己的 `ConfigSetting` 负责，命令和监听器不要直接散落读取 YAML。常用做法是把配置解析成 record 或不可变集合，命令执行时只消费已经整理好的结构。
+配置读取应由模块自己的 `ConfigSetting` 负责，命令和监听器不要直接散落读取 YAML。常用做法是把配置解析成 record
+或不可变集合，命令执行时只消费已经整理好的结构。
 
 ## 菜单配置迁移
 
-旧功能如果引用了 `menu/*.yml` 或自定义菜单配置，迁移时必须同步迁移菜单文件和菜单 Setting，不能因为命令能打开临时 Inventory 就丢掉原有菜单配置能力。
+旧功能如果引用了 `menu/*.yml` 或自定义菜单配置，迁移时必须同步迁移菜单文件和菜单 Setting，不能因为命令能打开临时 Inventory
+就丢掉原有菜单配置能力。
 
 推荐按 `MHDF-ItemBind` 的最新菜单规范处理：
 
 - 菜单类放在模块自己的 `menu` 包，例如 `menu/ArmorMenu.java`。
 - 菜单配置放进模块资源目录，例如 `resources/module/<模块名>/menu/armor.yml`。
-- 菜单配置由独立 Setting 负责，例如 `ArmorMenuSetting`，并在 `ModuleMain.onLoad()` 中按 `saveDefaultFile()`、`update()`、`reload()` 顺序加载。
-- 菜单 YAML 优先使用 `title`、`slots`、`open_actions`、`close_actions`、`items` 结构；`slots` 用字符布局声明界面，`items` 用同名字符定义图标、条件和点击动作。
+- 菜单配置由独立 Setting 负责，例如 `ArmorMenuSetting`，并在 `ModuleMain.onLoad()` 中按 `saveDefaultFile()`、`update()`、
+  `reload()` 顺序加载。
+- 菜单 YAML 优先使用 `title`、`slots`、`open_actions`、`close_actions`、`items` 结构；`slots` 用字符布局声明界面，`items`
+  用同名字符定义图标、条件和点击动作。
 - 菜单项解析后缓存为 `MenuItem` 或同等数据结构，菜单渲染只消费已解析的数据，不在点击或构建 Inventory 时散落读取 YAML。
 - 如果某些槽位承载业务语义，例如装备栏的 helmet/chestplate/leggings/boots，要在菜单配置中显式声明这些字符到业务槽位的映射，避免把槽位数字硬编码进菜单类。
-- 打开/关闭/点击动作沿用当前轻量 action/condition 体系，使用 `open_actions`、`close_actions` 和菜单项 `actions`，不要回退到旧 `openActions`、`closeActions` 或旧 ActionUtil。
+- 打开/关闭/点击动作沿用当前轻量 action/condition 体系，使用 `open_actions`、`close_actions` 和菜单项 `actions`，不要回退到旧
+  `openActions`、`closeActions` 或旧 ActionUtil。
 
 ## 语言迁移
 
@@ -111,7 +117,8 @@ if (args[0].equals("off")) {
 // 构造并发送设置提示
 ```
 
-如果 `MHDFToolsPlayer` 已经包装了读写能力，就不要再从命令层直接碰 `DataManager`。`DataManager` 应保持偏底层存储职责，模块业务代码使用已有玩家 API 更干净。
+如果 `MHDFToolsPlayer` 已经包装了读写能力，就不要再从命令层直接碰 `DataManager`。`DataManager` 应保持偏底层存储职责，模块业务代码使用已有玩家
+API 更干净。
 
 ## 监听器实现
 
@@ -130,7 +137,8 @@ if (args[0].equals("off")) {
 
 旧功能如果有 Placeholder，新模块也要实现对应 Placeholder。
 
-占位符应放在模块自己的 `placeholder` 包，并继承新模块架构提供的 `Placeholder` 基类。占位符 ID 要保持旧功能对外使用的名称，例如昵称显示继续使用原来的 `nick_name` 语义，避免外部菜单、计分板或文本配置失效。
+占位符应放在模块自己的 `placeholder` 包，并继承新模块架构提供的 `Placeholder` 基类。占位符 ID 要保持旧功能对外使用的名称，例如昵称显示继续使用原来的
+`nick_name` 语义，避免外部菜单、计分板或文本配置失效。
 
 实现时不要从旧代码里拉复杂依赖，优先通过 `MHDFToolsPlayer` 取当前状态。
 
@@ -181,7 +189,8 @@ refactor: fast change weather
 refactor: nick
 ```
 
-提交前先看 `git diff --cached --stat`，确认当前 commit 只包含一个功能的迁移。共享文件如果同时删了多个功能的旧配置，需要分次 stage 对应 hunks，避免两个模块互相污染提交。
+提交前先看 `git diff --cached --stat`，确认当前 commit 只包含一个功能的迁移。共享文件如果同时删了多个功能的旧配置，需要分次
+stage 对应 hunks，避免两个模块互相污染提交。
 
 ## 迁移 Checklist
 

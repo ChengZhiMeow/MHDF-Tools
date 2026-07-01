@@ -7,8 +7,10 @@ import cn.chengzhimeow.cccondition.exception.ConditionIllegalArgumentException;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.array.ArrayUtil;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.common.condition.cast.ComponentCastManagerImpl;
 import cn.chengzhimeow.mhdftools.exception.StackTraceUtil;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ public final class ConditionManager {
 
     private ConditionManager() {
         this.ccCondition = new CCCondition(MHDFToolsBukkit.getInstance());
+
+        this.ccCondition.getCastRegistry().register(Component.class, new ComponentCastManagerImpl());
     }
 
     /**

@@ -93,15 +93,14 @@ tasks {
             "cn.chengzhiya",
             "com.alibaba",
             "org.reflections",
-            "com.github.retrooper",
-            "io.github.retrooper",
             "com.j256.ormlite",
             "com.zaxxer",
             "io.lettuce",
             "net.objecthunter",
             "org.intellij",
             "org.jetbrains",
-            "org.yaml"
+            "org.yaml",
+            "net.nyana"
         ).forEach { relocate(it, "cn.chengzhimeow.mhdftools.libs.$it") }
     }
 

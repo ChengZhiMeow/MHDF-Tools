@@ -4,13 +4,9 @@ import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
-import com.github.retrooper.packetevents.protocol.ConnectionState;
 import com.github.retrooper.packetevents.protocol.player.User;
-import com.github.retrooper.packetevents.protocol.player.UserProfile;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
-import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,32 +25,7 @@ public final class PacketEventsManager {
      */
     public void hook(JavaPlugin plugin) {
         this.plugin = plugin;
-
-        PacketEvents.setAPI(SpigotPacketEventsBuilder.build(plugin));
-        PacketEvents.getAPI().getSettings()
-                .bStats(false)
-                .fullStackTrace(true)
-                .kickOnPacketException(true)
-                .checkForUpdates(false)
-                .reEncodeByDefault(false)
-                .debug(false);
-        PacketEvents.getAPI().load();
         this.serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
-
-        if (!Bukkit.getOnlinePlayers().isEmpty()) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                Object channel = PacketEvents.getAPI().getPlayerManager().getChannel(player);
-                User user = new User(
-                        channel,
-                        ConnectionState.PLAY,
-                        this.getServerVersion().toClientVersion(),
-                        new UserProfile(player.getUniqueId(), player.getName())
-                );
-                PacketEvents.getAPI().getProtocolManager().setUser(channel, user);
-            }
-        }
-
-        PacketEvents.getAPI().init();
     }
 
     /**

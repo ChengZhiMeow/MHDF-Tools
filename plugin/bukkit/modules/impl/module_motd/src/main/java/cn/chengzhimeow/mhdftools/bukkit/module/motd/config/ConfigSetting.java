@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.motd.config;
 
+import cn.chengzhimeow.ccyaml.configuration.yaml.YamlStringSectionData;
 import cn.chengzhimeow.mhdftools.bukkit.module.motd.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import lombok.Getter;
@@ -49,7 +50,13 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
                                 super.getData().getStringList("players.fake_sample.text")
                         )
                 ),
-                super.getData().getList("description", List.class)
+                ((List<List<YamlStringSectionData>>) (List<?>) super.getData().getList("description", List.class))
+                        .stream()
+                        .map(list -> list.stream()
+                                .map(YamlStringSectionData::getValue)
+                                .toList()
+                        )
+                        .toList()
         );
     }
 
@@ -57,7 +64,7 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
             boolean enable,
             Version version,
             Players players,
-            List<List> description
+            List<List<String>> description
     ) {
         public record Version(
                 boolean enable,

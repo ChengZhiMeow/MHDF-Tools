@@ -3,6 +3,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.economy.vault;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.manager.feature.EconomyDataManager;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.LangSetting;
@@ -22,7 +23,7 @@ public final class VaultEconomyProvider extends AbstractEconomy {
 
     public VaultEconomyProvider(ModuleMain module) {
         this.module = module;
-        Bukkit.getServicesManager().register(Economy.class, this, module.getPlugin(), ServicePriority.Normal);
+        Bukkit.getServicesManager().register(Economy.class, this, MHDFToolsBukkit.getInstance(), ServicePriority.Normal);
     }
 
     public void unregister() {

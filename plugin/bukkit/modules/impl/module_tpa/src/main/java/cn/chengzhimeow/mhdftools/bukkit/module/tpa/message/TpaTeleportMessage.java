@@ -2,8 +2,8 @@ package cn.chengzhimeow.mhdftools.bukkit.module.tpa.message;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
-import cn.chengzhimeow.mhdftools.bukkit.module.tpa.ModuleMain;
 import net.nyana.message.MessageBroker;
 import net.nyana.message.executors.MessageExecutors;
 import net.nyana.message.libs.codec.Codec;
@@ -54,7 +54,7 @@ public final class TpaTeleportMessage implements RedisMessage {
         Player player = Bukkit.getPlayerExact(this.player);
         if (player == null) return;
 
-        Bukkit.getScheduler().runTask(ModuleMain.instance.getPlugin(), () -> {
+        Bukkit.getScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> {
             MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
             MHDFToolsPlayer mhdfTarget = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(this.target);
             mhdfPlayer.teleport(mhdfTarget);

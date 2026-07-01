@@ -11,18 +11,19 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 public abstract class Menu implements InventoryHolder {
     private final boolean enable;
     private final Player player;
 
-    public Menu(Module module, boolean enable, Player player) {
+    public Menu(@NotNull Module module, boolean enable, @NotNull Player player) {
         this.enable = enable;
         this.player = player;
     }
 
-    public Menu(Module module, Player player) {
+    public Menu(@NotNull Module module, @NotNull Player player) {
         this(module, true, player);
     }
 

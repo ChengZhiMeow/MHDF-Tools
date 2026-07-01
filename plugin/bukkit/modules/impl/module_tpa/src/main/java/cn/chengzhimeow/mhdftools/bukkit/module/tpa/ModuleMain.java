@@ -23,18 +23,6 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onLoad() {
-        ConfigSetting.getInstance().saveDefaultFile();
-        ConfigSetting.getInstance().update();
-        ConfigSetting.getInstance().reload();
-
-        LangSetting.getInstance().saveDefaultFile();
-        LangSetting.getInstance().update();
-        LangSetting.getInstance().reload();
-
-        TpaMenuSetting.getInstance().saveDefaultFile();
-        TpaMenuSetting.getInstance().update();
-        TpaMenuSetting.getInstance().reload();
-
         this.requestCache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:tpa:request", String.class);
         this.delayCache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:tpa:delay", String.class);
     }
@@ -47,6 +35,21 @@ public final class ModuleMain extends Module {
     @Override
     public void onEnable() {
         MHDFToolsBukkit.getInstance().getRedisManager().register(TpaTeleportMessage.ID, TpaTeleportMessage.CODEC);
+    }
+
+    @Override
+    public void reloadConfig() {
+        ConfigSetting.getInstance().saveDefaultFile();
+        ConfigSetting.getInstance().update();
+        ConfigSetting.getInstance().reload();
+
+        LangSetting.getInstance().saveDefaultFile();
+        LangSetting.getInstance().update();
+        LangSetting.getInstance().reload();
+
+        TpaMenuSetting.getInstance().saveDefaultFile();
+        TpaMenuSetting.getInstance().update();
+        TpaMenuSetting.getInstance().reload();
     }
 
     @Override

@@ -19,6 +19,16 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onLoad() {
+        ActionManager.getInstance().register("menu", OpenCustomMenuAction.class);
+    }
+
+    @Override
+    public boolean isEnable() {
+        return ConfigSetting.getInstance().getConfig().enable();
+    }
+
+    @Override
+    public void reloadConfig() {
         ConfigSetting.getInstance().saveDefaultFile();
         ConfigSetting.getInstance().update();
         ConfigSetting.getInstance().reload();
@@ -30,13 +40,6 @@ public final class ModuleMain extends Module {
         MenuSetting.getInstance().saveDefaultFile();
         MenuSetting.getInstance().update();
         MenuSetting.getInstance().reload();
-
-        ActionManager.getInstance().register("menu", OpenCustomMenuAction.class);
-    }
-
-    @Override
-    public boolean isEnable() {
-        return ConfigSetting.getInstance().getConfig().enable();
     }
 
     @Override

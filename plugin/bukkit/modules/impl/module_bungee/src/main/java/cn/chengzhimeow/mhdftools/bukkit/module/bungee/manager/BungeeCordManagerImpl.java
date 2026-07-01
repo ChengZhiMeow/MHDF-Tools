@@ -1,9 +1,9 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bungee.manager;
 
-import cn.chengzhimeow.ccscheduler.task.CallBack;
 import cn.chengzhimeow.ccscheduler.task.CCTaskCallback;
+import cn.chengzhimeow.ccscheduler.task.CallBack;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
-import cn.chengzhimeow.mhdftools.bukkit.module.bungee.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.listener.PluginMessage;
 import cn.chengzhimeow.mhdftools.console.LogManager;
@@ -24,12 +24,12 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
 
     @Getter
     private final PluginMessage listener = new PluginMessage();
+    private final Map<String, List<CallBack<String>>> playerServerCallbacks = new ConcurrentHashMap<>();
     @Getter
     @Setter
     private String serverName = "无";
     @Setter
     private Set<String> playerList = new HashSet<>();
-    private final Map<String, List<CallBack<String>>> playerServerCallbacks = new ConcurrentHashMap<>();
 
     private BungeeCordManagerImpl() {
     }
@@ -107,7 +107,7 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
             return;
         }
 
-        iterator.next().sendPluginMessage(ModuleMain.instance.getPlugin(), "BungeeCord", out.toByteArray());
+        iterator.next().sendPluginMessage(MHDFToolsBukkit.getInstance(), "BungeeCord", out.toByteArray());
     }
 
     /**

@@ -3,6 +3,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.vanish.listener;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.VanishStatus;
 import cn.chengzhimeow.mhdftools.api.manager.feature.VanishStatusManager;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.config.BossBarSetting;
@@ -37,7 +38,7 @@ final class PlayerJoin extends Listener {
             }
 
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                onlinePlayer.hidePlayer(ModuleMain.instance.getPlugin(), player);
+                onlinePlayer.hidePlayer(MHDFToolsBukkit.getInstance(), player);
             }
         }
 
@@ -47,7 +48,7 @@ final class PlayerJoin extends Listener {
             Player target = Bukkit.getPlayer(uuid);
             if (target == null) continue;
 
-            player.hidePlayer(ModuleMain.instance.getPlugin(), target);
+            player.hidePlayer(MHDFToolsBukkit.getInstance(), target);
         }
     }
 

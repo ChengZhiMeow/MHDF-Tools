@@ -8,7 +8,7 @@ public final class PluginManager {
         return PluginManager.instance;
     }
 
-    public int minecraftVersion;
+    public String minecraftVersion;
     public ServerType serverType;
     public String version;
 

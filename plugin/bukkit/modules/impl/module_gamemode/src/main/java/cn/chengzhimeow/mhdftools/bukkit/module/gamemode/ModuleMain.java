@@ -17,17 +17,6 @@ public final class ModuleMain extends Module {
     }
 
     @Override
-    public void onLoad() {
-        ConfigSetting.getInstance().saveDefaultFile();
-        ConfigSetting.getInstance().update();
-        ConfigSetting.getInstance().reload();
-
-        LangSetting.getInstance().saveDefaultFile();
-        LangSetting.getInstance().update();
-        LangSetting.getInstance().reload();
-    }
-
-    @Override
     public boolean isEnable() {
         return ConfigSetting.getInstance().getConfig().enable();
     }
@@ -35,6 +24,17 @@ public final class ModuleMain extends Module {
     @Override
     public void onEnable() {
         MHDFToolsBukkit.getInstance().getRedisManager().register(GameModeMessage.ID, GameModeMessage.CODEC);
+    }
+
+    @Override
+    public void reloadConfig() {
+        ConfigSetting.getInstance().saveDefaultFile();
+        ConfigSetting.getInstance().update();
+        ConfigSetting.getInstance().reload();
+
+        LangSetting.getInstance().saveDefaultFile();
+        LangSetting.getInstance().update();
+        LangSetting.getInstance().reload();
     }
 
     @Override

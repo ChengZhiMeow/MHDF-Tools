@@ -119,7 +119,8 @@ final class Tpa extends Command {
         MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
         Player localPlayer = Bukkit.getPlayerExact(playerName);
         if (localPlayer != null) player.teleport(target);
-        else Messager.publish(new TpaTeleportMessage(BungeeCordManager.getInstance().getServerName(), playerName, sender.getName()));
+        else
+            Messager.publish(new TpaTeleportMessage(BungeeCordManager.getInstance().getServerName(), playerName, sender.getName()));
 
         player.sendMessage(LangSetting.getInstance().getConfig().commands().tpa().accept().accepted()
                 .replace("{player}", target.getDisplayName()));

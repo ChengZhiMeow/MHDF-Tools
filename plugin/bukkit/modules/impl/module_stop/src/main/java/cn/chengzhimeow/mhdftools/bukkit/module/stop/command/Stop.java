@@ -2,6 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.stop.command;
 
 import cn.chengzhimeow.ccscheduler.runnable.CCRunnable;
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.stop.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.stop.config.ConfigSetting;
@@ -132,7 +133,7 @@ final class Stop extends Command {
     private void confirmStop() {
         this.stop = true;
 
-        JavaPlugin plugin = ModuleMain.instance.getPlugin();
+        JavaPlugin plugin = MHDFToolsBukkit.getInstance();
         new CCRunnable(CCScheduler.getInstance()) {
             private final Component message = Stop.this.message;
             private int countdown = Stop.this.time;

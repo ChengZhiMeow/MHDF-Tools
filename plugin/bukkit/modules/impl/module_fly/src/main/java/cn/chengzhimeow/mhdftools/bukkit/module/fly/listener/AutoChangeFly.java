@@ -51,7 +51,8 @@ final class AutoChangeFly extends Listener {
     }
 
     private boolean allowFly(Player player) {
-        if (ConfigSetting.getInstance().getConfig().autoDisable().worldList().contains(player.getWorld().getName())) return false;
+        if (ConfigSetting.getInstance().getConfig().autoDisable().worldList().contains(player.getWorld().getName()))
+            return false;
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
         return mhdfPlayer.isEnableFly() || mhdfPlayer.isAllowedFlyingGameMode();

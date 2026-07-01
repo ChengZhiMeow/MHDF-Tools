@@ -2,7 +2,6 @@ package cn.chengzhimeow.mhdftools.bukkit.common.menu;
 
 import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
-import cn.chengzhimeow.mhdftools.thread.ThreadPool;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;

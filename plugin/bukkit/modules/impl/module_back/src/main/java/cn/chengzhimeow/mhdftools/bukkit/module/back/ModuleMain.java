@@ -17,7 +17,17 @@ public final class ModuleMain extends Module {
     }
 
     @Override
-    public void onLoad() {
+    public void onEnable() {
+        MHDFToolsAPI.getInstance().getBackDataManager().setEnable(this.isEnable());
+    }
+
+    @Override
+    public void onDisable() {
+        MHDFToolsAPI.getInstance().getBackDataManager().setEnable(false);
+    }
+
+    @Override
+    public void reloadConfig() {
         ConfigSetting.getInstance().saveDefaultFile();
         ConfigSetting.getInstance().update();
         ConfigSetting.getInstance().reload();
@@ -29,16 +39,6 @@ public final class ModuleMain extends Module {
         BackMenuSetting.getInstance().saveDefaultFile();
         BackMenuSetting.getInstance().update();
         BackMenuSetting.getInstance().reload();
-    }
-
-    @Override
-    public void onEnable() {
-        MHDFToolsAPI.getInstance().getBackDataManager().setEnable(this.isEnable());
-    }
-
-    @Override
-    public void onDisable() {
-        MHDFToolsAPI.getInstance().getBackDataManager().setEnable(false);
     }
 
     @Override

@@ -9,9 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class BackUtil {
-    private BackUtil() {
-    }
-
     public static int getMaxBack(Player player) {
         List<Integer> amountList = new ArrayList<>(player.getEffectivePermissions().stream()
                 .map(PermissionAttachmentInfo::getPermission)
@@ -23,5 +20,8 @@ public final class BackUtil {
         amountList.sort(Comparator.reverseOrder());
 
         return !amountList.isEmpty() ? amountList.get(0) : ConfigSetting.getInstance().getConfig().defaultMax();
+    }
+
+    private BackUtil() {
     }
 }

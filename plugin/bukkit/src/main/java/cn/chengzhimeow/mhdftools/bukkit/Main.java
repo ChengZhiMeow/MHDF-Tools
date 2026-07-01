@@ -14,7 +14,8 @@ import cn.chengzhimeow.mhdftools.bukkit.api.redis.RedisManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.CacheSetting;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.DatabaseSetting;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.menu.listener.MenuListener;
+import cn.chengzhimeow.mhdftools.bukkit.hook.PacketEventsHook;
+import cn.chengzhimeow.mhdftools.bukkit.module.ModuleManager;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
 import cn.chengzhimeow.mhdftools.library.LibraryManager;
@@ -24,7 +25,8 @@ import cn.chengzhimeow.mhdftools.plugin.PluginManager;
 import cn.chengzhimeow.mhdftools.plugin.ServerType;
 import cn.chengzhiya.mhdflibrary.manager.LoggerManager;
 import lombok.Getter;
-import lombok.SneakyThrows;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.bukkit.Bukkit;
 
 @Getter
@@ -35,15 +37,17 @@ public final class Main extends MHDFToolsBukkit {
     private CacheManagerImpl cacheManager;
     private RedisManagerImpl redisManager;
     private ItemManager itemManager;
+    private PacketEventsHook packetEventsHook;
 
     @Override
-    @SneakyThrows
     public void onLoad() {
+        Configurator.setLevel("cn.chengzhimeow.mhdftools.libs.org.reflections", Level.OFF);
+
         Main.instance = this;
         MHDFToolsBukkit.setInstance(this);
 
         PluginManager.getInstance().version = this.getDescription().getVersion();
-        PluginManager.getInstance().minecraftVersion = Integer.parseInt(Bukkit.getMinecraftVersion().replace(".", ""));
+        PluginManager.getInstance().minecraftVersion = Bukkit.getMinecraftVersion();
         PluginManager.getInstance().serverType = ServerType.BUKKIT;
 
         ConfigManager.getInstance().setDataFolder(this.getDataFolder());
@@ -66,6 +70,7 @@ public final class Main extends MHDFToolsBukkit {
 
             @Override
             public void debug(String message, String... args) {
+                if (ConfigSetting.getInstance().getConfig().debug()) return;
                 Bukkit.getConsoleSender().sendMessage(ColorUtil.color(LogManager.DEBUG_PREFIX + StringUtil.format(message, args)));
             }
         };
@@ -81,6 +86,8 @@ public final class Main extends MHDFToolsBukkit {
         DatabaseSetting.getInstance().saveDefaultFile();
         DatabaseSetting.getInstance().update();
         DatabaseSetting.getInstance().reload();
+
+        ModuleManager.getInstance().initModules();
     }
 
     @Override
@@ -90,6 +97,9 @@ public final class Main extends MHDFToolsBukkit {
 
     @Override
     public void onEnable() {
+        this.packetEventsHook = new PacketEventsHook();
+        this.packetEventsHook.hook();
+
         this.cacheManager = new CacheManagerImpl();
 
         this.databaseManager = new DatabaseManager(this);
@@ -102,17 +112,20 @@ public final class Main extends MHDFToolsBukkit {
 
         this.itemManager = new ItemManagerImpl();
 
-        Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
-
         MHDFToolsAPI.setInstance(new MHDFToolsAPIImpl(this.databaseManager));
+
+        ModuleManager.getInstance().loadModules();
         LogManager.instance.log("&aMHDF-Tools enabled.");
     }
 
     @Override
     public void onDisable() {
+        ModuleManager.getInstance().unloadModules();
+
         if (this.databaseManager != null) this.databaseManager.close();
         if (this.redisManager != null) this.redisManager.close();
         if (this.cacheManager != null) this.cacheManager.close();
+        if (this.packetEventsHook != null) this.packetEventsHook.unhook();
 
         MHDFToolsAPI.setInstance(null);
         LogManager.instance.log("&aMHDF-Tools disabled.");

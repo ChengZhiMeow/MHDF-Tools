@@ -1,3 +1,7 @@
+repositories {
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi")
+}
+
 allprojects {
     dependencies {
         compileOnly(project(":api"))
@@ -39,6 +43,9 @@ dependencies {
     compileOnly("${rootProject.properties["libs.nyana_nbt_codec"]}")
 
     compileOnly("${rootProject.properties["plugin.vault"]}") {
+        exclude("org.bukkit")
+    }
+    compileOnly("${rootProject.properties["plugin.placeholderapi"]}") {
         exclude("org.bukkit")
     }
 }

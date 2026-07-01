@@ -7,11 +7,13 @@ import cn.chengzhimeow.ccaction.exception.ActionIllegalArgumentException;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.array.ArrayUtil;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
+import cn.chengzhimeow.mhdftools.bukkit.common.action.cast.ComponentCastManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.ChatActionImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.NextPageActionImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.PrevPageActionImpl;
 import cn.chengzhimeow.mhdftools.exception.StackTraceUtil;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public final class ActionManager {
 
     private ActionManager() {
         this.ccAction = new CCAction(MHDFToolsBukkit.getInstance());
+
+        this.ccAction.getCastRegistry().register(Component.class, new ComponentCastManagerImpl());
 
         this.ccAction.getActionRegistry().register("chat", ChatActionImpl.class);
         this.ccAction.getActionRegistry().register("prev_page", PrevPageActionImpl.class);

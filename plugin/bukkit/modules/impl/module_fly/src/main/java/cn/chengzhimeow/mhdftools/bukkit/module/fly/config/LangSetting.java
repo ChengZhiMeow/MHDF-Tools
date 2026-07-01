@@ -1,10 +1,10 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fly.config;
 
+import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.module.fly.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractLangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
-import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import lombok.Getter;
 
 import java.util.HashMap;

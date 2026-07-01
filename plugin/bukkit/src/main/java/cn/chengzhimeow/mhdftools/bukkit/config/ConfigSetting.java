@@ -1,29 +1,35 @@
 package cn.chengzhimeow.mhdftools.bukkit.config;
 
-import cn.chengzhimeow.ccyaml.manager.AbstractYamlManager;
-import cn.chengzhimeow.mhdftools.config.ConfigManager;
+import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
+import lombok.Getter;
 
-public final class ConfigSetting extends AbstractYamlManager {
-    private static ConfigSetting instance;
-
-    public static ConfigSetting getInstance() {
-        if (ConfigSetting.instance == null) {
-            ConfigSetting.instance = new ConfigSetting();
-        }
-        return ConfigSetting.instance;
-    }
-
-    private ConfigSetting() {
-        super(ConfigManager.getInstance().getYamlManager());
-    }
+public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Config> {
+    @Getter(lazy = true)
+    private static final ConfigSetting instance = new ConfigSetting();
 
     @Override
     public String originFilePath() {
-        return "config_zh.yml";
+        return "config/bukkit.yml";
     }
 
     @Override
     public String filePath() {
         return "config.yml";
+    }
+
+    @Override
+    public void reload() {
+        super.reload();
+
+        this.config = new Config(
+                super.getData().getBoolean("debug"),
+                super.getData().getBoolean("bstats")
+        );
+    }
+
+    public record Config(
+            boolean debug,
+            boolean bstats
+    ) {
     }
 }

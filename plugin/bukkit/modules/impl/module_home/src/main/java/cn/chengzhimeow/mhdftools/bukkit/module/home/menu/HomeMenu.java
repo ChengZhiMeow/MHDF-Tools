@@ -59,7 +59,8 @@ public final class HomeMenu extends AbstractPageMenu {
                     continue;
                 }
                 if (key.equals(config.keys().previousPage())) {
-                    if (super.getPage() > 1) inventory.setItem(slot, this.pageItem("previous_page", super.getPage() - 1));
+                    if (super.getPage() > 1)
+                        inventory.setItem(slot, this.pageItem("previous_page", super.getPage() - 1));
                     continue;
                 }
                 if (key.equals(config.keys().nextPage())) {

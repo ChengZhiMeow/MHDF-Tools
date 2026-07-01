@@ -22,6 +22,17 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onLoad() {
+        this.requestCache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:tpahere:request", String.class);
+        this.delayCache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:tpahere:delay", String.class);
+    }
+
+    @Override
+    public boolean isEnable() {
+        return ConfigSetting.getInstance().getConfig().enable();
+    }
+
+    @Override
+    public void reloadConfig() {
         ConfigSetting.getInstance().saveDefaultFile();
         ConfigSetting.getInstance().update();
         ConfigSetting.getInstance().reload();
@@ -33,14 +44,6 @@ public final class ModuleMain extends Module {
         TpaHereMenuSetting.getInstance().saveDefaultFile();
         TpaHereMenuSetting.getInstance().update();
         TpaHereMenuSetting.getInstance().reload();
-
-        this.requestCache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:tpahere:request", String.class);
-        this.delayCache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:tpahere:delay", String.class);
-    }
-
-    @Override
-    public boolean isEnable() {
-        return ConfigSetting.getInstance().getConfig().enable();
     }
 
     @Override

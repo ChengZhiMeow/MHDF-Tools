@@ -14,17 +14,17 @@ public final class ModuleMain extends Module {
     }
 
     @Override
-    public void onLoad() {
-        ConfigSetting.getInstance().saveDefaultFile();
-        ConfigSetting.getInstance().update();
-        ConfigSetting.getInstance().reload();
-    }
-
-    @Override
     public boolean isEnable() {
         ConfigSetting.Config config = ConfigSetting.getInstance().getConfig();
         return config.dupe().trident().enable()
                 || config.crash().bundle().enable();
+    }
+
+    @Override
+    public void reloadConfig() {
+        ConfigSetting.getInstance().saveDefaultFile();
+        ConfigSetting.getInstance().update();
+        ConfigSetting.getInstance().reload();
     }
 
     @Override
