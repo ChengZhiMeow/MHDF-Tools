@@ -115,7 +115,14 @@ public final class Main extends MHDFToolsBukkit {
         MHDFToolsAPI.setInstance(new MHDFToolsAPIImpl(this.databaseManager));
 
         ModuleManager.getInstance().loadModules();
-        LogManager.instance.log("&aMHDF-Tools enabled.");
+
+        LogManager.instance.log("&e===========================================");
+        LogManager.instance.log("&eMHDF-Tools | 版本: " + getDescription().getVersion());
+        LogManager.instance.log("&eMHDF-Tools | 作者: ChengZhiMeow");
+        LogManager.instance.log("");
+        LogManager.instance.log("&eCiallo～ (∠·ω< )⌒★");
+        LogManager.instance.log("&e\"在意的话，会让眼前的幸福逃走的，傻子才会在意。\"");
+        LogManager.instance.log("&e===========================================");
     }
 
     @Override
@@ -128,6 +135,5 @@ public final class Main extends MHDFToolsBukkit {
         if (this.packetEventsHook != null) this.packetEventsHook.unhook();
 
         MHDFToolsAPI.setInstance(null);
-        LogManager.instance.log("&aMHDF-Tools disabled.");
     }
 }

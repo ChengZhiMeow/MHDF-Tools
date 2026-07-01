@@ -28,16 +28,6 @@ commands:
           {help_list}
           &f
           &7⌞                                         ⌟
-      import:
-        usage: "/{command} import <插件名称>"
-        description: "导入其他插件的数据"
-        plugin_not_support: "{prefix} <#FFB8B8>目标插件不支持导入!"
-        import:
-          start: "{prefix} <#EAE4FF>开始导入 &f{plugin} <#EAE4FF>的 &b{name} <#EAE4FF>数据!"
-          done: "{prefix} <#EAE4FF>导入 &f{plugin} <#EAE4FF>的 &e{name} <#EAE4FF>数据完成!&7(耗时: {time}ms)"
-        message:
-          start: "{prefix} <#EAE4FF>开始导入 &f{plugin} <#EAE4FF>的数据!"
-          done: "{prefix} <#EAE4FF>导入 &f{plugin} <#EAE4FF>的数据完成!"
       reload:
         usage: "/{command} reload"
         description: "重载插件"
