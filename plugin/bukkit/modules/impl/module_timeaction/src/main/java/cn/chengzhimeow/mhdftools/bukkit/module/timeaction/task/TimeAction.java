@@ -43,7 +43,7 @@ final class TimeAction extends Task {
                 case "定时操作" -> {
                     int delay = this.delays.getOrDefault(action.id(), 0);
 
-                    if (delay >= this.timeStringToTime(time)) {
+                    if (delay < this.timeStringToTime(time)) {
                         this.delays.put(action.id(), delay + 1);
                         continue;
                     }
