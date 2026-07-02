@@ -21,7 +21,7 @@ keys:
 items:
   player:
     by: "Vanilla"
-    type: "paper"
+    type: "player_head"
     name: "<#EAE4FF>{target}"
     lore:
       - ""

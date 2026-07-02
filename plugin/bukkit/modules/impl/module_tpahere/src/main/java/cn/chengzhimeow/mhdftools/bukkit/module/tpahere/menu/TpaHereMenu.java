@@ -8,12 +8,14 @@ import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config.TpaHereMenuSetting
 import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.service.TpaHereService;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
@@ -130,9 +132,14 @@ public final class TpaHereMenu extends AbstractPageMenu {
         Map<String, String> pdc = new HashMap<>();
         pdc.put("tpahere_player", target);
 
-        return MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(
+        ItemStack itemStack = MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(
                 TpaHereMenuSetting.getInstance().getConfig().items().get("player").toBuilderItem(placeholders, pdc),
                 super.getPlayer()
         );
+        if (itemStack.getType() == Material.PLAYER_HEAD && itemStack.getItemMeta() instanceof SkullMeta meta) {
+            meta.setOwningPlayer(Bukkit.getOfflinePlayer(target));
+            itemStack.setItemMeta(meta);
+        }
+        return itemStack;
     }
 }
