@@ -43,7 +43,7 @@ final class Bed extends Command {
             return;
         }
 
-        sender.teleport(location);
+        sender.teleportAsync(location);
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().bed().message());
     }
 }

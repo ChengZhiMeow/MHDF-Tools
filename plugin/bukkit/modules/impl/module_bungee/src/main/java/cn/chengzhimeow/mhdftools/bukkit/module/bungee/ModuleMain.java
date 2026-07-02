@@ -26,7 +26,7 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onEnable() {
-        if (!BungeeCordManagerImpl.getInstance().isBungeeCordMode()) return;
+        if (!ConfigSetting.getInstance().getConfig().enable()) return;
 
         Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(MHDFToolsBukkit.getInstance(), "BungeeCord");
         Bukkit.getServer().getMessenger().registerIncomingPluginChannel(MHDFToolsBukkit.getInstance(), "BungeeCord", BungeeCordManagerImpl.getInstance().getListener());
@@ -34,7 +34,7 @@ public final class ModuleMain extends Module {
 
     @Override
     public void onDisable() {
-        if (!BungeeCordManagerImpl.getInstance().isBungeeCordMode()) return;
+        if (!ConfigSetting.getInstance().getConfig().enable()) return;
 
         Bukkit.getServer().getMessenger().unregisterOutgoingPluginChannel(MHDFToolsBukkit.getInstance(), "BungeeCord");
         Bukkit.getServer().getMessenger().unregisterIncomingPluginChannel(MHDFToolsBukkit.getInstance(), "BungeeCord");

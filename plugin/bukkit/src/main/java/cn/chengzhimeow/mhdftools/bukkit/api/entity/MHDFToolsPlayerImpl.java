@@ -147,33 +147,30 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         if (player == null) return;
 
         BungeeCordManager bungeeCordManager = BungeeCordManager.getInstance();
-        if (!bungeeCordManager.isBungeeCordMode()) {
-            if (!location.getServer().equalsIgnoreCase(Bukkit.getServer().getName())) {
-                player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
-                return;
-            }
-        } else if (!location.getServer().equalsIgnoreCase(bungeeCordManager.getServerName())) {
-            try {
-                CompoundTag root = NBT.createCompound();
-                CompoundTag info = NBT.createCompound();
-                root.putByte("mode", (byte) 1);
-                info.putString("server_id", location.getServer());
-                info.putString("world", location.getWorld());
-                info.putDouble("x", location.getX());
-                info.putDouble("y", location.getY());
-                info.putDouble("z", location.getZ());
-                info.putFloat("yaw", location.getYaw());
-                info.putFloat("pitch", location.getPitch());
-                root.put("info", info);
-                CacheService<String, byte[]> cache = Main.instance.getCacheManager().createCache("server_teleport", byte[].class);
-                cache.put(this.getName(), NBT.toBytes(root), 60L);
-            } catch (IOException ignored) {
-                player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
-                return;
-            }
+        if (bungeeCordManager.isBungeeCordMode()) {
+            if (!location.getServer().equalsIgnoreCase(bungeeCordManager.getServerName())) {
+                try {
+                    CompoundTag root = NBT.createCompound();
+                    CompoundTag info = NBT.createCompound();
+                    root.putByte("mode", (byte) 1);
+                    info.putString("server_id", location.getServer());
+                    info.putString("world", location.getWorld());
+                    info.putDouble("x", location.getX());
+                    info.putDouble("y", location.getY());
+                    info.putDouble("z", location.getZ());
+                    info.putFloat("yaw", location.getYaw());
+                    info.putFloat("pitch", location.getPitch());
+                    root.put("info", info);
+                    CacheService<String, byte[]> cache = Main.instance.getCacheManager().createCache("server_teleport", byte[].class);
+                    cache.put(this.getName(), NBT.toBytes(root), 60L);
+                } catch (IOException ignored) {
+                    player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+                    return;
+                }
 
-            bungeeCordManager.connectServer(this.getName(), location.getServer());
-            return;
+                bungeeCordManager.connectServer(this.getName(), location.getServer());
+                return;
+            }
         }
 
         World world = Bukkit.getWorld(location.getWorld());
