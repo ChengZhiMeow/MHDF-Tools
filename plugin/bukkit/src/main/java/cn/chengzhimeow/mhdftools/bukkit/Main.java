@@ -70,7 +70,7 @@ public final class Main extends MHDFToolsBukkit {
 
             @Override
             public void debug(String message, String... args) {
-                if (ConfigSetting.getInstance().getConfig().debug()) return;
+                if (!ConfigSetting.getInstance().getConfig().debug()) return;
                 Bukkit.getConsoleSender().sendMessage(ColorUtil.color(LogManager.DEBUG_PREFIX + StringUtil.format(message, args)));
             }
         };

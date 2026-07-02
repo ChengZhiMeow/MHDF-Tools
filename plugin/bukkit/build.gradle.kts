@@ -36,10 +36,13 @@ dependencies {
     compileOnly("${rootProject.properties["libs.mhdf_database_mysql"]}")
     compileOnly("${rootProject.properties["libs.mhdf_database_h2"]}")
     compileOnly("${rootProject.properties["libs.cc_yaml"]}")
+
     compileOnly("${rootProject.properties["libs.nyana_cache"]}")
     compileOnly("${rootProject.properties["libs.nyana_cache_hashmap"]}")
     compileOnly("${rootProject.properties["libs.nyana_cache_redis"]}")
     compileOnly("${rootProject.properties["libs.nyana_message"]}")
+
+    compileOnly("${rootProject.properties["libs.caffeine"]}")
     compileOnly("${rootProject.properties["libs.nyana_nbt_tag"]}")
     compileOnly("${rootProject.properties["libs.nyana_nbt_codec"]}")
 

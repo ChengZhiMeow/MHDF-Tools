@@ -59,10 +59,13 @@ library:
     dependency: "${libs.fastjson}"
     relocate:
       enable: true
+
   - repo: "https://repo.huaweicloud.com/repository/maven/"
     dependency: "${libs.reflections}"
     relocate:
       enable: true
+
+  # 缓存
   - repo: "https://repo.huaweicloud.com/repository/maven/"
     dependency: "${libs.lettuce}"
     relocate:
@@ -79,10 +82,19 @@ library:
     dependency: "${libs.nyana_cache_redis}"
     relocate:
       enable: true
+
   - repo: "https://repo.catnies.top/releases/"
     dependency: "${libs.nyana_message}"
     relocate:
       enable: true
+
+  - repo: "https://repo.huaweicloud.com/repository/maven/"
+    dependency: "${libs.caffeine}"
+    relocate:
+      enable: true
+      group_id: false
+      relocator:
+        - com.github.benmanes
   - repo: "https://repo.catnies.top/releases/"
     dependency: "${libs.nyana_nbt_tag}"
     relocate:
@@ -91,10 +103,12 @@ library:
     dependency: "${libs.nyana_nbt_codec}"
     relocate:
       enable: true
+
   - repo: "https://repo.huaweicloud.com/repository/maven/"
     dependency: "${libs.exp4j}"
     relocate:
       enable: true
+
   - repo: "https://repo.huaweicloud.com/repository/maven/"
     dependency: "org.javassist:javassist:3.28.0-GA"
     relocate:

@@ -100,7 +100,8 @@ tasks {
             "org.intellij",
             "org.jetbrains",
             "org.yaml",
-            "net.nyana"
+            "net.nyana",
+            "com.github.benmanes"
         ).forEach { relocate(it, "cn.chengzhimeow.mhdftools.libs.$it") }
     }
 

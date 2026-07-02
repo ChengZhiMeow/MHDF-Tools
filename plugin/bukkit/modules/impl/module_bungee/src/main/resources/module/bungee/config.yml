@@ -6,9 +6,3 @@ config_version: "${project.version}"
 #
 # 开关
 enable: false
-# 自动重试
-autoTry:
-  # 延迟(单位: ticks)
-  delay: 10
-  # 最大重试次数
-  maxTimes: 5

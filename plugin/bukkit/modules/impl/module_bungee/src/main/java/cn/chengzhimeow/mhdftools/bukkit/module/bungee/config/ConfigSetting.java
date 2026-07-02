@@ -27,22 +27,12 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
         super.reload();
 
         this.config = new Config(
-                super.getData().getBoolean("enable"),
-                new Config.AutoTry(
-                        super.getData().getLong("autoTry.delay"),
-                        super.getData().getInt("autoTry.maxTimes")
-                )
+                super.getData().getBoolean("enable")
         );
     }
 
     public record Config(
-            boolean enable,
-            AutoTry autoTry
+            boolean enable
     ) {
-        public record AutoTry(
-                long delay,
-                int maxTimes
-        ) {
-        }
     }
 }

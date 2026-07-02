@@ -26,7 +26,7 @@ public final class RedisManagerImpl extends RedisManager {
         if (!settings.isRedis() || this.broker != null) return;
 
         this.broker = MessageBroker.builder()
-                .appId("mhdftools:" + this.serverId)
+                .appId("mhdftools-" + this.serverId)
                 .brokerId(UUID.randomUUID().toString())
                 .logger(new BukkitRedisLogger())
                 .connection(new DefaultRedisConnection(settings.redis().uri(), 1_000_000))
