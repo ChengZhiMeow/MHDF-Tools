@@ -94,10 +94,9 @@ public final class Motd extends PacketListener {
             for (int i = 0; i < description.size(); i++) {
                 TextComponent component = ColorUtil.color(description.get(i));
                 JsonElement element = component.toJsonElement();
-                if (element instanceof JsonObject jsonObject)
-                    descriptionData.add(jsonObject);
-                else if (element instanceof JsonArray jsonArray)
+                if (element instanceof JsonArray jsonArray)
                     descriptionData.addAll(jsonArray);
+                else descriptionData.add(element);
 
                 if (i >= description.size() - 1) descriptionData.add(nextLine);
             }
