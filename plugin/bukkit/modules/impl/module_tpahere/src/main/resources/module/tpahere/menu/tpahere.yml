@@ -16,8 +16,6 @@ slots:
 # 格子字符
 keys:
   player: "T"
-  previous_page: "P"
-  next_page: "N"
 
 # 物品
 items:
@@ -28,15 +26,35 @@ items:
     lore:
       - ""
       - "&e点击发送传送请求"
-  X:
+  X: &X_ITEM
     by: "Vanilla"
     type: "gray_stained_glass_pane"
     name: "&f "
-  previous_page:
+  P_1: *X_ITEM
+  P_2:
     by: "Vanilla"
     type: "red_stained_glass_pane"
     name: "<#EAE4FF>上一页"
-  next_page:
+    conditions:
+      - type: ">"
+        disabled_check: true
+        value1: "{page}"
+        value2: 1
+    actions:
+      all:
+        - actions:
+            - type: "prev_page"
+  N_1: *X_ITEM
+  N_2:
     by: "Vanilla"
     type: "lime_stained_glass_pane"
     name: "<#EAE4FF>下一页"
+    conditions:
+      - type: ">"
+        disabled_check: true
+        value1: "{max_page}"
+        value2: "{page}"
+    actions:
+      all:
+        - actions:
+            - type: "next_page"

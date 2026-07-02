@@ -2,14 +2,23 @@ package cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config;
 
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.api.entity.BuilderItem;
+import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionAction;
+import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionActionManager;
+import cn.chengzhimeow.mhdftools.bukkit.common.condition.ConditionManager;
+import cn.chengzhimeow.mhdftools.bukkit.common.menu.item.MenuActionType;
 import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
+import cn.chengzhimeow.cccondition.condition.ConditionBuilder;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +45,7 @@ public final class TpaHereMenuSetting extends AbstractYamlSetting<TpaHereMenuSet
     public void reload() {
         super.reload();
 
-        Map<String, Config.MenuItem> items = new HashMap<>();
+        Map<String, Config.MenuItem> items = new LinkedHashMap<>();
         ConfigurationSection itemsSection = super.getData().getConfigurationSection("items");
         if (itemsSection != null) {
             for (String key : itemsSection.getKeys(false)) {
@@ -50,15 +59,24 @@ public final class TpaHereMenuSetting extends AbstractYamlSetting<TpaHereMenuSet
                 ColorUtil.color(super.getData().getString("title", "")),
                 super.getData().getStringList("slots"),
                 new Config.Keys(
-                        Objects.requireNonNull(super.getData().getString("keys.player", "T")),
-                        Objects.requireNonNull(super.getData().getString("keys.previous_page", "P")),
-                        Objects.requireNonNull(super.getData().getString("keys.next_page", "N"))
+                        Objects.requireNonNull(super.getData().getString("keys.player", "T"))
                 ),
                 items
         );
     }
 
     private Config.MenuItem toMenuItem(ConfigurationSection section, String id) {
+        Map<MenuActionType, List<ConditionAction>> actions = new EnumMap<>(MenuActionType.class);
+        ConfigurationSection actionsSection = section.getConfigurationSection("actions");
+        if (actionsSection != null) {
+            for (String key : actionsSection.getKeys(false)) {
+                actions.put(
+                        MenuActionType.valueOf(key.toUpperCase()),
+                        ConditionActionManager.getInstance().getConditionActionListFromConfig(actionsSection, key)
+                );
+            }
+        }
+
         return new Config.MenuItem(
                 id,
                 Objects.requireNonNull(section.getString("by", "Vanilla")),
@@ -66,7 +84,9 @@ public final class TpaHereMenuSetting extends AbstractYamlSetting<TpaHereMenuSet
                 section.getString("name"),
                 section.getStringList("lore"),
                 section.getInt("custom_model_data", null),
-                section.getInt("amount")
+                section.getInt("amount"),
+                ConditionManager.getInstance().getConditionListFromConfig(section, "conditions"),
+                actions
         );
     }
 
@@ -77,9 +97,7 @@ public final class TpaHereMenuSetting extends AbstractYamlSetting<TpaHereMenuSet
             Map<String, MenuItem> items
     ) {
         public record Keys(
-                String player,
-                String previousPage,
-                String nextPage
+                String player
         ) {
         }
 
@@ -90,7 +108,9 @@ public final class TpaHereMenuSetting extends AbstractYamlSetting<TpaHereMenuSet
                 String name,
                 List<String> lore,
                 Integer customModelData,
-                int amount
+                int amount,
+                List<ConditionBuilder.Builder> conditions,
+                Map<MenuActionType, List<ConditionAction>> actions
         ) {
             public BuilderItem toBuilderItem(Map<String, String> placeholders, Map<String, String> pdc) {
                 return new BuilderItem(
@@ -107,6 +127,19 @@ public final class TpaHereMenuSetting extends AbstractYamlSetting<TpaHereMenuSet
                         this.amount,
                         pdc
                 );
+            }
+
+            public boolean checkConditions(Player player, @NotNull Map<String, Object> params) {
+                return ConditionManager.getInstance().condition(player, this.conditions, params);
+            }
+
+            public void action(Player player, ClickType clickType, @NotNull Map<String, Object> params) {
+                this.actions.forEach((type, actions) -> {
+                    if (!type.matches(clickType)) return;
+                    for (ConditionAction action : actions) {
+                        ConditionActionManager.getInstance().actionWithCondition(player, action, params);
+                    }
+                });
             }
 
             private String replace(String text, Map<String, String> placeholders) {

@@ -51,6 +51,8 @@ public final class BackMenu extends AbstractPageMenu {
         int start = (super.getPage() - 1) * backSlots.size();
         int end = Math.min(backList.size(), super.getPage() * backSlots.size());
         int backIndex = start;
+        Map<String, Object> params = Map.of("page", super.getPage(), "max_page", this.maxPage());
+        Map<String, String> pagePlaceholders = Map.of("page", String.valueOf(super.getPage()), "max_page", String.valueOf(this.maxPage()));
 
         for (int row = 0; row < config.slots().size(); row++) {
             String line = config.slots().get(row);
@@ -64,19 +66,20 @@ public final class BackMenu extends AbstractPageMenu {
                     inventory.setItem(slot, this.backItem(backList.get(backIndex++)));
                     continue;
                 }
-                if (key.equals(config.keys().previousPage())) {
-                    if (super.getPage() > 1)
-                        inventory.setItem(slot, this.pageItem("previous_page", super.getPage() - 1));
-                    continue;
-                }
-                if (key.equals(config.keys().nextPage())) {
-                    if (end < backList.size()) inventory.setItem(slot, this.pageItem("next_page", super.getPage() + 1));
-                    continue;
-                }
 
                 BackMenuSetting.Config.MenuItem item = config.items().get(key);
+                if (item == null) {
+                    item = config.items().entrySet().stream()
+                            .filter(entry -> entry.getKey().startsWith(key + "_"))
+                            .map(Map.Entry::getValue)
+                            .filter(menuItem -> menuItem.checkConditions(super.getPlayer(), params))
+                            .findFirst()
+                            .orElse(null);
+                } else if (!item.checkConditions(super.getPlayer(), params)) {
+                    item = null;
+                }
                 if (item == null) continue;
-                inventory.setItem(slot, MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(item.toBuilderItem(Map.of(), Map.of()), super.getPlayer()));
+                inventory.setItem(slot, MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(item.toBuilderItem(pagePlaceholders, Map.of()), super.getPlayer()));
             }
         }
 
@@ -99,7 +102,6 @@ public final class BackMenu extends AbstractPageMenu {
 
         PersistentDataContainer container = meta.getPersistentDataContainer();
         NamespacedKey backKey = new NamespacedKey(MHDFToolsBukkit.getInstance(), "back_id");
-        NamespacedKey pageKey = new NamespacedKey(MHDFToolsBukkit.getInstance(), "back_page");
 
         String id = container.get(backKey, PersistentDataType.STRING);
         if (id != null) {
@@ -110,9 +112,12 @@ public final class BackMenu extends AbstractPageMenu {
             return;
         }
 
-        String page = container.get(pageKey, PersistentDataType.STRING);
-        if (page == null) return;
-        new BackMenu(super.getPlayer(), Integer.parseInt(page)).openInventory();
+        String itemId = container.get(new NamespacedKey(MHDFToolsBukkit.getInstance(), "id"), PersistentDataType.STRING);
+        if (itemId == null) return;
+
+        BackMenuSetting.Config.MenuItem menuItem = BackMenuSetting.getInstance().getConfig().items().get(itemId);
+        if (menuItem == null) return;
+        menuItem.action(super.getPlayer(), event.getClick(), Map.of("page", super.getPage(), "max_page", this.maxPage()));
     }
 
     private List<Integer> slots(String key) {
@@ -130,6 +135,8 @@ public final class BackMenu extends AbstractPageMenu {
     private ItemStack backItem(BackData data) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(data.getTime()), ZoneId.systemDefault());
         Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("page", String.valueOf(super.getPage()));
+        placeholders.put("max_page", String.valueOf(this.maxPage()));
         placeholders.put("year", String.valueOf(dateTime.getYear()));
         placeholders.put("month", String.valueOf(dateTime.getMonthValue()));
         placeholders.put("day", String.valueOf(dateTime.getDayOfMonth()));
@@ -150,16 +157,6 @@ public final class BackMenu extends AbstractPageMenu {
 
         return MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(
                 BackMenuSetting.getInstance().getConfig().items().get("location").toBuilderItem(placeholders, pdc),
-                super.getPlayer()
-        );
-    }
-
-    private ItemStack pageItem(String id, int page) {
-        Map<String, String> pdc = new HashMap<>();
-        pdc.put("back_page", String.valueOf(page));
-
-        return MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(
-                BackMenuSetting.getInstance().getConfig().items().get(id).toBuilderItem(Map.of(), pdc),
                 super.getPlayer()
         );
     }

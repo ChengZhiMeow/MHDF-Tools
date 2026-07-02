@@ -43,6 +43,8 @@ public final class TpaMenu extends AbstractPageMenu {
         int start = (super.getPage() - 1) * playerSlots.size();
         int end = Math.min(playerList.size(), super.getPage() * playerSlots.size());
         int playerIndex = start;
+        Map<String, Object> params = Map.of("page", super.getPage(), "max_page", this.maxPage());
+        Map<String, String> pagePlaceholders = Map.of("page", String.valueOf(super.getPage()), "max_page", String.valueOf(this.maxPage()));
 
         for (int row = 0; row < config.slots().size(); row++) {
             String line = config.slots().get(row);
@@ -56,20 +58,20 @@ public final class TpaMenu extends AbstractPageMenu {
                     inventory.setItem(slot, this.playerItem(playerList.get(playerIndex++)));
                     continue;
                 }
-                if (key.equals(config.keys().previousPage())) {
-                    if (super.getPage() > 1)
-                        inventory.setItem(slot, this.pageItem("previous_page", super.getPage() - 1));
-                    continue;
-                }
-                if (key.equals(config.keys().nextPage())) {
-                    if (end < playerList.size())
-                        inventory.setItem(slot, this.pageItem("next_page", super.getPage() + 1));
-                    continue;
-                }
 
                 TpaMenuSetting.Config.MenuItem item = config.items().get(key);
+                if (item == null) {
+                    item = config.items().entrySet().stream()
+                            .filter(entry -> entry.getKey().startsWith(key + "_"))
+                            .map(Map.Entry::getValue)
+                            .filter(menuItem -> menuItem.checkConditions(super.getPlayer(), params))
+                            .findFirst()
+                            .orElse(null);
+                } else if (!item.checkConditions(super.getPlayer(), params)) {
+                    item = null;
+                }
                 if (item == null) continue;
-                inventory.setItem(slot, MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(item.toBuilderItem(Map.of(), Map.of()), super.getPlayer()));
+                inventory.setItem(slot, MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(item.toBuilderItem(pagePlaceholders, Map.of()), super.getPlayer()));
             }
         }
 
@@ -92,7 +94,6 @@ public final class TpaMenu extends AbstractPageMenu {
 
         PersistentDataContainer container = meta.getPersistentDataContainer();
         NamespacedKey playerKey = new NamespacedKey(MHDFToolsBukkit.getInstance(), "tpa_player");
-        NamespacedKey pageKey = new NamespacedKey(MHDFToolsBukkit.getInstance(), "tpa_page");
 
         String target = container.get(playerKey, PersistentDataType.STRING);
         if (target != null) {
@@ -100,9 +101,12 @@ public final class TpaMenu extends AbstractPageMenu {
             return;
         }
 
-        String page = container.get(pageKey, PersistentDataType.STRING);
-        if (page == null) return;
-        new TpaMenu(super.getPlayer(), Integer.parseInt(page)).openInventory();
+        String id = container.get(new NamespacedKey(MHDFToolsBukkit.getInstance(), "id"), PersistentDataType.STRING);
+        if (id == null) return;
+
+        TpaMenuSetting.Config.MenuItem menuItem = TpaMenuSetting.getInstance().getConfig().items().get(id);
+        if (menuItem == null) return;
+        menuItem.action(super.getPlayer(), event.getClick(), Map.of("page", super.getPage(), "max_page", this.maxPage()));
     }
 
     private List<Integer> slots(String key) {
@@ -119,6 +123,8 @@ public final class TpaMenu extends AbstractPageMenu {
 
     private ItemStack playerItem(String target) {
         Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("page", String.valueOf(super.getPage()));
+        placeholders.put("max_page", String.valueOf(this.maxPage()));
         placeholders.put("target", target);
 
         Map<String, String> pdc = new HashMap<>();
@@ -126,16 +132,6 @@ public final class TpaMenu extends AbstractPageMenu {
 
         return MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(
                 TpaMenuSetting.getInstance().getConfig().items().get("player").toBuilderItem(placeholders, pdc),
-                super.getPlayer()
-        );
-    }
-
-    private ItemStack pageItem(String id, int page) {
-        Map<String, String> pdc = new HashMap<>();
-        pdc.put("tpa_page", String.valueOf(page));
-
-        return MHDFToolsBukkit.getInstance().getItemManager().buildItemStack(
-                TpaMenuSetting.getInstance().getConfig().items().get(id).toBuilderItem(Map.of(), pdc),
                 super.getPlayer()
         );
     }
