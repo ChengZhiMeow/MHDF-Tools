@@ -40,7 +40,7 @@ final class Money extends Command {
                 sender.sendMessage(GlobalLangSetting.getInstance().getConfig().noPermission());
                 return;
             }
-            target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[0]);
+            target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayerOrNull(args[0]);
         }
 
         if (target == null) {

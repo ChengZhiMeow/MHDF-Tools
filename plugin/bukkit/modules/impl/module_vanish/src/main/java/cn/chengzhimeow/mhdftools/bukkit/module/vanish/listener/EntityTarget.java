@@ -1,6 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.vanish.listener;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
+import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.config.ConfigSetting;
@@ -21,7 +22,9 @@ final class EntityTarget extends Listener {
     public void onEntityTarget(EntityTargetEvent event) {
         if (!ConfigSetting.getInstance().getConfig().cancelEntityTarget()) return;
         if (!(event.getTarget() instanceof Player player)) return;
-        if (!MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId()).isEnableVanish()) return;
+
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
+        if (!mhdfPlayer.isEnableVanish()) return;
 
         event.setCancelled(true);
         event.setTarget(null);

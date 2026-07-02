@@ -1,6 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.vanish.listener;
 
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
+import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.vanish.config.ConfigSetting;
@@ -36,7 +37,8 @@ final class VirtualContainer extends Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
         Player player = event.getPlayer();
-        if (!MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId()).isEnableVanish()) return;
+        MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
+        if (!mhdfPlayer.isEnableVanish()) return;
 
         Block block = event.getClickedBlock();
         if (block == null) return;

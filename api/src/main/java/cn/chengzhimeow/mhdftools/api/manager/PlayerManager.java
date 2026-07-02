@@ -33,4 +33,12 @@ public interface PlayerManager {
      * @return 梦之工具玩家实例
      */
     MHDFToolsPlayer getPlayer(String name);
+
+    /**
+     * 获取指定玩家名称的梦之工具玩家实例
+     *
+     * @param name 玩家名称
+     * @return 梦之工具玩家实例
+     */
+    @Nullable MHDFToolsPlayer getPlayerOrNull(String name);
 }

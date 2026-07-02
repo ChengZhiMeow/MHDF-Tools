@@ -42,7 +42,12 @@ final class Msg extends Command {
             return;
         }
 
-        MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[0]);
+        MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayerOrNull(args[0]);
+        if (target == null) {
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerNotFound());
+            return;
+        }
+
         if (target.isEnableVanish()) {
             sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
             return;

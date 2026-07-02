@@ -45,7 +45,7 @@ final class Nick extends Command {
                 return;
             }
 
-            target = Bukkit.getPlayer(args[1]);
+            target = Bukkit.getPlayerExact(args[1]);
             if (target == null) {
                 sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
                 return;

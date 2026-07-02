@@ -21,6 +21,6 @@ final class NickName extends Placeholder {
     public @Nullable String placeholder(@Nullable OfflinePlayer player, @NotNull String[] args) {
         if (player == null) return null;
 
-        return MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId()).getDisplayName();
+        return MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName()).getDisplayName();
     }
 }

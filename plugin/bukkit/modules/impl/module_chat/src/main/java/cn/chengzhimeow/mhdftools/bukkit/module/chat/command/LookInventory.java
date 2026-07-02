@@ -4,12 +4,10 @@ import cn.chengzhimeow.mhdftools.bukkit.module.chat.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.cache.DisplayCache;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.LangSetting;
+import cn.chengzhimeow.mhdftools.bukkit.module.chat.menu.LookInventoryMenu;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
-import cn.chengzhimeow.mhdftools.message.ColorUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 final class LookInventory extends Command {
@@ -39,11 +37,7 @@ final class LookInventory extends Command {
             return;
         }
 
-        Inventory inventory = Bukkit.createInventory(null, 54, ColorUtil.color(LangSetting.getInstance().getConfig().commands().lookInventory().title()));
-        DisplayCache.readSlottedItems(entry).forEach((slot, item) -> {
-            if (slot >= 0 && slot < inventory.getSize()) inventory.setItem(slot, item);
-        });
-        sender.openInventory(inventory);
+        new LookInventoryMenu(sender, DisplayCache.readSlottedItems(entry)).openInventory();
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().lookInventory().message());
     }
 }

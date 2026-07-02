@@ -2,7 +2,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.chat.message;
 
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.ModuleMain;
-import cn.chengzhimeow.mhdftools.message.ColorUtil;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.nyana.message.MessageBroker;
 import net.nyana.message.executors.MessageExecutors;
 import net.nyana.message.libs.codec.Codec;
@@ -22,27 +22,27 @@ public final class ChatPrivateMessage implements RedisMessage {
 
     private final String sourceServer;
     private final String target;
-    private final String miniMessage;
+    private final String messageJson;
     private final List<byte[]> cacheDataList;
 
-    public ChatPrivateMessage(String sourceServer, String target, String miniMessage, List<byte[]> cacheDataList) {
+    public ChatPrivateMessage(String sourceServer, String target, String messageJson, List<byte[]> cacheDataList) {
         this.sourceServer = sourceServer;
         this.target = target;
-        this.miniMessage = miniMessage;
+        this.messageJson = messageJson;
         this.cacheDataList = cacheDataList;
     }
 
     private ChatPrivateMessage(FriendlyByteBuf buf) {
         this.sourceServer = buf.readUtf8();
         this.target = buf.readUtf8();
-        this.miniMessage = buf.readUtf8();
+        this.messageJson = buf.readUtf8();
         this.cacheDataList = buf.readByteArrayList();
     }
 
     private void write(FriendlyByteBuf buf) {
         buf.writeUtf8(this.sourceServer);
         buf.writeUtf8(this.target);
-        buf.writeUtf8(this.miniMessage);
+        buf.writeUtf8(this.messageJson);
         buf.writeByteArrayList(this.cacheDataList);
     }
 
@@ -61,7 +61,7 @@ public final class ChatPrivateMessage implements RedisMessage {
         for (byte[] cacheData : this.cacheDataList) {
             ModuleMain.instance.getDisplayCache().putEncoded(cacheData);
         }
-        player.sendMessage(ColorUtil.color(this.miniMessage));
+        player.sendMessage(GsonComponentSerializer.gson().deserialize(messageJson));
     }
 
     @Override

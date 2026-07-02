@@ -50,7 +50,7 @@ final class Fly extends Command {
                 return;
             }
 
-            target = Bukkit.getPlayer(args[0]);
+            target = Bukkit.getPlayerExact(args[0]);
             if (target == null) {
                 sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
                 return;

@@ -4,12 +4,10 @@ import cn.chengzhimeow.mhdftools.bukkit.module.chat.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.cache.DisplayCache;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.LangSetting;
+import cn.chengzhimeow.mhdftools.bukkit.module.chat.menu.LookItemMenu;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
-import cn.chengzhimeow.mhdftools.message.ColorUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,17 +38,13 @@ final class LookItem extends Command {
             return;
         }
 
-        Inventory inventory = Bukkit.createInventory(null, 9, ColorUtil.color(LangSetting.getInstance().getConfig().commands().lookItem().title()));
         ItemStack item = DisplayCache.readItem(entry);
         if (item == null) {
             sender.sendMessage(LangSetting.getInstance().getConfig().commands().lookItem().noData());
             return;
         }
 
-        for (int slot = 0; slot < inventory.getSize(); slot++) {
-            inventory.setItem(slot, item);
-        }
-        sender.openInventory(inventory);
+        new LookItemMenu(sender, item).openInventory();
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().lookItem().message());
     }
 }

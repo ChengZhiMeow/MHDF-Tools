@@ -2,6 +2,7 @@ package cn.chengzhimeow.mhdftools.api.manager.feature;
 
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.PlayerData;
+import org.jetbrains.annotations.Nullable;
 
 public interface PlayerDataManager {
     /**
@@ -27,6 +28,14 @@ public interface PlayerDataManager {
      * @return 玩家数据实例
      */
     PlayerData get(String name);
+
+    /**
+     * 获取指定玩家名称的玩家数据实例
+     *
+     * @param name 玩家名称
+     * @return 玩家数据实例
+     */
+    @Nullable PlayerData getOrNull(String name);
 
     /**
      * 更新指定玩家数据实例在数据库中的数据

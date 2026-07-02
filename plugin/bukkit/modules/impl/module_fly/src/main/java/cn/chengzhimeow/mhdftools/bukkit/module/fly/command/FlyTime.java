@@ -6,6 +6,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.fly.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.fly.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.fly.config.LangSetting;
+import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import org.bukkit.command.CommandSender;
@@ -32,7 +33,12 @@ final class FlyTime extends Command {
         if (args.length == 3) {
             switch (args[0]) {
                 case "set", "add", "take" -> {
-                    MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[1]);
+                    MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayerOrNull(args[1]);
+                    if (target == null) {
+                        sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerNotFound());
+                        return;
+                    }
+
                     long inputTime;
                     try {
                         inputTime = Long.parseLong(args[2]);

@@ -27,9 +27,12 @@ public final class PrivateMessageService {
         String cleanMessage = ChatService.sanitize(sender, message);
         TextComponent component = ColorUtil.color(cleanMessage);
         component = ChatService.applyReplaceWord(sender, component, cleanMessage);
+
+        MHDFToolsPlayer mhdfPlayer = null;
+
         List<byte[]> cacheDataList = new ArrayList<>();
         if (sender instanceof Player player) {
-            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
+            mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
             ConfigSetting.Config config = ConfigSetting.getInstance().getConfig();
             component = ChatService.applyShowItem(player, component, cacheDataList);
             component = ChatService.applyShowableContainer(mhdfPlayer, component, cacheDataList, config.showInventory(), DisplayCache.Type.INVENTORY, player.getInventory().getContents());
@@ -43,6 +46,11 @@ public final class PrivateMessageService {
                 .replace("{target}", target)
                 .replace("{message}", component));
 
+        if (mhdfPlayer != null) {
+            MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(target);
+            if (mhdfTargetPlayer.isIgnore(mhdfPlayer)) return;
+        }
+
         TextComponent receive = LangSetting.getInstance().getConfig().commands().msg().receive()
                 .replace("{player}", sender.getName())
                 .replace("{target}", target)
@@ -54,14 +62,14 @@ public final class PrivateMessageService {
             return;
         }
 
-        if (BungeeCordManager.getInstance().ifPlayerOnline(target)) {
-            Messager.publish(new ChatPrivateMessage(
-                    BungeeCordManager.getInstance().getServerName(),
-                    target,
-                    receive.toMiniMessageString(),
-                    cacheDataList
-            ));
-        }
+        if (!BungeeCordManager.getInstance().ifPlayerOnline(target)) return;
+
+        Messager.publish(new ChatPrivateMessage(
+                BungeeCordManager.getInstance().getServerName(),
+                target,
+                receive.toJsonString(),
+                cacheDataList
+        ));
     }
 
     private PrivateMessageService() {

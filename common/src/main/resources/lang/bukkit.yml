@@ -6,6 +6,7 @@ only_player: "{prefix} <#FFB8B8>这个命令只能玩家执行!"
 no_permission: "{prefix} <#FFB8B8>你没有权限怎么做"
 usage_error: "{prefix} <#FFB8B8>用法错误,正确用法: &f{usage}"
 player_offline: "{prefix} <#FFB8B8>你指定的玩家并没有在线!"
+player_not_found: "{prefix} <#FFB8B8>你指定的玩家并不存在!"
 server_teleport_failed: "{prefix} <#FFB8B8>跨服传送失败!"
 
 enable: "<#CAFFB8>开启"

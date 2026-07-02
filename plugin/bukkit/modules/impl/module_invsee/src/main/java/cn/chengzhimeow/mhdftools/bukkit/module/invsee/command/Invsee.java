@@ -35,7 +35,7 @@ final class Invsee extends Command {
             return;
         }
 
-        Player target = Bukkit.getPlayer(args[0]);
+        Player target = Bukkit.getPlayerExact(args[0]);
         if (target == null) {
             sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
             return;

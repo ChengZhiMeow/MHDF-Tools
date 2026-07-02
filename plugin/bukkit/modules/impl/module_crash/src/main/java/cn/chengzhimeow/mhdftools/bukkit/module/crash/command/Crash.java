@@ -39,7 +39,7 @@ final class Crash extends Command {
             return;
         }
 
-        Player player = Bukkit.getPlayer(args[0]);
+        Player player = Bukkit.getPlayerExact(args[0]);
         if (player == null) {
             sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
             return;

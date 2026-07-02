@@ -7,6 +7,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.ignore.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.ignore.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.ignore.config.LangSetting;
+import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -54,7 +55,12 @@ final class Ignore extends Command {
                 return;
             }
 
-            MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[1]);
+            MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayerOrNull(args[1]);
+            if (target == null) {
+                sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerNotFound());
+                return;
+            }
+
             if (player.isIgnore(target)) {
                 sender.sendMessage(LangSetting.getInstance().getConfig().commands().ignore().subCommands().add().haveIgnore()
                         .replace("{player}", args[1]));
@@ -73,7 +79,12 @@ final class Ignore extends Command {
         }
 
         if (args.length == 2 && args[0].equalsIgnoreCase("remove")) {
-            MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[1]);
+            MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayerOrNull(args[1]);
+            if (target == null) {
+                sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerNotFound());
+                return;
+            }
+
             if (!player.isIgnore(target)) {
                 sender.sendMessage(LangSetting.getInstance().getConfig().commands().ignore().subCommands().remove().noIgnore()
                         .replace("{player}", args[1]));

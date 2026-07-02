@@ -45,7 +45,7 @@ final class Vanish extends Command {
                 return;
             }
 
-            target = Bukkit.getPlayer(args[0]);
+            target = Bukkit.getPlayerExact(args[0]);
             if (target == null) {
                 sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
                 return;
@@ -89,7 +89,7 @@ final class Vanish extends Command {
         if (!sender.hasPermission("mhdftools.commands.vanish.give")) return new ArrayList<>();
 
         return Bukkit.getOnlinePlayers().stream()
-                .filter(player -> !MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId()).isEnableVanish())
+                .filter(player -> !MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName()).isEnableVanish())
                 .map(Player::getName)
                 .toList();
     }

@@ -7,6 +7,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.economy.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
+import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +52,12 @@ final class MoneyAdmin extends Command {
             return;
         }
 
-        MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(args[1]);
+        MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayerOrNull(args[1]);
+        if (target == null) {
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerNotFound());
+            return;
+        }
+
         switch (args[0]) {
             case "set" -> target.setMoney(change);
             case "add" -> target.addMoney(change);

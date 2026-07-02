@@ -54,7 +54,7 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
 
     @Override
     public boolean ifPlayerOnline(String name) {
-        if (Bukkit.getPlayer(name) != null) return true;
+        if (Bukkit.getPlayerExact(name) != null) return true;
         return this.playerList.contains(name);
     }
 
