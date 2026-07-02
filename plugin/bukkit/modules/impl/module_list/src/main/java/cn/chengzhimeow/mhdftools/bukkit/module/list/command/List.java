@@ -9,6 +9,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.list.util.ListUtil;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 final class List extends Command {
@@ -39,7 +40,7 @@ final class List extends Command {
                                             : BungeeCordManager.getInstance().getBukkitPlayerList();
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().list().message()
-                .replace("{tps}", String.valueOf(ListUtil.getTps()))
+                .replace("{tps}", String.valueOf(ListUtil.getTps(sender instanceof Player player ? player.getLocation() : null)))
                 .replace("{memory}", String.valueOf(ListUtil.getUsedMemory()))
                 .replace("{max_memory}", String.valueOf(ListUtil.getTotalMemory()))
                 .replace("{player_count}", String.valueOf(playerList.size()))

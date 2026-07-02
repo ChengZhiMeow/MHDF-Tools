@@ -14,6 +14,11 @@ library:
     relocate:
       enable: true
 
+  - repo: "https://repo.catnies.top/releases/"
+    dependency: "${libs.nyana_reflection}"
+    relocate:
+      enable: true
+
   # 数据库
   - repo: "https://repo.catnies.top/releases/"
     dependency: "${libs.mhdf_database_api}"

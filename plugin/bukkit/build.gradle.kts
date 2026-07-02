@@ -9,6 +9,7 @@ allprojects {
 
         compileOnly("${rootProject.properties["server.paper"]}")
         compileOnly("${rootProject.properties["libs.cc_scheduler"]}")
+        compileOnly("${rootProject.properties["libs.nyana_reflection"]}")
 
         compileOnly("${rootProject.properties["libs.log4j_core"]}") {
             exclude("org.apache.logging.log4j")

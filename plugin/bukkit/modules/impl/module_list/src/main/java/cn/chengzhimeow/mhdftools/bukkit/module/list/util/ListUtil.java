@@ -1,31 +1,42 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.list.util;
 
-import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
+import net.nyana.reflection.clazz.NyanaClass;
+import net.nyana.reflection.method.matcher.MethodMatchers;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+
+import javax.annotation.Nullable;
+import java.lang.invoke.MethodHandle;
 
 public final class ListUtil {
-    /**
-     * 获取服务端运行时实例
-     *
-     * @return 运行时实例
-     */
-    private static Runtime getRuntime() {
-        return Runtime.getRuntime();
-    }
+    private static final Location defaultLocation = new Location(Bukkit.getWorlds().getFirst(), 0, 0, 0);
+    private static MethodHandle foliaTpsMethodHandle = null;
 
     /**
      * 获取服务器当前TPS
      *
      * @return TPS数值
      */
-    public static double getTps() {
-        double tps;
+    public static double getTps(@Nullable Location location) {
+        double[] tps;
         if (FoliaScheduler.isFolia()) {
-            tps = 0.0;
+            if (foliaTpsMethodHandle == null) {
+                foliaTpsMethodHandle = NyanaClass.of(Bukkit.getServer().getClass())
+                        .getDeclaredNyanaMethod(MethodMatchers.mNamed("getRegionTPS"))
+                        .unreflect();
+            }
+
+            try {
+                Location foliaTpsLocation = location == null ? defaultLocation : location;
+                tps = (double[]) foliaTpsMethodHandle.invoke(Bukkit.getServer(), foliaTpsLocation);
+            } catch (Throwable throwable) {
+                return 0d;
+            }
         } else {
-            tps = SpigotReflectionUtil.getTPS();
+            tps = Bukkit.getTPS();
         }
-        return Double.parseDouble(String.format("%.2f", tps));
+        return Double.parseDouble(String.format("%.2f", tps[0]));
     }
 
     /**
@@ -34,7 +45,7 @@ public final class ListUtil {
      * @return 总内存数(单位 MB)
      */
     public static long getTotalMemory() {
-        return ListUtil.getRuntime().totalMemory() / 1048576L;
+        return Runtime.getRuntime().totalMemory() / 1048576L;
     }
 
     /**
@@ -43,7 +54,7 @@ public final class ListUtil {
      * @return 总空闲内存(单位 MB)
      */
     public static long getFreeMemory() {
-        return ListUtil.getRuntime().freeMemory() / 1048576L;
+        return Runtime.getRuntime().freeMemory() / 1048576L;
     }
 
     /**
