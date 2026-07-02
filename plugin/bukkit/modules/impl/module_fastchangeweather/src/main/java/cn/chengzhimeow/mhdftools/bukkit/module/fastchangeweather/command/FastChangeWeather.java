@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fastchangeweather.command;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastchangeweather.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastchangeweather.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastchangeweather.config.LangSetting;
@@ -28,10 +30,12 @@ final class FastChangeWeather extends Command {
         boolean storm = weather != null && weather.storm();
         boolean thunder = weather != null && weather.thunder();
 
-        for (World world : Bukkit.getWorlds()) {
-            world.setStorm(storm);
-            world.setThundering(thunder);
-        }
+        CCScheduler.getInstance().getGlobalRegionScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> {
+            for (World world : Bukkit.getWorlds()) {
+                world.setStorm(storm);
+                world.setThundering(thunder);
+            }
+        });
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().fastChangeWeather().message()
                 .replace("{storm}", storm

@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.fastchangetime.command;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastchangetime.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastchangetime.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.fastchangetime.config.LangSetting;
@@ -26,9 +28,11 @@ final class FastChangeTime extends Command {
         ConfigSetting.Config.Time time = ConfigSetting.getInstance().getConfig().commandTimeMap().get(label);
         int value = time == null ? 0 : time.time();
 
-        for (World world : Bukkit.getWorlds()) {
-            world.setTime(value);
-        }
+        CCScheduler.getInstance().getGlobalRegionScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> {
+            for (World world : Bukkit.getWorlds()) {
+                world.setTime(value);
+            }
+        });
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().fastChangeTime().message()
                 .replace("{time}", String.valueOf(value)));
