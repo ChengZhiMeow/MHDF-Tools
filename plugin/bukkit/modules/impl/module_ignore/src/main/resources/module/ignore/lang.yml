@@ -33,9 +33,9 @@ commands:
         have_ignore: "{prefix} <#FFB8B8>你已经屏蔽了 &f{player}<#FFB8B8>,无法重复忽略!"
         blacklist: "{prefix} <#FFB8B8>你不能屏蔽 &f{player}!"
         ignore_self: "{prefix} <#FFB8B8>您不能屏蔽自己的消息!"
-        message: "{prefix} <#EAE4FF>你屏蔽了 &f{player}!"
+        message: "{prefix} <#EAE4FF>你屏蔽了 &f{player}<#EAE4FF>!"
       remove:
         usage: "/{command} remove <玩家>"
         description: "移除屏蔽玩家"
         no_ignore: "{prefix} &f{player} <#FFB8B8>没有被你屏蔽!"
-        message: "{prefix} <#EAE4FF>你取消屏蔽了 &f{player}!"
+        message: "{prefix} <#EAE4FF>你取消屏蔽了 &f{player}<#EAE4FF>!"
