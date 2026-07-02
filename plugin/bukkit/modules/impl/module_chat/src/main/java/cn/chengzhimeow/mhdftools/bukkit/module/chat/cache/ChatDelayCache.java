@@ -8,6 +8,16 @@ public final class ChatDelayCache {
 
     public void init() {
         this.cache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:chat:delay", Long.class);
+        this.cache.init();
+    }
+
+    public void close() {
+        if (!(this.cache instanceof AutoCloseable closeable)) return;
+
+        try {
+            closeable.close();
+        } catch (Exception ignored) {
+        }
     }
 
     public void put(String name, int delaySeconds) {

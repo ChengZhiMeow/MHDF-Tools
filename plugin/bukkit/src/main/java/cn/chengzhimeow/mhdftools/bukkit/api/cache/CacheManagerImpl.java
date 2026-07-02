@@ -11,11 +11,14 @@ import net.nyana.cache.service.CacheService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class CacheManagerImpl implements CacheManager, AutoCloseable {
     private final NyanaCache cache = new NyanaCache();
     private final RedisClient redisClient;
     private final List<AutoCloseable> closeables = new ArrayList<>();
+    private final Map<String, CacheService<String, ?>> cacheServices = new ConcurrentHashMap<>();
 
     public CacheManagerImpl() {
         this.redisClient = CacheSetting.getInstance().getConfig().isRedis() ? new RedisClient(this.redisConfig()) : null;
@@ -33,12 +36,16 @@ public final class CacheManagerImpl implements CacheManager, AutoCloseable {
 
     @Override
     public <V> CacheService<String, V> createCache(String namespace, Class<V> type) {
+        CacheService<String, V> cached = (CacheService<String, V>) cacheServices.get(namespace);
+        if (cached != null) return cached;
+
         CacheService<String, V> service = this.redisClient == null
                                           ? new HashMapCacheService<>(this.cache)
-                                          : new RedisHashMapCacheService<>(this.cache, this.redisClient, "mhdftools:" + CacheSetting.getInstance().getConfig().server() + ":" + namespace, true);
+                                          : new RedisHashMapCacheService<>(this.cache, this.redisClient, "mhdftools:" + CacheSetting.getInstance().getConfig().server() + ":" + namespace, true, type);
         if (namespace.startsWith("database:")) return service;
         if (service instanceof AutoCloseable closeable)
             this.closeables.add(closeable);
+        this.cacheServices.put(namespace, service);
         return service;
     }
 

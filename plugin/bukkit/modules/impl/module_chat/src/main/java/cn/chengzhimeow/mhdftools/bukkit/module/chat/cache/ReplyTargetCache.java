@@ -8,6 +8,16 @@ public final class ReplyTargetCache {
 
     public void init() {
         this.cache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:chat:reply_target", String.class);
+        this.cache.init();
+    }
+
+    public void close() {
+        if (!(this.cache instanceof AutoCloseable closeable)) return;
+
+        try {
+            closeable.close();
+        } catch (Exception ignored) {
+        }
     }
 
     public String get(String sender) {

@@ -9,7 +9,6 @@ import cn.chengzhimeow.mhdftools.bukkit.api.cache.CacheManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManagerImpl;
-import cn.chengzhimeow.mhdftools.bukkit.api.message.PlayerMessage;
 import cn.chengzhimeow.mhdftools.bukkit.api.redis.RedisManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.CacheSetting;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.DatabaseSetting;
@@ -108,7 +107,6 @@ public final class Main extends MHDFToolsBukkit {
 
         this.redisManager = new RedisManagerImpl();
         this.redisManager.configure();
-        this.redisManager.register(PlayerMessage.ID, PlayerMessage.CODEC);
 
         this.itemManager = new ItemManagerImpl();
 

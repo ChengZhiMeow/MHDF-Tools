@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.gamemode.message;
 
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import net.nyana.message.MessageBroker;
@@ -54,7 +55,7 @@ public final class GameModeMessage implements RedisMessage {
         if (player == null) return;
 
         GameMode gameMode = GameMode.valueOf(this.gameMode);
-        Bukkit.getScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> player.setGameMode(gameMode));
+        CCScheduler.getInstance().getEntityScheduler().runTask(MHDFToolsBukkit.getInstance(), player, () -> player.setGameMode(gameMode));
     }
 
     @Override

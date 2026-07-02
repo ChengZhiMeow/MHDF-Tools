@@ -1,6 +1,5 @@
-package cn.chengzhimeow.mhdftools.bukkit.api.message;
+package cn.chengzhimeow.mhdftools.bukkit.module.core.message;
 
-import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.nyana.message.MessageBroker;
@@ -51,12 +50,10 @@ public final class PlayerMessage implements RedisMessage {
         BungeeCordManager bungeeCordManager = BungeeCordManager.getInstance();
         if (bungeeCordManager != null && bungeeCordManager.getServerName().equals(sourceServer)) return;
 
-        Bukkit.getScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> {
-            Player player = Bukkit.getPlayerExact(target);
-            if (player == null) return;
+        Player player = Bukkit.getPlayerExact(target);
+        if (player == null) return;
 
-            player.sendMessage(GsonComponentSerializer.gson().deserialize(messageJson));
-        });
+        player.sendMessage(GsonComponentSerializer.gson().deserialize(messageJson));
     }
 
     @Override

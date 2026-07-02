@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.tpa.config;
 
+import cn.chengzhimeow.cccondition.condition.ConditionBuilder;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.bukkit.api.entity.BuilderItem;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ConditionAction;
@@ -10,18 +11,13 @@ import cn.chengzhimeow.mhdftools.bukkit.module.tpa.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
-import cn.chengzhimeow.cccondition.condition.ConditionBuilder;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.EnumMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public final class TpaMenuSetting extends AbstractYamlSetting<TpaMenuSetting.Config> {
     @Getter(lazy = true)

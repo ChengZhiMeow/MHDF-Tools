@@ -44,6 +44,14 @@ public final class ModuleMain extends Module {
     }
 
     @Override
+    public void onDisable() {
+        this.displayCache.close();
+        this.chatDelayCache.close();
+        this.lastChatCache.close();
+        this.replyTargetCache.close();
+    }
+
+    @Override
     public void reloadConfig() {
         ConfigSetting.getInstance().saveDefaultFile();
         ConfigSetting.getInstance().update();

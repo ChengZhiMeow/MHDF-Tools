@@ -1,7 +1,5 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bungee.manager;
 
-import cn.chengzhimeow.ccscheduler.task.CCTaskCallback;
-import cn.chengzhimeow.ccscheduler.task.CallBack;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.bungee.config.ConfigSetting;
@@ -15,7 +13,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public final class BungeeCordManagerImpl extends BungeeCordManager {
     @Getter(lazy = true)
@@ -24,7 +21,6 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
 
     @Getter
     private final PluginMessage listener = new PluginMessage();
-    private final Map<String, List<CallBack<String>>> playerServerCallbacks = new ConcurrentHashMap<>();
     @Getter
     @Setter
     private String serverName = "无";
@@ -66,28 +62,6 @@ public final class BungeeCordManagerImpl extends BungeeCordManager {
         out.writeUTF(serverName);
 
         this.post(out);
-    }
-
-    @Override
-    public CallBack<String> getPlayerServer(String name) {
-        CallBack<String> callBack = new CCTaskCallback<>();
-        this.playerServerCallbacks.computeIfAbsent(name, key -> Collections.synchronizedList(new ArrayList<>())).add(callBack);
-
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("GetPlayerServer");
-        out.writeUTF(name);
-
-        this.post(out);
-        return callBack;
-    }
-
-    public void callPlayerServer(String name, String server) {
-        List<CallBack<String>> callBacks = this.playerServerCallbacks.remove(name);
-        if (callBacks == null) return;
-
-        synchronized (callBacks) {
-            callBacks.forEach(callBack -> callBack.setCallBack(server));
-        }
     }
 
     /**

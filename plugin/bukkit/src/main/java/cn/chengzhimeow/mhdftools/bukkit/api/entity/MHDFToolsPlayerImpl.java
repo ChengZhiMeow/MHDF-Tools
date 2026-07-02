@@ -1,16 +1,16 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.entity;
 
-import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
-import cn.chengzhimeow.ccscheduler.task.CallBack;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.api.manager.feature.*;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
-import cn.chengzhimeow.mhdftools.bukkit.api.message.PlayerMessage;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.common.message.Messager;
+import cn.chengzhimeow.mhdftools.bukkit.module.core.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.core.message.PlayerMessage;
+import cn.chengzhimeow.mhdftools.bukkit.module.core.message.PlayerTeleportMessage;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
@@ -18,7 +18,6 @@ import lombok.Getter;
 import lombok.ToString;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
-import net.nyana.cache.service.CacheService;
 import net.nyana.nbt.NBT;
 import net.nyana.nbt.tag.CompoundTag;
 import org.bukkit.*;
@@ -118,27 +117,29 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             return;
         }
 
+        if (!Main.instance.getRedisManager().isOpen()) {
+            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+            return;
+        }
+
         try {
             CompoundTag root = NBT.createCompound();
             CompoundTag info = NBT.createCompound();
             root.putByte("mode", (byte) 0);
             info.putString("player", target.getName());
             root.put("info", info);
-            CacheService<String, byte[]> cache = Main.instance.getCacheManager().createCache("server_teleport", byte[].class);
-            cache.put(this.getName(), NBT.toBytes(root), 60L);
+
+            ModuleMain.instance.serverTeleportCache.put(this.getName(), NBT.toBytes(root));
         } catch (IOException ignored) {
             player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
             return;
         }
 
-        CallBack<String> callBack = bungeeCordManager.getPlayerServer(target.getName());
-        CCScheduler.getInstance().getGlobalRegionScheduler().runTaskTimer(Main.instance, task -> {
-            String server = callBack.getCallBack();
-            if (server == null) return;
-
-            task.cancel();
-            bungeeCordManager.connectServer(this.getName(), server);
-        }, 1L, 1L);
+        Messager.publish(new PlayerTeleportMessage(
+                bungeeCordManager.getServerName(),
+                this.getName(),
+                target.getName()
+        ));
     }
 
     @Override
@@ -161,8 +162,8 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
                     info.putFloat("yaw", location.getYaw());
                     info.putFloat("pitch", location.getPitch());
                     root.put("info", info);
-                    CacheService<String, byte[]> cache = Main.instance.getCacheManager().createCache("server_teleport", byte[].class);
-                    cache.put(this.getName(), NBT.toBytes(root), 60L);
+
+                    ModuleMain.instance.serverTeleportCache.put(this.getName(), NBT.toBytes(root));
                 } catch (IOException ignored) {
                     player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
                     return;

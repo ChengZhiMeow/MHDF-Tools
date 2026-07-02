@@ -8,6 +8,16 @@ public final class LastChatCache {
 
     public void init() {
         this.cache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:chat:last_chat", String.class);
+        this.cache.init();
+    }
+
+    public void close() {
+        if (!(this.cache instanceof AutoCloseable closeable)) return;
+
+        try {
+            closeable.close();
+        } catch (Exception ignored) {
+        }
     }
 
     public void put(String name, String message) {

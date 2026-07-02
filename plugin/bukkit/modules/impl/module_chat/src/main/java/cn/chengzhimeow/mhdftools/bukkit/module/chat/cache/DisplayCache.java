@@ -66,6 +66,16 @@ public final class DisplayCache {
 
     public void init() {
         this.cache = MHDFToolsBukkit.getInstance().getCacheManager().createCache("module:chat:display", byte[].class);
+        this.cache.init();
+    }
+
+    public void close() {
+        if (!(this.cache instanceof AutoCloseable closeable)) return;
+
+        try {
+            closeable.close();
+        } catch (Exception ignored) {
+        }
     }
 
     public CacheEntry putItem(ItemStack item, int removeCache) {

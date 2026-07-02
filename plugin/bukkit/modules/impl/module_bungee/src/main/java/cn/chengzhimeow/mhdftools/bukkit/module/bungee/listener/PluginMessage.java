@@ -35,13 +35,6 @@ public final class PluginMessage implements PluginMessageListener {
                 Set<String> playerList = Set.of(playerListString.split(", "));
                 BungeeCordManagerImpl.getInstance().setPlayerList(playerList);
             }
-            case "GetPlayerServer" -> {
-                String name = in.readUTF();
-                String server = in.readUTF();
-
-                LogManager.instance.debug("更新玩家所在服务器 | 玩家: {} | 服务器: {}", name, server);
-                BungeeCordManagerImpl.getInstance().callPlayerServer(name, server);
-            }
         }
     }
 }

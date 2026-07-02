@@ -171,7 +171,8 @@ public final class ConditionManager {
 
             Player player = condition.getParams().get("player") instanceof Player value ? value : null;
             if (player == null) return input;
-            if (!(player.getOpenInventory().getTopInventory().getHolder() instanceof AbstractPageMenu menu)) return input;
+            if (!(player.getOpenInventory().getTopInventory().getHolder() instanceof AbstractPageMenu menu))
+                return input;
 
             return switch (text) {
                 case "{page}" -> menu.getPage();
