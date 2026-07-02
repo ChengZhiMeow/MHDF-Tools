@@ -5,8 +5,8 @@ import cn.chengzhimeow.mhdftools.api.manager.PlayerManager;
 import cn.chengzhimeow.mhdftools.api.manager.feature.*;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.manager.PlayerManagerImpl;
+import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 
 @Getter
 public final class MHDFToolsAPIImpl extends MHDFToolsAPI {
@@ -38,6 +38,6 @@ public final class MHDFToolsAPIImpl extends MHDFToolsAPI {
 
     @Override
     public String getServerName() {
-        return Bukkit.getServer().getName();
+        return BungeeCordManager.getInstance().getServerName();
     }
 }
