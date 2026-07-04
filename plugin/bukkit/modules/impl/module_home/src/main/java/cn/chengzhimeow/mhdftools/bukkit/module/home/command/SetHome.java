@@ -4,6 +4,7 @@ import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.HomeData;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.home.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.home.config.ConfigSetting;
@@ -65,14 +66,7 @@ final class SetHome extends Command {
         }
 
         Location location = sender.getLocation();
-        player.setHome(args[0], new BungeeCordLocation(
-                location.getWorld().getName(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
-        ));
+        player.setHome(args[0], new BungeeCordLocation(MHDFToolsBukkitAdapt.adapt(location)));
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().sethome().message()
                 .replace("{home}", args[0]));

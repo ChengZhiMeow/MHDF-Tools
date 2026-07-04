@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.bed.command;
 
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.module.bed.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.bed.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.bed.config.LangSetting;
@@ -43,7 +44,7 @@ final class Bed extends Command {
             return;
         }
 
-        sender.teleportAsync(location);
+        MHDFToolsBukkitAdapt.adapt(sender).teleport(MHDFToolsBukkitAdapt.adapt(location));
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().bed().message());
     }
 }

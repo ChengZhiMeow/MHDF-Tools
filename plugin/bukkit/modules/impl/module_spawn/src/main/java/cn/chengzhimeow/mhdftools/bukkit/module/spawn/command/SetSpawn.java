@@ -1,6 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.spawn.command;
 
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.spawn.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.spawn.config.ConfigSetting;
@@ -33,14 +34,7 @@ final class SetSpawn extends Command {
         }
 
         Location location = sender.getLocation();
-        SpawnSetting.getInstance().setLocation(new BungeeCordLocation(
-                location.getWorld().getName(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
-        ));
+        SpawnSetting.getInstance().setLocation(new BungeeCordLocation(MHDFToolsBukkitAdapt.adapt(location)));
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().setspawn().message());
     }

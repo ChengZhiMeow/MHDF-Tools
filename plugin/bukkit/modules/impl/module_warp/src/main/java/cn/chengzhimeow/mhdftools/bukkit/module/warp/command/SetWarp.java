@@ -3,6 +3,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.warp.command;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.WarpData;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.warp.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.warp.config.ConfigSetting;
@@ -37,14 +38,7 @@ final class SetWarp extends Command {
         }
 
         Location location = sender.getLocation();
-        WarpData data = new WarpData(args[0], new BungeeCordLocation(
-                location.getWorld().getName(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
-        ));
+        WarpData data = new WarpData(args[0], new BungeeCordLocation(MHDFToolsBukkitAdapt.adapt(location)));
         MHDFToolsAPI.getInstance().getWarpDataManager().update(data);
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().setwarp().message()

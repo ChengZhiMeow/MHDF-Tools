@@ -4,11 +4,14 @@ import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import cn.chengzhimeow.mhdftools.api.entity.location.BukkitLocation;
 import cn.chengzhimeow.mhdftools.api.manager.feature.*;
 import cn.chengzhimeow.mhdftools.bukkit.Main;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.common.message.Messager;
 import cn.chengzhimeow.mhdftools.bukkit.module.core.ModuleMain;
+import cn.chengzhimeow.mhdftools.bukkit.module.core.listener.ServerTeleport;
 import cn.chengzhimeow.mhdftools.bukkit.module.core.message.PlayerMessage;
 import cn.chengzhimeow.mhdftools.bukkit.module.core.message.PlayerTeleportMessage;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
@@ -107,7 +110,7 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         Player targetPlayer = Bukkit.getPlayer(target.getUuid());
         if (targetPlayer == null) targetPlayer = Bukkit.getPlayerExact(target.getName());
         if (targetPlayer != null && targetPlayer.isOnline()) {
-            player.teleportAsync(targetPlayer.getLocation());
+            this.teleport(MHDFToolsBukkitAdapt.adapt(targetPlayer.getLocation()));
             return;
         }
 
@@ -174,20 +177,15 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
             }
         }
 
-        World world = Bukkit.getWorld(location.getWorld());
-        if (world == null) {
-            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
-            return;
-        }
+        this.teleport(location.getLocation());
+    }
 
-        player.teleportAsync(new Location(
-                world,
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
-        ));
+    @Override
+    public void teleport(BukkitLocation location) {
+        Player player = this.getPlayer();
+        if (player == null) return;
+
+        ServerTeleport.teleport(player, location);
     }
 
     public Player getPlayer() {

@@ -8,44 +8,88 @@ import lombok.Setter;
 @Setter
 public final class BungeeCordLocation {
     private String server;
-    private String world;
-    private Double x;
-    private Double y;
-    private Double z;
-    private Float yaw;
-    private Float pitch;
+    private BukkitLocation location;
+
+    public BungeeCordLocation(String server, BukkitLocation location) {
+        this.server = server;
+        this.location = location;
+    }
+
+    public BungeeCordLocation(BukkitLocation location) {
+        this(MHDFToolsAPI.getInstance().getServerName(), location);
+    }
 
     public BungeeCordLocation(String server, String world, Double x, Double y, Double z, Float yaw, Float pitch) {
         this.server = server;
-        this.world = world;
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.yaw = yaw;
-        this.pitch = pitch;
+        this.location = new BukkitLocation(world, x, y, z, yaw, pitch);
     }
 
     public BungeeCordLocation(String world, Double x, Double y, Double z, Float yaw, Float pitch) {
         this(
                 MHDFToolsAPI.getInstance().getServerName(),
-                world,
-                x,
-                y,
-                z,
-                yaw,
-                pitch
+                new BukkitLocation(world, x, y, z, yaw, pitch)
         );
     }
 
     public BungeeCordLocation(String string) {
         String[] data = string.split(":");
         this.server = data[0];
-        this.world = data[1];
-        this.x = Double.parseDouble(data[2]);
-        this.y = Double.parseDouble(data[3]);
-        this.z = Double.parseDouble(data[4]);
-        this.yaw = Float.parseFloat(data[5]);
-        this.pitch = Float.parseFloat(data[6]);
+        this.location = new BukkitLocation(
+                data[1],
+                Double.parseDouble(data[2]),
+                Double.parseDouble(data[3]),
+                Double.parseDouble(data[4]),
+                Float.parseFloat(data[5]),
+                Float.parseFloat(data[6])
+        );
+    }
+
+    public String getWorld() {
+        return this.location.getWorld();
+    }
+
+    public void setWorld(String world) {
+        this.location.setWorld(world);
+    }
+
+    public Double getX() {
+        return this.location.getX();
+    }
+
+    public void setX(Double x) {
+        this.location.setX(x);
+    }
+
+    public Double getY() {
+        return this.location.getY();
+    }
+
+    public void setY(Double y) {
+        this.location.setY(y);
+    }
+
+    public Double getZ() {
+        return this.location.getZ();
+    }
+
+    public void setZ(Double z) {
+        this.location.setZ(z);
+    }
+
+    public Float getYaw() {
+        return this.location.getYaw();
+    }
+
+    public void setYaw(Float yaw) {
+        this.location.setYaw(yaw);
+    }
+
+    public Float getPitch() {
+        return this.location.getPitch();
+    }
+
+    public void setPitch(Float pitch) {
+        this.location.setPitch(pitch);
     }
 
     /**
@@ -54,6 +98,6 @@ public final class BungeeCordLocation {
      * @return base64字符串
      */
     public String toString() {
-        return this.server + ":" + this.world + ":" + this.x + ":" + this.y + ":" + this.z + ":" + this.yaw + ":" + this.pitch;
+        return this.server + ":" + this.location;
     }
 }

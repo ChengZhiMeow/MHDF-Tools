@@ -1,5 +1,7 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.core.listener;
 
+import cn.chengzhimeow.mhdftools.api.entity.location.BukkitLocation;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.core.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Listener;
@@ -68,7 +70,7 @@ public final class ServerTeleport extends Listener {
                         return;
                     }
 
-                    this.teleport(player, target.getLocation(), 1);
+                    teleport(player, MHDFToolsBukkitAdapt.adapt(target.getLocation()));
                     return;
                 }
 
@@ -89,38 +91,58 @@ public final class ServerTeleport extends Listener {
                     return;
                 }
 
-                World world = Bukkit.getWorld(worldName);
-                if (world == null) {
-                    player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
-                    return;
-                }
-
-                Location location = new Location(
-                        world,
+                BukkitLocation location = new BukkitLocation(
+                        worldName,
                         info.getDouble("x"),
                         info.getDouble("y"),
                         info.getDouble("z"),
                         info.getFloat("yaw", 0f),
                         info.getFloat("pitch", 0f)
                 );
-                this.teleport(player, location, 1);
+                teleport(player, location);
             } catch (Exception ignored) {
                 player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
             }
         });
     }
 
-    private void teleport(Player player, Location location, int times) {
+    public static void teleport(Player player, BukkitLocation location) {
+        teleport(player, location, 1);
+    }
+
+    private static void teleport(Player player, BukkitLocation location, int times) {
         if (!player.isOnline()) return;
 
-        player.teleportAsync(location).thenAccept(success -> {
+        World world = Bukkit.getWorld(location.getWorld());
+        if (world == null) {
+            retry(player, location, times);
+            return;
+        }
+
+        player.teleportAsync(new Location(
+                world,
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw(),
+                location.getPitch()
+        )).thenAccept(success -> {
             if (success) return;
             if (times >= 5) {
                 player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
                 return;
             }
 
-            thread.schedule(() -> this.teleport(player, location, times + 1), 100L);
+            thread.schedule(() -> teleport(player, location, times + 1), 100L);
         });
+    }
+
+    private static void retry(Player player, BukkitLocation location, int times) {
+        if (times >= 5) {
+            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+            return;
+        }
+
+        thread.schedule(() -> teleport(player, location, times + 1), 100L);
     }
 }

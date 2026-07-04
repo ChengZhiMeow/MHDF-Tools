@@ -3,6 +3,7 @@ package cn.chengzhimeow.mhdftools.bukkit.module.back.listener;
 import cn.chengzhimeow.mhdftools.api.MHDFToolsAPI;
 import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
+import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkitAdapt;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.LangSetting;
@@ -38,13 +39,6 @@ public final class Back extends Listener {
     }
 
     private BungeeCordLocation location(Location location) {
-        return new BungeeCordLocation(
-                location.getWorld().getName(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
-        );
+        return new BungeeCordLocation(MHDFToolsBukkitAdapt.adapt(location));
     }
 }
