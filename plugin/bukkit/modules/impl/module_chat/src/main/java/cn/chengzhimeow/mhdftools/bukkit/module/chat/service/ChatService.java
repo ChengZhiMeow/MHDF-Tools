@@ -9,6 +9,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.LangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -81,11 +82,10 @@ public final class ChatService {
         cacheDataList.add(DisplayCache.encode(entry, removeCache));
 
         ItemMeta meta = item.getItemMeta();
-        String displayName = meta != null && meta.hasDisplayName() ? meta.getDisplayName() : item.getType().name();
-        TextComponent replacement = ColorUtil.color(config.format()
-                .replace("{uuid}", entry.id())
+        Component displayName = meta != null && meta.hasDisplayName() ? meta.displayName() : Component.translatable(item.translationKey());
+        TextComponent replacement = ColorUtil.color(config.format().replace("{uuid}", entry.id()))
                 .replace("{name}", displayName)
-                .replace("{amount}", String.valueOf(item.getAmount())));
+                .replace("{amount}", String.valueOf(item.getAmount()));
 
         for (String word : config.word()) {
             component = component.replace(word, replacement.hoverEvent(item.asHoverEvent()));
