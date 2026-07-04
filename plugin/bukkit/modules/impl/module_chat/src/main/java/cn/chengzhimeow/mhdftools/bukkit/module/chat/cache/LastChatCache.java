@@ -21,7 +21,7 @@ public final class LastChatCache {
     }
 
     public void put(String name, String message) {
-        this.cache.put(name, message);
+        this.cache.put(name, message, 60L);
     }
 
     public boolean isSpam(String name, String message) {
