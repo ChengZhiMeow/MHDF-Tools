@@ -4,6 +4,7 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
 import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.api.entity.location.BukkitLocation;
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,8 @@ public interface MHDFToolsPlayer {
     UUID getUuid();
 
     String getName();
+
+    @Nullable String getNameOrNull();
 
     /**
      * 获取显示名称

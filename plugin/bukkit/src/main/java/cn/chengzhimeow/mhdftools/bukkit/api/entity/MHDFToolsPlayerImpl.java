@@ -25,6 +25,7 @@ import net.nyana.nbt.NBT;
 import net.nyana.nbt.tag.CompoundTag;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -63,11 +64,17 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
 
     @Override
     public String getName() {
+        String name = this.getNameOrNull();
+
+        if (name == null)
+            this.name = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this).getName();
+        return this.name;
+    }
+
+    @Override
+    public @Nullable String getNameOrNull() {
         Player player = this.getPlayer();
         if (player != null) return player.getName();
-
-        if (this.name == null)
-            this.name = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this).getName();
         return this.name;
     }
 
