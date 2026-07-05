@@ -22,7 +22,7 @@ public final class PlayerDataManagerImpl extends CachedDaoManager<PlayerData, UU
 
     @Override
     public PlayerData get(MHDFToolsPlayer player) {
-        return this.getByIdOrDefault(player.getUuid(), new PlayerData(player.getUuid(), player.getNameOrNull()));
+        return this.getByIdOrDefault(player.getUuid(), () -> new PlayerData(player.getUuid(), player.getNameOrNull()));
     }
 
     @Override

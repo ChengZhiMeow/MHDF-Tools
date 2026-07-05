@@ -30,6 +30,6 @@ public final class FlyStatusManagerImpl extends CachedDaoManager<FlyStatus, UUID
 
     @Override
     public FlyStatus get(MHDFToolsPlayer player) {
-        return this.getByIdOrDefault(player.getUuid(), new FlyStatus(player));
+        return this.getByIdOrDefault(player.getUuid(), () -> new FlyStatus(player));
     }
 }

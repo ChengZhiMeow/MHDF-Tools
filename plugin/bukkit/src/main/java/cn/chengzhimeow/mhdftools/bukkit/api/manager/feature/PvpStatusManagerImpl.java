@@ -30,7 +30,7 @@ public final class PvpStatusManagerImpl extends CachedDaoManager<PvpStatus, UUID
 
     @Override
     public PvpStatus get(MHDFToolsPlayer player) {
-        return this.getByIdOrDefault(player.getUuid(), new PvpStatus(player, this.getDefaultValue()));
+        return this.getByIdOrDefault(player.getUuid(), () -> new PvpStatus(player, this.getDefaultValue()));
     }
 
     @Override

@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdfdatabase.dao.AbstractDaoManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
     private final DatabaseWithCache<V, K> cache;
@@ -56,6 +57,11 @@ public abstract class CachedDaoManager<V, K> extends AbstractDaoManager<V, K> {
     public V getByIdOrDefault(K key, V defaultValue) {
         V value = this.getById(key);
         return value == null ? defaultValue : value;
+    }
+
+    public V getByIdOrDefault(K key, Supplier<V> defaultValue) {
+        V value = this.getById(key);
+        return value == null ? defaultValue.get() : value;
     }
 
     @Override

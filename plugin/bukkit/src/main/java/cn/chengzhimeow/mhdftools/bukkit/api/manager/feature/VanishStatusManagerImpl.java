@@ -30,6 +30,6 @@ public final class VanishStatusManagerImpl extends CachedDaoManager<VanishStatus
 
     @Override
     public VanishStatus get(MHDFToolsPlayer player) {
-        return this.getByIdOrDefault(player.getUuid(), new VanishStatus(player));
+        return this.getByIdOrDefault(player.getUuid(), () -> new VanishStatus(player));
     }
 }

@@ -29,6 +29,6 @@ public final class NickDataManagerImpl extends CachedDaoManager<NickData, UUID> 
 
     @Override
     public NickData get(MHDFToolsPlayer player) {
-        return this.getByIdOrDefault(player.getUuid(), new NickData(player));
+        return this.getByIdOrDefault(player.getUuid(), () -> new NickData(player));
     }
 }

@@ -26,6 +26,6 @@ public final class WarpDataManagerImpl extends CachedDaoManager<WarpData, String
 
     @Override
     public WarpData get(String name) {
-        return this.getByIdOrDefault(name, new WarpData(name));
+        return this.getByIdOrDefault(name, () -> new WarpData(name));
     }
 }
