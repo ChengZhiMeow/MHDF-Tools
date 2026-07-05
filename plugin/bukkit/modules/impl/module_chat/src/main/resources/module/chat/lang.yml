@@ -6,10 +6,10 @@ chat:
   spam: "{prefix} <#FFB8B8>请不要发送重复消息!"
   at:
     all: "全体成员"
-    format: "<hover:show_text:'&f{target}'><#FFB8B8>@{target}</hover>"
+    format: "<#ACD3FF>@{target}"
     title:
-      title: "&f{by}"
-      subtitle: ""
+      title: "&e醒醒!"
+      subtitle: "<#EAE4FF>你被 &f{by} <#EAE4FF>AT了!"
       in: 20
       step: 60
       out: 20

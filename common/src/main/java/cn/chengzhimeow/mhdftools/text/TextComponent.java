@@ -69,6 +69,10 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
     public @NotNull TextComponent style(@NotNull Style style) {
         return new TextComponent(this.children, style, this.content);
     }
+    
+    public Component copy() {
+        return Component.empty().append(this);
+    }
 
     /**
      * 替换文本实例中的指定字符串
@@ -83,7 +87,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .replacement(replacement)
                 .build();
 
-        return new TextComponent(this.toBuilder().build().replaceText(replacementConfig));
+        return new TextComponent(this.copy().replaceText(replacementConfig));
     }
 
     /**
@@ -99,7 +103,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .replacement(replacement)
                 .build();
 
-        return new TextComponent(this.toBuilder().build().replaceText(replacementConfig));
+        return new TextComponent(this.copy().replaceText(replacementConfig));
     }
 
     /**
@@ -116,7 +120,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .times(1)
                 .build();
 
-        return new TextComponent(this.toBuilder().build().replaceText(replacementConfig));
+        return new TextComponent(this.copy().replaceText(replacementConfig));
     }
 
     /**
@@ -133,7 +137,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .times(1)
                 .build();
 
-        return new TextComponent(this.toBuilder().build().replaceText(replacementConfig));
+        return new TextComponent(this.copy().replaceText(replacementConfig));
     }
 
     /**
