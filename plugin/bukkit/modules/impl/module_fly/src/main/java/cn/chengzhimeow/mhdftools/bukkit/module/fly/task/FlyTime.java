@@ -10,6 +10,7 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.time.Duration;
@@ -27,11 +28,10 @@ final class FlyTime extends Task {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!player.getAllowFlight()) continue;
-
-            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
-            if (mhdfPlayer.isAllowedFlyingGameMode()) continue;
+            if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) continue;
             if (player.hasPermission("mhdftools.commands.fly.infinite")) continue;
 
+            MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
             long flyTime = mhdfPlayer.getFlyTime();
             if (flyTime <= ConfigSetting.getInstance().getConfig().fallTime()) {
                 this.sendFallMessage(player, flyTime);

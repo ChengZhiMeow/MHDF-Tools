@@ -1,25 +1,26 @@
 package cn.chengzhimeow.mhdftools.api.manager.feature;
 
-import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 public interface PlayerDataManager {
     /**
-     * 检测指定梦之工具玩家实例是否拥有玩家数据实例
+     * 检测指定梦玩家UUID是否拥有玩家数据实例
      *
-     * @param player 梦之工具玩家实例
+     * @param uuid 玩家UUID
      * @return 结果
      */
-    boolean hasData(MHDFToolsPlayer player);
+    boolean hasData(UUID uuid);
 
     /**
-     * 获取指定梦之工具玩家实例的玩家数据实例
+     * 获取指定玩家UUID的玩家数据实例
      *
-     * @param player 梦之工具玩家实例
+     * @param uuid 玩家UUID
      * @return 玩家数据实例
      */
-    PlayerData get(MHDFToolsPlayer player);
+    PlayerData get(UUID uuid);
 
     /**
      * 获取指定玩家名称的玩家数据实例

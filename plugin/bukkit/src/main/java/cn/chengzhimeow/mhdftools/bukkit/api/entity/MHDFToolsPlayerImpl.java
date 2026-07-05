@@ -30,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -66,15 +67,30 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public String getName() {
         String name = this.getNameOrNull();
 
-        if (name == null)
-            this.name = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this).getName();
+        if (name == null) {
+            try {
+                throw new IOException("awa");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.name = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this.uuid).getName();
+        }
         return this.name;
     }
 
     @Override
     public @Nullable String getNameOrNull() {
+        if (this.name != null) return this.name;
+
+        try {
+            throw new IOException("qwq");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Player player = this.getPlayer();
-        if (player != null) return player.getName();
+        if (player != null)
+            this.name = player.getName();
+
         return this.name;
     }
 
@@ -550,6 +566,17 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         PvpStatus status = this.getPvpStatus();
         status.setEnable(false);
         manager.update(status);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof MHDFToolsPlayerImpl that)) return false;
+        return Objects.equals(uuid, that.uuid) && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name);
     }
 
     @Override

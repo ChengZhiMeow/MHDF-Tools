@@ -1,11 +1,11 @@
 package cn.chengzhimeow.mhdftools.bukkit.api.manager.feature;
 
-import cn.chengzhimeow.mhdftools.api.entity.MHDFToolsPlayer;
 import cn.chengzhimeow.mhdftools.api.entity.database.data.PlayerData;
 import cn.chengzhimeow.mhdftools.api.manager.feature.PlayerDataManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -16,13 +16,16 @@ public final class PlayerDataManagerImpl extends CachedDaoManager<PlayerData, UU
     }
 
     @Override
-    public boolean hasData(MHDFToolsPlayer player) {
-        return this.getById(player.getUuid()) != null;
+    public boolean hasData(UUID uuid) {
+        return this.getById(uuid) != null;
     }
 
     @Override
-    public PlayerData get(MHDFToolsPlayer player) {
-        return this.getByIdOrDefault(player.getUuid(), () -> new PlayerData(player.getUuid(), player.getNameOrNull()));
+    public PlayerData get(UUID uuid) {
+        return this.getByIdOrDefault(uuid, () -> {
+            Player player = Bukkit.getPlayer(uuid);
+            return player != null ? new PlayerData(uuid, player.getName()) : new PlayerData(uuid, null);
+        });
     }
 
     @Override
