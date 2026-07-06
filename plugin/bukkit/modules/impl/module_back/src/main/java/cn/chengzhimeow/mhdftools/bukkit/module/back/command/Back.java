@@ -36,8 +36,10 @@ final class Back extends Command {
         }
 
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
-        List<BackData> backDataList = new ArrayList<>();
-        if (args.length >= 1) {
+        List<BackData> backDataList;
+        if (args.length < 1) {
+            backDataList = player.getBackDataList(BackUtil.getMaxBack(sender));
+        } else {
             switch (args[0]) {
                 case "menu" -> {
                     new BackMenu(sender, 1).openInventory();
@@ -52,8 +54,6 @@ final class Back extends Command {
                     return;
                 }
             }
-        } else {
-            backDataList = player.getBackDataList(BackUtil.getMaxBack(sender));
         }
 
         if (backDataList.isEmpty()) {
@@ -61,7 +61,7 @@ final class Back extends Command {
             return;
         }
 
-        player.teleport(backDataList.get(0).toBungeeCordLocation());
+        player.teleport(backDataList.getFirst().toBungeeCordLocation());
         player.sendMessage(LangSetting.getInstance().getConfig().commands().back().message());
     }
 
