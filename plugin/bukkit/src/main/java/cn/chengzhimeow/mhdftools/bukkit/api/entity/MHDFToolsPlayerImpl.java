@@ -67,14 +67,6 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public String getName() {
         String name = this.getNameOrNull();
 
-        if (name == null) {
-            try {
-                throw new IOException("awa");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            this.name = MHDFToolsAPI.getInstance().getPlayerDataManager().get(this.uuid).getName();
-        }
         return this.name;
     }
 
@@ -82,11 +74,6 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
     public @Nullable String getNameOrNull() {
         if (this.name != null) return this.name;
 
-        try {
-            throw new IOException("qwq");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Player player = this.getPlayer();
         if (player != null)
             this.name = player.getName();
