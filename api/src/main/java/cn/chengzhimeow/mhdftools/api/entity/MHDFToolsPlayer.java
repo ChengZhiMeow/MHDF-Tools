@@ -1,8 +1,8 @@
 package cn.chengzhimeow.mhdftools.api.entity;
 
 import cn.chengzhimeow.mhdftools.api.entity.database.data.*;
-import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import cn.chengzhimeow.mhdftools.api.entity.location.BukkitLocation;
+import cn.chengzhimeow.mhdftools.api.entity.location.BungeeCordLocation;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 

@@ -25,6 +25,46 @@ public final class ServerTeleport extends Listener {
         thread.kill();
     }
 
+    public static void teleport(Player player, BukkitLocation location) {
+        teleport(player, location, 1);
+    }
+
+    private static void teleport(Player player, BukkitLocation location, int times) {
+        if (!player.isOnline()) return;
+
+        World world = Bukkit.getWorld(location.getWorld());
+        if (world == null) {
+            retry(player, location, times);
+            return;
+        }
+
+        player.teleportAsync(new Location(
+                world,
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw(),
+                location.getPitch()
+        )).thenAccept(success -> {
+            if (success) return;
+            if (times >= 5) {
+                player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+                return;
+            }
+
+            thread.schedule(() -> teleport(player, location, times + 1), 100L);
+        });
+    }
+
+    private static void retry(Player player, BukkitLocation location, int times) {
+        if (times >= 5) {
+            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
+            return;
+        }
+
+        thread.schedule(() -> teleport(player, location, times + 1), 100L);
+    }
+
     public ServerTeleport() {
         super(ModuleMain.instance);
     }
@@ -104,45 +144,5 @@ public final class ServerTeleport extends Listener {
                 player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
             }
         });
-    }
-
-    public static void teleport(Player player, BukkitLocation location) {
-        teleport(player, location, 1);
-    }
-
-    private static void teleport(Player player, BukkitLocation location, int times) {
-        if (!player.isOnline()) return;
-
-        World world = Bukkit.getWorld(location.getWorld());
-        if (world == null) {
-            retry(player, location, times);
-            return;
-        }
-
-        player.teleportAsync(new Location(
-                world,
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
-        )).thenAccept(success -> {
-            if (success) return;
-            if (times >= 5) {
-                player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
-                return;
-            }
-
-            thread.schedule(() -> teleport(player, location, times + 1), 100L);
-        });
-    }
-
-    private static void retry(Player player, BukkitLocation location, int times) {
-        if (times >= 5) {
-            player.sendMessage(GlobalLangSetting.getInstance().getConfig().serverTeleportFailed());
-            return;
-        }
-
-        thread.schedule(() -> teleport(player, location, times + 1), 100L);
     }
 }

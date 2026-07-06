@@ -69,7 +69,7 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
     public @NotNull TextComponent style(@NotNull Style style) {
         return new TextComponent(this.children, style, this.content);
     }
-    
+
     public Component copy() {
         return Component.empty().append(this);
     }
