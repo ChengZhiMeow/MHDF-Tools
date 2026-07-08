@@ -82,7 +82,10 @@ public final class ChatService {
         cacheDataList.add(DisplayCache.encode(entry, removeCache));
 
         ItemMeta meta = item.getItemMeta();
-        Component displayName = meta != null && meta.hasDisplayName() ? meta.displayName() : Component.translatable(item.translationKey());
+        Component displayName = (meta != null && meta.hasCustomName()) ? meta.customName() :
+                                (meta != null && meta.hasItemName()) ? meta.itemName() :
+                                Component.translatable(item.translationKey());
+
         TextComponent replacement = ColorUtil.color(config.format().replace("{uuid}", entry.id()))
                 .replace("{name}", displayName)
                 .replace("{amount}", String.valueOf(item.getAmount()));
