@@ -7,6 +7,7 @@ import cn.chengzhimeow.mhdftools.api.manager.feature.VanishStatusManager;
 import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.LangSetting;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public final class AtService {
     public static final String AT_ALL = "*";
@@ -37,20 +39,48 @@ public final class AtService {
         }
 
         for (String playerName : onlinePlayerList) {
-            if (message.contains(playerName)) {
+            if (playerName == null || playerName.isBlank()) continue;
+            if (matchesAt(message, playerName, config.patternFormat())) {
                 playerList.add(playerName);
             }
         }
 
         if (player.hasPermission("mhdftools.chat.at.all")) {
             for (String allMessage : config.allMessage()) {
-                if (message.contains(allMessage)) {
+                if (allMessage == null || allMessage.isBlank()) continue;
+                if (matchesAt(message, allMessage, config.patternFormat())) {
                     playerList.add(AT_ALL);
                     break;
                 }
             }
         }
         return playerList;
+    }
+
+    public static String getAtTargetName(String target) {
+        if (target == null) return "";
+        return target.equals(AT_ALL)
+                ? PlainTextComponentSerializer.plainText().serialize(LangSetting.getInstance().getConfig().chat().at().all())
+                : target;
+    }
+
+    public static Pattern getAtPattern(String target) {
+        if (target == null || target.isBlank()) return Pattern.compile("a^");
+        ConfigSetting.Config.At config = ConfigSetting.getInstance().getConfig().at();
+        String at = target.equals(AT_ALL)
+                ? config.allMessage().stream()
+                .filter(message -> message != null && !message.isBlank())
+                .map(Pattern::quote)
+                .reduce((first, second) -> first + "|" + second)
+                .map(pattern -> "(?:" + pattern + ")")
+                .orElse("a^")
+                : Pattern.quote(target);
+        return Pattern.compile(config.patternFormat().replace("{at}", at));
+    }
+
+    private static boolean matchesAt(String message, String target, String patternFormat) {
+        if (target == null || target.isBlank()) return false;
+        return Pattern.compile(patternFormat.replace("{at}", Pattern.quote(target))).matcher(message).find();
     }
 
     public static void at(Player player, String by, List<String> atList) {

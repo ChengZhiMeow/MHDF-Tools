@@ -10,6 +10,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.LangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -97,14 +98,20 @@ public final class ChatService {
      * 按 at 列表高亮消息中的 at 文本。
      */
     public static TextComponent applyAt(TextComponent component, String rawMessage, Set<String> atList) {
-        ConfigSetting.Config.At config = ConfigSetting.getInstance().getConfig().at();
         TextComponent format = LangSetting.getInstance().getConfig().chat().at().format();
+        boolean formatHasTarget = PlainTextComponentSerializer.plainText().serialize(format).contains("{target}");
         for (String target : atList) {
-            String name = target.contains(AtService.AT_ALL) ? LangSetting.getInstance().getConfig().chat().at().all().toMiniMessageString() : target;
-            Matcher matcher = Pattern.compile(config.patternFormat().replace("{at}", Pattern.quote(target))).matcher(rawMessage);
+            if (target == null || target.isBlank()) continue;
+
+            Matcher matcher = AtService.getAtPattern(target).matcher(rawMessage);
             if (!matcher.find()) continue;
 
-            component = component.replace(matcher.group(), format.replace("{target}", name));
+            String targetName = AtService.getAtTargetName(target);
+            if (targetName.isBlank()) continue;
+
+            component = component.replace(matcher.group(), formatHasTarget
+                    ? format.replace("{target}", targetName)
+                    : format.append(Component.text(targetName)));
         }
         return component;
     }

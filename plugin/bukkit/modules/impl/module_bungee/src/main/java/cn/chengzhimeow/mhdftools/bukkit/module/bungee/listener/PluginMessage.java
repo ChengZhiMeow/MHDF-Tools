@@ -9,7 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class PluginMessage implements PluginMessageListener {
     @Override
@@ -32,7 +34,9 @@ public final class PluginMessage implements PluginMessageListener {
 
                 LogManager.instance.debug("更新在线玩家列表 | 在线列表: {}", playerListString);
 
-                Set<String> playerList = Set.of(playerListString.split(", "));
+                Set<String> playerList = Arrays.stream(playerListString.split(", "))
+                        .filter(playerName -> !playerName.isBlank())
+                        .collect(Collectors.toSet());
                 BungeeCordManagerImpl.getInstance().setPlayerList(playerList);
             }
         }
