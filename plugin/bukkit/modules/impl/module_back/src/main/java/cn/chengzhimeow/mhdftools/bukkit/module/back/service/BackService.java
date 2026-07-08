@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.bukkit.module.back.util;
+package cn.chengzhimeow.mhdftools.bukkit.module.back.service;
 
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.ConfigSetting;
 import org.bukkit.entity.Player;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public final class BackUtil {
+public final class BackService {
     public static int getMaxBack(Player player) {
         List<Integer> amountList = new ArrayList<>(player.getEffectivePermissions().stream()
                 .map(PermissionAttachmentInfo::getPermission)
@@ -19,9 +19,9 @@ public final class BackUtil {
                 .toList());
         amountList.sort(Comparator.reverseOrder());
 
-        return !amountList.isEmpty() ? amountList.get(0) : ConfigSetting.getInstance().getConfig().defaultMax();
+        return !amountList.isEmpty() ? amountList.getFirst() : ConfigSetting.getInstance().getConfig().defaultMax();
     }
 
-    private BackUtil() {
+    private BackService() {
     }
 }

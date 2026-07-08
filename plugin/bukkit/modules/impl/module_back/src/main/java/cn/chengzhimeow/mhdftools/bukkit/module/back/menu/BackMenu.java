@@ -8,7 +8,7 @@ import cn.chengzhimeow.mhdftools.bukkit.common.menu.AbstractPageMenu;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.BackMenuSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.module.back.util.BackUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.back.service.BackService;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -38,7 +38,7 @@ public final class BackMenu extends AbstractPageMenu {
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer().getUniqueId(), super.getPlayer().getName());
         int pageSize = this.slots(BackMenuSetting.getInstance().getConfig().keys().location()).size();
         if (pageSize == 0) return 1;
-        return Math.max((int) Math.ceil(player.getBackDataList(BackUtil.getMaxBack(super.getPlayer())).size() / (double) pageSize), 1);
+        return Math.max((int) Math.ceil(player.getBackDataList(BackService.getMaxBack(super.getPlayer())).size() / (double) pageSize), 1);
     }
 
     @Override
@@ -46,7 +46,7 @@ public final class BackMenu extends AbstractPageMenu {
         BackMenuSetting.Config config = BackMenuSetting.getInstance().getConfig();
         Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title());
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer().getUniqueId(), super.getPlayer().getName());
-        List<BackData> backList = player.getBackDataList(BackUtil.getMaxBack(super.getPlayer()));
+        List<BackData> backList = player.getBackDataList(BackService.getMaxBack(super.getPlayer()));
         List<Integer> backSlots = this.slots(config.keys().location());
         int start = (super.getPage() - 1) * backSlots.size();
         int end = Math.min(backList.size(), super.getPage() * backSlots.size());

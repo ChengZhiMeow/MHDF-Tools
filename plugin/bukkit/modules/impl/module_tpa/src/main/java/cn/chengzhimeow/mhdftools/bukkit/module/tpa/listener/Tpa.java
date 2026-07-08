@@ -6,7 +6,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.tpa.config.ConfigSetting;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public final class Tpa extends Listener {
+final class Tpa extends Listener {
     public Tpa() {
         super(ModuleMain.instance, ConfigSetting.getInstance().getConfig().enable());
     }

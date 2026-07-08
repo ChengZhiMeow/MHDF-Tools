@@ -5,7 +5,7 @@ import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.crash.config.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.module.crash.util.CrashUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.crash.service.CrashService;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
@@ -49,7 +49,7 @@ final class Crash extends Command {
                       ? ConfigSetting.getInstance().getConfig().defaultType()
                       : args[1].toLowerCase();
 
-        if (type == null || !CrashUtil.crashPlayerClient(player, type)) {
+        if (type == null || !CrashService.crashPlayerClient(player, type)) {
             sender.sendMessage(LangSetting.getInstance().getConfig().commands().crash().noType());
             return;
         }

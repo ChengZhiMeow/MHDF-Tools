@@ -7,7 +7,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.back.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.config.LangSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.back.menu.BackMenu;
-import cn.chengzhimeow.mhdftools.bukkit.module.back.util.BackUtil;
+import cn.chengzhimeow.mhdftools.bukkit.module.back.service.BackService;
 import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import org.bukkit.entity.Player;
@@ -38,7 +38,7 @@ final class Back extends Command {
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
         List<BackData> backDataList;
         if (args.length < 1) {
-            backDataList = player.getBackDataList(BackUtil.getMaxBack(sender));
+            backDataList = player.getBackDataList(BackService.getMaxBack(sender));
         } else {
             switch (args[0]) {
                 case "menu" -> {
@@ -46,7 +46,8 @@ final class Back extends Command {
                     sender.sendMessage(LangSetting.getInstance().getConfig().commands().back().openMenuMessage());
                     return;
                 }
-                case "teleport", "death" -> backDataList = player.getBackDataList(args[0], BackUtil.getMaxBack(sender));
+                case "teleport", "death" ->
+                        backDataList = player.getBackDataList(args[0], BackService.getMaxBack(sender));
                 default -> {
                     sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
                             .replace("{usage}", LangSetting.getInstance().getConfig().commands().back().usage())

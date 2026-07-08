@@ -15,7 +15,7 @@ import org.bukkit.event.player.*;
 
 import java.util.HashMap;
 
-public final class EventAction extends Listener {
+final class EventAction extends Listener {
     public EventAction() {
         super(
                 ModuleMain.instance,

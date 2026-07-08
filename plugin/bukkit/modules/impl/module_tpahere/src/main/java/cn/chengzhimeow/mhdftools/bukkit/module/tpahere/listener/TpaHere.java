@@ -6,7 +6,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.tpahere.config.ConfigSetting;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public final class TpaHere extends Listener {
+final class TpaHere extends Listener {
     public TpaHere() {
         super(ModuleMain.instance, ConfigSetting.getInstance().getConfig().enable());
     }

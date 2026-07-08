@@ -6,7 +6,6 @@ import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.bukkit.module.knockback.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.knockback.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.knockback.config.LangSetting;
-import cn.chengzhimeow.mhdftools.bukkit.module.knockback.util.KnockbackUtil;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import org.bukkit.Bukkit;
@@ -19,8 +18,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 final class Knockback extends Command {
+    private final Random random = new Random();
+
     public Knockback() {
         super(
                 ModuleMain.instance,
@@ -73,7 +75,7 @@ final class Knockback extends Command {
         double z = ConfigSetting.getInstance().getConfig().vector().z();
         Vector vector = new Vector(x, y, z);
 
-        if (type == null || !KnockbackUtil.knockbackPlayer(player, type, vector)) {
+        if (type == null || !this.knockbackPlayer(player, type, vector)) {
             sender.sendMessage(LangSetting.getInstance().getConfig().commands().knockback().noType());
             return;
         }
@@ -94,5 +96,23 @@ final class Knockback extends Command {
         if (args.length == 1) return BungeeCordManager.getInstance().getBukkitPlayerList();
         if (args.length == 2) return Arrays.asList("normal", "random");
         return super.tabCompleter(sender, label, args);
+    }
+
+    private boolean knockbackPlayer(Player player, String type, Vector vector) {
+        switch (type) {
+            case "normal" -> player.setVelocity(vector);
+            case "random" -> {
+                double theta = random.nextDouble() * 2 * Math.PI;
+                double phi = random.nextDouble() * Math.PI;
+                double randX = Math.sin(phi) * Math.cos(theta);
+                double randY = Math.sin(phi) * Math.sin(theta);
+                double randZ = Math.cos(phi);
+                player.setVelocity(new Vector(randX, randY, randZ).multiply(vector.length()));
+            }
+            default -> {
+                return false;
+            }
+        }
+        return true;
     }
 }

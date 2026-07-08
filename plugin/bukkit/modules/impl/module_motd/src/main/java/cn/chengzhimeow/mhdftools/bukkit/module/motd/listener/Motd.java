@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public final class Motd extends PacketListener {
+final class Motd extends PacketListener {
     public Motd() {
         super(
                 ModuleMain.instance,

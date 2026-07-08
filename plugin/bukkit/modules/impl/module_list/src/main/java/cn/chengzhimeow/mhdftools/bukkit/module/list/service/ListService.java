@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.bukkit.module.list.util;
+package cn.chengzhimeow.mhdftools.bukkit.module.list.service;
 
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
 import net.nyana.reflection.clazz.NyanaClass;
@@ -9,7 +9,7 @@ import org.bukkit.Location;
 import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
 
-public final class ListUtil {
+public final class ListService {
     private static final Location defaultLocation = new Location(Bukkit.getWorlds().getFirst(), 0, 0, 0);
     private static MethodHandle foliaTpsMethodHandle = null;
 

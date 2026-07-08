@@ -1,4 +1,4 @@
-package cn.chengzhimeow.mhdftools.bukkit.module.crash.util;
+package cn.chengzhimeow.mhdftools.bukkit.module.crash.service;
 
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.packetevents.PacketEventsManager;
 import com.github.retrooper.packetevents.protocol.particle.Particle;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Collections;
 
-public final class CrashUtil {
+public final class CrashService {
     /**
      * 崩溃指定玩家实例的客户端
      *
@@ -25,27 +25,27 @@ public final class CrashUtil {
             case "explosion" -> PacketEventsManager.getInstance().sendPacket(
                     player,
                     new WrapperPlayServerExplosion(
-                            new Vector3d(CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition()),
-                            CrashUtil.generateInvalidLook(),
+                            new Vector3d(CrashService.generateInvalidPosition(), CrashService.generateInvalidPosition(), CrashService.generateInvalidPosition()),
+                            CrashService.generateInvalidLook(),
                             Collections.emptyList(),
-                            new Vector3f(CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook())
+                            new Vector3f(CrashService.generateInvalidLook(), CrashService.generateInvalidLook(), CrashService.generateInvalidLook())
                     )
             );
             case "invalid_teleport" -> PacketEventsManager.getInstance().sendPacket(
                     player,
                     new WrapperPlayServerPlayerPositionAndLook(
-                            CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(),
-                            CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(),
-                            CrashUtil.generateFlags(), CrashUtil.generateTeleportID(), false
+                            CrashService.generateInvalidPosition(), CrashService.generateInvalidPosition(), CrashService.generateInvalidPosition(),
+                            CrashService.generateInvalidLook(), CrashService.generateInvalidLook(),
+                            CrashService.generateFlags(), CrashService.generateTeleportID(), false
                     )
             );
             case "invalid_particle" -> PacketEventsManager.getInstance().sendPacket(
                     player,
                     new WrapperPlayServerParticle(
                             new Particle<>(ParticleTypes.DRAGON_BREATH), true,
-                            new Vector3d(CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition(), CrashUtil.generateInvalidPosition()),
-                            new Vector3f(CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook(), CrashUtil.generateInvalidLook()),
-                            CrashUtil.generateInvalidLook(), CrashUtil.generateTeleportID()
+                            new Vector3d(CrashService.generateInvalidPosition(), CrashService.generateInvalidPosition(), CrashService.generateInvalidPosition()),
+                            new Vector3f(CrashService.generateInvalidLook(), CrashService.generateInvalidLook(), CrashService.generateInvalidLook()),
+                            CrashService.generateInvalidLook(), CrashService.generateTeleportID()
                     )
             );
             default -> {
@@ -97,5 +97,8 @@ public final class CrashUtil {
         int maxValue = Integer.MAX_VALUE;
         double randomFactor = Math.random();
         return (int) (maxValue * (randomFactor * (Math.sqrt(randomFactor) * 564.0 % 1.0 * 0.75 - Math.pow(randomFactor, 2.0) % 1.0 * 0.5) + 0.5));
+    }
+
+    private CrashService() {
     }
 }
