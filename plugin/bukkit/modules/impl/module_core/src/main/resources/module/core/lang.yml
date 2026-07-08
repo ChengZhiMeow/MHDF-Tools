@@ -1,6 +1,8 @@
 config_version: "${project.version}"
 
-command_info_format: "  &f{usage}  \n &8 - &7{description}"
+command_info_format: |-
+  &f{usage}  
+  &8 - &7{description}
 
 commands:
   mhdftools:

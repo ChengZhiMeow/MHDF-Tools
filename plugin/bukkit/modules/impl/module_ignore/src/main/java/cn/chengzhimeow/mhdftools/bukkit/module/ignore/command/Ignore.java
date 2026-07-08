@@ -8,7 +8,8 @@ import cn.chengzhimeow.mhdftools.bukkit.module.ignore.ModuleMain;
 import cn.chengzhimeow.mhdftools.bukkit.module.ignore.config.ConfigSetting;
 import cn.chengzhimeow.mhdftools.bukkit.module.ignore.config.LangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
-import cn.chengzhimeow.mhdftools.message.ColorUtil;
+import cn.chengzhimeow.mhdftools.text.TextComponent;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -98,7 +99,7 @@ final class Ignore extends Command {
         }
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().ignore().subCommands().help().message()
-                .replace("{help_list}", ColorUtil.color(this.helpList(label)))
+                .replace("{help_list}", this.getHelpMessage(label))
                 .replace("{command}", label));
     }
 
@@ -109,21 +110,44 @@ final class Ignore extends Command {
         if (args.length == 2 && args[0].equalsIgnoreCase("remove")) {
             MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
             return player.getIgnoreList().stream()
-                    .map(data -> Bukkit.getOfflinePlayer(data.getIgnore()))
-                    .map(OfflinePlayer::getName)
+                    .map(data -> MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(data.getPlayer()))
+                    .map(MHDFToolsPlayer::getNameOrNull)
                     .filter(name -> name != null && !name.isBlank())
                     .toList();
         }
         return new ArrayList<>();
     }
 
-    private String helpList(String label) {
-        LangSetting.Config.Commands.Ignore.SubCommands subCommands = LangSetting.getInstance().getConfig().commands().ignore().subCommands();
-        return String.join("\n",
-                "&8▪ &f" + subCommands.help().usage().replace("{command}", label).toMiniMessageString() + " &7- " + subCommands.help().description().toMiniMessageString(),
-                "&8▪ &f" + subCommands.list().usage().replace("{command}", label).toMiniMessageString() + " &7- " + subCommands.list().description().toMiniMessageString(),
-                "&8▪ &f" + subCommands.add().usage().replace("{command}", label).toMiniMessageString() + " &7- " + subCommands.add().description().toMiniMessageString(),
-                "&8▪ &f" + subCommands.remove().usage().replace("{command}", label).toMiniMessageString() + " &7- " + subCommands.remove().description().toMiniMessageString()
-        );
+    private Component getHelpMessage(String label) {
+        return Component.empty()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().help().usage(),
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().help().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().list().usage(),
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().list().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().add().usage(),
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().add().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().remove().usage(),
+                        LangSetting.getInstance().getConfig().commands().ignore().subCommands().remove().description(),
+                        label
+                ));
+    }
+
+    private TextComponent getSubCommandInfo(TextComponent usage, TextComponent description, String label) {
+        return LangSetting.getInstance().getConfig().commandInfoFormat()
+                .replace("{usage}", usage.replace("{command}", label))
+                .replace("{description}", description);
     }
 }

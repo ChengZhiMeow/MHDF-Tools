@@ -46,38 +46,38 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                         new Config.Commands.Pay(
                                 super.component("commands.pay.usage", prefix),
                                 super.component("commands.pay.description", prefix),
-                                super.component("commands.pay.paySelf", prefix),
-                                super.component("commands.pay.moneyFormatError", prefix),
-                                super.component("commands.pay.noMoney", prefix),
+                                super.component("commands.pay.pay_self", prefix),
+                                super.component("commands.pay.money_format_error", prefix),
+                                super.component("commands.pay.no_money", prefix),
                                 super.component("commands.pay.message", prefix),
-                                super.component("commands.pay.receivedMessage", prefix)
+                                super.component("commands.pay.received_message", prefix)
                         ),
                         new Config.Commands.MoneyAdmin(
                                 super.component("commands.moneyadmin.usage", prefix),
                                 super.component("commands.moneyadmin.description", prefix),
-                                super.component("commands.moneyadmin.moneyFormatError", prefix),
+                                super.component("commands.moneyadmin.command_info_format", prefix),
                                 moneyadminSubCommandNames,
-                                this.subCommandHelpList("commands.moneyadmin.subCommands", moneyadminSubCommandNames),
+                                this.subCommandHelpList("commands.moneyadmin.sub_commands", moneyadminSubCommandNames),
                                 new Config.Commands.MoneyAdmin.SubCommands(
                                         new Config.Commands.MoneyAdmin.SubCommands.Help(
-                                                super.component("commands.moneyadmin.subCommands.help.usage", prefix),
-                                                super.component("commands.moneyadmin.subCommands.help.description", prefix),
-                                                super.component("commands.moneyadmin.subCommands.help.message", prefix)
+                                                super.component("commands.moneyadmin.sub_commands.help.usage", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.help.description", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.help.message", prefix)
                                         ),
                                         new Config.Commands.MoneyAdmin.SubCommands.Set(
-                                                super.component("commands.moneyadmin.subCommands.set.usage", prefix),
-                                                super.component("commands.moneyadmin.subCommands.set.description", prefix),
-                                                super.component("commands.moneyadmin.subCommands.set.message", prefix)
+                                                super.component("commands.moneyadmin.sub_commands.set.usage", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.set.description", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.set.message", prefix)
                                         ),
                                         new Config.Commands.MoneyAdmin.SubCommands.Add(
-                                                super.component("commands.moneyadmin.subCommands.add.usage", prefix),
-                                                super.component("commands.moneyadmin.subCommands.add.description", prefix),
-                                                super.component("commands.moneyadmin.subCommands.add.message", prefix)
+                                                super.component("commands.moneyadmin.sub_commands.add.usage", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.add.description", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.add.message", prefix)
                                         ),
                                         new Config.Commands.MoneyAdmin.SubCommands.Take(
                                                 super.component("commands.moneyadmin.subCommands.take.usage", prefix),
-                                                super.component("commands.moneyadmin.subCommands.take.description", prefix),
-                                                super.component("commands.moneyadmin.subCommands.take.message", prefix)
+                                                super.component("commands.moneyadmin.sub_commands.take.description", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.take.message", prefix)
                                         )
                                 )
                         )

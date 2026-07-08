@@ -29,6 +29,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
         TextComponent prefix = GlobalLangSetting.getInstance().getConfig().prefix();
 
         this.config = new Config(
+                super.component("command_info_format", prefix),
                 new Config.Commands(
                         new Config.Commands.Ignore(
                                 super.component("commands.ignore.usage", prefix),
@@ -65,6 +66,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
     }
 
     public record Config(
+            TextComponent commandInfoFormat,
             Commands commands
     ) {
         public record Commands(

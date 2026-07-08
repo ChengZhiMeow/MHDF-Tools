@@ -8,12 +8,14 @@ import cn.chengzhimeow.mhdftools.bukkit.module.feature.Command;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.ProxySetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
-import cn.chengzhimeow.mhdftools.text.TextComponentBuilder;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 final class MHDFTools extends Command {
     public MHDFTools() {
@@ -38,14 +40,14 @@ final class MHDFTools extends Command {
                         page = 1;
                     }
 
-                    List<String> commandList = Module.getRegisterCommandIdList();
-                    int maxPage = Math.max(1, (int) Math.ceil(commandList.size() / 4.0));
+                    Map<String, Command> commands = Module.getRegisterCommandMap();
+                    int maxPage = Math.max(1, (int) Math.ceil(commands.size() / 4.0));
 
                     if (page < 1) page = 1;
                     if (page > maxPage) page = maxPage;
 
                     sender.sendMessage(LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().message()
-                            .replace("{help_list}", this.getFeatureHelpMessage(page, commandList))
+                            .replace("{help_list}", this.getFeatureHelpMessage(page, commands.entrySet()))
                             .replace("{page}", String.valueOf(page))
                             .replace("{max_page}", String.valueOf(maxPage))
                             .replaceByMiniMessage("{last_page}", String.valueOf(page - 1))
@@ -85,47 +87,47 @@ final class MHDFTools extends Command {
         return new ArrayList<>();
     }
 
-    private TextComponent getHelpMessage(String label) {
-        TextComponentBuilder textComponentBuilder = new TextComponentBuilder();
-        textComponentBuilder.append(this.getSubCommandInfo(
-                LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().usage(),
-                LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().description(),
-                label
-        ));
-        textComponentBuilder.appendNewline();
-        textComponentBuilder.append(this.getSubCommandInfo(
-                LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().help().usage(),
-                LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().help().description(),
-                label
-        ));
-        textComponentBuilder.appendNewline();
-        textComponentBuilder.append(this.getSubCommandInfo(
-                LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().reload().usage(),
-                LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().reload().description(),
-                label
-        ));
-        return textComponentBuilder.build();
+    private Component getHelpMessage(String label) {
+        return Component.empty()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().help().usage(),
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().help().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().usage(),
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().reload().usage(),
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().reload().description(),
+                        label
+                ));
     }
 
-    private TextComponent getFeatureHelpMessage(int page, List<String> commandList) {
-        if (commandList.isEmpty()) return new TextComponent();
+    private Component getFeatureHelpMessage(int page, Set<Map.Entry<String, Command>> commands) {
+        if (commands.isEmpty()) return new TextComponent();
 
         int start = (page - 1) * 4;
-        int end = Math.min(commandList.size(), start + 4);
+        int end = Math.min(commands.size(), start + 4);
 
-        TextComponentBuilder textComponentBuilder = new TextComponentBuilder();
+        List<Map.Entry<String, Command>> list = new ArrayList<>(commands);
+        Component builder = Component.empty();
         for (int i = start; i < end; i++) {
-            String command = commandList.get(i);
+            Map.Entry<String, Command> command = list.get(i);
 
-            textComponentBuilder.append(LangSetting.getInstance().getConfig().commandInfoFormat()
-                    .replace("{usage}", "/" + command)
-                    .replace("{description}", command));
-            if (!command.equals(commandList.get(end - 1))) {
-                textComponentBuilder.appendNewline();
-            }
+            builder = builder.append(LangSetting.getInstance().getConfig().commandInfoFormat()
+                    .replace("{usage}", "/" + command.getKey())
+                    .replace("{description}", command.getValue().getDescription()));
+
+            if (list.size() == i - 1) continue;
+            builder = builder.appendNewline();
         }
 
-        return textComponentBuilder.build();
+        return builder;
     }
 
     private TextComponent getSubCommandInfo(TextComponent usage, TextComponent description, String label) {

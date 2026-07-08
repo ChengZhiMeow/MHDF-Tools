@@ -44,7 +44,7 @@ public final class CommandRegisterManager {
             if (!command.isEnable()) continue;
 
             this.registerCommand(command);
-            Module.getRegisterCommandIdList().add(command.getPermission().replace("mhdftools.commands.", ""));
+            Module.getRegisterCommandMap().put(command.getCommands()[0], command);
         }
     }
 
