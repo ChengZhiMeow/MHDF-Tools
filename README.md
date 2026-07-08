@@ -52,7 +52,7 @@ _✨你的下一个基础插件，为何不能是梦之工具✨_
 
 ## Star
 
-[![Stargazers over time](https://starchart.cc/ChengZhiMeow/MHDF-Tools.svg?variant=adaptive)](https://starchart.cc/ChengZhiMeow/MHDF-Tools)
+[![Stargazers over time](https://www.star-history.com/?repos=ChengZhiMeow%2FMHDF-Tools&type=date&legend=top-left](https://www.star-history.com/?repos=ChengZhiMeow%2FMHDF-Tools&type=date&legend=top-left)
 
 ## 友链
 
