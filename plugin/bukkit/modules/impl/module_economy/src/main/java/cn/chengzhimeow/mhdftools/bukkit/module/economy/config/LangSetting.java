@@ -3,12 +3,8 @@ package cn.chengzhimeow.mhdftools.bukkit.module.economy.config;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractLangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
-import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import lombok.Getter;
-
-import java.util.List;
-import java.util.Objects;
 
 public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
     @Getter(lazy = true)
@@ -31,9 +27,9 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
     public void reload() {
         super.reload();
         TextComponent prefix = GlobalLangSetting.getInstance().getConfig().prefix();
-        List<String> moneyadminSubCommandNames = List.of("help", "set", "add", "take");
 
         this.config = new Config(
+                super.component("command_info_format", prefix),
                 new Config.Economy(
                         super.component("economy.tax", prefix)
                 ),
@@ -56,8 +52,6 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                                 super.component("commands.moneyadmin.usage", prefix),
                                 super.component("commands.moneyadmin.description", prefix),
                                 super.component("commands.moneyadmin.command_info_format", prefix),
-                                moneyadminSubCommandNames,
-                                this.subCommandHelpList("commands.moneyadmin.sub_commands", moneyadminSubCommandNames),
                                 new Config.Commands.MoneyAdmin.SubCommands(
                                         new Config.Commands.MoneyAdmin.SubCommands.Help(
                                                 super.component("commands.moneyadmin.sub_commands.help.usage", prefix),
@@ -75,7 +69,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                                                 super.component("commands.moneyadmin.sub_commands.add.message", prefix)
                                         ),
                                         new Config.Commands.MoneyAdmin.SubCommands.Take(
-                                                super.component("commands.moneyadmin.subCommands.take.usage", prefix),
+                                                super.component("commands.moneyadmin.sub_commands.take.usage", prefix),
                                                 super.component("commands.moneyadmin.sub_commands.take.description", prefix),
                                                 super.component("commands.moneyadmin.sub_commands.take.message", prefix)
                                         )
@@ -85,19 +79,8 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
         );
     }
 
-    private TextComponent subCommandHelpList(String path, List<String> names) {
-        String format = super.getData().getString("commandInfoFormat", "  &f{usage}  \n &8 - &7{description}");
-        StringBuilder builder = new StringBuilder();
-        for (String name : names) {
-            if (!builder.isEmpty()) builder.append("\n");
-            builder.append(Objects.requireNonNull(format)
-                    .replace("{usage}", Objects.requireNonNull(super.getData().getString(path + "." + name + ".usage")))
-                    .replace("{description}", Objects.requireNonNull(super.getData().getString(path + "." + name + ".description"))));
-        }
-        return ColorUtil.color(builder.toString());
-    }
-
     public record Config(
+            TextComponent commandInfoFormat,
             Economy economy,
             Commands commands
     ) {
@@ -133,8 +116,6 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                     TextComponent usage,
                     TextComponent description,
                     TextComponent moneyFormatError,
-                    List<String> subCommandNames,
-                    TextComponent helpList,
                     SubCommands subCommands
             ) {
                 public record SubCommands(

@@ -18,6 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 final class Stop extends Command {
@@ -49,7 +50,7 @@ final class Stop extends Command {
                     }
 
                     sender.sendMessage(LangSetting.getInstance().getConfig().commands().stop().subCommands().help().message()
-                            .replace("{help_list}", LangSetting.getInstance().getConfig().commands().stop().helpList())
+                            .replace("{help_list}", this.getHelpMessage(label))
                             .replace("{command}", label));
                     return;
                 }
@@ -122,8 +123,7 @@ final class Stop extends Command {
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1)
-            return new ArrayList<>(LangSetting.getInstance().getConfig().commands().stop().subCommandNames());
+        if (args.length == 1) return Arrays.asList("help", "cancel", "confirm", "default");
         return new ArrayList<>();
     }
 
@@ -177,5 +177,38 @@ final class Stop extends Command {
                 super.cancel();
             }
         }.runTaskTimerAsynchronously(plugin, 0L, 20L);
+    }
+
+    private Component getHelpMessage(String label) {
+        return Component.empty()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().help().usage(),
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().help().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().cancel().usage(),
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().cancel().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().confirm().usage(),
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().confirm().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().defaultCommand().usage(),
+                        LangSetting.getInstance().getConfig().commands().stop().subCommands().defaultCommand().description(),
+                        label
+                ));
+    }
+
+    private TextComponent getSubCommandInfo(TextComponent usage, TextComponent description, String label) {
+        return LangSetting.getInstance().getConfig().commandInfoFormat()
+                .replace("{usage}", usage.replace("{command}", label))
+                .replace("{description}", description);
     }
 }

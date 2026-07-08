@@ -6,8 +6,6 @@ import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import lombok.Getter;
 
-import java.util.List;
-
 public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
     @Getter(lazy = true)
     private static final LangSetting instance = new LangSetting();
@@ -31,6 +29,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
         TextComponent prefix = GlobalLangSetting.getInstance().getConfig().prefix();
 
         this.config = new Config(
+                super.component("command_info_format", prefix),
                 new Config.Commands(
                         new Config.Commands.Stop(
                                 super.component("commands.stop.usage", prefix),
@@ -39,8 +38,6 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                                 super.component("commands.stop.time_format_error", prefix),
                                 super.component("commands.stop.countdown", prefix),
                                 super.component("commands.stop.kick_message", prefix),
-                                List.of("help", "cancel", "confirm", "default"),
-                                new TextComponent(),
                                 new Config.Commands.Stop.SubCommands(
                                         new Config.Commands.Stop.SubCommands.Help(
                                                 super.component("commands.stop.sub_commands.help.usage", prefix),
@@ -72,6 +69,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
     }
 
     public record Config(
+            TextComponent commandInfoFormat,
             Commands commands
     ) {
         public record Commands(
@@ -84,8 +82,6 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                     TextComponent timeFormatError,
                     TextComponent countdown,
                     TextComponent kickMessage,
-                    List<String> subCommandNames,
-                    TextComponent helpList,
                     SubCommands subCommands
             ) {
                 public record SubCommands(
