@@ -14,6 +14,7 @@ import cn.chengzhimeow.mhdftools.bukkit.common.config.CacheSetting;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.DatabaseSetting;
 import cn.chengzhimeow.mhdftools.bukkit.compatibility.packetevents.PacketEventsManager;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigSetting;
+import cn.chengzhimeow.mhdftools.bukkit.manager.BStatsManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.ModuleManager;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
@@ -86,6 +87,8 @@ public final class Main extends MHDFToolsBukkit {
         DatabaseSetting.getInstance().reload();
 
         ModuleManager.getInstance().initModules();
+
+        BStatsManager.getInstance().init();
     }
 
     @Override
