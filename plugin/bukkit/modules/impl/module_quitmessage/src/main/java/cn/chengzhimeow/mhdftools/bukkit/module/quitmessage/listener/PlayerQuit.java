@@ -15,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 final class PlayerQuit extends Listener {
     public PlayerQuit() {
@@ -52,9 +53,11 @@ final class PlayerQuit extends Listener {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
         event.quitMessage(
                 ColorUtil.color(
-                        PlaceholderCompatibilityRegistry.getInstance().get(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API)
-                                .parseString(player, lastGroup.message())
-                ).replace("{player}", mhdfPlayer.getDisplayName())
+                        Objects.requireNonNull(PlaceholderCompatibilityRegistry.getInstance().parseString(
+                                PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API,
+                                player, lastGroup.message()
+                        )).replace("{player}", mhdfPlayer.getDisplayName())
+                )
         );
     }
 }

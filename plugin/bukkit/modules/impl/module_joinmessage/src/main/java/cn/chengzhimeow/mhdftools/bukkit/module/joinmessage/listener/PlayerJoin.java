@@ -15,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 final class PlayerJoin extends Listener {
     public PlayerJoin() {
@@ -52,9 +53,11 @@ final class PlayerJoin extends Listener {
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(player.getUniqueId(), player.getName());
         event.joinMessage(
                 ColorUtil.color(
-                        PlaceholderCompatibilityRegistry.getInstance().get(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API)
-                                .parseString(player, lastGroup.message())
-                ).replace("{player}", mhdfPlayer.getDisplayName())
+                        Objects.requireNonNull(PlaceholderCompatibilityRegistry.getInstance().parseString(
+                                PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API,
+                                player, lastGroup.message()
+                        )).replace("{player}", mhdfPlayer.getDisplayName())
+                )
         );
     }
 }
