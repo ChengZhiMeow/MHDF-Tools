@@ -1,8 +1,10 @@
+import xyz.jpenilla.runpaper.task.RunServer
+
 // 插件
 plugins {
     id("org.jetbrains.kotlin.jvm") version "2.1.21"
     id("com.gradleup.shadow") version "9.0.0-beta6"
-    id("xyz.jpenilla.run-paper") version "2.3.1"
+    id("xyz.jpenilla.run-paper") version "3.0.1"
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.17" apply false
 }
 
@@ -110,18 +112,29 @@ tasks {
     }
 
     runServer {
-        dependsOn(build)
-        minecraftVersion("1.21.4")
+        dependsOn(shadowJar)
+
+        minecraftVersion("1.21.11")
+        downloadPlugins {
+            modrinth("packetevents", "2.12.1+spigot")
+        }
     }
 }
 
-tasks.withType(xyz.jpenilla.runtask.task.AbstractRun::class) {
+tasks.withType(RunServer::class) {
     javaLauncher = javaToolchains.launcherFor {
         vendor = JvmVendorSpec.JETBRAINS
         languageVersion = JavaLanguageVersion.of(21)
     }
 
-    jvmArgs("-Ddisable.watchdog=true")
-    jvmArgs("-Xlog:redefine+class*=info")
-    jvmArgs("-XX:+AllowEnhancedClassRedefinition")
+    systemProperties["com.mojang.eula.agree"] = true
+
+    jvmArgs(
+        "-Dorg.bukkit.plugin.java.LibraryLoader.centralURL=https://maven.aliyun.com/repository/central",
+        "-Dsun.stdout.encoding=UTF-8",
+        "-Dsun.stderr.encoding=UTF-8",
+        "-Ddisable.watchdog=true",
+        "-Xlog:redefine+class*=info",
+        "-XX:+AllowEnhancedClassRedefinition"
+    )
 }

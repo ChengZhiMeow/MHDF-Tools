@@ -12,8 +12,8 @@ import cn.chengzhimeow.mhdftools.bukkit.api.manager.ItemManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.api.redis.RedisManagerImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.CacheSetting;
 import cn.chengzhimeow.mhdftools.bukkit.common.config.DatabaseSetting;
+import cn.chengzhimeow.mhdftools.bukkit.compatibility.packetevents.PacketEventsManager;
 import cn.chengzhimeow.mhdftools.bukkit.config.ConfigSetting;
-import cn.chengzhimeow.mhdftools.bukkit.hook.PacketEventsHook;
 import cn.chengzhimeow.mhdftools.bukkit.module.ModuleManager;
 import cn.chengzhimeow.mhdftools.config.ConfigManager;
 import cn.chengzhimeow.mhdftools.console.LogManager;
@@ -36,7 +36,6 @@ public final class Main extends MHDFToolsBukkit {
     private CacheManagerImpl cacheManager;
     private RedisManagerImpl redisManager;
     private ItemManager itemManager;
-    private PacketEventsHook packetEventsHook;
 
     @Override
     public void onLoad() {
@@ -96,8 +95,7 @@ public final class Main extends MHDFToolsBukkit {
 
     @Override
     public void onEnable() {
-        this.packetEventsHook = new PacketEventsHook();
-        this.packetEventsHook.hook();
+        PacketEventsManager.getInstance().hook(Main.instance);
 
         this.cacheManager = new CacheManagerImpl();
 
@@ -130,7 +128,7 @@ public final class Main extends MHDFToolsBukkit {
         if (this.databaseManager != null) this.databaseManager.close();
         if (this.redisManager != null) this.redisManager.close();
         if (this.cacheManager != null) this.cacheManager.close();
-        if (this.packetEventsHook != null) this.packetEventsHook.unhook();
+        PacketEventsManager.getInstance().unhook();
 
         MHDFToolsAPI.setInstance(null);
     }

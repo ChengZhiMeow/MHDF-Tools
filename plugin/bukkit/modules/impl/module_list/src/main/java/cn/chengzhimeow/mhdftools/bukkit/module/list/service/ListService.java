@@ -63,6 +63,6 @@ public final class ListService {
      * @return 总占用内存(单位 MB)
      */
     public static long getUsedMemory() {
-        return ListUtil.getTotalMemory() - ListUtil.getFreeMemory();
+        return ListService.getTotalMemory() - ListService.getFreeMemory();
     }
 }

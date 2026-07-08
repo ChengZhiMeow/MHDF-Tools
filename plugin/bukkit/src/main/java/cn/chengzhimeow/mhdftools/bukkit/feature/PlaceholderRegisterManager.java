@@ -23,7 +23,7 @@ public final class PlaceholderRegisterManager {
     private static final PlaceholderRegisterManager instance = new PlaceholderRegisterManager();
 
     private final Map<String, Placeholder> placeholders = new ConcurrentHashMap<>();
-    private PlaceholderExpansion expansion;
+    private Object expansion;
     private boolean registered;
 
     private PlaceholderRegisterManager() {
@@ -52,14 +52,14 @@ public final class PlaceholderRegisterManager {
 
         if (this.registered) return;
         this.expansion = new Expansion();
-        this.expansion.register();
+        ((PlaceholderExpansion) this.expansion).register();
         this.registered = true;
     }
 
     public void unregister() {
         if (!this.registered) return;
 
-        this.expansion.unregister();
+        ((PlaceholderExpansion) this.expansion).unregister();
         this.expansion = null;
         this.placeholders.clear();
         this.registered = false;
