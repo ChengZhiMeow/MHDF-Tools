@@ -100,11 +100,19 @@ public final class ChatService {
         ConfigSetting.Config.At config = ConfigSetting.getInstance().getConfig().at();
         TextComponent format = LangSetting.getInstance().getConfig().chat().at().format();
         for (String target : atList) {
-            String name = target.contains(AtService.AT_ALL) ? LangSetting.getInstance().getConfig().chat().at().all().toMiniMessageString() : target;
+            if (target.contains(AtService.AT_ALL)) {
+                TextComponent atAllMessage = LangSetting.getInstance().getConfig().chat().at().all();
+                for (String at : ConfigSetting.getInstance().getConfig().at().allMessage()) {
+                    Matcher matcher = Pattern.compile(config.patternFormat().replace("{at}", Pattern.quote(at))).matcher(rawMessage);
+                    if (!matcher.find()) continue;
+                    component = component.replace(matcher.group(), format.replace("{target}", atAllMessage));
+                }
+                continue;
+            }
+
             Matcher matcher = Pattern.compile(config.patternFormat().replace("{at}", Pattern.quote(target))).matcher(rawMessage);
             if (!matcher.find()) continue;
-
-            component = component.replace(matcher.group(), format.replace("{target}", name));
+            component = component.replace(matcher.group(), format.replace("{target}", target));
         }
         return component;
     }
