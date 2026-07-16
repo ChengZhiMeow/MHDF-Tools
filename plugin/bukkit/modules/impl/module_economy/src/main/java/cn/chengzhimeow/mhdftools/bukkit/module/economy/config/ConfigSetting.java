@@ -43,7 +43,7 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
                 super.getData().getStringList("payCommands")
         );
 
-        EconomyConfigManager.getInstance().setMoneyName(super.config.moneyName);
+        EconomyConfigManager.getInstance().setMoneyName(this.config.moneyName);
         EconomyConfigManager.getInstance().setDefaultMoney(this.config.defaultMoney);
     }
 
