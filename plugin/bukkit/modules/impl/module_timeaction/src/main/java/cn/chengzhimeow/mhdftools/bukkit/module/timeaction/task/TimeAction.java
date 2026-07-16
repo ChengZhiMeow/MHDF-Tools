@@ -32,6 +32,8 @@ final class TimeAction extends Task {
 
     @Override
     public void run() {
+        if (!ConfigSetting.getInstance().getConfig().enable()) return;
+
         for (ConfigSetting.Config.Action action : ConfigSetting.getInstance().getConfig().actions()) {
             String type = action.type();
             if (type == null) continue;

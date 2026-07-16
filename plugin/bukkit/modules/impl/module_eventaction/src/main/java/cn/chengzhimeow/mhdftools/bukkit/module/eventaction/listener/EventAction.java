@@ -30,6 +30,8 @@ final class EventAction extends Listener {
      * @param event  事件
      */
     public void runAction(Player player, String event) {
+        if (!ConfigSetting.getInstance().getConfig().enable()) return;
+
         for (ConfigSetting.Config.Action action : ConfigSetting.getInstance().getConfig().actions()) {
             String type = action.event();
             if (type == null) continue;
