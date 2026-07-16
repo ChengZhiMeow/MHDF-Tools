@@ -1,5 +1,6 @@
 package cn.chengzhimeow.mhdftools.bukkit.module.economy.config;
 
+import cn.chengzhimeow.mhdftools.bukkit.api.economy.EconomyConfigManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.economy.ModuleMain;
 import cn.chengzhimeow.mhdftools.config.AbstractYamlSetting;
 import lombok.Getter;
@@ -41,6 +42,9 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
                 super.getData().getStringList("moneyCommands"),
                 super.getData().getStringList("payCommands")
         );
+
+        EconomyConfigManager.getInstance().setMoneyName(super.config.moneyName);
+        EconomyConfigManager.getInstance().setDefaultMoney(this.config.defaultMoney);
     }
 
     public record Config(

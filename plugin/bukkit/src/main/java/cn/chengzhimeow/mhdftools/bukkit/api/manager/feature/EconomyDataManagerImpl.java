@@ -5,7 +5,7 @@ import cn.chengzhimeow.mhdftools.api.entity.database.data.EconomyData;
 import cn.chengzhimeow.mhdftools.api.manager.feature.EconomyDataManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.CachedDaoManager;
 import cn.chengzhimeow.mhdftools.bukkit.api.database.DatabaseManager;
-import cn.chengzhimeow.mhdftools.bukkit.module.economy.config.ConfigSetting;
+import cn.chengzhimeow.mhdftools.bukkit.api.economy.EconomyConfigManager;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -25,7 +25,7 @@ public final class EconomyDataManagerImpl extends CachedDaoManager<EconomyData, 
 
     @Override
     public String getMoneyName() {
-        return this.getConfig().moneyName();
+        return EconomyConfigManager.getInstance().getMoneyName();
     }
 
     @Override
@@ -42,17 +42,7 @@ public final class EconomyDataManagerImpl extends CachedDaoManager<EconomyData, 
 
         data = new EconomyData();
         data.setPlayer(player.getUuid());
-        data.setMoney(this.getConfig().defaultMoney());
+        data.setMoney(EconomyConfigManager.getInstance().getDefaultMoney());
         return data;
-    }
-
-    private ConfigSetting.Config getConfig() {
-        ConfigSetting setting = ConfigSetting.getInstance();
-        if (setting.getConfig() == null) {
-            setting.saveDefaultFile();
-            setting.update();
-            setting.reload();
-        }
-        return setting.getConfig();
     }
 }
