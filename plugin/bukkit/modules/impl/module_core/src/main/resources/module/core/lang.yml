@@ -30,6 +30,19 @@ commands:
           {help_list}
           &f
           &7⌞                                         ⌟
+      modules:
+        usage: "/{command} modules"
+        description: "查看所有模块状态"
+        message: |-
+          &f
+          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+          &f
+          &8▪ &7已加载模块:
+          &f{load_modules}
+          &8▪ &7未加载模块:
+          &f{unload_modules}
+          &f
+          &7⌞                                         ⌟
       reload:
         usage: "/{command} reload"
         description: "重载插件"

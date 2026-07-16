@@ -56,12 +56,32 @@ final class MHDFTools extends Command {
                     );
                     return;
                 }
+                case "modules" -> {
+                    StringBuilder loadModules = new StringBuilder();
+                    StringBuilder unloadModules = new StringBuilder();
+                    for (Module module : Module.getRegisterModuleList()) {
+                        if (module.isEnable()) {
+                            if (!loadModules.isEmpty()) loadModules.append(", ");
+                            loadModules.append(module.getId());
+                        } else {
+                            if (!unloadModules.isEmpty()) unloadModules.append(", ");
+                            unloadModules.append(module.getId());
+                        }
+                    }
+
+                    sender.sendMessage(LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().modules().message()
+                            .replace("{load_modules}", loadModules.toString())
+                            .replace("{unload_modules}", unloadModules.toString())
+                    );
+                    return;
+                }
                 case "reload" -> {
                     ProxySetting.getInstance().reload();
                     ConfigSetting.getInstance().reload();
                     GlobalLangSetting.getInstance().reload();
 
                     for (Module module : Module.getRegisterModuleList()) {
+                        if (!module.isEnable()) continue;
                         module.reloadConfig();
                     }
 
@@ -82,7 +102,7 @@ final class MHDFTools extends Command {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return List.of("help", "feature", "reload");
+            return List.of("help", "feature", "modules", "reload");
         }
         return new ArrayList<>();
     }
@@ -98,6 +118,12 @@ final class MHDFTools extends Command {
                 .append(this.getSubCommandInfo(
                         LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().usage(),
                         LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().description(),
+                        label
+                ))
+                .appendNewline()
+                .append(this.getSubCommandInfo(
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().modules().usage(),
+                        LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().modules().description(),
                         label
                 ))
                 .appendNewline()

@@ -45,6 +45,11 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                                                 super.component("commands.mhdftools.sub_commands.feature.description", prefix),
                                                 super.component("commands.mhdftools.sub_commands.feature.message", prefix)
                                         ),
+                                        new Config.Commands.MHDFTools.SubCommands.Modules(
+                                                super.component("commands.mhdftools.sub_commands.modules.usage", prefix),
+                                                super.component("commands.mhdftools.sub_commands.modules.description", prefix),
+                                                super.component("commands.mhdftools.sub_commands.modules.message", prefix)
+                                        ),
                                         new Config.Commands.MHDFTools.SubCommands.Reload(
                                                 super.component("commands.mhdftools.sub_commands.reload.usage", prefix),
                                                 super.component("commands.mhdftools.sub_commands.reload.description", prefix),
@@ -71,6 +76,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                 public record SubCommands(
                         Help help,
                         Feature feature,
+                        Modules modules,
                         Reload reload
                 ) {
                     public record Help(
@@ -81,6 +87,13 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                     }
 
                     public record Feature(
+                            TextComponent usage,
+                            TextComponent description,
+                            TextComponent message
+                    ) {
+                    }
+
+                    public record Modules(
                             TextComponent usage,
                             TextComponent description,
                             TextComponent message
