@@ -17,7 +17,7 @@ final class FastChangeWeather extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "快速调节天气",
+                LangSetting.getInstance().getConfig().commands().fastChangeWeather().description(),
                 "mhdftools.commands.fastchangeweather",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

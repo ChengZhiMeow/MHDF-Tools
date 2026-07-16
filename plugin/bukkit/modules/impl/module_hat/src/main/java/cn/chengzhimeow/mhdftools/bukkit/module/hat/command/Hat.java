@@ -15,7 +15,7 @@ final class Hat extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "帽子",
+                LangSetting.getInstance().getConfig().commands().hat().description(),
                 "mhdftools.commands.hat",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

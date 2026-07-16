@@ -16,7 +16,7 @@ final class LookItem extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable() && ConfigSetting.getInstance().getConfig().showItem().enable(),
-                "展示物品",
+                LangSetting.getInstance().getConfig().commands().lookItem().description(),
                 "mhdftools.commands.lookitem",
                 true,
                 ConfigSetting.getInstance().getConfig().showItem().commands().toArray(new String[0])

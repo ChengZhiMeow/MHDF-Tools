@@ -24,7 +24,7 @@ final class Ignore extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "屏蔽",
+                LangSetting.getInstance().getConfig().commands().ignore().description(),
                 "mhdftools.commands.ignore",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

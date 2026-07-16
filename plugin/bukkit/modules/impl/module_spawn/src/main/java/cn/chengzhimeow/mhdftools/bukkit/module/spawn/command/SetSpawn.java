@@ -17,7 +17,7 @@ final class SetSpawn extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "设置出生点",
+                LangSetting.getInstance().getConfig().commands().setspawn().description(),
                 "mhdftools.commands.setspawn",
                 true,
                 ConfigSetting.getInstance().getConfig().setspawnCommands().toArray(new String[0])

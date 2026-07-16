@@ -22,7 +22,7 @@ final class Crash extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "崩溃玩家客户端",
+                LangSetting.getInstance().getConfig().commands().crash().description(),
                 "mhdftools.commands.crash",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

@@ -24,7 +24,7 @@ final class Tpa extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "请求传送到指定玩家位置",
+                LangSetting.getInstance().getConfig().commands().tpa().description(),
                 "mhdftools.commands.tpa",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

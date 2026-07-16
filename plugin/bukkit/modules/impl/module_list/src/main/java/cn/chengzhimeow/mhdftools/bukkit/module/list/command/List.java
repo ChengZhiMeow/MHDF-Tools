@@ -17,7 +17,7 @@ final class List extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "查看在线列表",
+                LangSetting.getInstance().getConfig().commands().list().description(),
                 "mhdftools.commands.list",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

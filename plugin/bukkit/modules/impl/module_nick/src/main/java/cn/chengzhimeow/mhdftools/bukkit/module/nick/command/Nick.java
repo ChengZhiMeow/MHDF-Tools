@@ -22,7 +22,7 @@ final class Nick extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "匿名",
+                LangSetting.getInstance().getConfig().commands().nick().description(),
                 "mhdftools.commands.nick",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

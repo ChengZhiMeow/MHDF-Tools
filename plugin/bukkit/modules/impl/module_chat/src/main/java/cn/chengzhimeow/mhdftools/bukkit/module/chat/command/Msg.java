@@ -21,7 +21,7 @@ final class Msg extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable() && ConfigSetting.getInstance().getConfig().msg().enable(),
-                "私聊",
+                LangSetting.getInstance().getConfig().commands().msg().description(),
                 "mhdftools.commands.msg",
                 false,
                 ConfigSetting.getInstance().getConfig().msg().commands().toArray(new String[0])

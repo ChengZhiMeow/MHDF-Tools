@@ -21,7 +21,7 @@ final class FlyTime extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "限时飞行",
+                LangSetting.getInstance().getConfig().commands().flytime().description(),
                 "mhdftools.commands.flytime",
                 false,
                 ConfigSetting.getInstance().getConfig().flytimeCommands().toArray(new String[0])

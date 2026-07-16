@@ -25,7 +25,7 @@ final class MoneyAdmin extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "经济管理",
+                LangSetting.getInstance().getConfig().commands().moneyadmin().description(),
                 "mhdftools.commands.moneyadmin",
                 false,
                 ConfigSetting.getInstance().getConfig().moneyadminCommands().toArray(new String[0])

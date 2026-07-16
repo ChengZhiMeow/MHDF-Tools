@@ -16,7 +16,7 @@ final class FastChangeTime extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "快速调节时间",
+                LangSetting.getInstance().getConfig().commands().fastChangeTime().description(),
                 "mhdftools.commands.fastchangetime",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

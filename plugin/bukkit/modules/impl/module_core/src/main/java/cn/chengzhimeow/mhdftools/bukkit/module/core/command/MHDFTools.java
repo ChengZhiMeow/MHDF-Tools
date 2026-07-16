@@ -21,7 +21,7 @@ final class MHDFTools extends Command {
     public MHDFTools() {
         super(
                 ModuleMain.instance,
-                "梦之工具主命令",
+                LangSetting.getInstance().getConfig().commands().mhdftools().description(),
                 "mhdftools.commands.mhdftools",
                 false,
                 cn.chengzhimeow.mhdftools.bukkit.module.core.config.ConfigSetting.getInstance().getConfig().mhdftoolsCommands().toArray(new String[0])

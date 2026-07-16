@@ -21,7 +21,7 @@ final class Fly extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "飞行",
+                LangSetting.getInstance().getConfig().commands().fly().description(),
                 "mhdftools.commands.fly",
                 false,
                 ConfigSetting.getInstance().getConfig().flyCommands().toArray(new String[0])

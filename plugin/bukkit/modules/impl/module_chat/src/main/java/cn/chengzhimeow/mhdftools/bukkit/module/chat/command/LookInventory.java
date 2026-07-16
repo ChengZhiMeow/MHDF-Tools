@@ -15,7 +15,7 @@ final class LookInventory extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable() && ConfigSetting.getInstance().getConfig().showInventory().enable(),
-                "展示背包",
+                LangSetting.getInstance().getConfig().commands().lookInventory().description(),
                 "mhdftools.commands.lookinventory",
                 true,
                 ConfigSetting.getInstance().getConfig().showInventory().commands().toArray(new String[0])

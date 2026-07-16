@@ -21,7 +21,7 @@ final class TpaHere extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "请求指定玩家传送到当前位置",
+                LangSetting.getInstance().getConfig().commands().tpahere().description(),
                 "mhdftools.commands.tpahere",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

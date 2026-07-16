@@ -19,7 +19,7 @@ final class Spawn extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "返回出生点",
+                LangSetting.getInstance().getConfig().commands().spawn().description(),
                 "mhdftools.commands.spawn",
                 true,
                 ConfigSetting.getInstance().getConfig().spawnCommands().toArray(new String[0])

@@ -21,7 +21,7 @@ final class Back extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "返回位置记录",
+                LangSetting.getInstance().getConfig().commands().back().description(),
                 "mhdftools.commands.back",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

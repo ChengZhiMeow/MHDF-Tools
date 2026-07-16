@@ -20,7 +20,7 @@ final class Home extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "传送到指定家",
+                LangSetting.getInstance().getConfig().commands().home().description(),
                 "mhdftools.commands.home",
                 true,
                 ConfigSetting.getInstance().getConfig().homeCommands().toArray(new String[0])

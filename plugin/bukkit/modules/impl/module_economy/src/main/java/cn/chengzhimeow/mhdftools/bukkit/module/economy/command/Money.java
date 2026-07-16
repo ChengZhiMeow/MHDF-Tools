@@ -20,7 +20,7 @@ final class Money extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "查询余额",
+                LangSetting.getInstance().getConfig().commands().money().description(),
                 "mhdftools.commands.money",
                 false,
                 ConfigSetting.getInstance().getConfig().moneyCommands().toArray(new String[0])

@@ -21,7 +21,7 @@ final class Pvp extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "PVP开关",
+                LangSetting.getInstance().getConfig().commands().pvp().description(),
                 "mhdftools.commands.pvp",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

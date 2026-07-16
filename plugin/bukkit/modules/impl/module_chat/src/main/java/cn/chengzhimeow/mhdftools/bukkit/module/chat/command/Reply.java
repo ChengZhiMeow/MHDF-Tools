@@ -18,7 +18,7 @@ final class Reply extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable() && ConfigSetting.getInstance().getConfig().msg().enable(),
-                "回复私聊",
+                LangSetting.getInstance().getConfig().commands().reply().description(),
                 "mhdftools.commands.reply",
                 false,
                 ConfigSetting.getInstance().getConfig().msg().replyCommands().toArray(new String[0])

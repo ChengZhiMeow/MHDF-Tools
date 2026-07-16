@@ -13,7 +13,7 @@ final class Suicide extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "自杀",
+                LangSetting.getInstance().getConfig().commands().suicide().description(),
                 "mhdftools.commands.suicide",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

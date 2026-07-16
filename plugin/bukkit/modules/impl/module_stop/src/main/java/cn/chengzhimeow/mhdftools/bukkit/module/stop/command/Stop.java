@@ -30,7 +30,7 @@ final class Stop extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "更好的关服",
+                LangSetting.getInstance().getConfig().commands().stop().description(),
                 "mhdftools.commands.stop",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

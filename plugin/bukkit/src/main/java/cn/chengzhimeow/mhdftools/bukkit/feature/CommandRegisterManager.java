@@ -60,7 +60,6 @@ public final class CommandRegisterManager {
         PluginCommand command = commandConstructor.newInstance(abstractCommand.getCommands()[0], Main.instance);
 
         command.setAliases(Arrays.asList(abstractCommand.getCommands()));
-        command.setDescription(abstractCommand.getDescription());
         command.setPermission(abstractCommand.getPermission());
         command.permissionMessage(GlobalLangSetting.getInstance().getConfig().noPermission());
 

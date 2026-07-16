@@ -27,7 +27,7 @@ final class Ip extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "查询IP信息",
+                LangSetting.getInstance().getConfig().commands().ip().description(),
                 "mhdftools.commands.ip",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

@@ -22,7 +22,7 @@ final class Pay extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "转账",
+                LangSetting.getInstance().getConfig().commands().pay().description(),
                 "mhdftools.commands.pay",
                 true,
                 ConfigSetting.getInstance().getConfig().payCommands().toArray(new String[0])

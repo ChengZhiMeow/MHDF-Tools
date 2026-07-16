@@ -25,7 +25,7 @@ final class GameModeCommand extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "修改玩家游戏模式",
+                LangSetting.getInstance().getConfig().commands().gamemode().description(),
                 "mhdftools.commands.gamemode",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

@@ -15,7 +15,7 @@ final class LookEnderChest extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable() && ConfigSetting.getInstance().getConfig().showEnderChest().enable(),
-                "展示末影箱",
+                LangSetting.getInstance().getConfig().commands().lookEnderChest().description(),
                 "mhdftools.commands.lookenderchest",
                 true,
                 ConfigSetting.getInstance().getConfig().showEnderChest().commands().toArray(new String[0])

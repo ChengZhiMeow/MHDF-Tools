@@ -4,6 +4,7 @@ import cn.chengzhimeow.mhdftools.bukkit.common.bungee.BungeeCordManager;
 import cn.chengzhimeow.mhdftools.bukkit.module.Module;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -17,12 +18,12 @@ import java.util.Locale;
 public abstract class Command implements TabExecutor {
     private final Module module;
     private final boolean enable;
-    private final String description;
+    private final Component description;
     private final String permission;
     private final boolean onlyPlayer;
     private final String[] commands;
 
-    public Command(@NotNull Module module, boolean enable, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+    public Command(@NotNull Module module, boolean enable, @NotNull Component description, String permission, boolean onlyPlayer, String... commands) {
         this.module = module;
         this.enable = enable;
         this.description = description;
@@ -31,7 +32,7 @@ public abstract class Command implements TabExecutor {
         this.commands = commands;
     }
 
-    public Command(@NotNull Module module, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+    public Command(@NotNull Module module, @NotNull Component description, String permission, boolean onlyPlayer, String... commands) {
         this(module, true, description, permission, onlyPlayer, commands);
     }
 

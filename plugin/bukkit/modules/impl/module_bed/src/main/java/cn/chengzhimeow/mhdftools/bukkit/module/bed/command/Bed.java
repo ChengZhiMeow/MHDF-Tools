@@ -15,7 +15,7 @@ final class Bed extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "回到床的位置",
+                LangSetting.getInstance().getConfig().commands().bed().description(),
                 "mhdftools.commands.bed",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

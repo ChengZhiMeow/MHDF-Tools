@@ -21,7 +21,7 @@ final class Warp extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "传送到指定传送点",
+                LangSetting.getInstance().getConfig().commands().warp().description(),
                 "mhdftools.commands.warp",
                 false,
                 ConfigSetting.getInstance().getConfig().warpCommands().toArray(new String[0])

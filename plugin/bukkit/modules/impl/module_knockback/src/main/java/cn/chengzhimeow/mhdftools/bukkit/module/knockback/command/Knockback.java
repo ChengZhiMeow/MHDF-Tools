@@ -27,7 +27,7 @@ final class Knockback extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "击退玩家",
+                LangSetting.getInstance().getConfig().commands().knockback().description(),
                 "mhdftools.commands.knockback",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

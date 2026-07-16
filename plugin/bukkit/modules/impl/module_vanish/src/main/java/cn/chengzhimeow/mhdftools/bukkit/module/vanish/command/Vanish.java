@@ -22,7 +22,7 @@ final class Vanish extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "隐身",
+                LangSetting.getInstance().getConfig().commands().vanish().description(),
                 "mhdftools.commands.vanish",
                 false,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

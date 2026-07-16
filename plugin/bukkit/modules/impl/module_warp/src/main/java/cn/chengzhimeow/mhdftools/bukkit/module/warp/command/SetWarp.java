@@ -21,7 +21,7 @@ final class SetWarp extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "设置传送点",
+                LangSetting.getInstance().getConfig().commands().setwarp().description(),
                 "mhdftools.commands.setwarp",
                 true,
                 ConfigSetting.getInstance().getConfig().setWarpCommands().toArray(new String[0])

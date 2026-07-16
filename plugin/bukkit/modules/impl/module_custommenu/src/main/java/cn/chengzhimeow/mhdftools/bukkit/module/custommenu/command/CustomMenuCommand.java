@@ -18,7 +18,7 @@ final class CustomMenuCommand extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "自定义菜单",
+                LangSetting.getInstance().getConfig().commands().custommenu().description(),
                 "mhdftools.commands.custommenu",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])

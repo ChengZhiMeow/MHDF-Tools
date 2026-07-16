@@ -19,7 +19,7 @@ final class DelHome extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "删除家",
+                LangSetting.getInstance().getConfig().commands().delhome().description(),
                 "mhdftools.commands.delhome",
                 true,
                 ConfigSetting.getInstance().getConfig().delHomeCommands().toArray(new String[0])

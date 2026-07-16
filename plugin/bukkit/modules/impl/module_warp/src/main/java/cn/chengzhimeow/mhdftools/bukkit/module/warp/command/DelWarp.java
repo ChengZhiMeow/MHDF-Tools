@@ -18,7 +18,7 @@ final class DelWarp extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "删除传送点",
+                LangSetting.getInstance().getConfig().commands().delwarp().description(),
                 "mhdftools.commands.delwarp",
                 true,
                 ConfigSetting.getInstance().getConfig().delWarpCommands().toArray(new String[0])

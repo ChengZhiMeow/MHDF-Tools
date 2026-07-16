@@ -24,7 +24,7 @@ final class SetHome extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "设置家",
+                LangSetting.getInstance().getConfig().commands().sethome().description(),
                 "mhdftools.commands.sethome",
                 true,
                 ConfigSetting.getInstance().getConfig().setHomeCommands().toArray(new String[0])

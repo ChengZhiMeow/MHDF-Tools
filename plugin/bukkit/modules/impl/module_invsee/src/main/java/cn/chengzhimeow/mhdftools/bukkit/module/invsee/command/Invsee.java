@@ -19,7 +19,7 @@ final class Invsee extends Command {
         super(
                 ModuleMain.instance,
                 ConfigSetting.getInstance().getConfig().enable(),
-                "查看背包",
+                LangSetting.getInstance().getConfig().commands().invsee().description(),
                 "mhdftools.commands.invsee",
                 true,
                 ConfigSetting.getInstance().getConfig().commands().toArray(new String[0])
