@@ -11,6 +11,7 @@ import cn.chengzhimeow.mhdftools.bukkit.common.action.cast.ComponentCastManagerI
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.ChatActionImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.NextPageActionImpl;
 import cn.chengzhimeow.mhdftools.bukkit.common.action.ext.PrevPageActionImpl;
+import cn.chengzhimeow.mhdftools.bukkit.common.action.pre.StringPlaceholderPreProcess;
 import cn.chengzhimeow.mhdftools.exception.StackTraceUtil;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
@@ -28,6 +29,8 @@ public final class ActionManager {
 
     private ActionManager() {
         this.ccAction = new CCAction(MHDFToolsBukkit.getInstance());
+
+        this.ccAction.getPreProcessRegistry().register(String.class, new StringPlaceholderPreProcess());
 
         this.ccAction.getCastRegistry().register(Component.class, new ComponentCastManagerImpl());
 

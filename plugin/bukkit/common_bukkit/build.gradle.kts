@@ -1,5 +1,6 @@
 dependencies {
     compileOnly(project(":plugin:bukkit:api_bukkit"))
+    compileOnly(project(":plugin:bukkit:compatibility"))
 
     api("${rootProject.properties["libs.cc_action"]}")
     api("${rootProject.properties["libs.cc_condition"]}")
