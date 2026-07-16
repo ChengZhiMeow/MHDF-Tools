@@ -17,41 +17,14 @@ include(":plugin:bukkit:compatibility:placeholder:placeholderapi")
 
 include(":plugin:bukkit:modules")
 include(":plugin:bukkit:modules:impl")
-include(":plugin:bukkit:modules:impl:module_back")
-include(":plugin:bukkit:modules:impl:module_bed")
-include(":plugin:bukkit:modules:impl:module_bugfix")
-include(":plugin:bukkit:modules:impl:module_bungee")
-include(":plugin:bukkit:modules:impl:module_chat")
-include(":plugin:bukkit:modules:impl:module_core")
-include(":plugin:bukkit:modules:impl:module_crash")
-include(":plugin:bukkit:modules:impl:module_custommenu")
-include(":plugin:bukkit:modules:impl:module_economy")
-include(":plugin:bukkit:modules:impl:module_eventaction")
-include(":plugin:bukkit:modules:impl:module_fastchangetime")
-include(":plugin:bukkit:modules:impl:module_fastchangeweather")
-include(":plugin:bukkit:modules:impl:module_fastuse")
-include(":plugin:bukkit:modules:impl:module_fly")
-include(":plugin:bukkit:modules:impl:module_gamemode")
-include(":plugin:bukkit:modules:impl:module_hat")
-include(":plugin:bukkit:modules:impl:module_home")
-include(":plugin:bukkit:modules:impl:module_ignore")
-include(":plugin:bukkit:modules:impl:module_invsee")
-include(":plugin:bukkit:modules:impl:module_ip")
-include(":plugin:bukkit:modules:impl:module_joinmessage")
-include(":plugin:bukkit:modules:impl:module_knockback")
-include(":plugin:bukkit:modules:impl:module_list")
-include(":plugin:bukkit:modules:impl:module_motd")
-include(":plugin:bukkit:modules:impl:module_nick")
-include(":plugin:bukkit:modules:impl:module_pvp")
-include(":plugin:bukkit:modules:impl:module_quitmessage")
-include(":plugin:bukkit:modules:impl:module_spawn")
-include(":plugin:bukkit:modules:impl:module_stop")
-include(":plugin:bukkit:modules:impl:module_suicide")
-include(":plugin:bukkit:modules:impl:module_timeaction")
-include(":plugin:bukkit:modules:impl:module_tpa")
-include(":plugin:bukkit:modules:impl:module_tpahere")
-include(":plugin:bukkit:modules:impl:module_vanish")
-include(":plugin:bukkit:modules:impl:module_warp")
+
+val bukkitModulesProject = project(":plugin:bukkit:modules:impl")
+bukkitModulesProject.projectDir.listFiles()?.forEach {
+    if (!it.isDirectory) return@forEach
+    if (!it.name.startsWith("module_")) return@forEach
+
+    include(":plugin:bukkit:modules:impl:${it.name}")
+}
 
 pluginManagement {
     repositories {
