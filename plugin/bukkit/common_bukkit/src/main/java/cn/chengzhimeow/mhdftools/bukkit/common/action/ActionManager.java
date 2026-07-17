@@ -4,6 +4,7 @@ import cn.chengzhimeow.ccaction.CCAction;
 import cn.chengzhimeow.ccaction.action.AbstractAction;
 import cn.chengzhimeow.ccaction.action.ActionBuilder;
 import cn.chengzhimeow.ccaction.exception.ActionIllegalArgumentException;
+import cn.chengzhimeow.ccscheduler.scheduler.CCScheduler;
 import cn.chengzhimeow.ccyaml.configuration.ConfigurationSection;
 import cn.chengzhimeow.mhdftools.array.ArrayUtil;
 import cn.chengzhimeow.mhdftools.bukkit.api.MHDFToolsBukkit;
@@ -106,7 +107,10 @@ public final class ActionManager {
 
         AbstractAction buildAction = builder.build();
         buildAction.init();
-        buildAction.action();
+
+        if (player != null)
+            CCScheduler.getInstance().getEntityScheduler().runTask(MHDFToolsBukkit.getInstance(), player, buildAction::action);
+        else CCScheduler.getInstance().getGlobalRegionScheduler().runTask(MHDFToolsBukkit.getInstance(), buildAction::action);
     }
 
     public ActionBuilder.Builder getActionFromConfig(ConfigurationSection data) {
