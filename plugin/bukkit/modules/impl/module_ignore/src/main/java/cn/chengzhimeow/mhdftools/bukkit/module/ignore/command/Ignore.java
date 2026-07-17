@@ -38,9 +38,9 @@ final class Ignore extends Command {
             StringBuilder list = new StringBuilder();
             List<IgnoreData> ignoreList = player.getIgnoreList();
             for (int i = 0; i < ignoreList.size(); i++) {
+                if (i != 0) list.append(", ");
                 OfflinePlayer ignorePlayer = Bukkit.getOfflinePlayer(ignoreList.get(i).getIgnore());
                 list.append(ignorePlayer.getName() == null ? ignoreList.get(i).getIgnore() : ignorePlayer.getName());
-                if (i != ignoreList.size() - 1) list.append(", ");
             }
 
             sender.sendMessage(LangSetting.getInstance().getConfig().commands().ignore().subCommands().list().message()

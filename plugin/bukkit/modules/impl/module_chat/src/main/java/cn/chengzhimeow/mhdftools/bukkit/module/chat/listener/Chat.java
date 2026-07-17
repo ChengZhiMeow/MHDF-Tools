@@ -72,7 +72,7 @@ final class Chat extends Listener {
                 new ChatBroadcastMessage(
                         BungeeCordManager.getInstance().getServerName(),
                         player.getName(),
-                        formatMessage.toMiniMessageString(),
+                        formatMessage.toJsonString(),
                         sortedAtList,
                         cacheDataList
                 ),
