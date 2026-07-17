@@ -52,7 +52,7 @@ public final class ServerTeleport extends Listener {
                 return;
             }
 
-            thread.schedule(() -> teleport(player, location, times + 1), 100L);
+            thread.schedule(() -> teleport(player, location, times + 1), 500L);
         });
     }
 
@@ -62,7 +62,7 @@ public final class ServerTeleport extends Listener {
             return;
         }
 
-        thread.schedule(() -> teleport(player, location, times + 1), 100L);
+        thread.schedule(() -> teleport(player, location, times + 1), 500L);
     }
 
     public ServerTeleport() {
