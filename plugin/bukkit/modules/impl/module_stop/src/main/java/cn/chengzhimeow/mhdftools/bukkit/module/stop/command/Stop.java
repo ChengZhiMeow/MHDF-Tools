@@ -14,7 +14,6 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -131,9 +130,10 @@ final class Stop extends Command {
      * 确认关服
      */
     private void confirmStop() {
+        Bukkit.broadcast(LangSetting.getInstance().getConfig().commands().stop().countdown()
+                .replace("{countdown}", this.time.toString()));
         this.stop = true;
 
-        JavaPlugin plugin = MHDFToolsBukkit.getInstance();
         new CCRunnable(CCScheduler.getInstance()) {
             private final Component message = Stop.this.message;
             private int countdown = Stop.this.time;
@@ -149,7 +149,7 @@ final class Stop extends Command {
                     Stop.this.stop = false;
                     this.cancel();
 
-                    CCScheduler.getInstance().getGlobalRegionScheduler().runTask(plugin, () -> {
+                    CCScheduler.getInstance().getGlobalRegionScheduler().runTask(MHDFToolsBukkit.getInstance(), () -> {
                         Bukkit.savePlayers();
 
                         Component kickMessage = LangSetting.getInstance().getConfig().commands().stop().kickMessage()
@@ -176,7 +176,7 @@ final class Stop extends Command {
                 Stop.this.time = null;
                 super.cancel();
             }
-        }.runTaskTimerAsynchronously(plugin, 0L, 20L);
+        }.runTaskTimerAsynchronously(MHDFToolsBukkit.getInstance(), 0L, 20L);
     }
 
     private Component getHelpMessage(String label) {
