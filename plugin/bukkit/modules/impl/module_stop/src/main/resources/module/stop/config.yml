@@ -5,16 +5,23 @@ config_version: "${project.version}"
 #
 # 开关
 enable: true
+
 # 确认关服
 confirm: true
+
 # 关闭服务器的时候保存存档
 auto_save: true
+
+# 禁止使用 CTRL+C 关闭服务器
+disable_ctrl_c: true
+
 # 倒计时
 countdown:
   # 默认时间(-1关闭)
   default: 5
   # 显示提示的时间
   show_message_time: [ 5,4,3,2,1 ]
+
 # 命令
 commands:
   - "stop"

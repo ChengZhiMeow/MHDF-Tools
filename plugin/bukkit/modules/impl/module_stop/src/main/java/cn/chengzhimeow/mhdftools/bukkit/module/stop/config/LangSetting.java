@@ -30,6 +30,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
 
         this.config = new Config(
                 super.component("command_info_format", prefix),
+                super.component("disable_ctrl_c_stop_server", prefix),
                 new Config.Commands(
                         new Config.Commands.Stop(
                                 super.component("commands.stop.usage", prefix),
@@ -70,6 +71,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
 
     public record Config(
             TextComponent commandInfoFormat,
+            TextComponent disableCtrlCStopServer,
             Commands commands
     ) {
         public record Commands(

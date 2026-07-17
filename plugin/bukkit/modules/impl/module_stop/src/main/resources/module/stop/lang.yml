@@ -5,6 +5,8 @@ command_info_format: |-
   &f{usage}  
   &8 - &7{description}
 
+disable_ctrl_c_stop_server: "{prefix} <#FFB8B8>服务器已禁止使用 CTRL+C 快捷键关服, 请使用命令关闭服务器!"
+
 commands:
   stop:
     usage: "/{command} <参数>"

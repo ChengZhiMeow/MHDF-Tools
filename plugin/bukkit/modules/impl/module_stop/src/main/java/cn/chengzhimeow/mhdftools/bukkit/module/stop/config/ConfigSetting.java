@@ -32,6 +32,7 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
                 super.getData().getBoolean("enable"),
                 super.getData().getBoolean("confirm"),
                 super.getData().getBoolean("auto_save"),
+                super.getData().getBoolean("disable_ctrl_c"),
                 new Config.Countdown(
                         super.getData().getInt("countdown.default"),
                         super.getData().getIntList("countdown.show_message_time")
@@ -44,6 +45,7 @@ public final class ConfigSetting extends AbstractYamlSetting<ConfigSetting.Confi
             boolean enable,
             boolean confirm,
             boolean autoSave,
+            boolean disableCtrlC,
             Countdown countdown,
             List<String> commands
     ) {
