@@ -49,14 +49,14 @@ allprojects {
     tasks {
         processResources {
             filesMatching("**/*.yml") {
-                val props = mutableMapOf<String, Any?>()
-                project.properties.forEach { (key, value) ->
-                    key.split(".").let { keys ->
-                        keys.dropLast(1).fold(props) { map, k ->
-                            map.getOrPut(k) { mutableMapOf<String, Any?>() } as MutableMap<String, Any?>
-                        }[keys.last()] = value
-                    }
-                }
+                val props = project.properties
+                    .filterKeys { "." in it }
+                    .entries
+                    .groupBy(
+                        keySelector = { it.key.substringBefore(".") },
+                        valueTransform = { it.key.substringAfter(".") to it.value }
+                    )
+                    .mapValues { (_, entries) -> entries.toMap() }
 
                 filter { it.replace(Regex("""\$(?!\{)"""), """\$""") }
                 expand(props)
