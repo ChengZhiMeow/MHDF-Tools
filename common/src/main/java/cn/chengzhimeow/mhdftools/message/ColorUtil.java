@@ -4,28 +4,15 @@ import cn.chengzhimeow.mhdftools.text.TextComponent;
 import org.jetbrains.annotations.NotNull;
 
 public final class ColorUtil {
-    /**
-     * 处理miniMessage颜色符号
-     *
-     * @param message 文本
-     * @return 处理后的文本
-     */
-    public static TextComponent color(String message) {
-        if (message == null) return new TextComponent();
-
-        String minimessage = ColorUtil.legacyHexToMiniMessage(ColorUtil.legacyToMiniMessage(message));
-        return new TextComponent(MiniMessageUtil.miniMessage("<!i>" + minimessage));
-    }
 
     /**
-     * 将旧版RGB颜色字符文本转换为miniMessage格式
+     * 检测字符是否是颜色代码的字符
      *
-     * @param legacy 旧版颜色字符文本
-     * @return miniMessage格式文本
+     * @param c 字符
+     * @return 结果
      */
-    private static String legacyHexToMiniMessage(@NotNull String legacy) {
-        legacy = legacy.replace("&#", "#");
-        return legacy.replaceAll("(?!:)(?<!<)#([0-9a-fA-F]{6})(?!>)(?!:)", "<#$1>");
+    private static boolean notColorCode(char c) {
+        return c != '§' && c != '&';
     }
 
     /**
@@ -35,17 +22,36 @@ public final class ColorUtil {
      * @return miniMessage格式文本
      */
     private static String legacyToMiniMessage(@NotNull String legacy) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder("<!i>");
         char[] chars = legacy.toCharArray();
+
+        boolean notOnlyHex = true;
         for (int i = 0; i < chars.length; i++) {
-            if (ColorUtil.isColorCode(chars[i])) {
-                stringBuilder.append(chars[i]);
-                continue;
-            }
             if (i + 1 >= chars.length) {
                 stringBuilder.append(chars[i]);
                 continue;
             }
+
+            if (notOnlyHex && i + 6 < chars.length && chars[i] == '#') {
+                stringBuilder
+                        .append("<#")
+                        .append(chars[i + 1])
+                        .append(chars[i + 2])
+                        .append(chars[i + 3])
+                        .append(chars[i + 4])
+                        .append(chars[i + 5])
+                        .append(chars[i + 6])
+                        .append(">");
+                i += 6;
+                continue;
+            }
+            notOnlyHex = notColorCode(chars[i]) && chars[i] != '<';
+
+            if (ColorUtil.notColorCode(chars[i])) {
+                stringBuilder.append(chars[i]);
+                continue;
+            }
+
             switch (chars[i + 1]) {
                 case '0' -> stringBuilder.append("<black>");
                 case '1' -> stringBuilder.append("<dark_blue>");
@@ -69,15 +75,31 @@ public final class ColorUtil {
                 case 'o' -> stringBuilder.append("<i>");
                 case 'n' -> stringBuilder.append("<u>");
                 case 'k' -> stringBuilder.append("<obf>");
+                case '#' -> {
+                    if (i + 7 < chars.length) {
+                        stringBuilder
+                                .append("<#")
+                                .append(chars[i + 2])
+                                .append(chars[i + 3])
+                                .append(chars[i + 4])
+                                .append(chars[i + 5])
+                                .append(chars[i + 6])
+                                .append(chars[i + 7])
+                                .append(">");
+                        i += 6;
+                    }
+                }
                 case 'x' -> {
                     if (i + 13 >= chars.length
-                            || ColorUtil.isColorCode(chars[i + 2])
-                            || ColorUtil.isColorCode(chars[i + 4])
-                            || ColorUtil.isColorCode(chars[i + 6])
-                            || ColorUtil.isColorCode(chars[i + 8])
-                            || ColorUtil.isColorCode(chars[i + 10])
-                            || ColorUtil.isColorCode(chars[i + 12])) {
+                            || ColorUtil.notColorCode(chars[i + 2])
+                            || ColorUtil.notColorCode(chars[i + 4])
+                            || ColorUtil.notColorCode(chars[i + 6])
+                            || ColorUtil.notColorCode(chars[i + 8])
+                            || ColorUtil.notColorCode(chars[i + 10])
+                            || ColorUtil.notColorCode(chars[i + 12])
+                    ) {
                         stringBuilder.append(chars[i]);
+                        i++;
                         continue;
                     }
                     stringBuilder
@@ -93,6 +115,7 @@ public final class ColorUtil {
                 }
                 default -> {
                     stringBuilder.append(chars[i]);
+                    i++;
                     continue;
                 }
             }
@@ -102,12 +125,13 @@ public final class ColorUtil {
     }
 
     /**
-     * 检测字符是否是颜色代码的字符
+     * 处理miniMessage颜色符号
      *
-     * @param c 字符
-     * @return 结果
+     * @param message 文本
+     * @return 处理后的文本
      */
-    private static boolean isColorCode(char c) {
-        return c != '§' && c != '&';
+    public static TextComponent color(String message) {
+        if (message == null) return new TextComponent();
+        return new TextComponent(MiniMessageUtil.miniMessage(ColorUtil.legacyToMiniMessage(message)));
     }
 }
